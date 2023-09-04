@@ -1,0 +1,418 @@
+/* @tailwind base; */
+@tailwind components;
+@tailwind utilities;
+
+body {
+	width: 100vw;
+	height: 100vh;
+	-webkit-font-smoothing: antialiased;
+}
+
+p {
+	margin: 0;
+}
+
+@font-face {
+	font-family: Robtronika;
+	src: url("./fonts/Robtronika.ttf");
+}
+
+@font-face {
+	font-family: SpaceGrotesk;
+	src: url("./fonts/SpaceGrotesk-Bold.ttf");
+}
+
+input::-webkit-input-placeholder {
+	color: "#9199a6";
+}
+
+.no-scrollbar::-webkit-scrollbar {
+	width: 0;
+	display: none;
+}
+
+.no-scrollbar::-webkit-scrollbar-track {
+	width: 0;
+	display: none;
+}
+
+.no-scrollbar::-webkit-scrollbar-thumb {
+	width: 0;
+	display: none;
+}
+
+.no-scrollbar::-webkit-scrollbar-thumb:hover {
+	width: 0;
+	display: none;
+}
+
+.no-scrollbar {
+	-ms-overflow-style: none;
+	overflow: -moz-scrollbars-none;
+}
+
+#chakra-toast-manager-top-right {
+	margin-top: 80px;
+}
+
+.chakra-container {
+	height: 100vh;
+	overflow-x: hidden;
+}
+
+.monaco-editor .iPadShowKeyboard {
+	display: none;
+}
+
+.css-hhland {
+	white-space: noWrap;
+}
+
+.aisql-sql {
+	height: calc(100% - 110px);
+}
+
+.chat-menu {
+	display: none !important;
+}
+
+.menu-close {
+	display: none !important;
+}
+
+.aisql-panel::-webkit-scrollbar {
+	width: 0;
+	display: none;
+}
+
+.carousel.carousel-slider {
+	overflow: inherit;
+}
+
+.carousel .slider-wrapper {
+	border-radius: 14px;
+}
+.audio {
+	width: 48px;
+	height: 48px;
+	background: "#fff";
+	background-image: url(https://mms-graph.cdn.bcebos.com/aiSearch/outerCircle.webp);
+	background-size: 140% 140%;
+	background-position: center center;
+}
+
+.voice-popup-ball {
+	position: relative;
+	width: 130px;
+	height: 100%;
+}
+.voice-popup-ball-bg {
+	width: 110px;
+	height: 110px;
+	background-image: url(https://mms-graph.cdn.bcebos.com/aiSearch/ball-bg.webp);
+	-webkit-animation: ball-bg_3jxmr 2s ease-in-out infinite;
+	animation: ball-bg_3jxmr 2s ease-in-out infinite;
+	-webkit-background-size: contain;
+	background-size: contain;
+}
+
+.voice-popup-ball-div {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	border-radius: 50%;
+	-webkit-background-size: contain;
+	background-size: contain;
+	width: 70px;
+	height: 70px;
+	background-image: url(https://mms-graph.cdn.bcebos.com/aiSearch/outerCircle.webp);
+	--duration: 2.8s;
+}
+
+.dottedLine::after {
+	content: "";
+	width: 100%;
+	height: 1px;
+	border-top: 1px dashed #979797;
+	opacity: 0.6;
+}
+
+.voice-popup-button {
+	background-image: url(https://mms-graph.cdn.bcebos.com/aiSearch/centralCircle.webp);
+	pointer-events: auto;
+}
+
+.maxSize-140 {
+	--max-size: 140px;
+}
+
+.maxSize-115 {
+	--max-size: 115px;
+}
+
+.maxSize-90 {
+	--max-size: 90px;
+}
+
+.maxSize-140 {
+	--max-size: 140px;
+}
+
+.poap {
+	column-gap: 2rem !important;
+}
+
+@keyframes ball-bg_3jxmr {
+	0% {
+		opacity: 1;
+		width: 110px;
+		height: 110px;
+	}
+
+	50% {
+		opacity: 0.4;
+		width: 88px;
+		height: 88px;
+	}
+
+	to {
+		opacity: 1;
+		width: 110px;
+		height: 110px;
+	}
+}
+
+@keyframes sonarEffect {
+	0% {
+		opacity: 0.3;
+	}
+	40% {
+		opacity: 0.5;
+		box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1), 0 0 10px 10px #3851bc63,
+			0 0 0 10px rgba(255, 255, 255, 0.5);
+	}
+	100% {
+		box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1), 0 0 10px 10px #3851bc4a,
+			0 0 0 10px rgba(255, 255, 255, 0.5);
+		transform: scale(1.5);
+		opacity: 0;
+	}
+}
+
+/*mobile*/
+@media screen and (max-width: 600px) {
+	.logo {
+		display: none !important;
+	}
+	.ai-page {
+		padding-inline-start: 5px !important;
+		padding-inline-end: 5px !important;
+	}
+
+	.carousel-panel {
+		width: 100% !important;
+	}
+
+	.base-modal {
+		width: calc(100vw - 40px) !important;
+	}
+
+	.ai-menu {
+		display: none;
+		width: 100% !important;
+		max-width: 100% !important;
+	}
+
+	.menu-close {
+		display: block !important;
+	}
+
+	.ai-right-content-width {
+		max-width: calc(100% - 90px) !important;
+	}
+
+	.ai-left-content-width {
+		max-width: inherit !important;
+		width: calc(100% - 65px) !important;
+	}
+
+	.chat-title > p {
+		padding-left: 7px;
+	}
+
+	.chat-name {
+		max-width: 210px;
+		font-size: 16px !important;
+	}
+
+	.chat-menu {
+		display: block !important;
+	}
+
+	.quest {
+		width: 100% !important;
+		max-width: 440px !important;
+	}
+
+	.ai-chat {
+		margin-right: 0 !important;
+	}
+	.ai-not-show {
+		display: none !important;
+	}
+	.chat-left-content {
+		padding-inline-start: 5px !important;
+		padding-inline-end: 5px !important;
+	}
+	.chat-left-content > div {
+		padding: 0 12px;
+	}
+	.chat-card {
+		padding: 10px !important;
+	}
+
+	.chat-panel {
+		background: #f4f5f6 !important;
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+
+	.invite-gift {
+		display: none;
+	}
+	.invite-content {
+		width: calc(100vw - 30px) !important;
+	}
+	.invite-body {
+		padding-inline-start: 15px !important;
+		padding-inline-end: 15px !important;
+	}
+	.invite-refer {
+		padding-left: 30px;
+	}
+	.invite-title {
+		white-space: nowrap;
+		font-size: 22px;
+		padding-left: 20px;
+	}
+	.invite-ul {
+		padding-top: 30px;
+	}
+	.invite-ul h2 {
+		white-space: nowrap;
+		font-size: 16px;
+	}
+
+	.invite-ul p {
+		font-size: 13px;
+	}
+	.invite-3 {
+		justify-content: center;
+	}
+	.dottedLine {
+		justify-content: center;
+	}
+	.dottedLine::after {
+		display: none;
+	}
+	.ens {
+		flex-direction: column !important;
+	}
+	.ens > div {
+		width: 100% !important;
+	}
+	.poap {
+		column-gap: 1.5rem !important;
+	}
+	.slider-arrow {
+		display: none !important;
+	}
+	.snapshot-table {
+		min-width: 100% !important;
+	}
+}
+
+@media screen and (max-width: 750px) {
+	.logo {
+		display: none !important;
+	}
+	.carousel-panel {
+		width: 100% !important;
+	}
+	.ai-menu {
+		display: none;
+		width: 100% !important;
+		max-width: 100% !important;
+	}
+	.quest {
+		width: 100% !important;
+		max-width: 440px !important;
+	}
+	.ai-not-show {
+		display: none !important;
+	}
+	.ai-chat {
+		margin-right: 0 !important;
+	}
+	.ai-right-content-width {
+		max-width: calc(100% -100px) !important;
+	}
+
+	.ai-left-content-width {
+		max-width: inherit !important;
+		width: calc(100% - 90px) !important;
+	}
+	.chat-menu {
+		display: block !important;
+	}
+	.invite-refer {
+		padding-left: 30px;
+	}
+	.invite-title {
+		white-space: nowrap;
+		font-size: 22px;
+		padding-left: 20px;
+	}
+	.menu-close {
+		display: block !important;
+	}
+
+	.chat-name {
+		max-width: 210px;
+		font-size: 16px !important;
+	}
+	.chat-title > p {
+		padding-left: 7px;
+	}
+	.chat-panel {
+		background: #f4f5f6 !important;
+	}
+	.invite-3 {
+		justify-content: center;
+	}
+	.dottedLine {
+		justify-content: center;
+	}
+	.dottedLine::after {
+		display: none;
+	}
+
+	.ens {
+		flex-direction: column !important;
+	}
+	.ens > div {
+		width: 100% !important;
+	}
+	.poap {
+		column-gap: 1.5rem !important;
+	}
+	.slider-arrow {
+		display: none !important;
+	}
+	.snapshot-table {
+		min-width: 100% !important;
+	}
+}
+ 

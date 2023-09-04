@@ -1,0 +1,5 @@
+.chat-input > .rv-textarea__control {
+	width: 100% !important;
+	outline: none;
+	resize: none;
+}

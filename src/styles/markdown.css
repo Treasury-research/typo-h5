@@ -1,0 +1,12 @@
+.md-preview table {
+	width: 100%;
+	overflow-y: scroll;
+}
+
+.md-preview table > thead > tr > th {
+	font-size: 14px;
+}
+
+.md-preview table > tbody > tr > td {
+	font-size: 12px;
+}
