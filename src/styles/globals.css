@@ -211,10 +211,6 @@ input::-webkit-input-placeholder {
 		padding-inline-end: 5px !important;
 	}
 
-	.carousel-panel {
-		width: 100% !important;
-	}
-
 	.base-modal {
 		width: calc(100vw - 40px) !important;
 	}
@@ -338,9 +334,7 @@ input::-webkit-input-placeholder {
 	.logo {
 		display: none !important;
 	}
-	.carousel-panel {
-		width: 100% !important;
-	}
+
 	.ai-menu {
 		display: none;
 		width: 100% !important;
@@ -415,4 +409,3 @@ input::-webkit-input-placeholder {
 		min-width: 100% !important;
 	}
 }
- 

@@ -78,7 +78,9 @@
 		"web3": "1.7.4",
 		"xlsx": "^0.18.5",
 		"zukeeper": "^1.0.2",
-		"zustand": "^4.3.7"
+		"zustand": "^4.3.7",
+		"node-sass": "^8.0.0",
+		"sass": "^1.56.1"
 	},
 	"devDependencies": {
 		"@tailwindcss/forms": "^0.5.3",

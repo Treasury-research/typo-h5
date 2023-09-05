@@ -10,11 +10,11 @@ import {
 } from "@chakra-ui/react";
 import { BsCommand } from "react-icons/bs";
 
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-
 import { Carousel } from "react-responsive-carousel";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { useMemo } from "react";
+
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const commands = [
 	[
@@ -96,80 +96,14 @@ export function Guide({
 			alignItems="center"
 			pt="20px"
 		>
-			<Image className="logo" src={`/logo.svg`} h="70px" mb="40px" />
-
-			<Box className="carousel-panel" w="73%" minW="320px">
+			<Box className="carousel-panel" w="full">
 				<Carousel
 					autoPlay
 					showStatus={false}
-					showIndicators={false}
-					showThumbs={false}
-					interval={5000}
+					showArrows={false}
+					showIndicators={true}
+					showThumbs={true}
 					infiniteLoop
-					renderArrowPrev={(clickHandler: () => void) => {
-						return (
-							<Center
-								onClick={() => clickHandler()}
-								pos="absolute"
-								h="full"
-								top={0}
-								left="-15px"
-								zIndex={5}
-								cursor="pointer"
-								opacity={0.9}
-								_hover={{ opacity: 1 }}
-							>
-								<Flex
-									bg="#fff"
-									borderRadius="full"
-									w="40px"
-									h="40px"
-									justify="center"
-									shadow="md"
-									alignItems="center"
-								>
-									<ChevronLeftIcon
-										boxSize={7}
-										className="slider-arrow"
-										color="#000"
-										_hover={{ transform: "scale(1.1)", color: "bg.green" }}
-									/>
-								</Flex>
-							</Center>
-						);
-					}}
-					renderArrowNext={(clickHandler: () => void) => {
-						return (
-							<Center
-								onClick={() => clickHandler()}
-								pos="absolute"
-								h="full"
-								right="-15px"
-								top={0}
-								zIndex={5}
-								cursor="pointer"
-								opacity={0.9}
-								_hover={{ opacity: 1 }}
-							>
-								<Flex
-									bg="#fff"
-									borderRadius="full"
-									w="40px"
-									h="40px"
-									justify="center"
-									alignItems="center"
-									shadow="md"
-								>
-									<ChevronRightIcon
-										boxSize={7}
-										className="slider-arrow"
-										color="#000"
-										_hover={{ transform: "scale(1.1)", color: "bg.green" }}
-									/>
-								</Flex>
-							</Center>
-						);
-					}}
 				>
 					{list.map((item) => {
 						return (
