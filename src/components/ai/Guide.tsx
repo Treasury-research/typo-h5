@@ -190,7 +190,7 @@ export function Guide({
 			<Flex w="full" justify="center" flexFlow="row wrap" gap={4} mt="50px!">
 				{cmds.map((item, index) => {
 					return (
-						<VStack w="340px" key={index} justify="center" spacing={2}>
+						<VStack w="320px" key={index} justify="center" spacing={2}>
 							{item.map((text) => {
 								return (
 									<Box
@@ -211,6 +211,7 @@ export function Guide({
 											color="blackAlpha.800"
 											_hover={{ color: "text.black", transform: "scale(1.01)" }}
 											borderRadius={6}
+											fontSize="13px"
 											onClick={() => {
 												setInput(text);
 												onSend();

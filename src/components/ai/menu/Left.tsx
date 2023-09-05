@@ -8,11 +8,7 @@ import {
 	Text,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { TiSocialTwitter } from "react-icons/ti";
-import { FaTelegramPlane } from "react-icons/fa";
-import { SiSubstack } from "react-icons/si";
 import { BsChatDots, BsBox } from "react-icons/bs";
-import { HiOutlineChatBubbleLeft } from "react-icons/hi2";
 
 export function Left({
 	leftIndex,
@@ -103,33 +99,6 @@ export function Left({
 						</Text>
 					</VStack>
 				</VStack>
-			</VStack>
-
-			<VStack w="full" color="bg.green" spacing={7} pb={5}>
-				<Icon
-					as={TiSocialTwitter}
-					className="cursor-pointer"
-					onClick={() => window.open("https://twitter.com/Knn3Network")}
-					boxSize={6}
-					_hover={{ transform: "scale(1.15)" }}
-				/>
-
-				<Icon
-					as={FaTelegramPlane}
-					className="cursor-pointer"
-					onClick={() => window.open("https://t.me/+zR-uaI0Bt_hjMjY9")}
-					boxSize={5}
-					_hover={{ transform: "scale(1.15)" }}
-				/>
-
-				<Icon
-					as={SiSubstack}
-					pt={1}
-					className="cursor-pointer"
-					onClick={() => window.open("https://knn3.substack.com/")}
-					boxSize={5}
-					_hover={{ transform: "scale(1.15)" }}
-				/>
 			</VStack>
 		</VStack>
 	);

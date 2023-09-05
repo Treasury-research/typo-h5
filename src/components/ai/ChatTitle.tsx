@@ -10,7 +10,7 @@ import {
 import { ChatList } from "lib/types";
 import { AiOutlineMenu } from "react-icons/ai";
 import { BsFillLightningChargeFill } from "react-icons/bs";
-import { HiOutlineChatBubbleLeft } from "react-icons/hi2";
+import { NavBar } from "react-vant";
 
 export function ChatTitle({
 	list,
@@ -49,7 +49,6 @@ export function ChatTitle({
 					ml={1}
 					onClick={showMenu}
 				/>
-				{/* <Icon as={HiOutlineChatBubbleLeft} boxSize={7} pr={2} pt={1} /> */}
 				<Text fontSize="18px" pl={1} pr={2}>
 					#
 				</Text>

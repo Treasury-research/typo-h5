@@ -26,7 +26,6 @@ import { v4 as uuidv4 } from "uuid";
 import useWeb3Context from "hooks/useWeb3Context";
 import { useAiStore } from "store/aiStore";
 import { useUserInfoStore } from "store/userInfoStore";
-import { isPhone } from "lib";
 
 const { TextArea } = Input;
 
