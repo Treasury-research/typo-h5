@@ -254,10 +254,6 @@ export const ChatInput = forwardRef(
 		};
 
 		useEffect(() => {
-			isFocus && onClose();
-		}, [isFocus]);
-
-		useEffect(() => {
 			if (!userId) {
 				return;
 			}
@@ -267,111 +263,100 @@ export const ChatInput = forwardRef(
 		}, [userId]);
 
 		return (
-			<>
-				<HStack pos="relative" w="full" maxW="1000px" spacing={4}>
-					<Box
-						pos="absolute"
-						w="full"
-						top="-70px"
-						left="0px"
-						h="50px"
-						bgImg="url('/images/aisql/gradient.png')"
-						bgRepeat="repeat"
-						borderRadius={10}
-					/>
-					<Audio
+			<HStack pos="relative" w="full" spacing={3} py={2} px={3}>
+				<Audio input={input} setInput={setInput} boxSize={5} color="bg.green" />
+				<Flex
+					ml={3}
+					flex={1}
+					py="6px"
+					px={2}
+					borderWidth="1px"
+					bg="bg.white"
+					borderColor="bg.white"
+					borderRadius={12}
+					pos="relative"
+					shadow="md"
+				>
+					<TextAreaTips
+						ref={myTip}
+						isFocus={isFocus}
+						labelValue={labelValue}
 						input={input}
+						isLoading={isLoading}
+						onSend={onSend}
+						setLabelValue={setLabelValue}
+						inputFocus={inputFocus}
 						setInput={setInput}
-						boxSize={6}
-						color="bg.green"
 					/>
-					<Flex
-						flex={1}
-						py="6px"
-						px={2}
-						borderWidth="1px"
-						bg="bg.white"
-						borderColor={"bg.white"}
-						borderRadius={12}
-						pos="relative"
-						shadow="md"
-					>
-						<TextAreaTips
-							ref={myTip}
-							isFocus={isFocus}
-							labelValue={labelValue}
-							input={input}
-							isLoading={isLoading}
-							onSend={onSend}
-							setLabelValue={setLabelValue}
-							inputFocus={inputFocus}
-							setInput={setInput}
+					<HStack w="full" alignItems="flex-end" spacing={2}>
+						<Icon
+							as={AiOutlineClear}
+							cursor="pointer"
+							boxSize={6}
+							ml="2px"
+							mb="5px"
+							color={input ? "black" : "gray.300"}
+							onClick={() => setInput("")}
 						/>
-						<HStack w="full" alignItems="flex-end" spacing={2}>
-							<Icon
-								as={AiOutlineClear}
-								cursor="pointer"
-								boxSize={6}
-								ml="2px"
-								mb="5px"
-								color={input ? "black" : "gray.300"}
-								onClick={() => setInput("")}
-							/>
-							<TextArea
-								rows={1}
-								className="chat-input flex-1"
-								placeholder="Use '/' to trigger commands"
-								value={input}
-								ref={myInput}
-								onChange={setInput}
-								autoSize={{ maxHeight: 150 }}
-								onCompositionStart={() => setIsComposition(true)}
-								onCompositionEnd={() => setIsComposition(false)}
-								onKeyDown={(e: any) => {
-									if (e.code === "ArrowUp" || e.code === "ArrowDown") {
-										myTip.current.popupKeyUp(e.code);
-									}
-								}}
-								onFocus={setIsFocus.on}
-								onBlur={() =>
-									setTimeout(() => {
-										setIsFocus.off();
-									}, 300)
-								}
-							/>
-							<Flex h="full" alignItems="flex-end">
-								{isLoading ? (
-									<Box w="38px" mb={2}>
-										<BeatLoader size={7} />
-									</Box>
-								) : (
-									<HStack
-										h="30px"
-										w="30px"
-										mb="2px"
-										borderRadius={8}
-										justify="center"
-										alignItems="center"
-										bg={input.trim() ? "black" : "gray.200"}
-									>
-										<Icon
-											as={TbSend}
-											color="bg.white"
-											boxSize={5}
-											cursor={input.trim() ? "pointer" : "not-allowed"}
-											onClick={() => {
-												if (input.trim()) {
-													onSend();
-												}
-											}}
-										/>
-									</HStack>
-								)}
-							</Flex>
-						</HStack>
-					</Flex>
-				</HStack>
-			</>
+						<TextArea
+							rows={1}
+							className="chat-input flex-1"
+							placeholder="Use '/' to trigger commands"
+							value={input}
+							ref={myInput}
+							onChange={setInput}
+							autoSize={{ maxHeight: 150 }}
+							onCompositionStart={() => setIsComposition(true)}
+							onCompositionEnd={() => setIsComposition(false)}
+							onFocus={setIsFocus.on}
+							onBlur={() =>
+								setTimeout(() => {
+									setIsFocus.off();
+								}, 300)
+							}
+						/>
+						<Flex h="full" alignItems="flex-end">
+							{isLoading ? (
+								<Box w="38px" mb={2}>
+									<BeatLoader size={7} />
+								</Box>
+							) : (
+								<HStack
+									h="30px"
+									w="30px"
+									mb="2px"
+									borderRadius={8}
+									justify="center"
+									alignItems="center"
+									bg={input.trim() ? "black" : "gray.200"}
+								>
+									<Icon
+										as={TbSend}
+										color="bg.white"
+										boxSize={5}
+										cursor={input.trim() ? "pointer" : "not-allowed"}
+										onClick={() => {
+											if (input.trim()) {
+												onSend();
+											}
+										}}
+									/>
+								</HStack>
+							)}
+						</Flex>
+					</HStack>
+				</Flex>
+				<Box
+					pos="absolute"
+					w="full"
+					top="-62px"
+					left="0px"
+					h="40px"
+					bgImg="url('/images/aisql/gradient.png')"
+					bgRepeat="repeat"
+					borderRadius={10}
+				/>
+			</HStack>
 		);
 	}
 );

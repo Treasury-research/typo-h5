@@ -93,8 +93,8 @@ input::-webkit-input-placeholder {
 	border-radius: 14px;
 }
 .audio {
-	width: 48px;
-	height: 48px;
+	width: 42px;
+	height: 42px;
 	background: "#fff";
 	background-image: url(https://mms-graph.cdn.bcebos.com/aiSearch/outerCircle.webp);
 	background-size: 140% 140%;
@@ -103,12 +103,12 @@ input::-webkit-input-placeholder {
 
 .voice-popup-ball {
 	position: relative;
-	width: 130px;
+	width: 110px;
 	height: 100%;
 }
 .voice-popup-ball-bg {
-	width: 110px;
-	height: 110px;
+	width: 100px;
+	height: 100px;
 	background-image: url(https://mms-graph.cdn.bcebos.com/aiSearch/ball-bg.webp);
 	-webkit-animation: ball-bg_3jxmr 2s ease-in-out infinite;
 	animation: ball-bg_3jxmr 2s ease-in-out infinite;
@@ -125,8 +125,8 @@ input::-webkit-input-placeholder {
 	border-radius: 50%;
 	-webkit-background-size: contain;
 	background-size: contain;
-	width: 70px;
-	height: 70px;
+	width: 50px;
+	height: 50px;
 	background-image: url(https://mms-graph.cdn.bcebos.com/aiSearch/outerCircle.webp);
 	--duration: 2.8s;
 }
@@ -145,19 +145,19 @@ input::-webkit-input-placeholder {
 }
 
 .maxSize-140 {
-	--max-size: 140px;
+	--max-size: 120px;
 }
 
 .maxSize-115 {
-	--max-size: 115px;
+	--max-size: 100px;
 }
 
 .maxSize-90 {
-	--max-size: 90px;
+	--max-size: 70px;
 }
 
 .maxSize-140 {
-	--max-size: 140px;
+	--max-size: 120px;
 }
 
 .poap {
@@ -205,10 +205,6 @@ input::-webkit-input-placeholder {
 @media screen and (max-width: 600px) {
 	.logo {
 		display: none !important;
-	}
-	.ai-page {
-		padding-inline-start: 5px !important;
-		padding-inline-end: 5px !important;
 	}
 
 	.base-modal {
@@ -267,12 +263,6 @@ input::-webkit-input-placeholder {
 	}
 	.chat-card {
 		padding: 10px !important;
-	}
-
-	.chat-panel {
-		background: #f4f5f6 !important;
-		padding-left: 10px;
-		padding-right: 10px;
 	}
 
 	.invite-gift {
@@ -380,9 +370,7 @@ input::-webkit-input-placeholder {
 	.chat-title > p {
 		padding-left: 7px;
 	}
-	.chat-panel {
-		background: #f4f5f6 !important;
-	}
+
 	.invite-3 {
 		justify-content: center;
 	}

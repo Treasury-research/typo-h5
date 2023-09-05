@@ -94,9 +94,10 @@ export function Guide({
 			h="full"
 			justify="flex-start"
 			alignItems="center"
-			pt="20px"
+			pt="30px"
+			px={1}
 		>
-			<Box className="carousel-panel" w="full">
+			<Box className="carousel-panel" w="97%">
 				<Carousel
 					autoPlay
 					showStatus={false}
@@ -121,10 +122,10 @@ export function Guide({
 				</Carousel>
 			</Box>
 
-			<Flex w="full" justify="center" flexFlow="row wrap" gap={4} mt="50px!">
+			<Flex w="full" justify="center" flexFlow="row wrap" gap={4} mt="40px!">
 				{cmds.map((item, index) => {
 					return (
-						<VStack w="320px" key={index} justify="center" spacing={2}>
+						<VStack w="340px" key={index} justify="center" spacing={2}>
 							{item.map((text) => {
 								return (
 									<Box

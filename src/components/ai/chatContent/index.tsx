@@ -34,6 +34,7 @@ export function ChatContent({
 			w="full"
 			pt={2}
 			pb="80px"
+			px={3}
 			mb="20px"
 			maxW="1000px"
 			id="chat-content"

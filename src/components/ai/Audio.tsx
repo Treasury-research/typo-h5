@@ -76,7 +76,7 @@ export function Audio({
 				<Center
 					pos="absolute"
 					w="full"
-					h={listening ? "120px" : "0"}
+					h={listening ? "90px" : "0"}
 					borderTopWidth="1px"
 					borderColor="gray.100"
 					boxShadow="md"
@@ -92,10 +92,11 @@ export function Audio({
 						pos="absolute"
 						right="5px"
 						top="5px"
+					  size="sm"
 						color="gray.500"
 						onClick={() => SpeechRecognition.stopListening()}
 					/>
-					<HStack w="500px" h="full">
+					<HStack w="full" h="full">
 						<Box className="voice-popup-ball">
 							<Box className="voice-popup-ball-div voice-popup-ball-bg" />
 							<Box className="voice-popup-ball-div maxSize-140" />
@@ -104,7 +105,7 @@ export function Audio({
 
 							<Icon
 								as={AiFillAudio}
-								boxSize={6}
+								boxSize={5}
 								className="voice-popup-ball-div"
 								color="bg.green"
 							/>

@@ -115,9 +115,9 @@ export default function Home() {
 						/>
 						<VStack
 							overflow="hidden"
-							bg="blackAlpha.100"
 							borderTopRadius={15}
-							className="p-6 w-full h-full chat-panel"
+							bg="#f4f5f6"
+							className="pt-6 w-full h-full chat-panel"
 						>
 							<ChatContent
 								list={list || []}
