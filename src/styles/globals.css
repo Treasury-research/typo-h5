@@ -72,10 +72,6 @@ input::-webkit-input-placeholder {
 	height: calc(100% - 110px);
 }
 
-.chat-menu {
-	display: none !important;
-}
-
 .menu-close {
 	display: none !important;
 }
@@ -239,27 +235,14 @@ input::-webkit-input-placeholder {
 		font-size: 16px !important;
 	}
 
-	.chat-menu {
-		display: block !important;
-	}
-
 	.quest {
 		width: 100% !important;
 		max-width: 440px !important;
 	}
 
-	.ai-chat {
-		margin-right: 0 !important;
-	}
-	.ai-not-show {
-		display: none !important;
-	}
-	.chat-left-content {
-		padding-inline-start: 5px !important;
-		padding-inline-end: 5px !important;
-	}
+ 
 	.chat-left-content > div {
-		padding: 0 12px;
+		padding: 0 8px;
 	}
 	.chat-card {
 		padding: 10px !important;
@@ -337,9 +320,7 @@ input::-webkit-input-placeholder {
 	.ai-not-show {
 		display: none !important;
 	}
-	.ai-chat {
-		margin-right: 0 !important;
-	}
+
 	.ai-right-content-width {
 		max-width: calc(100% -100px) !important;
 	}
@@ -348,12 +329,11 @@ input::-webkit-input-placeholder {
 		max-width: inherit !important;
 		width: calc(100% - 90px) !important;
 	}
-	.chat-menu {
-		display: block !important;
-	}
+
 	.invite-refer {
 		padding-left: 30px;
 	}
+
 	.invite-title {
 		white-space: nowrap;
 		font-size: 22px;

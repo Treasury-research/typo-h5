@@ -44,7 +44,7 @@ export function Right({
 						className="ai-right-content-width relative"
 						key={item.createTime}
 						mr={1}
-						px={4}
+						px="12px"
 						py="7px"
 						maxW="calc(100% - 90px)"
 						bg="bg.green"

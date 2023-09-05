@@ -105,7 +105,7 @@ export function ChatSubmit({
 				}
 				hasArrow
 			>
-				<Flex pos="absolute" mt="0!" right="-11px" top="-12px" justify="center">
+				<Flex pos="absolute" mt="0!" right="-24px" top="-12px" justify="center">
 					{isSandBox ? (
 						<Button
 							variant="yellowPrimary"

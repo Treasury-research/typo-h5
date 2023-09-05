@@ -300,10 +300,10 @@ export const ChatInput = forwardRef(
 						/>
 						<TextArea
 							rows={1}
+							ref={myInput}
 							className="chat-input flex-1"
 							placeholder="Use '/' to trigger commands"
 							value={input}
-							ref={myInput}
 							onChange={setInput}
 							autoSize={{ maxHeight: 150 }}
 							onCompositionStart={() => setIsComposition(true)}

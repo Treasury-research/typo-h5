@@ -106,7 +106,7 @@ export default function Home() {
 						setSandBoxType={setSandBoxType}
 						setIsSandBox={setIsSandBox}
 					/> */}
-					<VStack className="ai-chat flex-1 w-full h-full relative mr-2">
+					<VStack w="full" h="full" flex={1} pos="relative" className="ai-chat">
 						<ChatTitle
 							list={list || []}
 							chatIndex={chatIndex || 0}
@@ -114,10 +114,13 @@ export default function Home() {
 							isOpen={isOpen}
 						/>
 						<VStack
-							overflow="hidden"
-							borderTopRadius={15}
+							className="chat-panel"
+							w="full"
+							h="full"
+							pt={6}
 							bg="#f4f5f6"
-							className="pt-6 w-full h-full chat-panel"
+							borderTopRadius={15}
+							overflow="hidden"
 						>
 							<ChatContent
 								list={list || []}

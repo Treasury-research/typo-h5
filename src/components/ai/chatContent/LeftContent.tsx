@@ -56,13 +56,13 @@ export function Left({
 					/>
 					<VStack
 						key={index}
+						className="chat-left-content"
 						pos="relative"
 						spacing={3}
-						px={4}
+						px="5px"
 						pb="8px"
 						minH="35px"
 						maxW="full"
-						className="chat-left-content"
 						w="fit-content"
 						pt={2}
 						justify="flex-start"

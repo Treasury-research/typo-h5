@@ -46,7 +46,7 @@ export function Error({
 					className="ai-left-content-width"
 					key={index}
 					bg="bg.white"
-					px={4}
+					px="12px"
 					py="7px"
 					maxW="600px"
 					borderRadius={5}
