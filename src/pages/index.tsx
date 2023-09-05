@@ -117,9 +117,10 @@ export default function Home() {
 							className="chat-panel"
 							w="full"
 							h="full"
-							pt={6}
+							mt="0!"
+							pt={1}
 							bg="#f4f5f6"
-							borderTopRadius={15}
+							// borderTopRadius={15}
 							overflow="hidden"
 						>
 							<ChatContent

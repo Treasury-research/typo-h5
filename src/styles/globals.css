@@ -226,10 +226,6 @@ input::-webkit-input-placeholder {
 		width: calc(100% - 65px) !important;
 	}
 
-	.chat-title > p {
-		padding-left: 7px;
-	}
-
 	.chat-name {
 		max-width: 210px;
 		font-size: 16px !important;
@@ -240,7 +236,6 @@ input::-webkit-input-placeholder {
 		max-width: 440px !important;
 	}
 
- 
 	.chat-left-content > div {
 		padding: 0 8px;
 	}
@@ -346,9 +341,6 @@ input::-webkit-input-placeholder {
 	.chat-name {
 		max-width: 210px;
 		font-size: 16px !important;
-	}
-	.chat-title > p {
-		padding-left: 7px;
 	}
 
 	.invite-3 {

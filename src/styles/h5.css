@@ -4,3 +4,29 @@
 	resize: none;
 	line-height: 22px;
 }
+
+.nav-bar .rv-nav-bar__content {
+	height: 55px;
+	overflow: hidden;
+}
+
+.nav-bar .rv-nav-bar__left,
+.nav-bar .rv-nav-bar__right {
+	padding: 10px;
+}
+
+.nav-bar .rv-nav-bar__title {
+	width: 180px;
+}
+
+.nav-bar .rv-tabs {
+	margin-left: -20px;
+}
+
+.nav-bar .rv-tabs__wrap {
+	height: 100%;
+}
+
+.nav-bar .rv-tabs__nav {
+	padding-bottom: 0;
+}

@@ -1,29 +1,20 @@
-// const removeImports = require("next-remove-imports");
+// const withImages = require('next-images')
 
-// const nextConfig = {
-//   reactStrictMode: false,
-//   swcMinify: true,
-//   eslint: {
-//     dirs: ["src"],
-//   },
-// }
+// const withTM = require("next-transpile-modules")([
+//   "react-vant",
+// ]);
 
-// const nextEnv = require('next-env');
-// const dotenvLoad = require('dotenv-load');
-// dotenvLoad('.env');
+const withRemoveImports = require("next-remove-imports")();
 
-// const withNextEnv = nextEnv();
-
-// module.exports = removeImports()
-
-const removeImports = require("next-remove-imports");
-
-module.exports = removeImports()({
-  webpack: function (config) {
-    config.module.rules.push({
-      test: /\.md$/,
-      use: "raw-loader"
-    });
-    return config;
-  }
-});
+module.exports =
+  withRemoveImports(
+    {
+      webpack: (config, options) => {
+        config.module.rules.push({
+          test: /\.md$/,
+          use: "raw-loader"
+        });
+        return config;
+      },
+    }
+  );
