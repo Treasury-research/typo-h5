@@ -33,9 +33,9 @@ export function ChatContent({
 		<Box
 			w="full"
 			pt={2}
-			pb="80px"
+			pb="50px"
 			px={3}
-			mb="20px"
+			mb="15px"
 			maxW="1000px"
 			id="chat-content"
 			className="no-scrollbar"

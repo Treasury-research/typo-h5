@@ -349,7 +349,7 @@ export const ChatInput = forwardRef(
 				<Box
 					pos="absolute"
 					w="full"
-					top="-62px"
+					top="-60px"
 					left="0px"
 					h="40px"
 					bgImg="url('/images/aisql/gradient.png')"
