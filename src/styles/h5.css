@@ -1,8 +1,17 @@
+.chat-input {
+	margin-bottom: 4px !important;
+}
+
 .chat-input > .rv-textarea__control {
 	width: 100% !important;
 	outline: none;
 	resize: none;
-	line-height: 22px;
+	line-height: 23px;
+}
+
+.chat-input > .rv-textarea__control ::-webkit-scrollbar {
+	width: 0;
+	display: none;
 }
 
 .nav-bar .rv-nav-bar__content {
@@ -31,13 +40,13 @@
 	padding-bottom: 0;
 }
 
-.custom-indicator{
-	 position: absolute;
-    right: 10px;
-    bottom: 8px;
-    padding: 1px 4px;
-    color: #fff;
-    font-size: 12px;
-    background-color: rgba(0, 0, 0, 0.7);
-    border-radius: 2px;
+.custom-indicator {
+	position: absolute;
+	right: 10px;
+	bottom: 8px;
+	padding: 1px 4px;
+	color: #fff;
+	font-size: 12px;
+	background-color: rgba(0, 0, 0, 0.7);
+	border-radius: 2px;
 }
