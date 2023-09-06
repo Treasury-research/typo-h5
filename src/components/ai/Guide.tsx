@@ -11,7 +11,7 @@ import {
 import { BsCommand } from "react-icons/bs";
 
 import { useMemo } from "react";
-import { Cell, Swiper } from "react-vant";
+import { Cell, Swiper, Typography } from "react-vant";
 
 const commands = [
 	"What's KNN3 Network?",
@@ -112,14 +112,15 @@ export function Guide({
 				{/* <Text fontWeight="semibold" w="full" fontSize="lg" pl={3}>
 					Shortcut command
 				</Text> */}
+
 				{cmds.map((text, index) => {
 					return (
 						<Box key={index} w="full" pos="relative">
 							{isSandBox && (
 								<Badge
 									pos="absolute"
-									right="-5px"
-									top="-12px"
+									right="6px"
+									top="-9px"
 									colorScheme="green"
 									fontSize="xs"
 									transform="scale(0.76)"
@@ -128,16 +129,22 @@ export function Guide({
 									token2049
 								</Badge>
 							)}
-							<Cell
-								title={text}
-								icon={<BsCommand />}
-								size="large"
-								isLink
-								onClick={() => {
-									setInput(text);
-									onSend();
-								}}
-							/>
+							<Cell.Group card>
+								<Cell
+									title={
+										<Typography.Text ellipsis>
+											{text}
+										</Typography.Text>
+									}
+									icon={<BsCommand />}
+									size="large"
+									isLink
+									onClick={() => {
+										setInput(text);
+										onSend();
+									}}
+								/>
+							</Cell.Group>
 						</Box>
 					);
 				})}

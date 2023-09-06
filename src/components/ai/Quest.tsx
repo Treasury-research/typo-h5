@@ -33,10 +33,10 @@ import {
 	InfoOutlineIcon,
 } from "@chakra-ui/icons";
 import { useStore } from "store";
-import { useRouter } from "next/router";
 import { BaseModal, Copy } from "components";
 import { base64, toShortAddress } from "lib";
 import { useAiStore } from "store/aiStore";
+import { Popup, Cell } from "react-vant";
 
 const AwardItem = ({
 	title,
@@ -165,24 +165,19 @@ export function Quest({
 
 	return (
 		<>
-			{isOpen && (
-				<VStack
-					className="quest"
-					w="350px"
-					py={4}
-					px={3}
-					alignItems="flex-start"
-					gap="0.5rem"
-				>
-					<Flex w="full" justify="space-between">
-						<HStack pos="relative">
+			<Popup
+				visible={isOpen}
+				closeable
+				round
+				position="bottom"
+				title={
+					<HStack w="full" justify="center" alignItems="center">
+						<Flex pos="relative" alignItems="center" gap={1} fontSize="md">
 							<Icon as={BiGift} boxSize={5} />
-							<Text w="full" fontSize="md" fontWeight="semibold">
-								QUEST
-							</Text>
+							<Text fontWeight="semibold">QUEST</Text>
 							<Badge
 								ml="1"
-								colorScheme="green"
+								colorScheme="red"
 								pos="absolute"
 								left="82px"
 								top="-8px"
@@ -191,166 +186,90 @@ export function Quest({
 							>
 								Hot
 							</Badge>
-						</HStack>
-						<CloseButton mr={-3} onClick={onClose} />
-					</Flex>
-
-					<VStack mt="0.5rem!" w="full" bg="bg.lightYellow" borderRadius={10}>
-						<HStack
-							alignItems="center"
-							w="full"
-							fontWeight="semibold"
-							spacing={3}
-							mt={1}
-							color="#ee6f2d"
-							borderColor="rgba(0, 0, 0, 0.08)"
-							borderBottomWidth="1px"
-							px={4}
-							py={2}
-						>
-							<Center bg="#fff" p={2} borderRadius="full">
-								<Image src="/images/aisql/tcc.svg" boxSize={5} alt="" />
-							</Center>
-							<Box lineHeight="20px">
-								<HStack spacing={1} fontSize="md">
-									<Text mr={1}>{totalScore}</Text>
-									<Text>TCC</Text>
-									<Tooltip
-										placement="top"
-										fontSize="xs"
-										bg="#e6b65a"
-										color="#fff"
-										fontWeight="semibold"
-										label="TypoGraphy Chat Credit"
-										hasArrow
-									>
-										<InfoIcon boxSize={4} cursor="pointer" />
-									</Tooltip>
-								</HStack>
-								<Text fontSize="sm">Total TCC Earned</Text>
-							</Box>
-						</HStack>
-						<VStack
-							w="full"
-							px={3}
-							pt={1}
-							fontSize="13px"
-							fontWeight="semibold"
-							spacing={2}
-						>
-							{awardItems.preRegItem && (
-								<AwardItem
-									title="Pre-reg"
-									isFinish={!!awardItems.preRegItem}
-									value={awardItems.preRegItem?.score}
-								/>
-							)}
-
-							<AwardItem
-								title="Sign in"
-								isFinish={!!awardItems.signInItem}
-								value={awardItems.signInItem?.score}
-							/>
-
-							{awardItems.typeHunterItem && (
-								<AwardItem
-									title="Typo Hunter"
-									isFinish={!!awardItems.typeHunterItem}
-									value={awardItems.typeHunterItem?.score}
-								/>
-							)}
-
-							<AwardItem
-								title="Verify Telegram"
-								isFinish={!!awardItems.TGItem}
-								value={
-									!!awardItems.TGItem ? (
-										awardItems.TGItem?.score
-									) : (
-										<HStack
-											spacing={0}
-											mr={-1}
-											fontSize="sm"
-											onClick={setShowModal.on}
+						</Flex>
+					</HStack>
+				}
+				description={
+					<>
+						<VStack mt="0.5rem!" w="full" bg="bg.lightYellow" borderRadius={10}>
+							<HStack
+								alignItems="center"
+								w="full"
+								fontWeight="semibold"
+								spacing={3}
+								mt={1}
+								color="#ee6f2d"
+								borderColor="rgba(0, 0, 0, 0.08)"
+								borderBottomWidth="1px"
+								px={4}
+								py={2}
+							>
+								<Center bg="#fff" p={2} borderRadius="full">
+									<Image src="/images/aisql/tcc.svg" boxSize={5} alt="" />
+								</Center>
+								<Box lineHeight="20px">
+									<HStack spacing={1} fontSize="md">
+										<Text mr={1}>{totalScore}</Text>
+										<Text>TCC</Text>
+										<Tooltip
+											placement="top"
+											fontSize="xs"
+											bg="#e6b65a"
+											color="#fff"
+											fontWeight="semibold"
+											label="TypoGraphy Chat Credit"
+											hasArrow
 										>
-											<Text>Verify</Text>
-											<ChevronRightIcon boxSize={5} />
-										</HStack>
-									)
-								}
-							/>
+											<InfoIcon boxSize={4} cursor="pointer" />
+										</Tooltip>
+									</HStack>
+									<Text fontSize="sm">Total TCC Earned</Text>
+								</Box>
+							</HStack>
+							<VStack
+								w="full"
+								px={3}
+								pt={1}
+								fontSize="13px"
+								fontWeight="semibold"
+								spacing={2}
+							>
+								{awardItems.preRegItem && (
+									<AwardItem
+										title="Pre-reg"
+										isFinish={!!awardItems.preRegItem}
+										value={awardItems.preRegItem?.score}
+									/>
+								)}
 
-							<AwardItem
-								title="Verify Email"
-								isFinish={!!awardItems.verifyEmailItem}
-								value={
-									!!awardItems.verifyEmailItem ? (
-										awardItems.verifyEmailItem?.score
-									) : (
-										<HStack
-											spacing={0}
-											mr={-1}
-											fontSize="sm"
-											onClick={() => {
-												setOpenBindEmailModal(true);
-											}}
-										>
-											<Text>Verify</Text>
-											<ChevronRightIcon boxSize={5} />
-										</HStack>
-									)
-								}
-							/>
-
-							<AwardItem
-								title="Email subscription"
-								isFinish={!!awardItems.SubstackItem}
-								email={email}
-								value={
-									!!awardItems.SubstackItem ? (
-										awardItems.SubstackItem?.score
-									) : (
-										<HStack
-											spacing={0}
-											mr={-1}
-											fontSize="sm"
-											onClick={() => {
-												if (email) {
-													window.open("https://knn3.substack.com/");
-												} else {
-													setOpenBindEmailModal(true);
-												}
-											}}
-										>
-											<Text>Subscribe</Text>
-											<ChevronRightIcon boxSize={5} />
-										</HStack>
-									)
-								}
-							/>
-
-							{awardItems.GalleryItem && (
 								<AwardItem
-									title="Gallery S1"
-									isFinish={!!awardItems.GalleryItem}
-									value={awardItems.GalleryItem?.score}
+									title="Sign in"
+									isFinish={!!awardItems.signInItem}
+									value={awardItems.signInItem?.score}
 								/>
-							)}
 
-							{isInvite && (
+								{awardItems.typeHunterItem && (
+									<AwardItem
+										title="Typo Hunter"
+										isFinish={!!awardItems.typeHunterItem}
+										value={awardItems.typeHunterItem?.score}
+									/>
+								)}
+
 								<AwardItem
-									title="Referee"
-									isFinish={!!awardItems.refereeItem}
+									title="Verify Telegram"
+									isFinish={!!awardItems.TGItem}
 									value={
-										!!awardItems.refereeItem ? (
-											awardItems.refereeItem?.score
+										!!awardItems.TGItem ? (
+											awardItems.TGItem?.score
 										) : (
 											<HStack
 												spacing={0}
 												mr={-1}
 												fontSize="sm"
 												onClick={() => {
-													setOpenBindEmailModal(true);
+													setShowModal.on();
+													onClose();
 												}}
 											>
 												<Text>Verify</Text>
@@ -359,150 +278,238 @@ export function Quest({
 										)
 									}
 								/>
-							)}
 
-							<AwardItem
-								title="Referral"
-								isFinish={!!awardItems.referralItem}
-								value={
-									!!awardItems.referralItem ? (
-										awardItems.referralItem?.score
-									) : (
-										<HStack
-											spacing={0}
-											mr={-1}
-											fontSize="sm"
-											onClick={() => {
-												setOpenInviteModal(true);
-											}}
-										>
-											<Text>Invite</Text>
-											<ChevronRightIcon boxSize={5} />
-										</HStack>
-									)
-								}
-							/>
-						</VStack>
-						<Flex w="full" mt="18px!" mb="1rem!" px={4}>
-							<Button
-								flex={1}
-								variant="blackPrimary"
-								size="sm"
-								h="35px"
-								borderRadius={6}
-								color="#fae3b3"
-								fontWeight="semibold"
-								leftIcon={<Icon as={FaUserGroup} boxSize={4} />}
-								onClick={() => setOpenInviteModal(true)}
-							>
-								Invite more friends
-							</Button>
-						</Flex>
-					</VStack>
-					<VStack mt={4} bg="bg.lightYellow" borderRadius={10} opacity={0.95}>
-						<HStack
-							alignItems="center"
-							w="full"
-							fontWeight="semibold"
-							fontSize="lg"
-							spacing={3}
-							mt={1}
-							color="#ee6f2d"
-							borderColor="rgba(0, 0, 0, 0.08)"
-							borderBottomWidth="1px"
-							px={4}
-							py="10px"
-						>
-							<Center bg="#fff" p={2} borderRadius="full">
-								<Icon as={IoRocketOutline} boxSize={5} />
-							</Center>
-							<VStack
-								alignItems="flex-start"
-								spacing={0}
-								lineHeight="20px"
-								fontSize="md"
-							>
-								<Text whiteSpace="nowrap">TOKEN2049 Journey</Text>
+								<AwardItem
+									title="Verify Email"
+									isFinish={!!awardItems.verifyEmailItem}
+									value={
+										!!awardItems.verifyEmailItem ? (
+											awardItems.verifyEmailItem?.score
+										) : (
+											<HStack
+												spacing={0}
+												mr={-1}
+												fontSize="sm"
+												onClick={() => {
+													setOpenBindEmailModal(true);
+													onClose();
+												}}
+											>
+												<Text>Verify</Text>
+												<ChevronRightIcon boxSize={5} />
+											</HStack>
+										)
+									}
+								/>
+
+								<AwardItem
+									title="Email subscription"
+									isFinish={!!awardItems.SubstackItem}
+									email={email}
+									value={
+										!!awardItems.SubstackItem ? (
+											awardItems.SubstackItem?.score
+										) : (
+											<HStack
+												spacing={0}
+												mr={-1}
+												fontSize="sm"
+												onClick={() => {
+													if (email) {
+														window.open("https://knn3.substack.com/");
+													} else {
+														setOpenBindEmailModal(true);
+														onClose();
+													}
+												}}
+											>
+												<Text>Subscribe</Text>
+												<ChevronRightIcon boxSize={5} />
+											</HStack>
+										)
+									}
+								/>
+
+								{awardItems.GalleryItem && (
+									<AwardItem
+										title="Gallery S1"
+										isFinish={!!awardItems.GalleryItem}
+										value={awardItems.GalleryItem?.score}
+									/>
+								)}
+
+								{isInvite && (
+									<AwardItem
+										title="Referee"
+										isFinish={!!awardItems.refereeItem}
+										value={
+											!!awardItems.refereeItem ? (
+												awardItems.refereeItem?.score
+											) : (
+												<HStack
+													spacing={0}
+													mr={-1}
+													fontSize="sm"
+													onClick={() => {
+														setOpenBindEmailModal(true);
+														onClose();
+													}}
+												>
+													<Text>Verify</Text>
+													<ChevronRightIcon boxSize={5} />
+												</HStack>
+											)
+										}
+									/>
+								)}
+
+								<AwardItem
+									title="Referral"
+									isFinish={!!awardItems.referralItem}
+									value={
+										!!awardItems.referralItem ? (
+											awardItems.referralItem?.score
+										) : (
+											<HStack
+												spacing={0}
+												mr={-1}
+												fontSize="sm"
+												onClick={() => {
+													setOpenInviteModal(true);
+													onClose();
+												}}
+											>
+												<Text>Invite</Text>
+												<ChevronRightIcon boxSize={5} />
+											</HStack>
+										)
+									}
+								/>
 							</VStack>
-						</HStack>
-						<Box w="full" pl={6} pr={3} my={3} fontSize="md">
-							By joining the &nbsp;
-							<b>#Token2049</b> channel and engaging in conversations and &nbsp;
-							<b>sharing on Twitter</b>, you will have the opportunity to win up
-							to &nbsp;<b>2049 TCC!</b>
-						</Box>
-						<Flex w="full" mt={1} mb="1rem!" px={4}>
-							<Button
-								mt={2}
-								w="full"
-								variant="blackPrimary"
-								size="sm"
-								h="35px"
-								borderRadius={6}
-								color="#fae3b3"
-								fontWeight="semibold"
-								leftIcon={<Icon as={BsFillLightningChargeFill} boxSize={4} />}
-								onClick={() =>
-									window.open(
-										"https://www.typography.vip/quest/token2049-quest?utm_source=apptypo&utm_campaign=token2049-contest "
-									)
-								}
-							>
-								View More Info
-							</Button>
-						</Flex>
-					</VStack>
-
-					<BaseModal
-						isOpen={showModal}
-						onClose={() => {
-							getAwards();
-							getUserInfo();
-							setShowModal.off();
-						}}
-						title="Verify Telegram"
-					>
-						<HStack color="text.black" flexFlow="row wrap" spacing={0}>
-							<Box>
-								Please copy the command and send it to our Telegram bot.
-							</Box>
-							<Flex pt={2}>
-								<Tooltip
-									placement="top"
-									fontSize="xs"
-									isOpen={hasCopied}
-									label={hasCopied ? "Copied!" : "Copy"}
-									hasArrow
+							<Flex w="full" mt="18px!" mb="1rem!" px={4}>
+								<Button
+									flex={1}
+									variant="blackPrimary"
+									size="sm"
+									h="35px"
+									borderRadius={6}
+									color="#fae3b3"
+									fontWeight="semibold"
+									leftIcon={<Icon as={FaUserGroup} boxSize={4} />}
+									onClick={() => {
+										setOpenInviteModal(true);
+										onClose();
+									}}
 								>
-									<Button
-										variant="blackPrimary"
-										size="xs"
-										color="gray.200"
-										h="26px"
-										rightIcon={<Icon as={BiCopy} boxSize={4} color="#fff" />}
-										fontWeight="semibold"
-										onClick={onCopy}
-									>
-										/bind_typo {toShortAddress(uuid, 10)}
-									</Button>
-								</Tooltip>
+									Invite more friends
+								</Button>
 							</Flex>
-						</HStack>
-						<Flex mt={5} justify="space-between" color="gray.600">
-							<Text> </Text>
-							<Button
-								variant="bluePrimary"
-								size="xs"
-								onClick={() => {
-									window.open("https://t.me/TypoHunterBot");
-								}}
+						</VStack>
+						<VStack my={4} bg="bg.lightYellow" borderRadius={10} opacity={0.95}>
+							<HStack
+								alignItems="center"
+								w="full"
+								fontWeight="semibold"
+								fontSize="lg"
+								spacing={3}
+								mt={1}
+								color="#ee6f2d"
+								borderColor="rgba(0, 0, 0, 0.08)"
+								borderBottomWidth="1px"
+								px={4}
+								py="10px"
 							>
-								Verify
+								<Center bg="#fff" p={2} borderRadius="full">
+									<Icon as={IoRocketOutline} boxSize={5} />
+								</Center>
+								<VStack
+									alignItems="flex-start"
+									spacing={0}
+									lineHeight="20px"
+									fontSize="md"
+								>
+									<Text whiteSpace="nowrap">TOKEN2049 Journey</Text>
+								</VStack>
+							</HStack>
+							<Box w="full" pl={6} pr={3} my={3} fontSize="md">
+								By joining the &nbsp;
+								<b>#Token2049</b> channel and engaging in conversations and
+								&nbsp;
+								<b>sharing on Twitter</b>, you will have the opportunity to win
+								up to &nbsp;<b>2049 TCC!</b>
+							</Box>
+							<Flex w="full" mt={1} mb="1rem!" px={4}>
+								<Button
+									mt={2}
+									w="full"
+									variant="blackPrimary"
+									size="sm"
+									h="35px"
+									borderRadius={6}
+									color="#fae3b3"
+									fontWeight="semibold"
+									leftIcon={<Icon as={BsFillLightningChargeFill} boxSize={4} />}
+									onClick={() =>
+										window.open(
+											"https://www.typography.vip/quest/token2049-quest?utm_source=apptypo&utm_campaign=token2049-contest "
+										)
+									}
+								>
+									View More Info
+								</Button>
+							</Flex>
+						</VStack>
+					</>
+				}
+				onClose={onClose}
+			/>
+
+			<BaseModal
+				isOpen={showModal}
+				onClose={() => {
+					getAwards();
+					getUserInfo();
+					setShowModal.off();
+				}}
+				title="Verify Telegram"
+			>
+				<HStack color="text.black" flexFlow="row wrap" spacing={0}>
+					<Box>Please copy the command and send it to our Telegram bot.</Box>
+					<Flex pt={2}>
+						<Tooltip
+							placement="top"
+							fontSize="xs"
+							isOpen={hasCopied}
+							label={hasCopied ? "Copied!" : "Copy"}
+							hasArrow
+						>
+							<Button
+								variant="blackPrimary"
+								size="xs"
+								color="gray.200"
+								h="26px"
+								rightIcon={<Icon as={BiCopy} boxSize={4} color="#fff" />}
+								fontWeight="semibold"
+								onClick={onCopy}
+							>
+								/bind_typo {toShortAddress(uuid, 10)}
 							</Button>
-						</Flex>
-					</BaseModal>
-				</VStack>
-			)}
+						</Tooltip>
+					</Flex>
+				</HStack>
+				<Flex mt={5} justify="space-between" color="gray.600">
+					<Text> </Text>
+					<Button
+						variant="bluePrimary"
+						size="xs"
+						onClick={() => {
+							window.open("https://t.me/TypoHunterBot");
+						}}
+					>
+						Verify
+					</Button>
+				</Flex>
+			</BaseModal>
 		</>
 	);
 }

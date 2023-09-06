@@ -48,7 +48,7 @@ export function ChatContent({
 					fontSize="xs"
 					bg="blackAlpha.100"
 					px={2}
-					py={1}
+					py="2px"
 					borderRadius={3}
 					zIndex={5}
 				>

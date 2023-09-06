@@ -101,18 +101,6 @@ export function ChatTitle({
 					}
 				/>
 			</Box>
-
-			{/* <HStack className="chat-title" alignItems="center" fontWeight="400">
-				<Text
-					className="chat-name"
-					fontSize="xs"
-					whiteSpace="nowrap"
-					overflow="hidden"
-					textOverflow="ellipsis"
-				>
-					# {" "}{(list && list[chatIndex]?.name) || "Title"}
-				</Text>
-			</HStack> */}
 		</>
 	);
 }
