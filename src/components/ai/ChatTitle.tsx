@@ -28,8 +28,6 @@ export function ChatTitle({
 		menu.style.display = "block";
 	};
 
-	const items = Array.from({ length: 3 }, (_, i) => i + 1);
-
 	return (
 		<>
 			<Box w="full">

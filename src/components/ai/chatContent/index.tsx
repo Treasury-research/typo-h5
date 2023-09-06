@@ -32,9 +32,8 @@ export function ChatContent({
 	return (
 		<Box
 			w="full"
-			pt={2}
+			pt={3}
 			pb="50px"
-			px={3}
 			mb="15px"
 			maxW="1000px"
 			id="chat-content"
@@ -52,6 +51,7 @@ export function ChatContent({
 					justify="flex-start"
 					alignItems="center"
 					spacing={8}
+					px={3}
 					fontFamily="Söhne,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto"
 				>
 					{(list[chatIndex]?.children).map(

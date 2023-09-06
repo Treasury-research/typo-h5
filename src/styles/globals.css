@@ -81,13 +81,10 @@ input::-webkit-input-placeholder {
 	display: none;
 }
 
-.carousel.carousel-slider {
+.carousel .carousel-slider {
 	overflow: inherit;
 }
 
-.carousel .slider-wrapper {
-	border-radius: 14px;
-}
 .audio {
 	width: 42px;
 	height: 42px;

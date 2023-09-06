@@ -13,41 +13,40 @@ import { BsCommand } from "react-icons/bs";
 import { Carousel } from "react-responsive-carousel";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { useMemo } from "react";
+import { Cell, Typography, Space } from "react-vant";
 
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const commands = [
-	[
-		"What's KNN3 Network?",
-		"What's TypoGraphy AI?",
-		// "How is ChatGpt different from TypoGraph ai?",
-	],
-	["What can I do with TypoGraphy AI now?", "/Profile my"],
+	"What's KNN3 Network?",
+	"What's TypoGraphy AI?",
+	"What can I do with TypoGraphy AI now?",
+	"/Profile my",
+	// "How is ChatGpt different from TypoGraph ai?",
 ];
 
 const sandBoxCommands = [
-	[
-		"I'm interested in AI and Web3 development.",
-		"Suggest DeFi related events for me.",
-	],
-	["I'm looking to meet new GameFi friends. ", "I want to do some exercise."],
+	"I'm interested in AI and Web3 development.",
+	"Suggest DeFi related events for me.",
+	"I'm looking to meet new GameFi friends. ",
+	"I want to do some exercise.",
 ];
 
 const slides = [
 	{
-		url: "/images/aisql/guide4.webp",
+		url: "/images/aisql/guide4.png",
 		link: "https://knexus.xyz/create?utm_source=typo+quest&utm_campaign=kn+mbti",
 	},
 	{
-		url: "/images/aisql/guide1.webp",
+		url: "/images/aisql/guide1.png",
 		link: "",
 	},
 	{
-		url: "/images/aisql/guide2.webp",
+		url: "/images/aisql/guide2.png",
 		link: "",
 	},
 	{
-		url: "/images/aisql/guide3.webp",
+		url: "/images/aisql/guide3.png",
 		link: "",
 	},
 ];
@@ -95,9 +94,8 @@ export function Guide({
 			justify="flex-start"
 			alignItems="center"
 			pt="30px"
-			px={1}
 		>
-			<Box className="carousel-panel" w="97%">
+			<Box className="carousel-panel" w="full">
 				<Carousel
 					autoPlay
 					showStatus={false}
@@ -110,77 +108,51 @@ export function Guide({
 						return (
 							<Box
 								h="full"
-								px="4px"
 								cursor="pointer"
 								key={item.url}
 								onClick={() => item.link && window.open(item.link)}
 							>
-								<Image h="full" alt="" src={item.url} borderRadius={10} />
+								<Image h="full" alt="" src={item.url} />
 							</Box>
 						);
 					})}
 				</Carousel>
 			</Box>
 
-			<Flex w="full" justify="center" flexFlow="row wrap" gap={4} mt="40px!">
-				{cmds.map((item, index) => {
+			<VStack w="full" justify="center" flexDir="column" spacing={5} mt="30px!">
+				{/* <Text fontWeight="semibold" w="full" fontSize="lg" pl={3}>
+					Shortcut command
+				</Text> */}
+				{cmds.map((text, index) => {
 					return (
-						<VStack w="340px" key={index} justify="center" spacing={2}>
-							{item.map((text) => {
-								return (
-									<Box
-										w="full"
-										key={text}
-										p={1}
-										id={isSandBox && index === 0 ? "commands" : ""}
-									>
-										<Flex
-											w="full"
-											pos="relative"
-											justify="flex-start"
-											alignItems="center"
-											cursor="pointer"
-											bg="bg.white"
-											mt="3px"
-											px={3}
-											color="blackAlpha.800"
-											_hover={{ color: "text.black", transform: "scale(1.01)" }}
-											borderRadius={6}
-											fontSize="13px"
-											onClick={() => {
-												setInput(text);
-												onSend();
-											}}
-										>
-											{isSandBox && (
-												<Badge
-													pos="absolute"
-													right="-16px"
-													top="-9px"
-													colorScheme="green"
-													fontSize="xs"
-													transform="scale(0.76)"
-												>
-													token2049
-												</Badge>
-											)}
-											<Icon as={BsCommand} />
-											<Text
-												maxW="full"
-												borderRadius={4}
-												p="10px"
-												whiteSpace="nowrap"
-											>
-												{text}
-											</Text>
-										</Flex>
-									</Box>
-								);
-							})}
-						</VStack>
+						<Box key={index} w="full" pos="relative">
+							{isSandBox && (
+								<Badge
+									pos="absolute"
+									right="-5px"
+									top="-12px"
+									colorScheme="green"
+									fontSize="xs"
+									transform="scale(0.76)"
+									zIndex={5}
+								>
+									token2049
+								</Badge>
+							)}
+							<Cell
+								title={text}
+								icon={<BsCommand />}
+								size="large"
+								isLink
+								onClick={() => {
+									setInput(text);
+									onSend();
+								}}
+							/>
+						</Box>
 					);
 				})}
-			</Flex>
+			</VStack>
 		</VStack>
 	);
 }
