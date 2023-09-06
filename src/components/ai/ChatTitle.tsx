@@ -17,11 +17,17 @@ export function ChatTitle({
 	chatIndex,
 	isOpen,
 	onOpen,
+	setIsSandBox,
 }: {
 	list: ChatList[];
 	chatIndex: number;
 	isOpen: boolean;
 	onOpen: () => void;
+	setIsSandBox: {
+		on: () => void;
+		off: () => void;
+		toggle: () => void;
+	};
 }) {
 	const showMenu = () => {
 		const menu: any = document.querySelector(".ai-menu");
@@ -34,7 +40,13 @@ export function ChatTitle({
 				<NavBar
 					className="nav-bar"
 					title={
-						<Tabs type="jumbo" color="#000">
+						<Tabs
+							type="jumbo"
+							color="#000"
+							onChange={(tabIndex) => {
+								tabIndex === 0 ? setIsSandBox.off() : setIsSandBox.on();
+							}}
+						>
 							<Tabs.TabPane title="History" />
 							<Tabs.TabPane title="Sandbox" />
 						</Tabs>

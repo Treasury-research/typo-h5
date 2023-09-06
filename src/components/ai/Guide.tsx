@@ -10,12 +10,8 @@ import {
 } from "@chakra-ui/react";
 import { BsCommand } from "react-icons/bs";
 
-import { Carousel } from "react-responsive-carousel";
-import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { useMemo } from "react";
-import { Cell, Typography, Space } from "react-vant";
-
-import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Cell, Swiper } from "react-vant";
 
 const commands = [
 	"What's KNN3 Network?",
@@ -95,17 +91,17 @@ export function Guide({
 			alignItems="center"
 			pt="30px"
 		>
-			<Box className="carousel-panel" w="full">
-				<Carousel
-					autoPlay
-					showStatus={false}
-					showArrows={false}
-					showIndicators={true}
-					showThumbs={true}
-					infiniteLoop
-				>
-					{list.map((item) => {
-						return (
+			<Swiper
+				autoplay={5000}
+				indicator={(total, current) => (
+					<Box className="custom-indicator">
+						{current + 1}/{total}
+					</Box>
+				)}
+			>
+				{list.map((item) => {
+					return (
+						<Swiper.Item>
 							<Box
 								h="full"
 								cursor="pointer"
@@ -114,12 +110,12 @@ export function Guide({
 							>
 								<Image h="full" alt="" src={item.url} />
 							</Box>
-						);
-					})}
-				</Carousel>
-			</Box>
+						</Swiper.Item>
+					);
+				})}
+			</Swiper>
 
-			<VStack w="full" justify="center" flexDir="column" spacing={5} mt="30px!">
+			<VStack w="full" justify="center" flexDir="column" spacing={5} mt="40px!">
 				{/* <Text fontWeight="semibold" w="full" fontSize="lg" pl={3}>
 					Shortcut command
 				</Text> */}

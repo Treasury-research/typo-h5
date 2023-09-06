@@ -30,3 +30,14 @@
 .nav-bar .rv-tabs__nav {
 	padding-bottom: 0;
 }
+
+.custom-indicator{
+	 position: absolute;
+    right: 10px;
+    bottom: 8px;
+    padding: 1px 4px;
+    color: #fff;
+    font-size: 12px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 2px;
+}

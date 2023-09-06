@@ -81,10 +81,6 @@ input::-webkit-input-placeholder {
 	display: none;
 }
 
-.carousel .carousel-slider {
-	overflow: inherit;
-}
-
 .audio {
 	width: 42px;
 	height: 42px;

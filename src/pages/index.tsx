@@ -112,6 +112,7 @@ export default function Home() {
 							chatIndex={chatIndex || 0}
 							onOpen={onOpen}
 							isOpen={isOpen}
+							setIsSandBox={setIsSandBox}
 						/>
 						<VStack
 							className="chat-panel"
