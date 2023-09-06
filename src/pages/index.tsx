@@ -5,7 +5,7 @@ import {
 	Container,
 	useBoolean,
 	useDisclosure,
-	Image,
+	Box,
 } from "@chakra-ui/react";
 import { ChatList } from "lib/types";
 import { ChatInput, NextSeo, ChatTitle, ChatContent, Quest } from "components";
@@ -22,6 +22,7 @@ export default function Home() {
 	const myInput = useRef<any>(null);
 	const { tab } = router?.query;
 	const { userId } = useUserInfoStore();
+	const [showNav, setShowNav] = useBoolean(false);
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [isLoading, setIsLoading] = useBoolean(false);
 	const [chatIndex, setChatIndex] = useState<number | null>(null);
@@ -92,9 +93,10 @@ export default function Home() {
 	return (
 		<>
 			<NextSeo title={"TypoGraphy AI"} />
-			<Container className="ai-page" maxW="full" pr={0} pl={0}>
+			<Container w="100vw" pr={0} pl={0}>
 				<Flex w="full" h="full">
 					<Menu
+						showNav={showNav}
 						list={list || []}
 						chatIndex={chatIndex}
 						isSandBox={isSandBox}
@@ -106,23 +108,31 @@ export default function Home() {
 						setSandBoxType={setSandBoxType}
 						setIsSandBox={setIsSandBox}
 					/>
-					<VStack w="full" h="full" flex={1} pos="relative" className="ai-chat">
+					<VStack
+						w="100vw"
+						h="full"
+						pos="relative"
+						overflow="hidden"
+						alignItems="flex-start"
+						className={showNav ? "chat-move" : ""}
+					>
 						<ChatTitle
 							list={list || []}
 							chatIndex={chatIndex || 0}
-							onOpen={onOpen}
 							isOpen={isOpen}
+							showNav={showNav}
+							onOpen={onOpen}
+							setShowNav={setShowNav}
 							setIsSandBox={setIsSandBox}
 						/>
 						<VStack
-							className="chat-panel"
 							w="full"
 							h="full"
 							mt="0!"
 							pt={1}
 							bg="#f4f5f6"
-							// borderTopRadius={15}
-							overflow="hidden"
+							alignItems="flex-start"
+							onClick={setShowNav.off}
 						>
 							<ChatContent
 								list={list || []}

@@ -62,7 +62,6 @@ export function ChatContent({
 				mb="20px!"
 				pb="50px"
 				className="no-scrollbar"
-				maxW="1000px"
 				id="chat-content"
 				h="calc(100% - 90px)"
 				overflowY="scroll"

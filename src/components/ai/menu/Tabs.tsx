@@ -113,7 +113,7 @@ const TabItem = ({
 							<Flex w="18px" justify="center">
 								<Icon
 									as={HiOutlineEllipsisVertical}
-									color="gray.700"
+									color="#fff"
 									cursor="pointer"
 									_hover={{ transform: "scale(1.1)" }}
 									boxSize={5}
@@ -292,8 +292,10 @@ export function Tabs({
 				w="full"
 				flex={1}
 				pt={1}
+				pl={2}
 				spacing={1}
 				overflowY="scroll"
+				alignItems="flex-start"
 				className="no-scrollbar"
 			>
 				{userId &&
@@ -320,7 +322,7 @@ export function Tabs({
 						fontSize="13px"
 						borderRadius={6}
 						cursor="pointer"
-						bg={list.length === 0 ? "blackAlpha.100" : "#fff"}
+						// bg={list.length === 0 ? "blackAlpha.100" : "#fff"}
 						_hover={{ bg: "blackAlpha.200" }}
 						px={2}
 					>

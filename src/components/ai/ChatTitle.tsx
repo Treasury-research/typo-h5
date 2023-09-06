@@ -17,26 +17,31 @@ export function ChatTitle({
 	chatIndex,
 	isOpen,
 	onOpen,
+	showNav,
+	setShowNav,
 	setIsSandBox,
 }: {
 	list: ChatList[];
 	chatIndex: number;
+	showNav: boolean;
 	isOpen: boolean;
 	onOpen: () => void;
+	setShowNav: {
+		on: () => void;
+		off: () => void;
+		toggle: () => void;
+	};
 	setIsSandBox: {
 		on: () => void;
 		off: () => void;
 		toggle: () => void;
 	};
 }) {
-	const showMenu = () => {
-		const menu: any = document.querySelector(".ai-menu");
-		menu.style.display = "block";
-	};
+ 
 
 	return (
 		<>
-			<Box w="full">
+			<Box w="100vw">
 				<NavBar
 					className="nav-bar"
 					title={
@@ -58,7 +63,7 @@ export function ChatTitle({
 							boxSize={5}
 							mr={3}
 							ml={1}
-							onClick={showMenu}
+							onClick={setShowNav.toggle}
 						/>
 					}
 					rightText={

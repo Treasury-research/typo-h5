@@ -53,7 +53,15 @@ p {
 
 .chakra-container {
 	height: 100vh;
-	overflow-x: hidden;
+	overflow: hidden;
+}
+
+.chat-move {
+	transform: translate(30vw, 0px);
+	margin-top: 20px;
+	margin-bottom: 20px;
+	border-radius: 20px;
+	height: calc(100% - 40px) !important;
 }
 
 .monaco-editor .iPadShowKeyboard {
@@ -188,18 +196,8 @@ p {
 
 /*mobile*/
 @media screen and (max-width: 600px) {
-	.logo {
-		display: none !important;
-	}
-
 	.base-modal {
 		width: calc(100vw - 40px) !important;
-	}
-
-	.ai-menu {
-		display: none;
-		width: 100% !important;
-		max-width: 100% !important;
 	}
 
 	.menu-close {
@@ -288,15 +286,6 @@ p {
 }
 
 @media screen and (max-width: 750px) {
-	.logo {
-		display: none !important;
-	}
-
-	.ai-menu {
-		display: none;
-		width: 100% !important;
-		max-width: 100% !important;
-	}
 	.quest {
 		width: 100% !important;
 		max-width: 440px !important;

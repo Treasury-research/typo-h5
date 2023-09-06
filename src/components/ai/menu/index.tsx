@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 
 import { Tabs } from "./Tabs";
-import { Left } from "./Left";
+// import { Left } from "./Left";
 import { ChatList } from "lib/types";
 import { DynamicAccount } from "components/connect";
 
@@ -21,6 +21,7 @@ export function Menu({
 	chatIndex,
 	isSandBox,
 	sandBoxType,
+	showNav,
 	setChatIndex,
 	setList,
 	addChannel,
@@ -32,6 +33,7 @@ export function Menu({
 	chatIndex: number | null;
 	isSandBox: boolean;
 	sandBoxType: string;
+	showNav: boolean;
 	setInput: (value: string) => void;
 	addChannel: () => void;
 	setChatIndex: (value: number | null) => void;
@@ -43,18 +45,25 @@ export function Menu({
 		toggle: () => void;
 	};
 }) {
-	
 	useEffect(() => {
 		setChatIndex(null);
 	}, [isSandBox]);
 
 	return (
-		<HStack w="280px" h="full" className="ai-menu" bg="bg.white" spacing={0}>
+		<HStack
+			w="80vw"
+			h="full"
+			bg="#000"
+			spacing={0}
+			zIndex={5}
+			style={{ display: showNav ? "flex" : "none" }}
+		>
 			<VStack
-				w="220px"
+				w="full"
 				h="full"
 				spacing={0}
 				mt={2}
+				color="#fff"
 				borderColor="bg.gray"
 				justify="space-between"
 			>
