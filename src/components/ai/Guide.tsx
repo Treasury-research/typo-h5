@@ -84,13 +84,7 @@ export function Guide({
 	}, [isSandBox]);
 
 	return (
-		<VStack
-			w="full"
-			h="full"
-			justify="flex-start"
-			alignItems="center"
-			pt="30px"
-		>
+		<VStack w="full" h="full" justify="flex-start" alignItems="center">
 			<Swiper
 				autoplay={5000}
 				indicator={(total, current) => (
@@ -101,11 +95,10 @@ export function Guide({
 			>
 				{list.map((item) => {
 					return (
-						<Swiper.Item>
+						<Swiper.Item key={item.url}>
 							<Box
 								h="full"
 								cursor="pointer"
-								key={item.url}
 								onClick={() => item.link && window.open(item.link)}
 							>
 								<Image h="full" alt="" src={item.url} />
@@ -115,7 +108,7 @@ export function Guide({
 				})}
 			</Swiper>
 
-			<VStack w="full" justify="center" flexDir="column" spacing={5} mt="40px!">
+			<VStack w="full" justify="center" flexDir="column" spacing={5} mt="50px!">
 				{/* <Text fontWeight="semibold" w="full" fontSize="lg" pl={3}>
 					Shortcut command
 				</Text> */}
