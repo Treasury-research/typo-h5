@@ -118,6 +118,7 @@ export function Quest({
 		const TGItem = awards.filter((item) => item.type === "TG")[0];
 		const SubstackItem = awards.filter((item) => item.type === "Substack")[0];
 		const GalleryItem = awards.filter((item) => item.type === "gallery_s1")[0];
+		const Gallery2Item = awards.filter((item) => item.type === "gallery_s2")[0];
 
 		return {
 			preRegItem,
@@ -129,6 +130,7 @@ export function Quest({
 			TGItem,
 			SubstackItem,
 			GalleryItem,
+			Gallery2Item,
 		};
 	}, [awards]);
 
@@ -335,6 +337,14 @@ export function Quest({
 										title="Gallery S1"
 										isFinish={!!awardItems.GalleryItem}
 										value={awardItems.GalleryItem?.score}
+									/>
+								)}
+
+								{awardItems.Gallery2Item && (
+									<AwardItem
+										title="Gallery S2"
+										isFinish={!!awardItems.Gallery2Item}
+										value={awardItems.Gallery2Item?.score}
 									/>
 								)}
 

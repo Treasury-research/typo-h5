@@ -128,26 +128,27 @@ export function ChatSubmit({
 							)}
 						</Button>
 					) : (
-						<Button
-							variant="yellowPrimary"
-							size="xs"
-							transform="scale(0.71)"
-							borderRadius={5}
-							fontWeight="semibold"
-							onClick={() => {
-								ButtonClickTrace("Submit");
-								setShowModal.on();
-							}}
-							_hover={{ transform: "scale(0.75)" }}
-							isDisabled={item.id ? (item.submit ? true : false) : true}
-						>
-							<Text>
-								{item.id ? (item.submit ? "Submited" : "Submit") : "Submit"}
-							</Text>
-							{item.id && !item.submit && (
-								<Icon as={BsArrowRightShort} boxSize={5} ml={0} mr={-1} />
-							)}
-						</Button>
+						<></>
+						// <Button
+						// 	variant="yellowPrimary"
+						// 	size="xs"
+						// 	transform="scale(0.71)"
+						// 	borderRadius={5}
+						// 	fontWeight="semibold"
+						// 	onClick={() => {
+						// 		ButtonClickTrace("Submit");
+						// 		setShowModal.on();
+						// 	}}
+						// 	_hover={{ transform: "scale(0.75)" }}
+						// 	isDisabled={item.id ? (item.submit ? true : false) : true}
+						// >
+						// 	<Text>
+						// 		{item.id ? (item.submit ? "Submited" : "Submit") : "Submit"}
+						// 	</Text>
+						// 	{item.id && !item.submit && (
+						// 		<Icon as={BsArrowRightShort} boxSize={5} ml={0} mr={-1} />
+						// 	)}
+						// </Button>
 					)}
 				</Flex>
 			</Tooltip>

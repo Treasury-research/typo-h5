@@ -61,7 +61,8 @@ export type Incentive = {
 		| "Typo_Hunter"
 		| "TG"
 		| "Substack"
-		| "gallery_s1";
+		| "gallery_s1"
+		| "gallery_s2";
 
 	score: number;
 };

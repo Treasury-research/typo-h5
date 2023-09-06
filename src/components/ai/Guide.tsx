@@ -30,21 +30,25 @@ const sandBoxCommands = [
 
 const slides = [
 	{
+		url: "/images/aisql/token2049.png",
+		link: "https://app.typography.vip?tab=sandbox",
+	},
+	{
 		url: "/images/aisql/guide4.png",
 		link: "https://knexus.xyz/create?utm_source=typo+quest&utm_campaign=kn+mbti",
 	},
-	{
-		url: "/images/aisql/guide1.png",
-		link: "",
-	},
-	{
-		url: "/images/aisql/guide2.png",
-		link: "",
-	},
-	{
-		url: "/images/aisql/guide3.png",
-		link: "",
-	},
+	// {
+	// 	url: "/images/aisql/guide1.png",
+	// 	link: "",
+	// },
+	// {
+	// 	url: "/images/aisql/guide2.png",
+	// 	link: "",
+	// },
+	// {
+	// 	url: "/images/aisql/guide3.png",
+	// 	link: "",
+	// },
 ];
 
 const sandboxSlides = [

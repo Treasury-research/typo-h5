@@ -94,7 +94,7 @@ export default function Home() {
 			<NextSeo title={"TypoGraphy AI"} />
 			<Container className="ai-page" maxW="full" pr={0} pl={0}>
 				<Flex w="full" h="full">
-					{/* <Menu
+					<Menu
 						list={list || []}
 						chatIndex={chatIndex}
 						isSandBox={isSandBox}
@@ -105,7 +105,7 @@ export default function Home() {
 						addChannel={addChannel}
 						setSandBoxType={setSandBoxType}
 						setIsSandBox={setIsSandBox}
-					/> */}
+					/>
 					<VStack w="full" h="full" flex={1} pos="relative" className="ai-chat">
 						<ChatTitle
 							list={list || []}

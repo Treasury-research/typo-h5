@@ -43,21 +43,13 @@ export function Menu({
 		toggle: () => void;
 	};
 }) {
-	const [leftIndex, setLeftIndex] = useState<number>(1);
-
+	
 	useEffect(() => {
 		setChatIndex(null);
 	}, [isSandBox]);
 
 	return (
 		<HStack w="280px" h="full" className="ai-menu" bg="bg.white" spacing={0}>
-			<Left
-				leftIndex={leftIndex}
-				isSandBox={isSandBox}
-				setLeftIndex={setLeftIndex}
-				setIsSandBox={setIsSandBox}
-			/>
-
 			<VStack
 				w="220px"
 				h="full"
@@ -67,19 +59,17 @@ export function Menu({
 				justify="space-between"
 			>
 				<VStack w="full" h="full" py={4}>
-					{(leftIndex === 0 || leftIndex === 1) && (
-						<Tabs
-							list={list}
-							chatIndex={chatIndex}
-							isSandBox={isSandBox}
-							sandBoxType={sandBoxType}
-							setSandBoxType={setSandBoxType}
-							setInput={setInput}
-							addChannel={addChannel}
-							setChatIndex={setChatIndex}
-							setList={setList}
-						/>
-					)}
+					<Tabs
+						list={list}
+						chatIndex={chatIndex}
+						isSandBox={isSandBox}
+						sandBoxType={sandBoxType}
+						setSandBoxType={setSandBoxType}
+						setInput={setInput}
+						addChannel={addChannel}
+						setChatIndex={setChatIndex}
+						setList={setList}
+					/>
 				</VStack>
 
 				<DynamicAccount isSandBox={isSandBox} />
