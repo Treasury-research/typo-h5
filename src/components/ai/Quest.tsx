@@ -36,7 +36,7 @@ import { useStore } from "store";
 import { BaseModal, Copy } from "components";
 import { base64, toShortAddress } from "lib";
 import { useAiStore } from "store/aiStore";
-import { Popup, Cell } from "react-vant";
+import { Popup, Typography } from "react-vant";
 
 const AwardItem = ({
 	title,
@@ -431,12 +431,13 @@ export function Quest({
 									<Text whiteSpace="nowrap">TOKEN2049 Journey</Text>
 								</VStack>
 							</HStack>
-							<Box w="full" pl={6} pr={3} my={3} fontSize="md">
-								By joining the &nbsp;
-								<b>#Token2049</b> channel and engaging in conversations and
-								&nbsp;
-								<b>sharing on Twitter</b>, you will have the opportunity to win
-								up to &nbsp;<b>2049 TCC!</b>
+							<Box w="full" pl={6} pr={3} my={3}>
+								<Typography.Text size="lg">
+									By joining the <b>#Token2049</b> channel and engaging in
+									conversations and &nbsp;
+									<b>sharing on Twitter</b>, you will have the opportunity to
+									win up to &nbsp;<b>2049 TCC!</b>
+								</Typography.Text>
 							</Box>
 							<Flex w="full" mt={1} mb="1rem!" px={4}>
 								<Button

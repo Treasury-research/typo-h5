@@ -27,7 +27,7 @@ export default function Home() {
 	const [chatIndex, setChatIndex] = useState<number | null>(null);
 	const [list, setList] = useState<ChatList[] | null>(null);
 	const [input, setInput] = useState<string>();
-	const [isSandBox, setIsSandBox] = useBoolean(true);
+	const [isSandBox, setIsSandBox] = useBoolean(false);
 	const [sandBoxType, setSandBoxType] = useState("token2049");
 	const { setOpenConnectModal } = useConnectModalStore();
 
