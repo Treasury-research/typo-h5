@@ -23,7 +23,7 @@ export default function Home() {
 	const { tab } = router?.query;
 	const { userId } = useUserInfoStore();
 	const [showNav, setShowNav] = useBoolean(false);
-	const { isOpen, onOpen, onClose } = useDisclosure();
+	const [showQuest, setShowQuest] = useBoolean(false);
 	const [isLoading, setIsLoading] = useBoolean(false);
 	const [chatIndex, setChatIndex] = useState<number | null>(null);
 	const [list, setList] = useState<ChatList[] | null>(null);
@@ -32,7 +32,7 @@ export default function Home() {
 	const [sandBoxType, setSandBoxType] = useState("token2049");
 	const { setOpenConnectModal } = useConnectModalStore();
 
-	// console.log("tab", tab, isSandBox);
+	console.log("showNav", showNav);
 
 	const localName = useMemo(() => {
 		return isSandBox ? "sandbox" : "records";
@@ -77,24 +77,28 @@ export default function Home() {
 		}
 	}, [list]);
 
-	// useEffect(() => {
-	// 	tab === "sandbox" ? setIsSandBox.on() : setIsSandBox.off();
-	// }, [tab]);
-
 	useEffect(() => {
 		if (!userId) {
 			setOpenConnectModal(true);
 			return;
 		}
-
-		// onOpen();
 	}, [userId]);
+
+	useEffect(() => {
+		showNav
+			? (document.body.style.background = "#000")
+			: (document.body.style.background = "#fff");
+	}, [showNav]);
 
 	return (
 		<>
 			<NextSeo title={"TypoGraphy AI"} />
 			<Container w="100vw" pr={0} pl={0}>
-				<Flex w="full" h="full">
+				<Flex
+					w="180vw"
+					h="full"
+					className={showNav ? "move-left" : "move-right"}
+				>
 					<Menu
 						showNav={showNav}
 						list={list || []}
@@ -109,36 +113,35 @@ export default function Home() {
 						setIsSandBox={setIsSandBox}
 					/>
 					<VStack
-						w="100vw"
+						w="calc(100vw + 1px)"
 						h="full"
 						pos="relative"
 						overflow="hidden"
 						alignItems="flex-start"
-						className={showNav ? "chat-move" : ""}
 					>
 						<ChatTitle
 							list={list || []}
 							chatIndex={chatIndex || 0}
-							isOpen={isOpen}
+							isOpen={showQuest}
 							showNav={showNav}
-							onOpen={onOpen}
+							onOpen={setShowQuest.on}
 							setShowNav={setShowNav}
 							setIsSandBox={setIsSandBox}
 						/>
 						<VStack
+							pt={1}
 							w="full"
 							h="full"
 							mt="0!"
-							pt={1}
 							bg="#f4f5f6"
 							alignItems="flex-start"
-							onClick={setShowNav.off}
 						>
 							<ChatContent
 								list={list || []}
 								chatIndex={chatIndex}
 								isLoading={isLoading}
 								isSandBox={isSandBox}
+								setShowNav={setShowNav}
 								onSend={onSend}
 								setList={setList}
 								setInput={setInput}
@@ -157,13 +160,13 @@ export default function Home() {
 								saveHistory={saveHistory}
 								setInput={setInput}
 								setList={setList}
-								onOpen={onOpen}
-								onClose={onClose}
+								onOpen={setShowQuest.on}
+								onClose={setShowQuest.off}
 								setChatIndex={setChatIndex}
 							/>
 						</VStack>
 					</VStack>
-					<Quest isOpen={isOpen} onClose={onClose} />
+					<Quest isOpen={showQuest} onClose={setShowQuest.off} />
 				</Flex>
 			</Container>
 		</>

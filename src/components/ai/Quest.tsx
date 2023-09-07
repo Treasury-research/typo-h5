@@ -73,7 +73,9 @@ const AwardItem = ({
 					</Tooltip>
 				)}
 			</HStack>
-			<Box cursor="pointer">{isFinish ? `+${value}` : value || 0}</Box>
+			<Box cursor="pointer" color="#000">
+				{isFinish ? `+${value}` : value || 0}
+			</Box>
 		</Flex>
 	);
 };
@@ -415,7 +417,7 @@ export function Quest({
 								</Button>
 							</Flex>
 						</VStack>
-						<VStack my={4} bg="bg.lightYellow" borderRadius={10} opacity={0.95}>
+						<VStack mt={4} bg="bg.lightYellow" borderRadius={10} opacity={0.95}>
 							<HStack
 								alignItems="center"
 								w="full"
@@ -441,13 +443,11 @@ export function Quest({
 									<Text whiteSpace="nowrap">TOKEN2049 Journey</Text>
 								</VStack>
 							</HStack>
-							<Box w="full" pl={6} pr={3} my={3}>
-								<Typography.Text size="lg">
-									By joining the <b>#Token2049</b> channel and engaging in
-									conversations and &nbsp;
-									<b>sharing on Twitter</b>, you will have the opportunity to
-									win up to &nbsp;<b>2049 TCC!</b>
-								</Typography.Text>
+							<Box w="full" pl={6} pr={3} my={3} fontSize="md" color="#000">
+								By participating in the <b>#Token2049</b> chat box and unleash
+								your queries about <b>TOKEN2049</b> and our vibrant{" "}
+								<b>communities</b> in conversations, and sharing on Twitter, you
+								will have the opportunity to win up to 2049 TCC!
 							</Box>
 							<Flex w="full" mt={1} mb="1rem!" px={4}>
 								<Button
@@ -462,7 +462,7 @@ export function Quest({
 									leftIcon={<Icon as={BsFillLightningChargeFill} boxSize={4} />}
 									onClick={() =>
 										window.open(
-											"https://www.typography.vip/quest/token2049-quest?utm_source=apptypo&utm_campaign=token2049-contest "
+											"https://www.typography.vip/quest/partners-with-token2049?utm_source=apptypo&utm_campaign=token2049-contest"
 										)
 									}
 								>

@@ -7,22 +7,8 @@ import {
 	HStack,
 	Tooltip,
 	Text,
-	PopoverTrigger,
-	Popover,
-	PopoverContent,
-	PopoverArrow,
-	PopoverBody,
-	PopoverCloseButton,
+	Center,
 } from "@chakra-ui/react";
-import { useJwtStore } from "store/jwtStore";
-import useWeb3Context from "hooks/useWeb3Context";
-import { isPhone, toShortAddress } from "lib";
-import { BiLogIn } from "react-icons/bi";
-import { LuUsers, LuLogOut } from "react-icons/lu";
-import { TfiEmail } from "react-icons/tfi";
-import { useStore } from "store";
-import { useAiStore } from "store/aiStore";
-import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
 import {
 	InviteModal,
 	RemindModal,
@@ -30,11 +16,22 @@ import {
 	VerificationEmailModal,
 	ConnectModal,
 } from "components";
+import { useJwtStore } from "store/jwtStore";
+import useWeb3Context from "hooks/useWeb3Context";
+import { isPhone, toShortAddress } from "lib";
+import { BiLogOut, BiLogIn } from "react-icons/bi";
+import { LuUsers } from "react-icons/lu";
+import { TfiEmail } from "react-icons/tfi";
+import { useStore } from "store";
+import { useAiStore } from "store/aiStore";
+import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
 
 import { useConnectModalStore } from "store/modalStore";
 import { useUserInfoStore } from "store/userInfoStore";
 import { useEffect } from "react";
-import { HiOutlineEllipsisVertical } from "react-icons/hi2";
+import { AiFillTwitterCircle } from "react-icons/ai";
+import { BsTelegram } from "react-icons/bs";
+import { SiSubstack } from "react-icons/si";
 import api from "api";
 
 const Account = ({ isSandBox }: { isSandBox: boolean }) => {
@@ -85,86 +82,94 @@ const Account = ({ isSandBox }: { isSandBox: boolean }) => {
 	}, [jwt, opened, setOpenRemindModal, setOpend]);
 
 	return (
-		<Flex
-			w="full"
-			px="10px"
-			pt={4}
-			pb={5}
-			alignItems="center"
-			borderTopWidth="1px"
-			borderColor="bg.gray"
-		>
+		<VStack w="full" pt={4} alignItems="center">
 			{account && jwt ? (
-				<VStack w="full">
-					<Flex className="w-full justify-between items-center">
-						<HStack>
-							<Jazzicon diameter={40} seed={jsNumberForAddress(account)} />
+				<VStack w="full" px={4} mb={3}>
+					<Box w="full" bg="whiteAlpha.300" color="#fff" borderRadius={10}>
+						<Flex className="w-full justify-between items-center" py={3} px={4}>
+							<HStack>
+								<Jazzicon diameter={40} seed={jsNumberForAddress(account)} />
+								<Box className="flex-col justify-around">
+									<Box className="text-[16px] font-bold">
+										{toShortAddress(account, 10)}
+									</Box>
+									<Box className="text-[12px]">
+										{usedCoupon}/{totalCoupon} Credits
+									</Box>
+								</Box>
+							</HStack>
 
-							<Box className="flex-col justify-around">
-								<Box className="text-[14px] font-bold">
-									{toShortAddress(account, 11)}
-								</Box>
-								<Box className="text-[12px]">
-									{usedCoupon}/{totalCoupon} Credits
-								</Box>
-							</Box>
-						</HStack>
-						<Popover placement="top">
-							<PopoverTrigger>
-								<Flex w="30px" pl={2} justify="center">
-									<Icon
-										as={HiOutlineEllipsisVertical}
-										className="text-[21px] cursor-pointer h-6"
-										_hover={{ transform: "scale(1.1)" }}
-									/>
-								</Flex>
-							</PopoverTrigger>
-							<PopoverContent w="140px" ml={2} overflow="hidden">
-								<PopoverArrow bg="bg.main" />
-								<PopoverBody bg="bg.main" px={0} py={1} fontSize="13px">
-									<HStack
-										w="full"
-										_hover={{ bg: "gray.300" }}
-										cursor="pointer"
-										px={2}
-										py={1}
-										onClick={() => setOpenInviteModal(true)}
-									>
-										<Icon as={LuUsers} color="bg.green" w="20px" />
-										<Text>Refer Friends</Text>
-									</HStack>
-									<HStack
-										w="full"
-										_hover={{ bg: "gray.300" }}
-										cursor="pointer"
-										px={2}
-										py={1}
-										onClick={() => !email && setOpenBindEmailModal(true)}
-									>
-										<Icon as={TfiEmail} color="bg.green" w="20px" />
+							<Icon
+								as={BiLogOut}
+								className="text-[21px] cursor-pointer h-6"
+								_hover={{ transform: "scale(1.1)" }}
+								onClick={() => doLogout()}
+							/>
+						</Flex>
+						<VStack
+							w="full"
+							py={3}
+							px={4}
+							borderColor="whiteAlpha.300"
+							borderTopWidth="1px"
+							fontSize="13px"
+							spacing={2}
+						>
+							<HStack w="full" justify="space-between">
+								<HStack spacing={1} whiteSpace="nowrap">
+									<Icon as={LuUsers} boxSize={4} />
+									<Text transform="scale(0.95)">Refer friends</Text>
+								</HStack>
+								<Button
+									variant="whitePrimary"
+									size="xs"
+									px={3}
+									h="20px"
+									w="55px"
+									onClick={() => {
+										setOpenInviteModal(true);
+									}}
+								>
+									Invite
+								</Button>
+							</HStack>
+							<HStack w="full" justify="space-between">
+								<HStack spacing={1} whiteSpace="nowrap">
+									<Icon as={TfiEmail} boxSize={4} transform="scale(0.93)" />
+									<Text transform="scale(0.93)">Verify Email</Text>
+								</HStack>
+								{email ? (
+									<Tooltip placement="top" fontSize="xs" label={email} hasArrow>
 										<Text
+											fontSize="xs"
+											w="100px"
 											whiteSpace="nowrap"
 											overflow="hidden"
 											textOverflow="ellipsis"
+											transform="scale(0.94)"
+											cursor="pointer"
 										>
-											{email ? email : "Verify Email"}
+											{email}
 										</Text>
-									</HStack>
-									<HStack
-										w="full"
-										_hover={{ bg: "gray.300" }}
-										cursor="pointer"
-										px={2}
-										py={1}
-										onClick={() => doLogout()}
+									</Tooltip>
+								) : (
+									<Button
+										variant="whitePrimary"
+										size="xs"
+										px={3}
+										isDisabled={email}
+										h="20px"
+										w="55px"
+										onClick={() => {
+											setOpenBindEmailModal(true);
+										}}
 									>
-										<Icon as={LuLogOut} color="bg.green" w="20px" />
-										<Text>Logout</Text>
-									</HStack>
-								</PopoverBody>
-							</PopoverContent>
-						</Popover>
-					</Flex>
+										Verify
+									</Button>
+								)}
+							</HStack>
+						</VStack>
+					</Box>
 				</VStack>
 			) : (
 				<Button
@@ -178,13 +183,53 @@ const Account = ({ isSandBox }: { isSandBox: boolean }) => {
 					Sign in
 				</Button>
 			)}
-			
+
+			<HStack
+				w="full"
+				color="bg.white"
+				justify="center"
+				px={10}
+				py={3}
+				borderColor="whiteAlpha.300"
+				borderTopWidth="1px"
+				gap={10}
+			>
+				<Icon
+					as={AiFillTwitterCircle}
+					className="cursor-pointer"
+					onClick={() => window.open("https://twitter.com/Knn3Network")}
+					boxSize={9}
+				/>
+
+				<Icon
+					as={BsTelegram}
+					className="cursor-pointer"
+					onClick={() => window.open("https://t.me/+zR-uaI0Bt_hjMjY9")}
+					boxSize={8}
+				/>
+
+				<Center
+					borderRadius="full"
+					bg="#fff"
+					w="34px"
+					h="34px"
+					onClick={() => window.open("https://knn3.substack.com/")}
+				>
+					<Icon
+						as={SiSubstack}
+						color="#000"
+						className="cursor-pointer"
+						boxSize={4}
+					/>
+				</Center>
+			</HStack>
+
 			<InviteModal isSandBox={isSandBox} />
 			<ConnectModal />
 			<BindEmailModal />
 			<RemindModal />
 			<VerificationEmailModal />
-		</Flex>
+		</VStack>
 	);
 };
 

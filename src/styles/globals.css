@@ -56,33 +56,12 @@ p {
 	overflow: hidden;
 }
 
-.chat-move {
-	transform: translate(30vw, 0px);
-	margin-top: 20px;
-	margin-bottom: 20px;
-	border-radius: 20px;
-	height: calc(100% - 40px) !important;
-}
-
 .monaco-editor .iPadShowKeyboard {
 	display: none;
 }
 
 .css-hhland {
-	white-space: noWrap;
-}
-
-.aisql-sql {
-	height: calc(100% - 110px);
-}
-
-.menu-close {
-	display: none !important;
-}
-
-.aisql-panel::-webkit-scrollbar {
-	width: 0;
-	display: none;
+	white-space: no-wrap;
 }
 
 .audio {
@@ -99,6 +78,7 @@ p {
 	width: 110px;
 	height: 100%;
 }
+
 .voice-popup-ball-bg {
 	width: 100px;
 	height: 100px;
@@ -200,10 +180,6 @@ p {
 		width: calc(100vw - 40px) !important;
 	}
 
-	.menu-close {
-		display: block !important;
-	}
-
 	.ai-right-content-width {
 		max-width: calc(100% - 90px) !important;
 	}
@@ -211,11 +187,6 @@ p {
 	.ai-left-content-width {
 		max-width: inherit !important;
 		width: calc(100% - 65px) !important;
-	}
-
-	.chat-name {
-		max-width: 210px;
-		font-size: 16px !important;
 	}
 
 	.quest {
@@ -311,14 +282,6 @@ p {
 		white-space: nowrap;
 		font-size: 22px;
 		padding-left: 20px;
-	}
-	.menu-close {
-		display: block !important;
-	}
-
-	.chat-name {
-		max-width: 210px;
-		font-size: 16px !important;
 	}
 
 	.invite-3 {

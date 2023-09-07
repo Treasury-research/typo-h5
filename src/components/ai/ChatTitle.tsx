@@ -37,11 +37,18 @@ export function ChatTitle({
 		toggle: () => void;
 	};
 }) {
- 
-
 	return (
 		<>
 			<Box w="100vw">
+				{showNav && (
+					<Box
+						w="full"
+						h="full"
+						pos="absolute"
+						zIndex={5}
+						onClick={setShowNav.off}
+					/>
+				)}
 				<NavBar
 					className="nav-bar"
 					title={

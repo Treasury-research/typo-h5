@@ -45,28 +45,19 @@ export function Menu({
 		toggle: () => void;
 	};
 }) {
-	useEffect(() => {
-		setChatIndex(null);
-	}, [isSandBox]);
-
 	return (
-		<HStack
-			w="80vw"
-			h="full"
-			bg="#000"
-			spacing={0}
-			zIndex={5}
-			style={{ display: showNav ? "flex" : "none" }}
-		>
+		<HStack w="80vw" h="full" bg="#000" spacing={0} zIndex={5}>
 			<VStack
 				w="full"
 				h="full"
 				spacing={0}
-				mt={2}
+				pt="20px"
 				color="#fff"
 				borderColor="bg.gray"
 				justify="space-between"
+				alignItems="flex-start"
 			>
+				<Image className="logo" src={`/logo.svg`} height="55px" ml={4}/>
 				<VStack w="full" h="full" py={4}>
 					<Tabs
 						list={list}

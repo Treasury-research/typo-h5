@@ -285,8 +285,6 @@ export function Tabs({
 				</Text>
 			</Flex>
 
-			{/* <CloseButton className="menu-close" onClick={closeMenu} /> */}
-
 			<VStack
 				ref={myTab}
 				w="full"

@@ -9,12 +9,12 @@ import { Driver, Toasts, Trace } from "components";
 import { Web3ContextProvider, isPhone, isProduction } from "lib";
 import customTheme from "styles/theme";
 
-import "@uiw/react-md-editor/markdown-editor.css";
-import "@uiw/react-markdown-preview/markdown.css";
+import "react-vant/lib/index.css";
+import "animate.css";
 import "styles/markdown.css";
 import "styles/globals.css";
 import "styles/h5.css";
-import "react-vant/lib/index.css";
+
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
 	const router = useRouter();

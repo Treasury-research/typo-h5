@@ -22,10 +22,10 @@ const commands = [
 ];
 
 const sandBoxCommands = [
+	"I would like to meet with Moledao.",
+	"I would like to know more about PermaDAO.",
+	"Guide me on how to meet with BuidlerDAO.",
 	"I'm interested in AI and Web3 development.",
-	"Suggest DeFi related events for me.",
-	"I'm looking to meet new GameFi friends. ",
-	"I want to do some exercise.",
 ];
 
 const slides = [
