@@ -147,10 +147,10 @@ export function Tabs({
 												onClick={() => {
 													setReadOnly.off();
 													setName(item.name);
+													setSelectIndex(index);
 													setTimeout(() => {
 														document.getElementById(`channel${index}`)?.focus();
-														setSelectIndex(index);
-													}, 100);
+													}, 200);
 												}}
 											/>
 
