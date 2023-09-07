@@ -28,15 +28,14 @@ import { Incentive } from "lib/types";
 import {
 	CheckIcon,
 	ChevronRightIcon,
-	CopyIcon,
 	InfoIcon,
 	InfoOutlineIcon,
 } from "@chakra-ui/icons";
 import { useStore } from "store";
-import { BaseModal, Copy } from "components";
+import { BaseModal, Copy, Empty } from "components";
 import { base64, toShortAddress } from "lib";
 import { useAiStore } from "store/aiStore";
-import { Popup, Typography } from "react-vant";
+import { Popup, CouponList, Card } from "react-vant";
 
 const AwardItem = ({
 	title,
@@ -170,6 +169,299 @@ export function Quest({
 	return (
 		<>
 			<Popup
+				round
+				position="bottom"
+				style={{ height: "auto", padding: "4 0" }}
+				visible={isOpen}
+				onClose={onClose}
+				className="quest"
+			>
+				<CouponList
+					showCount={false}
+					showExchangeBar={false}
+					chosenCoupon={-1}
+					showCloseButton={false}
+					enabledTitle="QUEST (2)"
+					listFooter={
+						<VStack w="full" gap={3} px="12px">
+							<Card
+								round
+								style={{
+									boxShadow: "0 0 4px rgba(0, 0, 0, 0.1)",
+									width: "100%",
+								}}
+							>
+								<Card.Header>
+									<HStack color="#ee6f2d">
+										<Center bg="blackAlpha.200" p={2} borderRadius="full">
+											<Image src="/images/aisql/tcc.svg" boxSize={5} alt="" />
+										</Center>
+										<Box lineHeight="19px">
+											<HStack spacing={1} fontSize="md">
+												<Text mr={1}>{totalScore} TCC</Text>
+												<Text></Text>
+											</HStack>
+											<Text fontSize="sm">Total TCC Earned</Text>
+										</Box>
+									</HStack>
+								</Card.Header>
+								<Card.Body style={{ padding: 0 }}>
+									<Box w="full" fontSize="md">
+										<VStack
+											w="full"
+											px={3}
+											py={4}
+											fontSize="13px"
+											fontWeight="semibold"
+											spacing={2}
+											color="#000"
+											borderColor="#ebedf0"
+											borderTopWidth="1.5px"
+											borderStyle="dashed"
+										>
+											{awardItems.preRegItem && (
+												<AwardItem
+													title="Pre-reg"
+													isFinish={!!awardItems.preRegItem}
+													value={awardItems.preRegItem?.score}
+												/>
+											)}
+
+											<AwardItem
+												title="Sign in"
+												isFinish={!!awardItems.signInItem}
+												value={awardItems.signInItem?.score}
+											/>
+
+											{awardItems.typeHunterItem && (
+												<AwardItem
+													title="Typo Hunter"
+													isFinish={!!awardItems.typeHunterItem}
+													value={awardItems.typeHunterItem?.score}
+												/>
+											)}
+
+											<AwardItem
+												title="Verify Telegram"
+												isFinish={!!awardItems.TGItem}
+												value={
+													!!awardItems.TGItem ? (
+														awardItems.TGItem?.score
+													) : (
+														<HStack
+															spacing={0}
+															mr={-1}
+															fontSize="sm"
+															onClick={() => {
+																setShowModal.on();
+																onClose();
+															}}
+														>
+															<Text>Verify</Text>
+															<ChevronRightIcon boxSize={5} />
+														</HStack>
+													)
+												}
+											/>
+
+											<AwardItem
+												title="Verify Email"
+												isFinish={!!awardItems.verifyEmailItem}
+												value={
+													!!awardItems.verifyEmailItem ? (
+														awardItems.verifyEmailItem?.score
+													) : (
+														<HStack
+															spacing={0}
+															mr={-1}
+															fontSize="sm"
+															onClick={() => {
+																setOpenBindEmailModal(true);
+																onClose();
+															}}
+														>
+															<Text>Verify</Text>
+															<ChevronRightIcon boxSize={5} />
+														</HStack>
+													)
+												}
+											/>
+
+											<AwardItem
+												title="Email subscription"
+												isFinish={!!awardItems.SubstackItem}
+												email={email}
+												value={
+													!!awardItems.SubstackItem ? (
+														awardItems.SubstackItem?.score
+													) : (
+														<HStack
+															spacing={0}
+															mr={-1}
+															fontSize="sm"
+															onClick={() => {
+																if (email) {
+																	window.open("https://knn3.substack.com/");
+																} else {
+																	setOpenBindEmailModal(true);
+																	onClose();
+																}
+															}}
+														>
+															<Text>Subscribe</Text>
+															<ChevronRightIcon boxSize={5} />
+														</HStack>
+													)
+												}
+											/>
+
+											{awardItems.GalleryItem && (
+												<AwardItem
+													title="Gallery S1"
+													isFinish={!!awardItems.GalleryItem}
+													value={awardItems.GalleryItem?.score}
+												/>
+											)}
+
+											{awardItems.Gallery2Item && (
+												<AwardItem
+													title="Gallery S2"
+													isFinish={!!awardItems.Gallery2Item}
+													value={awardItems.Gallery2Item?.score}
+												/>
+											)}
+
+											{isInvite && (
+												<AwardItem
+													title="Referee"
+													isFinish={!!awardItems.refereeItem}
+													value={
+														!!awardItems.refereeItem ? (
+															awardItems.refereeItem?.score
+														) : (
+															<HStack
+																spacing={0}
+																mr={-1}
+																fontSize="sm"
+																onClick={() => {
+																	setOpenBindEmailModal(true);
+																	onClose();
+																}}
+															>
+																<Text>Verify</Text>
+																<ChevronRightIcon boxSize={5} />
+															</HStack>
+														)
+													}
+												/>
+											)}
+
+											<AwardItem
+												title="Referral"
+												isFinish={!!awardItems.referralItem}
+												value={
+													!!awardItems.referralItem ? (
+														awardItems.referralItem?.score
+													) : (
+														<HStack
+															spacing={0}
+															mr={-1}
+															fontSize="sm"
+															onClick={() => {
+																setOpenInviteModal(true);
+																onClose();
+															}}
+														>
+															<Text>Invite</Text>
+															<ChevronRightIcon boxSize={5} />
+														</HStack>
+													)
+												}
+											/>
+										</VStack>
+									</Box>
+								</Card.Body>
+								<Card.Footer>
+									<Button
+										w="full"
+										variant="blackPrimary"
+										size="sm"
+										h="35px"
+										borderRadius={20}
+										color="#fae3b3"
+										fontWeight="semibold"
+										leftIcon={<Icon as={FaUserGroup} boxSize={4} />}
+										onClick={() => {
+											setOpenInviteModal(true);
+											onClose();
+										}}
+									>
+										Invite more friends
+									</Button>
+								</Card.Footer>
+							</Card>
+							<Card
+								round
+								style={{
+									boxShadow: "0 0 4px rgba(0, 0, 0, 0.1)",
+									width: "100%",
+								}}
+							>
+								<Card.Header>
+									<HStack color="#ee6f2d">
+										<Center bg="blackAlpha.200" p={2} borderRadius="full">
+											<Icon as={IoRocketOutline} boxSize={5} />
+										</Center>
+										<Text whiteSpace="nowrap">TOKEN2049 Journey</Text>
+									</HStack>
+								</Card.Header>
+								<Card.Body style={{ padding: 0 }}>
+									<Box
+										w="full"
+										py={3}
+										px={5}
+										fontSize="md"
+										color="#000"
+										borderColor="#ebedf0"
+										borderTopWidth="1.5px"
+										borderStyle="dashed"
+									>
+										By participating in the <b>#Token2049</b> chat box and
+										unleash your queries about <b>TOKEN2049</b> and our vibrant{" "}
+										<b>communities</b> in conversations, and sharing on Twitter,
+										you will have the opportunity to win up to 2049 TCC!
+									</Box>
+								</Card.Body>
+								<Card.Footer>
+									<Button
+										w="full"
+										variant="blackPrimary"
+										size="sm"
+										h="35px"
+										borderRadius={20}
+										color="#fae3b3"
+										fontWeight="semibold"
+										leftIcon={
+											<Icon as={BsFillLightningChargeFill} boxSize={4} />
+										}
+										onClick={() =>
+											window.open(
+												"https://www.typography.vip/quest/partners-with-token2049?utm_source=apptypo&utm_campaign=token2049-contest"
+											)
+										}
+									>
+										View More Info
+									</Button>
+								</Card.Footer>
+							</Card>
+						</VStack>
+					}
+
+					// onChange={onChange}
+					// onExchange={onExchange}
+				/>
+			</Popup>
+			{/* <Popup
 				visible={isOpen}
 				closeable
 				round
@@ -417,7 +709,7 @@ export function Quest({
 								</Button>
 							</Flex>
 						</VStack>
-						<VStack mt={4} bg="bg.lightYellow" borderRadius={10} opacity={0.95}>
+						<VStack my={4} bg="bg.lightYellow" borderRadius={10} opacity={0.95}>
 							<HStack
 								alignItems="center"
 								w="full"
@@ -473,7 +765,7 @@ export function Quest({
 					</>
 				}
 				onClose={onClose}
-			/>
+			/> */}
 
 			<BaseModal
 				isOpen={showModal}

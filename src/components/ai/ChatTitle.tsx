@@ -10,15 +10,16 @@ import {
 import { ChatList } from "lib/types";
 import { AiOutlineMenu } from "react-icons/ai";
 import { BsFillLightningChargeFill } from "react-icons/bs";
-import { NavBar, Tabs } from "react-vant";
+import { NavBar, Tabs,Badge } from "react-vant";
 
 export function ChatTitle({
 	list,
 	chatIndex,
 	isOpen,
-	onOpen,
 	showNav,
-	setShowNav,
+	onOpen,
+	openNav,
+	closeNav,
 	setIsSandBox,
 }: {
 	list: ChatList[];
@@ -26,11 +27,8 @@ export function ChatTitle({
 	showNav: boolean;
 	isOpen: boolean;
 	onOpen: () => void;
-	setShowNav: {
-		on: () => void;
-		off: () => void;
-		toggle: () => void;
-	};
+	openNav: () => void;
+	closeNav: () => void;
 	setIsSandBox: {
 		on: () => void;
 		off: () => void;
@@ -41,13 +39,7 @@ export function ChatTitle({
 		<>
 			<Box w="100vw">
 				{showNav && (
-					<Box
-						w="full"
-						h="full"
-						pos="absolute"
-						zIndex={5}
-						onClick={setShowNav.off}
-					/>
+					<Box w="full" h="full" pos="absolute" zIndex={5} onClick={closeNav} />
 				)}
 				<NavBar
 					className="nav-bar"
@@ -70,46 +62,39 @@ export function ChatTitle({
 							boxSize={5}
 							mr={3}
 							ml={1}
-							onClick={setShowNav.toggle}
+							onClick={openNav}
 						/>
 					}
 					rightText={
-						<HStack
-							pos="relative"
-							pr={2}
-							marginInlineEnd="0"
-							cursor="pointer"
-							bg="bg.yellow"
-							color="#fff"
-							h="28px"
-							fontSize="xs"
-							alignItems="center"
-							justify="center"
-							fontWeight="semibold"
-							borderRadius={5}
-							_hover={{ transform: "scale(1.01)" }}
-							onClick={() => {
-								onOpen();
-							}}
-						>
-							<Box
-								w="8px"
-								h="8px"
-								borderRadius="full"
-								pos="absolute"
-								bg="#ee6f2d"
-								top="-3px"
-								right="-3px"
-							/>
-							<Center bg="#fff" p="5px" borderRadius="full" w="16px" h="16px">
-								<Icon
-									as={BsFillLightningChargeFill}
-									boxSize={3}
-									color="bg.yellow"
-								/>
-							</Center>
-							<Text>QUEST</Text>
-						</HStack>
+						<Badge dot>
+							<HStack
+								pos="relative"
+								px={2}
+								py="2px"
+								marginInlineEnd="0"
+								cursor="pointer"
+								bg="bg.yellow"
+								color="#fff"
+								fontSize="xs"
+								alignItems="center"
+								justify="center"
+								fontWeight="semibold"
+								borderRadius={5}
+								_hover={{ transform: "scale(1.01)" }}
+								onClick={() => {
+									onOpen();
+								}}
+							>
+								<Center bg="#fff" p="5px" borderRadius="full" w="16px" h="16px">
+									<Icon
+										as={BsFillLightningChargeFill}
+										boxSize={3}
+										color="bg.yellow"
+									/>
+								</Center>
+								<Text>QUEST</Text>
+							</HStack>
+						</Badge>
 					}
 				/>
 			</Box>

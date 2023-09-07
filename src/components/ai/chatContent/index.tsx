@@ -18,7 +18,7 @@ export function ChatContent({
 	onSend,
 	isSandBox,
 	setChatIndex,
-	setShowNav,
+	openNav,
 }: {
 	list: ChatList[];
 	isLoading: boolean;
@@ -28,11 +28,7 @@ export function ChatContent({
 	setInput: (value: string) => void;
 	onSend: (isReGenerate?: boolean) => void;
 	setList: (value: ChatList[]) => void;
-	setShowNav: {
-		on: () => void;
-		off: () => void;
-		toggle: () => void;
-	};
+	openNav: () => void;
 }) {
 	const { userId } = useUserInfoStore();
 	const showChat = useMemo(() => {
@@ -49,7 +45,7 @@ export function ChatContent({
 		<>
 			{showChat && (
 				<Text
-					className="animate__animated animate__fadeInLeft animate__delay-1s"
+					className="animate__animated animate__fadeInLeft"
 					pos="absolute"
 					top="65px"
 					left="-2px"
@@ -61,7 +57,7 @@ export function ChatContent({
 					color="blackAlpha.700"
 					borderRightRadius={5}
 					zIndex={5}
-					onClick={setShowNav.on}
+					onClick={openNav}
 				>
 					{(list && list[chatIndex || 0]?.name) || "Title"}
 				</Text>
@@ -69,10 +65,9 @@ export function ChatContent({
 
 			<Box
 				w="full"
-				mt="35px!"
+				mt={showChat ? "35px" : "10px"}
+				pb={showChat ? "50px" : "20px"}
 				mb="20px!"
-				pb="50px"
-				className="no-scrollbar"
 				id="chat-content"
 				h="calc(100% - 90px)"
 				overflowY="scroll"

@@ -1,17 +1,8 @@
-import {
-	Icon,
-	Text,
-	Flex,
-	VStack,
-	Image,
-	Center,
-	Box,
-	Badge,
-} from "@chakra-ui/react";
+import { Icon, Text, Flex, VStack, Center, Box, Badge } from "@chakra-ui/react";
 import { BsCommand } from "react-icons/bs";
 
 import { useMemo } from "react";
-import { Cell, Swiper, Typography } from "react-vant";
+import { Cell, Swiper, Typography, Image } from "react-vant";
 
 const commands = [
 	"What's KNN3 Network?",
@@ -90,7 +81,7 @@ export function Guide({
 	return (
 		<VStack w="full" h="full" justify="flex-start" alignItems="center">
 			<Swiper
-				autoplay={5000}
+				// autoplay={5000}
 				indicator={(total, current) => (
 					<Box className="custom-indicator">
 						{current + 1}/{total}
@@ -101,18 +92,17 @@ export function Guide({
 					return (
 						<Swiper.Item key={item.url}>
 							<Box
-								h="full"
 								cursor="pointer"
 								onClick={() => item.link && window.open(item.link)}
 							>
-								<Image h="full" alt="" src={item.url} />
+								<Image alt="" src={item.url} fit="contain" />
 							</Box>
 						</Swiper.Item>
 					);
 				})}
 			</Swiper>
 
-			<VStack w="full" justify="center" flexDir="column" spacing={5} mt="50px!">
+			<VStack w="full" justify="center" flexDir="column" spacing={5} mt="40px!">
 				{/* <Text fontWeight="semibold" w="full" fontSize="lg" pl={3}>
 					Shortcut command
 				</Text> */}
@@ -135,13 +125,8 @@ export function Guide({
 							)}
 							<Cell.Group card>
 								<Cell
-									title={
-										<Typography.Text ellipsis>
-											{text}
-										</Typography.Text>
-									}
+									title={<Typography.Text ellipsis>{text}</Typography.Text>}
 									icon={<BsCommand />}
-									size="large"
 									isLink
 									onClick={() => {
 										setInput(text);

@@ -45,6 +45,7 @@ export const ChatInput = forwardRef(
 			setChatIndex,
 			onOpen,
 			onClose,
+			openNav,
 		}: {
 			chatIndex: number | null;
 			input: string;
@@ -55,6 +56,7 @@ export const ChatInput = forwardRef(
 			setIsLoading: any;
 			onOpen: () => void;
 			onClose: () => void;
+			openNav: () => void;
 			setInput: (value: string) => void;
 			setList: (value: ChatList[]) => void;
 			saveHistory: (value: ChatList[]) => void;
@@ -97,7 +99,8 @@ export const ChatInput = forwardRef(
 			}
 
 			if (chatIndex === null && list.length >= 10) {
-				showToast(`Maximum 10 channels`, "warning");
+				showToast(`Maximum channels reached. Pick or delete one.`, "warning");
+				openNav();
 				return;
 			}
 

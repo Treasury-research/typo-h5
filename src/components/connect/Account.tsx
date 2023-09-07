@@ -84,7 +84,7 @@ const Account = ({ isSandBox }: { isSandBox: boolean }) => {
 	return (
 		<VStack w="full" pt={4} alignItems="center">
 			{account && jwt ? (
-				<VStack w="full" px={4} mb={3}>
+				<VStack w="full" px={4} mb={1}>
 					<Box w="full" bg="whiteAlpha.300" color="#fff" borderRadius={10}>
 						<Flex className="w-full justify-between items-center" py={3} px={4}>
 							<HStack>

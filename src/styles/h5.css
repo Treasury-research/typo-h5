@@ -67,3 +67,32 @@
 	background-color: rgba(0, 0, 0, 0.7);
 	border-radius: 2px;
 }
+
+.quest .rv-tab {
+	display: none;
+}
+
+.quest .rv-tab--active {
+	display: flex;
+}
+
+.quest .rv-coupon-list__bottom {
+	display: none;
+}
+
+.quest .rv-coupon-list__empty {
+	display: none;
+}
+
+.quest .rv-tabs__line {
+	width: 80px;
+	background: #ee6f2d;
+	transform: translateX(205px) translateX(-50%) !important;
+}
+
+.quest .rv-tab__text {
+	color: #ee6f2d;
+	font-weight: 600;
+}
+
+/*  */

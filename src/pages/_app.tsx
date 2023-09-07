@@ -28,11 +28,11 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 		window?.localStorage.setItem("chakra-ui-color-mode", "light");
 	}
 
-	// useEffect(() => {
-	// 	if (isPhone() && !router.pathname.includes("mobile")) {
-	// 		router.push("/mobile");
-	// 	}
-	// }, [router]);
+	useEffect(() => {
+		if (!isPhone()) {
+			router.push("https://app.typography.vip/");
+		}
+	}, [router]);
 
 	return (
 		<ChakraProvider theme={customTheme}>

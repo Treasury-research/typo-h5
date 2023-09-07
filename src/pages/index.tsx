@@ -48,8 +48,10 @@ export default function Home() {
 
 	const addChannel = () => {
 		if (myInput.current) {
-			const copyList = deepClone(list);
-			myInput.current.addChannel(copyList);
+			setTimeout(() => {
+				const copyList = deepClone(list);
+				myInput.current.addChannel(copyList);
+			}, 300);
 		}
 	};
 
@@ -125,13 +127,14 @@ export default function Home() {
 							isOpen={showQuest}
 							showNav={showNav}
 							onOpen={setShowQuest.on}
-							setShowNav={setShowNav}
+							openNav={setShowNav.on}
+							closeNav={setShowNav.off}
 							setIsSandBox={setIsSandBox}
 						/>
 						<VStack
 							pt={1}
 							w="full"
-							h="full"
+							h="calc(100% - 55px)"
 							mt="0!"
 							bg="#f4f5f6"
 							alignItems="flex-start"
@@ -141,7 +144,7 @@ export default function Home() {
 								chatIndex={chatIndex}
 								isLoading={isLoading}
 								isSandBox={isSandBox}
-								setShowNav={setShowNav}
+								openNav={setShowNav.on}
 								onSend={onSend}
 								setList={setList}
 								setInput={setInput}
@@ -152,16 +155,17 @@ export default function Home() {
 								ref={myInput}
 								list={list || []}
 								input={input || ""}
+								saveHistory={saveHistory}
+								setInput={setInput}
+								setList={setList}
 								chatIndex={chatIndex}
 								isLoading={isLoading}
 								setIsLoading={setIsLoading}
 								isSandBox={isSandBox}
 								sandBoxType={sandBoxType}
-								saveHistory={saveHistory}
-								setInput={setInput}
-								setList={setList}
 								onOpen={setShowQuest.on}
 								onClose={setShowQuest.off}
+								openNav={setShowNav.on}
 								setChatIndex={setChatIndex}
 							/>
 						</VStack>

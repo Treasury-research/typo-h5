@@ -57,8 +57,8 @@ export function Menu({
 				justify="space-between"
 				alignItems="flex-start"
 			>
-				<Image className="logo" src={`/logo.svg`} height="55px" ml={4}/>
-				<VStack w="full" h="full" py={4}>
+				<Image className="logo" src={`/logo.svg`} height="55px" ml={4} />
+				<VStack w="full" h="calc(100% - 285px)" pt={2} pb={4}  >
 					<Tabs
 						list={list}
 						chatIndex={chatIndex}
@@ -72,7 +72,9 @@ export function Menu({
 					/>
 				</VStack>
 
-				<DynamicAccount isSandBox={isSandBox} />
+				<Box w="full" h="230px">
+					<DynamicAccount isSandBox={isSandBox} />
+				</Box>
 			</VStack>
 		</HStack>
 	);

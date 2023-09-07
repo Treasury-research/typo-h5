@@ -188,11 +188,7 @@ p {
 		max-width: inherit !important;
 		width: calc(100% - 65px) !important;
 	}
-
-	.quest {
-		width: 100% !important;
-		max-width: 440px !important;
-	}
+ 
 
 	.chat-left-content > div {
 		padding: 0 8px;
@@ -257,10 +253,7 @@ p {
 }
 
 @media screen and (max-width: 750px) {
-	.quest {
-		width: 100% !important;
-		max-width: 440px !important;
-	}
+	 
 	.ai-not-show {
 		display: none !important;
 	}
