@@ -57,17 +57,6 @@
 	padding-bottom: 0;
 }
 
-.custom-indicator {
-	position: absolute;
-	right: 10px;
-	bottom: 8px;
-	padding: 1px 4px;
-	color: #fff;
-	font-size: 12px;
-	background-color: rgba(0, 0, 0, 0.7);
-	border-radius: 2px;
-}
-
 .quest .rv-popup__title {
 	color: #ee6f2d;
 	font-weight: 600;
@@ -87,5 +76,20 @@
 
 .quest .rv-coupon-list__list {
 	height: inherit;
+}
+
+.guide .rv-cell__title {
+	width: 83%;
+}
+
+.guide .custom-indicator {
+	position: absolute;
+	right: 10px;
+	bottom: 8px;
+	padding: 1px 4px;
+	color: #fff;
+	font-size: 12px;
+	background-color: rgba(0, 0, 0, 0.7);
+	border-radius: 2px;
 }
 /*  */

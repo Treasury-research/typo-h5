@@ -17,8 +17,7 @@ import "styles/h5.css";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
 	const router = useRouter();
-	const { toastMessage, toastType, toastTime, position, isClosable } =
-		useStore();
+	const { toastMessage, toastType, toastTime } = useStore();
 
 	if (
 		typeof window !== "undefined" &&
@@ -58,7 +57,6 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 			<Web3ContextProvider>
 				<Component {...pageProps} className="flex-1" />
 				<Trace />
-				{/* <Driver /> */}
 				<Toasts message={toastMessage} type={toastType} time={toastTime} />
 			</Web3ContextProvider>
 		</ChakraProvider>

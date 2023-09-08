@@ -79,9 +79,15 @@ export function Guide({
 	}, [isSandBox]);
 
 	return (
-		<VStack w="full" h="full" justify="flex-start" alignItems="center">
+		<VStack
+			className="guide"
+			w="full"
+			h="full"
+			justify="flex-start"
+			alignItems="center"
+		>
 			<Swiper
-				// autoplay={5000}
+				autoplay={5000}
 				indicator={(total, current) => (
 					<Box className="custom-indicator">
 						{current + 1}/{total}
@@ -102,11 +108,7 @@ export function Guide({
 				})}
 			</Swiper>
 
-			<VStack w="full" justify="center" flexDir="column" spacing={5} mt="40px!">
-				{/* <Text fontWeight="semibold" w="full" fontSize="lg" pl={3}>
-					Shortcut command
-				</Text> */}
-
+			<VStack w="full" justify="center" flexDir="column" spacing={5} mt="45px!">
 				{cmds.map((text, index) => {
 					return (
 						<Box key={index} w="full" pos="relative">
@@ -125,8 +127,9 @@ export function Guide({
 							)}
 							<Cell.Group card>
 								<Cell
+									style={{ alignItems: "center" }}
 									title={<Typography.Text ellipsis>{text}</Typography.Text>}
-									icon={<BsCommand />}
+									icon={<Icon as={BsCommand} w="20px" />}
 									isLink
 									onClick={() => {
 										setInput(text);
