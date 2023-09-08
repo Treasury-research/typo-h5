@@ -25,16 +25,12 @@ interface AppState {
 	wallet: any;
 	setWallet: (wallet: any) => void;
 	toastMessage: string;
-	toastType: "success" | "error" | "warning" | "info" | undefined;
+	toastType: "success" | "danger" | "warning" | "primary" | undefined;
 	toastTime: number | undefined;
-	isClosable: boolean | undefined;
-	position: 'top' | 'top-right' | 'top-left' | 'bottom' | 'bottom-right' | 'bottom-left' | undefined;
 	showToast: (
 		message: string,
-		type?: "success" | "error" | "warning" | "info" | undefined,
-		time?: number | undefined,
-		isClosable?: boolean | undefined,
-		position?: 'top' | 'top-right' | 'top-left' | 'bottom' | 'bottom-right' | 'bottom-left' | undefined,
+		type?: "success" | "danger" | "warning" | "primary" | undefined,
+		time?: number | undefined
 	) => void;
 	emailSubscription: boolean | undefined;
 	setEmailSubscription: (emailSubscription: boolean) => void;
@@ -95,21 +91,15 @@ export const useStore = create<AppState>()((set) => ({
 	toastMessage: "",
 	toastType: undefined,
 	toastTime: undefined,
-	isClosable: false,
-	position: "top-right",
 	showToast: (
 		message: string,
-		type?: "success" | "error" | "warning" | "info" | undefined,
-		time?: number | undefined,
-		isClosable?: boolean | undefined,
-		position?: 'top' | 'top-right' | 'top-left' | 'bottom' | 'bottom-right' | 'bottom-left' | undefined,
+		type?: "success" | "danger" | "warning" | "primary" | undefined,
+		time?: number | undefined
 	) =>
 		set({
 			toastMessage: message,
 			toastType: type,
 			toastTime: time,
-			isClosable,
-			position,
 		}),
 	selectedApikey: undefined,
 	setSelectedApiKey: (selectedApikey: KeyData | undefined) =>
@@ -128,7 +118,9 @@ export const useStore = create<AppState>()((set) => ({
 	openInviteModal: false,
 	setOpenInviteModal: (openInviteModal: boolean) => set({ openInviteModal }),
 	openBindEmailModal: false,
-	setOpenBindEmailModal: (openBindEmailModal: boolean) => set({ openBindEmailModal }),
+	setOpenBindEmailModal: (openBindEmailModal: boolean) =>
+		set({ openBindEmailModal }),
 	openVerificationEmailModal: false,
-	setOpenVerificationEmailModal: (openVerificationEmailModal: boolean) => set({ openVerificationEmailModal })
+	setOpenVerificationEmailModal: (openVerificationEmailModal: boolean) =>
+		set({ openVerificationEmailModal }),
 }));

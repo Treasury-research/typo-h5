@@ -21,6 +21,7 @@ import { useUserInfoStore } from "store/userInfoStore";
 import { useStore } from "store";
 import { CloseIcon } from "@chakra-ui/icons";
 import { toShortAddress } from "lib";
+import { NoticeBar } from "react-vant";
 
 export function ConnectModal(props: any) {
 	const router = useRouter();
@@ -177,31 +178,13 @@ export function ConnectModal(props: any) {
 								/>
 							</Alert>
 						) : (
-							<Alert
-								status="warning"
-								fontSize="xs"
-								py="8px"
-								borderRadius={5}
-								justifyContent="space-between"
-							>
-								<HStack spacing={1}>
-									<AlertIcon boxSize={4} />
-									<Text mr={3} lineHeight="17px" color="#DF753F">
-										Sign in with referral links to get more rewards.
-									</Text>
-								</HStack>
-
-								<CloseIcon
-									w="8px"
-									color="blackAlpha.800"
-									_hover={{ color: "black" }}
-									cursor="pointer"
-									onClick={() => {
-										localStorage.setItem("isHiddenTip", "true");
-										setIsHiddenTip.on();
-									}}
-								/>
-							</Alert>
+							<NoticeBar
+								style={{ width: "100%" }}
+								wrapable={false}
+								scrollable
+								text="Sign in with referral links to get more rewards."
+								mode="closeable"
+							/>
 						)}
 					</Box>
 				) : (

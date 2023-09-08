@@ -34,7 +34,7 @@ export function BindEmailModal() {
 				setOpenBindEmailModal(false);
 				setOpenVerificationEmailModal(true);
 			} else {
-				showToast(result.data?.errorMsg || "Bind error!", "error");
+				showToast(result.data?.errorMsg || "Bind error!", "danger");
 			}
 			setIsLoading(false);
 		} catch (error) {

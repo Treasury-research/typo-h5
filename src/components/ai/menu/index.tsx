@@ -10,7 +10,6 @@ import {
 } from "@chakra-ui/react";
 
 import { Tabs } from "./Tabs";
-// import { Left } from "./Left";
 import { ChatList } from "lib/types";
 import { DynamicAccount } from "components/connect";
 
@@ -58,7 +57,7 @@ export function Menu({
 				alignItems="flex-start"
 			>
 				<Image className="logo" src={`/logo.svg`} height="55px" ml={4} />
-				<VStack w="full" h="calc(100% - 285px)" pt={2} pb={4}  >
+				<VStack w="full" h="calc(100% - 285px)" py={4}  >
 					<Tabs
 						list={list}
 						chatIndex={chatIndex}

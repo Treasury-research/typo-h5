@@ -6,3 +6,4 @@ export * from "./Copy";
 export * from "./ai";
 export * from "./Social";
 export * from "./connect";
+export * from "./LongPressTouch";

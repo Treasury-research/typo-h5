@@ -161,7 +161,7 @@ export function Tabs({
 													const copyList: ChatList[] = deepClone(list);
 													Dialog.confirm({
 														title: "Clear",
-														message: "Are you sure to Clear this chat?",
+														message: "Are you sure to clear this chat?",
 													}).then(() => {
 														copyList[index].children = [];
 														setList(copyList);
@@ -176,7 +176,7 @@ export function Tabs({
 													const copyList: ChatList[] = deepClone(list);
 													Dialog.confirm({
 														title: "Delete",
-														message: "Are you sure to Delete this chat?",
+														message: "Are you sure to delete this chat?",
 													}).then(() => {
 														copyList.splice(index, 1);
 														setChatIndex(null);
@@ -212,7 +212,7 @@ export function Tabs({
 								actions={[{ text: "token2049" }]}
 								onSelect={(option: any) => setSandBoxType(option.text)}
 								reference={
-									<Badge size="xs" mt={-1}>
+									<Badge size="xs" mt={-1} colorScheme="green">
 										{sandBoxType}
 									</Badge>
 								}

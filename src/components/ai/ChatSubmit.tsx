@@ -8,9 +8,7 @@ import {
 	VStack,
 	Avatar,
 	Icon,
-	Alert,
 	useBoolean,
-	AlertIcon,
 } from "@chakra-ui/react";
 import api from "api";
 import { BaseModal } from "components";
@@ -22,6 +20,7 @@ import { useAiStore } from "store/aiStore";
 import { FaTelegramPlane } from "react-icons/fa";
 import { useUserInfoStore } from "store/userInfoStore";
 import { useMemo } from "react";
+import { NoticeBar } from "react-vant";
 
 export function ChatSubmit({
 	item,
@@ -72,7 +71,7 @@ export function ChatSubmit({
 				showToast("Submit success!", "success");
 				setUsedCoupon(usedCoupon + 5);
 			} else {
-				showToast(result.data?.errorMsg || "Submit error!", "error");
+				showToast(result.data?.errorMsg || "Submit error!", "danger");
 			}
 			setIsLoading.off();
 			ButtonClickTrace("Submit_confirm");
@@ -81,7 +80,7 @@ export function ChatSubmit({
 			setIsLoading.off();
 			ButtonClickTrace("Submit_confirm");
 			!isSandBox && setShowModal.off();
-			showToast("Submit error!", "error");
+			showToast("Submit error!", "danger");
 		}
 	};
 
@@ -171,25 +170,13 @@ export function ChatSubmit({
 									<Text ml={1} w="full">
 										Spend 5 TCC to submit your Q&A to the TOKEN2049 Quest
 									</Text>
-									<Alert
-										status="warning"
-										fontSize="xs"
-										py="8px"
-										mt={4}
-										borderRadius={5}
-										justifyContent="space-between"
-									>
-										<HStack spacing={1} alignItems="flex-start">
-											<AlertIcon boxSize={4} mt="3px" />
-											<Box lineHeight="20px" mr={1} color="#DF753F">
-												*Only qualified questions related to
-												<span style={{ fontWeight: "600", paddingLeft: "5px" }}>
-													TOKEN2049
-												</span>{" "}
-												will be rewarded.
-											</Box>
-										</HStack>
-									</Alert>
+									<NoticeBar
+										style={{ width: "100%" }}
+										wrapable={false}
+										scrollable
+										speed={30}
+										text="*Only qualified questions related to TOKEN2049 will be rewarded."
+									/>
 								</>
 							)}
 						</>
@@ -198,25 +185,13 @@ export function ChatSubmit({
 							<Text ml={1} w="full">
 								Spend 5 TCC to submit this Q&A to the Questionnaire Contest.
 							</Text>
-							<Alert
-								status="warning"
-								fontSize="xs"
-								py="8px"
-								mt={4}
-								borderRadius={5}
-								justifyContent="space-between"
-							>
-								<HStack spacing={1} alignItems="flex-start">
-									<AlertIcon boxSize={4} mt={1} />
-									<Box lineHeight="17px" mr={1} color="#DF753F">
-										*Only questions related to
-										<span style={{ fontWeight: "600", paddingLeft: "5px" }}>
-											Small & Medium Dapps, Exchanges, and Investment
-										</span>{" "}
-										will be rewarded.
-									</Box>
-								</HStack>
-							</Alert>
+							<NoticeBar
+								style={{ width: "100%" }}
+								wrapable={false}
+								scrollable
+								speed={30}
+								text="*Only questions related to Small & Medium Dapps, Exchanges, and Investment 	will be rewarded."
+							/>
 						</>
 					)}
 				</VStack>

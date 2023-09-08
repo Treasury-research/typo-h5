@@ -65,12 +65,13 @@ export function ChatContent({
 
 			<Box
 				w="full"
-				mt={showChat ? "35px!" : "10px"}
+				mt={showChat ? "35px!" : "15px"}
 				pb={showChat ? "50px!" : "20px"}
 				mb="20px!"
 				id="chat-content"
 				h="calc(100% - 90px)"
 				overflowY="scroll"
+				className="no-scrollbar"
 			>
 				{showChat ? (
 					<VStack

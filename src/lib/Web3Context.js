@@ -194,7 +194,7 @@ export const Web3ContextProvider = ({ children }) => {
       setEmail(res?.data?.email)
       getIsInvite();
     } else {
-      showToast('Authentication failed', "error")
+      showToast('Authentication failed', "danger")
     }
   }
 

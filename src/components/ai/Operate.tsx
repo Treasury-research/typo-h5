@@ -11,6 +11,7 @@ import {
 	Text,
 	useClipboard,
 	Portal,
+	VStack,
 } from "@chakra-ui/react";
 
 import { ChatChildren, ChatList } from "lib/types";
@@ -23,6 +24,8 @@ import { useStore } from "store";
 import { deepClone } from "lib";
 import { useMemo, useState } from "react";
 import moment from "moment";
+import { LongPressTouch } from "components";
+import { Popup, Dialog, Picker } from "react-vant";
 
 export function Operate({
 	item,
@@ -44,7 +47,7 @@ export function Operate({
 	setList: (value: ChatList[]) => void;
 }) {
 	const { showToast } = useStore();
-	const [isMouseOver, setIsMouseOver] = useBoolean(false);
+	const [isOpen, setIsOpen] = useBoolean(false);
 	const { onCopy } = useClipboard(item.content as string);
 
 	const isLastLeftChat = useMemo(() => {
@@ -61,6 +64,20 @@ export function Operate({
 		return rightItems[0]?.content || undefined;
 	}, [item, chatIndex, list]);
 
+	const showActions = useMemo(() => {
+		const actions = ["Delete"];
+
+		if (item.type === "result" && isLastLeftChat && lastUserInput) {
+			actions.unshift("Regen");
+		}
+
+		if (!["profile", "ens", "poap", "snapshot"].includes(item?.tool || "")) {
+			actions.unshift("Copy");
+		}
+
+		return actions;
+	}, [item, isLastLeftChat, lastUserInput]);
+
 	const deleteLastLeftChat = () => {
 		const copyList: ChatList[] = deepClone(list);
 		copyList[chatIndex].children.splice(index, 1);
@@ -73,153 +90,68 @@ export function Operate({
 		onSend && onSend(true);
 	};
 
+	const onPickerChange = (action: any) => {
+		if (action === "Copy") {
+			showToast("Copied", "success");
+			onCopy();
+		} else if (action === "Delete") {
+			Dialog.confirm({
+				title: "Delete",
+				message: "Are you sure to delete this content?",
+			}).then(() => {
+				const copyList: ChatList[] = deepClone(list);
+				copyList[chatIndex].children.splice(index, 1);
+				setList(copyList);
+			});
+		} else if (action === "Regen") {
+			regen();
+		}
+
+		setIsOpen.off();
+	};
+
 	return (
-		<>
+		<LongPressTouch
+			isOpen={isOpen}
+			onOpen={setIsOpen.on}
+			PressArea={
+				<Popup
+					round
+					position="bottom"
+					style={{ paddingBottom: "40px" }}
+					visible={isOpen}
+					onClose={setIsOpen.off}
+				>
+					<Picker
+						showToolbar={true}
+						title="Operate"
+						columns={showActions}
+						onConfirm={onPickerChange}
+						onCancel={setIsOpen.off}
+					/>
+				</Popup>
+			}
+		>
 			<Flex
 				w="full"
 				pos="relative"
 				gap={2}
-				onMouseOver={setIsMouseOver.on}
-				onMouseLeave={setIsMouseOver.off}
-				cursor="pointer"
 				justify={item.type === "nl" ? "flex-end" : "flex-start"}
 			>
+				{children}
 				{item.type != "nl" && (
-					<>
-						{children}
-						{isMouseOver && (
-							<Text
-								mt={1}
-								color="gray.400"
-								fontSize="12px"
-								pos="absolute"
-								left="48px"
-								bottom="-20px"
-							>
-								{moment(Number(item.createTime)).fromNow()}
-							</Text>
-						)}
-					</>
-				)}
-
-				{isMouseOver && (
-					<Flex
-						h="35px"
-						flexDir={item.type === "nl" ? "inherit" : "row-reverse"}
-						alignItems="center"
+					<Text
+						mt={1}
+						color="gray.400"
+						fontSize="12px"
+						pos="absolute"
+						left="48px"
+						bottom="-20px"
 					>
-						<Popover placement="bottom" flip={false}>
-							<PopoverTrigger>
-								<Flex
-									w="20px"
-									h="35px"
-									justify="center"
-									alignItems="center"
-									pos="relative"
-								>
-									<Icon
-										mt={0}
-										as={HiOutlineEllipsisVertical}
-										color="gray.500"
-										cursor="pointer"
-										boxSize={7}
-									/>
-								</Flex>
-							</PopoverTrigger>
-							<Portal>
-								<PopoverContent
-									bg="bg.main"
-									w="110px"
-									mt="-6px"
-									boxShadow="none!"
-									onMouseOver={setIsMouseOver.on}
-								>
-									<PopoverArrow bg="bg.main" />
-									<PopoverBody px={0} py={1}>
-										{item.tool != "profile" && (
-											<HStack
-												w="full"
-												_hover={{ bg: "gray.300" }}
-												cursor="pointer"
-												pl={4}
-												py={1}
-												onClick={() => {
-													showToast("Copied", "success");
-													onCopy();
-													setIsMouseOver.off();
-												}}
-											>
-												<Icon as={BiCopy} color="bg.green" boxSize={4} />
-												<Text>Copy</Text>
-											</HStack>
-										)}
-										<HStack
-											w="full"
-											_hover={{ bg: "gray.300" }}
-											cursor="pointer"
-											pl={4}
-											py={1}
-											onClick={() => {
-												const copyList: ChatList[] = deepClone(list);
-												copyList[chatIndex].children.splice(index, 1);
-												setList(copyList);
-												setIsMouseOver.off();
-											}}
-										>
-											<Icon as={RiDeleteBinLine} color="bg.green" boxSize={4} />
-											<Text>Delete</Text>
-										</HStack>
-										{item.type === "result" &&
-											isLastLeftChat &&
-											lastUserInput && (
-												<HStack
-													w="full"
-													_hover={{ bg: "gray.300" }}
-													cursor="pointer"
-													pl={4}
-													py={1}
-													onClick={regen}
-												>
-													<Icon
-														as={BsArrowRepeat}
-														color="bg.green"
-														boxSize={4}
-													/>
-													<Text>Regen</Text>
-												</HStack>
-											)}
-										{/* {item.id && (
-										<HStack
-											w="full"
-											_hover={{ bg: "gray.300" }}
-											cursor="pointer"
-											pl={4}
-											py={1}
-											onClick={() => {
-												if (!item.submit) {
-													ButtonClickTrace("Submit");
-													setShowModal.on();
-												}
-											}}
-										>
-											<Icon
-												as={GoChecklist}
-												color={item.submit ? "gray.400" : "bg.green"}
-												boxSize={4}
-											/>
-											<Text color={item.submit ? "gray.400" : ""}>
-												{item.submit ? "Submited" : "Submit"}
-											</Text>
-										</HStack>
-									)} */}
-									</PopoverBody>
-								</PopoverContent>
-							</Portal>
-						</Popover>
-					</Flex>
+						{moment(Number(item.createTime)).fromNow()}
+					</Text>
 				)}
-				{item.type === "nl" && children}
 			</Flex>
-		</>
+		</LongPressTouch>
 	);
 }

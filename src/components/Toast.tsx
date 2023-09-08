@@ -1,36 +1,26 @@
 import { useToast } from "@chakra-ui/react";
 import { useEffect, ReactNode } from "react";
-import { useStore } from 'store';
+import { useStore } from "store";
+import { Notify } from "react-vant";
 
 export function Toasts({
 	message,
-	type,
-	time,
-	isClosable,
-	position
+	type = "primary",
+	time = 3000,
 }: {
 	message: string;
-	type: "success" | "error" | "warning" | "info" | undefined;
+	type?: "success" | "danger" | "warning" | "primary" | undefined;
 	time: number | undefined;
-	isClosable: boolean;
-	position: 'top' | 'top-right' | 'top-left' | 'bottom' | 'bottom-right' | 'bottom-left' | undefined,
 }) {
 	const toast = useToast();
 	const { showToast } = useStore();
 
 	useEffect(() => {
 		if (message) {
-			toast({
-				description: message,
-				duration: time || 3000,
-				position: "top-right",
-				variant: "subtle",
-				status: type || "info",
-				isClosable: isClosable || false,
-			});
-			showToast('')
+			Notify.show({ type: type, message: message, duration: time });
+			showToast("");
 		}
-	}, [message, type, time, toast, isClosable, position, showToast]);
+	}, [message, type, time, toast, showToast]);
 
 	return <></>;
 }

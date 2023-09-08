@@ -236,7 +236,7 @@ export const ChatInput = forwardRef(
 				setInput("");
 				setList(copyList);
 				saveHistory(copyList);
-				showToast("Send message error!", "error");
+				showToast("Send message error!", "danger");
 				onScroll(400);
 			}
 		};
@@ -297,7 +297,7 @@ export const ChatInput = forwardRef(
 							cursor="pointer"
 							boxSize={6}
 							ml="2px"
-							mb="5px"
+							mb="3px"
 							color={input ? "black" : "gray.300"}
 							onClick={() => setInput("")}
 						/>
@@ -320,7 +320,7 @@ export const ChatInput = forwardRef(
 						/>
 						<Flex h="full" alignItems="flex-end">
 							{isLoading ? (
-								<Box w="38px" mb={2}>
+								<Box w="38px" mb={1}>
 									<BeatLoader size={7} />
 								</Box>
 							) : (
@@ -337,7 +337,6 @@ export const ChatInput = forwardRef(
 										as={TbSend}
 										color="bg.white"
 										boxSize={5}
-										cursor={input.trim() ? "pointer" : "not-allowed"}
 										onClick={() => {
 											if (input.trim()) {
 												onSend();

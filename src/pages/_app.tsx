@@ -15,7 +15,6 @@ import "styles/markdown.css";
 import "styles/globals.css";
 import "styles/h5.css";
 
-
 const MyApp = ({ Component, pageProps }: AppProps) => {
 	const router = useRouter();
 	const { toastMessage, toastType, toastTime, position, isClosable } =
@@ -66,7 +65,6 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 					message={toastMessage}
 					type={toastType}
 					time={toastTime}
-					position={position}
 					isClosable={isClosable || false}
 				/>
 			</Web3ContextProvider>
