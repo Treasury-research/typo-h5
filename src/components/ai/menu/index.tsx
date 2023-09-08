@@ -4,8 +4,6 @@ import {
 	Flex,
 	VStack,
 	Image,
-	Icon,
-	CloseButton,
 	HStack,
 } from "@chakra-ui/react";
 
@@ -56,7 +54,7 @@ export function Menu({
 				justify="space-between"
 				alignItems="flex-start"
 			>
-				<Image className="logo" src={`/logo.svg`} height="55px" ml={4} />
+				<Image className="logo" src={`/logo.svg`} height="45px" ml={4} />
 				<VStack w="full" h="calc(100% - 285px)" py={4}>
 					<Tabs
 						list={list}
