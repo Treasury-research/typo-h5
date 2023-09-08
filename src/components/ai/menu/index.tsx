@@ -20,11 +20,11 @@ export function Menu({
 	chatIndex,
 	isSandBox,
 	sandBoxType,
-	showNav,
 	setChatIndex,
 	setList,
 	addChannel,
 	setInput,
+	closeNav,
 	setIsSandBox,
 	setSandBoxType,
 }: {
@@ -32,12 +32,12 @@ export function Menu({
 	chatIndex: number | null;
 	isSandBox: boolean;
 	sandBoxType: string;
-	showNav: boolean;
 	setInput: (value: string) => void;
 	addChannel: () => void;
 	setChatIndex: (value: number | null) => void;
 	setList: (value: ChatList[]) => void;
 	setSandBoxType: (value: string) => void;
+	closeNav: () => void;
 	setIsSandBox: {
 		on: () => void;
 		off: () => void;
@@ -57,7 +57,7 @@ export function Menu({
 				alignItems="flex-start"
 			>
 				<Image className="logo" src={`/logo.svg`} height="55px" ml={4} />
-				<VStack w="full" h="calc(100% - 285px)" py={4}  >
+				<VStack w="full" h="calc(100% - 285px)" py={4}>
 					<Tabs
 						list={list}
 						chatIndex={chatIndex}
@@ -68,6 +68,7 @@ export function Menu({
 						addChannel={addChannel}
 						setChatIndex={setChatIndex}
 						setList={setList}
+						closeNav={closeNav}
 					/>
 				</VStack>
 

@@ -88,6 +88,11 @@ export const ChatInput = forwardRef(
 				return;
 			}
 
+			if (!userId) {
+				showToast("You're not logged in yet.", "warning");
+				return;
+			}
+
 			if (!input) {
 				showToast("Please enter your question.", "warning");
 				return;
@@ -118,6 +123,10 @@ export const ChatInput = forwardRef(
 		};
 
 		const addChannel = (copyList: ChatList[]) => {
+			if (!userId) {
+				showToast("You're not logged in yet.", "warning");
+				return;
+			}
 			const timestamp = new Date().getTime();
 			const chat_index = copyList.length === 0 ? 0 : copyList.length;
 			const time = new Date(timestamp).toLocaleTimeString();
@@ -267,7 +276,7 @@ export const ChatInput = forwardRef(
 
 		return (
 			<HStack pos="relative" w="100vw" spacing={3} py={2} px={3}>
-				<Audio input={input} setInput={setInput} boxSize={5} color="bg.green" />
+				{/* <Audio input={input} setInput={setInput} boxSize={5} color="bg.green" /> */}
 				<Flex
 					ml={3}
 					flex={1}

@@ -82,7 +82,7 @@ const Account = ({ isSandBox }: { isSandBox: boolean }) => {
 	}, [jwt, opened, setOpenRemindModal, setOpend]);
 
 	return (
-		<VStack w="full" pt={4} alignItems="center">
+		<VStack w="full" h="full" pt={4} alignItems="flex-start" justify="flex-end">
 			{account && jwt ? (
 				<VStack w="full" px={4} mb={1}>
 					<Box w="full" bg="whiteAlpha.300" color="#fff" borderRadius={10}>
@@ -173,6 +173,7 @@ const Account = ({ isSandBox }: { isSandBox: boolean }) => {
 				</VStack>
 			) : (
 				<Button
+					ml={2}
 					leftIcon={<Icon as={BiLogIn} boxSize={5} />}
 					variant="whitePrimary"
 					size="sm"

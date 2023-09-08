@@ -32,6 +32,7 @@ export function Tabs({
 	setList,
 	addChannel,
 	setInput,
+	closeNav,
 	setSandBoxType,
 }: {
 	list: ChatList[];
@@ -42,6 +43,7 @@ export function Tabs({
 	addChannel: () => void;
 	setChatIndex: (value: number | null) => void;
 	setList: (value: ChatList[]) => void;
+	closeNav: () => void;
 	setSandBoxType: (value: string) => void;
 }) {
 	const myTab = useRef<any>(null);
@@ -93,7 +95,6 @@ export function Tabs({
 								<Cell
 									center
 									key={index}
-									onClick={() => setChatIndex(index)}
 									title={
 										<Flex>
 											<Text fontSize="md" pl={1} pr={2}>
@@ -124,6 +125,10 @@ export function Tabs({
 													whiteSpace="nowrap"
 													overflow="hidden"
 													textOverflow="ellipsis"
+													onClick={() => {
+														setChatIndex(index);
+														closeNav();
+													}}
 												>
 													{item.name}
 												</Text>

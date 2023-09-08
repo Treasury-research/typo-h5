@@ -2,16 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-	width: 100vw;
-	height: 100vh;
-	-webkit-font-smoothing: antialiased;
-}
-
-p {
-	margin: 0;
-}
-
 @font-face {
 	font-family: Robtronika;
 	src: url("./fonts/Robtronika.ttf");
@@ -47,131 +37,32 @@ p {
 	overflow: -moz-scrollbars-none;
 }
 
-#chakra-toast-manager-top-right {
-	margin-top: 80px;
+html,
+body {
+	width: 100vw;
+	height: 100%;
+	-webkit-font-smoothing: antialiased;
 }
 
-.chakra-container {
-	height: 100vh;
-	overflow: hidden;
-}
-
-.monaco-editor .iPadShowKeyboard {
-	display: none;
-}
-
-.css-hhland {
-	white-space: no-wrap;
-}
-
-.audio {
-	width: 42px;
-	height: 42px;
-	background: "#fff";
-	background-image: url(https://mms-graph.cdn.bcebos.com/aiSearch/outerCircle.webp);
-	background-size: 140% 140%;
-	background-position: center center;
-}
-
-.voice-popup-ball {
-	position: relative;
-	width: 110px;
+#__next {
 	height: 100%;
 }
 
-.voice-popup-ball-bg {
-	width: 100px;
-	height: 100px;
-	background-image: url(https://mms-graph.cdn.bcebos.com/aiSearch/ball-bg.webp);
-	-webkit-animation: ball-bg_3jxmr 2s ease-in-out infinite;
-	animation: ball-bg_3jxmr 2s ease-in-out infinite;
-	-webkit-background-size: contain;
-	background-size: contain;
+p {
+	margin: 0;
 }
 
-.voice-popup-ball-div {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	-webkit-transform: translate(-50%, -50%);
-	transform: translate(-50%, -50%);
-	border-radius: 50%;
-	-webkit-background-size: contain;
-	background-size: contain;
-	width: 50px;
-	height: 50px;
-	background-image: url(https://mms-graph.cdn.bcebos.com/aiSearch/outerCircle.webp);
-	--duration: 2.8s;
-}
-
-.dottedLine::after {
-	content: "";
-	width: 100%;
-	height: 1px;
-	border-top: 1px dashed #979797;
-	opacity: 0.6;
-}
-
-.voice-popup-button {
-	background-image: url(https://mms-graph.cdn.bcebos.com/aiSearch/centralCircle.webp);
-	pointer-events: auto;
-}
-
-.maxSize-140 {
-	--max-size: 120px;
-}
-
-.maxSize-115 {
-	--max-size: 100px;
-}
-
-.maxSize-90 {
-	--max-size: 70px;
-}
-
-.maxSize-140 {
-	--max-size: 120px;
+.chakra-container {
+	height: 100%;
+	/* position: absolute;
+	bottom: 0;
+	top: 0;
+	left: 0;
+	overflow: hidden; */
 }
 
 .poap {
 	column-gap: 2rem !important;
-}
-
-@keyframes ball-bg_3jxmr {
-	0% {
-		opacity: 1;
-		width: 110px;
-		height: 110px;
-	}
-
-	50% {
-		opacity: 0.4;
-		width: 88px;
-		height: 88px;
-	}
-
-	to {
-		opacity: 1;
-		width: 110px;
-		height: 110px;
-	}
-}
-
-@keyframes sonarEffect {
-	0% {
-		opacity: 0.3;
-	}
-	40% {
-		opacity: 0.5;
-		box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1), 0 0 10px 10px #3851bc63,
-			0 0 0 10px rgba(255, 255, 255, 0.5);
-	}
-	100% {
-		box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1), 0 0 10px 10px #3851bc4a,
-			0 0 0 10px rgba(255, 255, 255, 0.5);
-		transform: scale(1.5);
-		opacity: 0;
-	}
 }
 
 /*mobile*/
@@ -188,7 +79,6 @@ p {
 		max-width: inherit !important;
 		width: calc(100% - 65px) !important;
 	}
- 
 
 	.chat-left-content > div {
 		padding: 0 8px;
@@ -253,7 +143,6 @@ p {
 }
 
 @media screen and (max-width: 750px) {
-	 
 	.ai-not-show {
 		display: none !important;
 	}

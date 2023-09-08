@@ -65,7 +65,7 @@ export function ChatContent({
 
 			<Box
 				w="full"
-				mt={showChat ? "35px!" : "15px"}
+				mt={showChat ? "35px!" : "10px"}
 				pb={showChat ? "50px!" : "20px"}
 				mb="20px!"
 				id="chat-content"

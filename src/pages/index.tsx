@@ -102,7 +102,6 @@ export default function Home() {
 					className={showNav ? "move-left" : "move-right"}
 				>
 					<Menu
-						showNav={showNav}
 						list={list || []}
 						chatIndex={chatIndex}
 						isSandBox={isSandBox}
@@ -113,6 +112,7 @@ export default function Home() {
 						addChannel={addChannel}
 						setSandBoxType={setSandBoxType}
 						setIsSandBox={setIsSandBox}
+						closeNav={setShowNav.off}
 					/>
 					<VStack
 						w="calc(100vw + 1px)"

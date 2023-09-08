@@ -16,7 +16,7 @@
 
 .move-left {
 	transform: translate(0vw, 0px);
-	transition: transform 0.3s ease-in-out;
+	transition: transform 0.16s ease-in-out;
 }
 
 .move-left > div:nth-child(2) {
@@ -28,7 +28,7 @@
 .move-right {
 	height: 100%;
 	transform: translate(-80vw, 0px);
-	transition: transform 0.2s ease-in-out;
+	transition: transform 0.1s ease-in-out;
 }
 
 .nav-bar .rv-nav-bar__content {
@@ -68,12 +68,13 @@
 	border-radius: 2px;
 }
 
-.quest .rv-tab {
-	display: none;
+.quest .rv-popup__title {
+	color: #ee6f2d;
+	font-weight: 600;
 }
 
-.quest .rv-tab--active {
-	display: flex;
+.quest .rv-tabs__wrap {
+	display: none;
 }
 
 .quest .rv-coupon-list__bottom {
@@ -82,17 +83,6 @@
 
 .quest .rv-coupon-list__empty {
 	display: none;
-}
-
-.quest .rv-tabs__line {
-	width: 80px;
-	background: #ee6f2d;
-	transform: translateX(205px) translateX(-50%) !important;
-}
-
-.quest .rv-tab__text {
-	color: #ee6f2d;
-	font-weight: 600;
 }
 
 .quest .rv-coupon-list__list {

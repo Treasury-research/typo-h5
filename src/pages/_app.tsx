@@ -56,17 +56,10 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 						gtag('config', 'G-2EV36YE6VQ');`}
 			</Script>
 			<Web3ContextProvider>
-				<div className="flex flex-col h-screen">
-					<Component {...pageProps} className="flex-1" />
-				</div>
+				<Component {...pageProps} className="flex-1" />
 				<Trace />
 				{/* <Driver /> */}
-				<Toasts
-					message={toastMessage}
-					type={toastType}
-					time={toastTime}
-					isClosable={isClosable || false}
-				/>
+				<Toasts message={toastMessage} type={toastType} time={toastTime} />
 			</Web3ContextProvider>
 		</ChakraProvider>
 	);
