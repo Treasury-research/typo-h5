@@ -5,7 +5,7 @@ import { useStore } from "store";
 import Script from "next/script";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { Driver, Toasts, Trace } from "components";
+import { Toasts, Trace } from "components";
 import { Web3ContextProvider, isPhone, isProduction } from "lib";
 import customTheme from "styles/theme";
 
