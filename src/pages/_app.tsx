@@ -27,10 +27,10 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 	}
 
 	useEffect(() => {
-		if (!isPhone() && !router.pathname.includes("localhost")) {
-			 router.pathname.includes("staging")
-					? router.push("https://typography.staging.knn3.xyz")
-					: router.push("https://app.typography.vip/");
+		if (!isPhone() && !location.host.includes("localhost")) {
+			location.host.includes("staging")
+				? router.push("https://typography.staging.knn3.xyz")
+				: router.push("https://app.typography.vip/");
 		}
 	}, [router]);
 
