@@ -6,6 +6,7 @@ import {
 	useRef,
 	useState,
 	useEffect,
+	useMemo,
 } from "react";
 import { TbSend } from "react-icons/tb";
 import { useStore } from "store";
@@ -357,16 +358,22 @@ export const ChatInput = forwardRef(
 						</Flex>
 					</HStack>
 				</Flex>
-				<Box
-					pos="absolute"
-					w="full"
-					top="-60px"
-					left="0px"
-					h="40px"
-					bgImg="url('/images/aisql/gradient.png')"
-					bgRepeat="repeat"
-					borderRadius={10}
-				/>
+				{userId &&
+					chatIndex !== null &&
+					list &&
+					list.length > 0 &&
+					list[chatIndex]?.children.length > 0 && (
+						<Box
+							pos="absolute"
+							w="full"
+							top="-60px"
+							left="0px"
+							h="40px"
+							bgImg="url('/images/aisql/gradient.png')"
+							bgRepeat="repeat"
+							borderRadius={10}
+						/>
+					)}
 			</HStack>
 		);
 	}

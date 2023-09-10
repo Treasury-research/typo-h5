@@ -39,7 +39,7 @@ export function ChatContent({
 			list.length > 0 &&
 			list[chatIndex]?.children.length > 0
 		);
-	}, [userId, chatIndex, list, chatIndex]);
+	}, [userId, chatIndex, list]);
 
 	return (
 		<>
