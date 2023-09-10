@@ -39,7 +39,7 @@ export function RemindModal() {
 					pos="relative"
 					padding="0"
 				>
-					<Image src="./images/remind.jpg" alt="" />
+					<Image src="./images/remind.png" alt="" />
 				</ModalBody>
 			</ModalContent>
 		</Modal>
