@@ -7,6 +7,7 @@ import {
 	Alert,
 	AlertIcon,
 	Text,
+	Button,
 	HStack,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
@@ -22,6 +23,8 @@ import { useStore } from "store";
 import { CloseIcon } from "@chakra-ui/icons";
 import { toShortAddress } from "lib";
 import { NoticeBar } from "react-vant";
+import useWallet from "lib/useWallet";
+import { useAccount, useConnect, useDisconnect, useSwitchNetwork } from 'wagmi';
 
 export function ConnectModal(props: any) {
 	const router = useRouter();
@@ -29,30 +32,34 @@ export function ConnectModal(props: any) {
 	const { inviteId } = router?.query;
 	const { openConnectModal, setOpenConnectModal } = useConnectModalStore();
 	const [isHiddenTip, setIsHiddenTip] = useBoolean(false);
+	const { onConnect, networkConfig } = useWallet();
+  const { address, isConnected } = useAccount();
+	const { connect, connectors, error, isLoading, pendingConnector } =
+	useConnect();
 
 	const { openBindEmail, setOpenBindEmail, setPartyType, setPartyId, setType } =
 		useBindEmailStore();
 
 	const { setUserInfo, clearUserInfo } = useUserInfoStore();
 
-	const { doLogin, connectWallet } = useWeb3Context();
+	// const { doLogin, connectWallet } = useWeb3Context();
 
 	const { jwt, setJwt } = useJwtStore();
 
-	const [isLoading, setIsLoading] = useBoolean(false);
+	// const [isLoading, setIsLoading] = useBoolean(false);
 
-	const connectClick = async () => {
-		setIsLoading.on();
-		const res = await connectWallet();
-		try {
-			if (res) {
-				await doLogin(res);
-				setIsLoading.off();
-			}
-		} catch (error) {
-			setIsLoading.off();
-		}
-	};
+	// const connectClick = async () => {
+	// 	// setIsLoading.on();
+	// 	const res = await connectWallet();
+	// 	try {
+	// 		if (res) {
+	// 			// await doLogin(res);
+	// 			// setIsLoading.off();
+	// 		}
+	// 	} catch (error) {
+	// 		// setIsLoading.off();
+	// 	}
+	// };
 
 	const verifyGithub = async () => {
 		const res: any = await bindGithubApi.post("", {
@@ -110,7 +117,7 @@ export function ConnectModal(props: any) {
 				isOpen={openConnectModal}
 				onClose={() => {
 					setOpenConnectModal(false);
-					setIsLoading.off();
+					// setIsLoading.off();
 				}}
 				title="Sign In"
 				isCentered={true}
@@ -129,10 +136,11 @@ export function ConnectModal(props: any) {
 					my={4}
 					cursor="pointer"
 					className="hover:opacity-70"
-					onClick={connectClick}
+					// onClick={connectClick}
 				>
 					<Box>Browser Wallet</Box>
-					<Box>
+					
+					{/* <Box>
 						{isLoading ? (
 							<Spinner size="md" mr={2} mt={1} color="gray.700" />
 						) : (
@@ -143,8 +151,28 @@ export function ConnectModal(props: any) {
 								width="40px"
 							/>
 						)}
-					</Box>
+					</Box> */}
 				</Flex>
+
+				<div className="flex flex-col w-full gap-2">
+					{
+						connectors.filter((c) => c.ready)
+						.map((connector) => (
+							<Button
+							onClick={async () => {
+								if (isConnected) {
+									console.log(1212, isConnected, address);
+									await onConnect(address as string);
+								} else {
+									// await beforeConnect(connector);
+									connect({ connector });
+								}
+							}}
+							className='flex w-full flex-1 items-center justify-start gap-4 rounded-md border border-transparent bg-bg-100 px-4 py-3 text-sm font-medium text-white hover:bg-bg-200 focus:outline-none'
+							key={connector.id}>{connector.name}</Button>
+						))
+					}
+				</div>
 
 				{!isHiddenTip ? (
 					<Box mb={3}>

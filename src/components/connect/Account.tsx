@@ -33,10 +33,13 @@ import { AiFillTwitterCircle } from "react-icons/ai";
 import { BsTelegram } from "react-icons/bs";
 import { SiSubstack } from "react-icons/si";
 import api from "api";
+import { useAccount } from "wagmi";
+import useWallet from "lib/useWallet";
 
 const Account = ({ isSandBox }: { isSandBox: boolean }) => {
 	const { jwt, setJwt } = useJwtStore();
-	const { account, doLogout } = useWeb3Context();
+	const { doLogout } = useWallet();
+  const { address, isConnected } = useAccount();
 	const { totalCoupon, usedCoupon, setTotalCoupon, setUsedCoupon } =
 		useAiStore();
 	const { email, userId, setUserId, setEmail } = useUserInfoStore();
@@ -79,19 +82,19 @@ const Account = ({ isSandBox }: { isSandBox: boolean }) => {
 			setOpenRemindModal(true);
 			setOpend(true);
 		}
-	}, [jwt, opened, setOpenRemindModal, setOpend]);
+	}, [jwt, opened, setOpenRemindModal, setOpend, address]);
 
 	return (
 		<VStack w="full" h="full" pt={4} alignItems="flex-start" justify="flex-end">
-			{account && jwt ? (
+			{address && jwt ? (
 				<VStack w="full" px={4} mb={1}>
 					<Box w="full" bg="whiteAlpha.300" color="#fff" borderRadius={10}>
 						<Flex className="w-full justify-between items-center" py={3} px={4}>
 							<HStack>
-								<Jazzicon diameter={40} seed={jsNumberForAddress(account)} />
+								<Jazzicon diameter={40} seed={jsNumberForAddress(address)} />
 								<Box className="flex-col justify-around">
 									<Box className="text-[16px] font-bold">
-										{toShortAddress(account, 10)}
+										{toShortAddress(address, 10)}
 									</Box>
 									<Box className="text-[12px]">
 										{usedCoupon}/{totalCoupon} Credits
