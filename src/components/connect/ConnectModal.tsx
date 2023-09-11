@@ -1,16 +1,12 @@
 import {
 	Box,
-	Flex,
-	Image,
-	Spinner,
 	useBoolean,
 	Alert,
 	AlertIcon,
 	Text,
 	Button,
-	HStack,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { BaseModal } from "components";
 import useWeb3Context from "hooks/useWeb3Context";
 import { useConnectModalStore, useBindEmailStore } from "store/modalStore";
@@ -32,13 +28,13 @@ export function ConnectModal(props: any) {
 	const { inviteId } = router?.query;
 	const { openConnectModal, setOpenConnectModal } = useConnectModalStore();
 	const [isHiddenTip, setIsHiddenTip] = useBoolean(false);
-	const { onConnect, networkConfig } = useWallet();
+	const { onConnect, loading } = useWallet();
 	const { address, isConnected } = useAccount();
 	const {
 		connect,
 		connectors,
 		error,
-		isLoading,
+		isLoading: connectLoading,
 		pendingConnector,
 		connectAsync,
 	} = useConnect();
@@ -128,69 +124,32 @@ export function ConnectModal(props: any) {
 				title="Sign In"
 				isCentered={true}
 			>
-				{/* <Flex
-					alignItems="center"
-					justifyContent="space-between"
-					width="400px"
-					maxW="full"
-					border="1px"
-					borderColor="text.gray"
-					borderRadius="md"
-					px={4}
-					py={1}
-					h={12}
-					my={4}
-					cursor="pointer"
-					className="hover:opacity-70"
-					// onClick={connectClick}
-				>
-					<Box>Browser Wallet</Box>
-					
-					<Box>
-						{isLoading ? (
-							<Spinner size="md" mr={2} mt={1} color="gray.700" />
-						) : (
-							<Image
-								src="/images/connect/metamask.svg"
-								alt=""
-								height="40px"
-								width="40px"
-							/>
-						)}
-					</Box>
-				</Flex> */}
-
 				<div className="flex flex-col w-full gap-2 my-4">
 					{connectors
 						.filter((c) => c.ready)
 						.map((connector) => (
 							<>
-								{address ? (
-									<>
-										<Button
-											variant="blackPrimary"
-											onClick={async () => {
-												await onConnect(address as string);
-												setOpenConnectModal(false);
-											}}
-											className="flex w-full flex-1 items-center justify-start gap-4 rounded-md border border-transparent bg-bg-100 px-4 py-3 text-sm font-medium text-white hover:bg-bg-200 focus:outline-none"
-											key={connector.id}
-										>
-											Sign
-										</Button>
-									</>
-								) : (
-									<Button
+								<Button
 										variant="blackPrimary"
+										color="#fff"
 										onClick={() => {
-											connectAsync({ connector });
+											if(isConnected) {
+												onConnect(address as string)
+											} else {
+												connectAsync({connector}).then((res) => {
+													setTimeout(async () => {
+														await onConnect(res.account);
+													}, 1600)
+												})
+											}
 										}}
 										className="flex w-full flex-1 items-center justify-start gap-4 rounded-md border border-transparent bg-bg-100 px-4 py-3 text-sm font-medium text-white hover:bg-bg-200 focus:outline-none"
 										key={connector.id}
 									>
 										{connector.name}
+										{ connectLoading && connector.id === pendingConnector?.id && <span className="text-[12px] font-bold">(connecting...)</span> }
+										{ loading && connector.id === pendingConnector?.id && <span className="text-[12px] font-bold">(Signing...)</span> }
 									</Button>
-								)}
 							</>
 						))}
 				</div>

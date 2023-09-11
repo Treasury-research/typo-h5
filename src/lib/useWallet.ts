@@ -16,6 +16,7 @@ import { useAiStore } from "store/aiStore";
 import { arbitrum, mainnet, polygon } from "wagmi/chains";
 
 export default function useWallet() {
+  const [loading, setLoading] = useState(false);
 	const { autoConnect, setAutoConnect, setMessage, setSignature } =
 		useWalletStore();
 	const { openBindEmail, setOpenBindEmail, setType, clearGitHubInfo } =
@@ -102,15 +103,17 @@ export default function useWallet() {
 	const onConnect = async (address: string) => {
 		if (address) {
 			try {
+        setLoading(true);
 				const message = `Hello, welcome to TypoGraphy AI. Please sign this message to verify your wallet. Please make sure the URL is: https://app.typography.vip \nTime: ${Date.now()}`;
 				setMessage(message);
-				console.log("address", address);
 				const signMsg = await signMessage({
-					message,
+					message
 				});
-				console.log("signMsg", signMsg);
-				getNonce(message, signMsg, address);
-			} catch (error) {}
+				await getNonce(message, signMsg, address);
+        setLoading(false);
+			} catch (error) {
+        setLoading(false);
+      }
 		}
 	};
 	const doLogout = async () => {
@@ -123,6 +126,7 @@ export default function useWallet() {
 	};
 
 	return {
+    loading,
 		networkConfig,
 		onConnect,
 		doLogout,
