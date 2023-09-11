@@ -72,7 +72,7 @@ export function Guide({
 
 	const getCommands = async () => {
 		const result: any = await api.get("api/shortcut/questions");
-		if (result.code === 200) {
+		if (result?.code === 200) {
 			setCommands(result?.data as any);
 		}
 	};

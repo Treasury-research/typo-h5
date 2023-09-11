@@ -4,16 +4,12 @@ import {
 	Flex,
 	HStack,
 	Icon,
-	Input,
 	Badge,
 	useBoolean,
 	VStack,
-	MenuButton,
-	MenuList,
-	MenuItem,
 } from "@chakra-ui/react";
 import { deepClone } from "lib";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ChatList } from "lib/types";
 import { AiOutlineClear } from "react-icons/ai";
 import { IoIosAdd, IoIosAddCircle } from "react-icons/io";
@@ -21,7 +17,7 @@ import { RiCopperCoinLine, RiDeleteBinLine } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
 import { useUserInfoStore } from "store/userInfoStore";
 import { useStore } from "store";
-import { Cell, Dialog, Popover } from "react-vant";
+import { Cell, Dialog, Popover, Input } from "react-vant";
 
 export function Tabs({
 	list,
@@ -49,9 +45,6 @@ export function Tabs({
 	const myTab = useRef<any>(null);
 	const { showToast } = useStore();
 	const { userId } = useUserInfoStore();
-	const [name, setName] = useState("");
-	const [readOnly, setReadOnly] = useBoolean(true);
-	const [selectIndex, setSelectIndex] = useState<number>(0);
 
 	const addChatChannel = () => {
 		if (list.length >= 10) {
@@ -96,43 +89,22 @@ export function Tabs({
 									center
 									key={index}
 									title={
-										<Flex>
+										<Flex id={`cell${index}`}>
 											<Text fontSize="md" pl={1} pr={2}>
 												#
 											</Text>
-											{!readOnly && index === selectIndex ? (
-												<Input
-													id={`channel${index}`}
-													flex={1}
-													h="full"
-													p={0}
-													border="0"
-													bg="transparent"
-													cursor="pointer"
-													value={name}
-													readOnly={readOnly}
-													onChange={(e) => setName(e.target.value)}
-													onBlur={() => {
-														const copyList: ChatList[] = deepClone(list);
-														copyList[index].name = name.trim() || item.name;
-														setReadOnly.on();
-														setList(copyList);
-													}}
-												/>
-											) : (
-												<Text
-													flex={1}
-													whiteSpace="nowrap"
-													overflow="hidden"
-													textOverflow="ellipsis"
-													onClick={() => {
-														setChatIndex(index);
-														closeNav();
-													}}
-												>
-													{item.name}
-												</Text>
-											)}
+											<Text
+												flex={1}
+												whiteSpace="nowrap"
+												overflow="hidden"
+												textOverflow="ellipsis"
+												onClick={() => {
+													setChatIndex(index);
+													closeNav();
+												}}
+											>
+												{item.name}
+											</Text>
 										</Flex>
 									}
 									isLink
@@ -150,12 +122,23 @@ export function Tabs({
 												as={FiEdit}
 												boxSize={4}
 												onClick={() => {
-													setReadOnly.off();
-													setName(item.name);
-													setSelectIndex(index);
-													setTimeout(() => {
-														document.getElementById(`channel${index}`)?.focus();
-													}, 200);
+													let channelName = "";
+													Dialog.confirm({
+														title: "Edit Title",
+														closeable: true,
+														message: (
+															<Input
+																placeholder={list[index].name}
+																autoFocus
+																onChange={(text) => (channelName = text)}
+															/>
+														),
+														onConfirm: () => {
+															const copyList: ChatList[] = deepClone(list);
+															copyList[index].name = channelName.trim();
+															setList(copyList);
+														},
+													});
 												}}
 											/>
 
