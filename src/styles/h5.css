@@ -57,11 +57,24 @@
 	padding-bottom: 0;
 }
 
+.quest {
+	overflow: hidden;
+}
+
 .quest .rv-popup__title {
 	color: #ee6f2d;
 	font-weight: 600;
+	margin: 15px 12px;
 }
 
+.quest .rv-popup__close-icon {
+	top: 10px;
+}
+
+.quest .rv-coupon-list {
+	height: calc(100% - 45px);
+	overflow-y: scroll;
+}
 .quest .rv-tabs__wrap {
 	display: none;
 }

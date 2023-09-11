@@ -246,7 +246,10 @@ export const ChatInput = forwardRef(
 				setInput("");
 				setList(copyList);
 				saveHistory(copyList);
-				showToast("Send message error!", "danger");
+				showToast(
+					"Unknown exception, create a channel and try again.",
+					"danger"
+				);
 				onScroll(400);
 			}
 		};

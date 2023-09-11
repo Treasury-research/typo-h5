@@ -171,7 +171,7 @@ export function Quest({
 			<Popup
 				round
 				position="bottom"
-				style={{ height: "auto", padding: "4 0" }}
+				style={{ height: "80%", padding: "4 0" }}
 				visible={isOpen}
 				onClose={onClose}
 				closeable
@@ -184,7 +184,7 @@ export function Quest({
 					chosenCoupon={-1}
 					showCloseButton={false}
 					listFooter={
-						<VStack w="full" gap={3} px="12px">
+						<VStack w="full" h="full" gap={3} px="12px">
 							<Card
 								round
 								style={{
