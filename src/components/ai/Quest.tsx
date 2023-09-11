@@ -193,7 +193,7 @@ export function Quest({
 					<Card
 						round
 						style={{
-							boxShadow: "0 0 4px rgba(0, 0, 0, 0.1)",
+							boxShadow: "0 0 4px rgba(0, 0, 0, 0.2)",
 							width: "100%",
 						}}
 					>
@@ -409,7 +409,7 @@ export function Quest({
 					<Card
 						round
 						style={{
-							boxShadow: "0 0 4px rgba(0, 0, 0, 0.1)",
+							boxShadow: "0 0 4px rgba(0, 0, 0, 0.2)",
 							width: "100%",
 						}}
 					>
