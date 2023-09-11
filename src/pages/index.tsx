@@ -32,8 +32,6 @@ export default function Home() {
 	const [sandBoxType, setSandBoxType] = useState("token2049");
 	const { setOpenConnectModal } = useConnectModalStore();
 
-	console.log("showNav", showNav);
-
 	const localName = useMemo(() => {
 		return isSandBox ? "sandbox" : "records";
 	}, [isSandBox]);
@@ -95,7 +93,13 @@ export default function Home() {
 	return (
 		<>
 			<NextSeo title={"TypoGraphy AI"} />
-			<Container w="100vw" pr={0} pl={0}>
+			<Container
+				w="100vw"
+				pr={0}
+				pl={0}
+				overflow="hidden"
+				className="no-scrollbar"
+			>
 				<Flex
 					w="180vw"
 					h="full"

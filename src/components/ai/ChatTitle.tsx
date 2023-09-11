@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { ChatList } from "lib/types";
 import { AiOutlineMenu } from "react-icons/ai";
+import { BiGift } from "react-icons/bi";
 import { BsFillLightningChargeFill } from "react-icons/bs";
 import { NavBar, Tabs,Badge } from "react-vant";
 
@@ -67,33 +68,13 @@ export function ChatTitle({
 					}
 					rightText={
 						<Badge dot>
-							<HStack
-								pos="relative"
-								px={2}
-								py="2px"
-								marginInlineEnd="0"
-								cursor="pointer"
-								bg="bg.yellow"
-								color="#fff"
-								fontSize="xs"
-								alignItems="center"
-								justify="center"
-								fontWeight="semibold"
-								borderRadius={5}
-								_hover={{ transform: "scale(1.01)" }}
+							<Icon
+								as={BiGift}
+								boxSize={5}
 								onClick={() => {
 									onOpen();
 								}}
-							>
-								<Center bg="#fff" p="5px" borderRadius="full" w="16px" h="16px">
-									<Icon
-										as={BsFillLightningChargeFill}
-										boxSize={3}
-										color="bg.yellow"
-									/>
-								</Center>
-								<Text>QUEST</Text>
-							</HStack>
+							/>
 						</Badge>
 					}
 				/>

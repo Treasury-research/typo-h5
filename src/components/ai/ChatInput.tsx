@@ -279,7 +279,7 @@ export const ChatInput = forwardRef(
 			<HStack pos="relative" w="100vw" spacing={3} py={2} px={3}>
 				{/* <Audio input={input} setInput={setInput} boxSize={5} color="bg.green" /> */}
 				<Flex
-					ml={3}
+					ml={1}
 					flex={1}
 					py="6px"
 					px={2}
