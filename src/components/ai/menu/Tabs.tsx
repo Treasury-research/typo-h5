@@ -5,7 +5,7 @@ import {
 	HStack,
 	Icon,
 	Badge,
-	useBoolean,
+	Input,
 	VStack,
 } from "@chakra-ui/react";
 import { deepClone } from "lib";
@@ -17,7 +17,7 @@ import { RiCopperCoinLine, RiDeleteBinLine } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
 import { useUserInfoStore } from "store/userInfoStore";
 import { useStore } from "store";
-import { Cell, Dialog, Popover, Input } from "react-vant";
+import { Cell, Dialog, Popover } from "react-vant";
 
 export function Tabs({
 	list,
@@ -128,9 +128,11 @@ export function Tabs({
 														closeable: true,
 														message: (
 															<Input
+																w="100%"
+																textAlign="left"
 																placeholder={list[index].name}
 																autoFocus
-																onChange={(text) => (channelName = text)}
+																onChange={(e) => (channelName = e.target.value)}
 															/>
 														),
 														onConfirm: () => {
