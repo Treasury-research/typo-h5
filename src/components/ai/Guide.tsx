@@ -4,6 +4,7 @@ import { BsCommand } from "react-icons/bs";
 import { useEffect, useMemo, useState } from "react";
 import { Cell, Swiper, Typography, Image } from "react-vant";
 import api from "api";
+import { useUserInfoStore } from "store/userInfoStore";
 
 const slides = [
 	{
@@ -57,6 +58,7 @@ export function Guide({
 	setInput: (value: string) => void;
 }) {
 	const [commands, setCommands] = useState([]);
+	const { userId } = useUserInfoStore();
 
 	const list = useMemo(() => {
 		return isSandBox ? sandboxSlides : slides;
@@ -77,7 +79,7 @@ export function Guide({
 
 	useEffect(() => {
 		getCommands();
-	}, []);
+	}, [userId]);
 
 	return (
 		<VStack
