@@ -24,7 +24,7 @@ import { CloseIcon } from "@chakra-ui/icons";
 import { toShortAddress } from "lib";
 import { NoticeBar } from "react-vant";
 import useWallet from "lib/useWallet";
-import { useAccount, useConnect, useDisconnect, useSwitchNetwork } from 'wagmi';
+import { useAccount, useConnect, useDisconnect, useSwitchNetwork } from "wagmi";
 
 export function ConnectModal(props: any) {
 	const router = useRouter();
@@ -33,9 +33,15 @@ export function ConnectModal(props: any) {
 	const { openConnectModal, setOpenConnectModal } = useConnectModalStore();
 	const [isHiddenTip, setIsHiddenTip] = useBoolean(false);
 	const { onConnect, networkConfig } = useWallet();
-  const { address, isConnected } = useAccount();
-	const { connect, connectors, error, isLoading, pendingConnector } =
-	useConnect();
+	const { address, isConnected } = useAccount();
+	const {
+		connect,
+		connectors,
+		error,
+		isLoading,
+		pendingConnector,
+		connectAsync,
+	} = useConnect();
 
 	const { openBindEmail, setOpenBindEmail, setPartyType, setPartyId, setType } =
 		useBindEmailStore();
@@ -122,7 +128,7 @@ export function ConnectModal(props: any) {
 				title="Sign In"
 				isCentered={true}
 			>
-				<Flex
+				{/* <Flex
 					alignItems="center"
 					justifyContent="space-between"
 					width="400px"
@@ -140,7 +146,7 @@ export function ConnectModal(props: any) {
 				>
 					<Box>Browser Wallet</Box>
 					
-					{/* <Box>
+					<Box>
 						{isLoading ? (
 							<Spinner size="md" mr={2} mt={1} color="gray.700" />
 						) : (
@@ -151,27 +157,42 @@ export function ConnectModal(props: any) {
 								width="40px"
 							/>
 						)}
-					</Box> */}
-				</Flex>
+					</Box>
+				</Flex> */}
 
-				<div className="flex flex-col w-full gap-2">
-					{
-						connectors.filter((c) => c.ready)
+				<div className="flex flex-col w-full gap-2 my-4">
+					{connectors
+						.filter((c) => c.ready)
 						.map((connector) => (
-							<Button
-							onClick={async () => {
-								if (isConnected) {
-									console.log(1212, isConnected, address);
-									await onConnect(address as string);
-								} else {
-									// await beforeConnect(connector);
-									connect({ connector });
-								}
-							}}
-							className='flex w-full flex-1 items-center justify-start gap-4 rounded-md border border-transparent bg-bg-100 px-4 py-3 text-sm font-medium text-white hover:bg-bg-200 focus:outline-none'
-							key={connector.id}>{connector.name}</Button>
-						))
-					}
+							<>
+								{address ? (
+									<>
+										<Button
+											variant="blackPrimary"
+											onClick={async () => {
+												await onConnect(address as string);
+												setOpenConnectModal(false);
+											}}
+											className="flex w-full flex-1 items-center justify-start gap-4 rounded-md border border-transparent bg-bg-100 px-4 py-3 text-sm font-medium text-white hover:bg-bg-200 focus:outline-none"
+											key={connector.id}
+										>
+											Sign
+										</Button>
+									</>
+								) : (
+									<Button
+										variant="blackPrimary"
+										onClick={() => {
+											connectAsync({ connector });
+										}}
+										className="flex w-full flex-1 items-center justify-start gap-4 rounded-md border border-transparent bg-bg-100 px-4 py-3 text-sm font-medium text-white hover:bg-bg-200 focus:outline-none"
+										key={connector.id}
+									>
+										{connector.name}
+									</Button>
+								)}
+							</>
+						))}
 				</div>
 
 				{!isHiddenTip ? (
