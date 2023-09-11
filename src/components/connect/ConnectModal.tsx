@@ -127,30 +127,32 @@ export function ConnectModal(props: any) {
 				<div className="flex flex-col w-full gap-2 my-4">
 					{connectors
 						.filter((c) => c.ready)
-						.map((connector) => (
-							<>
-								<Button
-										variant="blackPrimary"
-										color="#fff"
-										onClick={() => {
-											if(isConnected) {
-												onConnect(address as string)
-											} else {
-												connectAsync({connector}).then((res) => {
-													setTimeout(async () => {
-														await onConnect(res.account);
-													}, 1600)
-												})
-											}
-										}}
-										className="flex w-full flex-1 items-center justify-start gap-4 rounded-md border border-transparent bg-bg-100 px-4 py-3 text-sm font-medium text-white hover:bg-bg-200 focus:outline-none"
-										key={connector.id}
-									>
-										{connector.name}
-										{ connectLoading && connector.id === pendingConnector?.id && <span className="text-[12px] font-bold">(connecting...)</span> }
-										{ loading && connector.id === pendingConnector?.id && <span className="text-[12px] font-bold">(Signing...)</span> }
-									</Button>
-							</>
+						.map((connector, index) => (
+							<Button
+								variant="blackPrimary"
+								color="#fff"
+								onClick={() => {
+									if (isConnected) {
+										onConnect(address as string);
+									} else {
+										connectAsync({ connector }).then((res) => {
+											setTimeout(async () => {
+												await onConnect(res.account);
+											}, 1600);
+										});
+									}
+								}}
+								className="flex w-full flex-1 items-center justify-start gap-4 rounded-md border border-transparent bg-bg-100 px-4 py-3 text-sm font-medium text-white hover:bg-bg-200 focus:outline-none"
+								key={index}
+							>
+								{connector.name}
+								{connectLoading && connector.id === pendingConnector?.id && (
+									<span className="text-[12px] font-bold">(connecting...)</span>
+								)}
+								{loading && connector.id === pendingConnector?.id && (
+									<span className="text-[12px] font-bold">(Signing...)</span>
+								)}
+							</Button>
 						))}
 				</div>
 

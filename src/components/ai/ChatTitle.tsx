@@ -10,7 +10,7 @@ import {
 import { ChatList } from "lib/types";
 import { AiOutlineMenu } from "react-icons/ai";
 import { BiGift } from "react-icons/bi";
-import { BsFillLightningChargeFill } from "react-icons/bs";
+// import { BsFillLightningChargeFill } from "react-icons/bs";
 import { NavBar, Tabs,Badge } from "react-vant";
 
 export function ChatTitle({
