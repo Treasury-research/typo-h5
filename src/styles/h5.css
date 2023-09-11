@@ -26,6 +26,11 @@
 }
 
 .move-right {
+	transform: translate(-180vw, 0px);
+	transition: transform 0.16s ease-in-out;
+}
+
+.move-center {
 	height: 100%;
 	transform: translate(-80vw, 0px);
 	transition: transform 0.1s ease-in-out;
@@ -55,40 +60,6 @@
 
 .nav-bar .rv-tabs__nav {
 	padding-bottom: 0;
-}
-
-.quest {
-	overflow: hidden;
-}
-
-.quest .rv-popup__title {
-	color: #ee6f2d;
-	font-weight: 600;
-	margin: 15px 12px;
-}
-
-.quest .rv-popup__close-icon {
-	top: 10px;
-}
-
-.quest .rv-coupon-list {
-	height: calc(100% - 45px);
-	overflow-y: scroll;
-}
-.quest .rv-tabs__wrap {
-	display: none;
-}
-
-.quest .rv-coupon-list__bottom {
-	display: none;
-}
-
-.quest .rv-coupon-list__empty {
-	display: none;
-}
-
-.quest .rv-coupon-list__list {
-	height: inherit;
 }
 
 .guide .rv-cell__title {

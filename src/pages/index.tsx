@@ -101,9 +101,11 @@ export default function Home() {
 				className="no-scrollbar"
 			>
 				<Flex
-					w="180vw"
+					w="280vw"
 					h="full"
-					className={showNav ? "move-left" : "move-right"}
+					className={
+						showNav ? "move-left" : showQuest ? "move-right" : "move-center"
+					}
 				>
 					<Menu
 						list={list || []}
@@ -116,10 +118,13 @@ export default function Home() {
 						addChannel={addChannel}
 						setSandBoxType={setSandBoxType}
 						setIsSandBox={setIsSandBox}
-						closeNav={setShowNav.off}
+						closeNav={() => {
+							setShowNav.off();
+							setShowQuest.off();
+						}}
 					/>
 					<VStack
-						w="calc(100vw + 1px)"
+						w="100vw"
 						h="full"
 						pos="relative"
 						overflow="hidden"

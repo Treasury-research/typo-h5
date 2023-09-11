@@ -69,6 +69,7 @@ export function ChatTitle({
 					rightText={
 						<Badge dot>
 							<Icon
+								mt={1}
 								as={BiGift}
 								boxSize={5}
 								onClick={() => {
