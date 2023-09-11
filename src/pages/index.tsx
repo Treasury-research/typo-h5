@@ -32,7 +32,7 @@ export default function Home() {
 	const [sandBoxType, setSandBoxType] = useState("token2049");
 	const { setOpenConnectModal } = useConnectModalStore();
 
-	console.log("showNav", showNav);
+	// console.log("showNav", showNav);
 
 	const localName = useMemo(() => {
 		return isSandBox ? "sandbox" : "records";
