@@ -4,7 +4,6 @@ import { Connector, WagmiConfig, configureChains, createConfig } from "wagmi";
 import { MetaMaskConnector } from "@wagmi/core/connectors/metaMask";
 import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
 import { publicProvider } from "wagmi/providers/public";
-import { jsonRpcProvider } from "@wagmi/core/providers/jsonRpc";
 import { signMessage, switchNetwork, InjectedConnector } from "@wagmi/core";
 import api from "api";
 import { useBindEmailStore, useConnectModalStore } from "store/modalStore";
@@ -13,7 +12,7 @@ import { useJwtStore } from "store/jwtStore";
 import { useStore } from "store";
 import { useUserInfoStore } from "store/userInfoStore";
 import { useAiStore } from "store/aiStore";
-import { arbitrum, mainnet, polygon } from "wagmi/chains";
+import { mainnet } from "wagmi/chains";
 
 export default function useWallet() {
 	const { autoConnect, setAutoConnect, setMessage, setSignature } =
@@ -37,7 +36,7 @@ export default function useWallet() {
 	const { showToast } = useStore();
 
 	const { chains, publicClient, webSocketPublicClient } = configureChains(
-		[arbitrum, mainnet, polygon],
+		[mainnet],
 		[publicProvider()]
 	);
 

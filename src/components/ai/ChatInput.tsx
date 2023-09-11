@@ -183,7 +183,7 @@ export const ChatInput = forwardRef(
 				if (isShortcut(prompt) || (isSandBox && type === "token2049")) {
 					result = await api.get(`/api/shortcut`, {
 						params: {
-							conversation_id: copyList[0]?.chatId,
+							conversation_id: copyList[chat_index]?.chatId,
 							type: cmds.includes(cmd) ? cmdType : type,
 							input: cmds.includes(cmd) ? cmdValue : prompt,
 						},
@@ -193,7 +193,7 @@ export const ChatInput = forwardRef(
 						personal_profile: {
 							address: account,
 						},
-						conversation_id: copyList[0]?.chatId,
+						conversation_id: copyList[chat_index]?.chatId,
 						input_prompt: prompt,
 						isSandbox: isSandBox,
 					});
