@@ -1,23 +1,9 @@
 import { Icon, Text, Flex, VStack, Center, Box, Badge } from "@chakra-ui/react";
 import { BsCommand } from "react-icons/bs";
 
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Cell, Swiper, Typography, Image } from "react-vant";
-
-const commands = [
-	"What's KNN3 Network?",
-	"What's TypoGraphy AI?",
-	"What can I do with TypoGraphy AI now?",
-	"/Profile my",
-	// "How is ChatGpt different from TypoGraph ai?",
-];
-
-const sandBoxCommands = [
-	"I would like to meet with Moledao.",
-	"I would like to know more about PermaDAO.",
-	"Guide me on how to meet with BuidlerDAO.",
-	"I'm interested in AI and Web3 development.",
-];
+import api from "api";
 
 const slides = [
 	{
@@ -70,13 +56,28 @@ export function Guide({
 	onSend: (isReGenerate?: boolean) => void;
 	setInput: (value: string) => void;
 }) {
+	const [commands, setCommands] = useState([]);
+
 	const list = useMemo(() => {
 		return isSandBox ? sandboxSlides : slides;
 	}, [isSandBox]);
 
 	const cmds = useMemo(() => {
-		return isSandBox ? sandBoxCommands : commands;
-	}, [isSandBox]);
+		return isSandBox
+			? commands.filter((item: any) => item?.type === "short")
+			: commands.filter((item: any) => item?.type === "normal");
+	}, [isSandBox, commands]);
+
+	const getCommands = async () => {
+		const result: any = await api.get("api/shortcut/questions");
+		if (result.code === 200) {
+			setCommands(result?.data as any);
+		}
+	};
+
+	useEffect(() => {
+		getCommands();
+	}, []);
 
 	return (
 		<VStack
@@ -109,7 +110,7 @@ export function Guide({
 			</Swiper>
 
 			<VStack w="full" justify="center" flexDir="column" spacing={5} mt="45px!">
-				{cmds.map((text, index) => {
+				{cmds.map((item: any, index) => {
 					return (
 						<Box key={index} w="full" pos="relative">
 							{isSandBox && (
@@ -128,11 +129,13 @@ export function Guide({
 							<Cell.Group card>
 								<Cell
 									style={{ alignItems: "center" }}
-									title={<Typography.Text ellipsis>{text}</Typography.Text>}
+									title={
+										<Typography.Text ellipsis>{item?.question}</Typography.Text>
+									}
 									icon={<Icon as={BsCommand} w="20px" />}
 									isLink
 									onClick={() => {
-										setInput(text);
+										setInput(item?.question);
 										onSend();
 									}}
 								/>
