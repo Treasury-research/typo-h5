@@ -20,8 +20,6 @@ import "styles/markdown.css";
 import "styles/globals.css";
 import "styles/h5.css";
 
-// const customEnUS = mergeLocale(enUS, {});
-
 const MyApp = ({ Component, pageProps }: AppProps) => {
 	const router = useRouter();
 	const { toastMessage, toastType, toastTime } = useStore();
