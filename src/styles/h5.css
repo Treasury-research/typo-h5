@@ -76,4 +76,9 @@
 	background-color: rgba(0, 0, 0, 0.7);
 	border-radius: 2px;
 }
+
+button {
+	width: 100%;
+}
+
 /*  */

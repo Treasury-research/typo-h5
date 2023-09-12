@@ -4,42 +4,64 @@ import {
 	Alert,
 	AlertIcon,
 	Text,
+	Icon,
 	Button,
 } from "@chakra-ui/react";
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { BaseModal } from "components";
-// import useWeb3Context from "hooks/useWeb3Context";
 import { useConnectModalStore, useBindEmailStore } from "store/modalStore";
 import { useRouter } from "next/router";
-import { useJwtStore } from "store/jwtStore";
 import { useUserInfoStore } from "store/userInfoStore";
-import { useStore } from "store";
 import { CloseIcon } from "@chakra-ui/icons";
 import { toShortAddress } from "lib";
 import { NoticeBar } from "react-vant";
-import useWallet from "lib/useWallet";
-import { useAccount, useConnect, useDisconnect, useSwitchNetwork } from "wagmi";
-import { useWeb3Modal } from "@web3modal/react";
 
-export function ConnectModal(props: any) {
+import { useWeb3Modal } from "@web3modal/react";
+import { BiWallet } from "react-icons/bi";
+import { useAccount } from "wagmi";
+import useWallet from "lib/useWallet";
+import { useStore } from "store";
+
+export function ConnectModal({ closeNav }: { closeNav: () => void }) {
 	const router = useRouter();
-	const { showToast } = useStore();
+	const { isOpen, open, close } = useWeb3Modal();
 	const { inviteId } = router?.query;
 	const { openConnectModal, setOpenConnectModal } = useConnectModalStore();
 	const [isHiddenTip, setIsHiddenTip] = useBoolean(false);
+	const { userId } = useUserInfoStore();
 	const { address, isConnected } = useAccount();
-	const {
-		connect,
-		connectors,
-		error,
-		isLoading: connectLoading,
-		pendingConnector,
-		connectAsync,
-	} = useConnect();
-	const { projectId, ethereumClient, onConnect, loading } = useWallet();
-	const { open, close } = useWeb3Modal();
-	const { setUserInfo, clearUserInfo } = useUserInfoStore();
-	const { jwt, setJwt } = useJwtStore();
+	const { onConnect } = useWallet();
+	const { showToast } = useStore();
+
+	const needSign = useMemo(() => {
+		return isConnected && !userId;
+	}, [isConnected, userId]);
+
+	const handleSign = async () => {
+		const res = await onConnect(address as string);
+		if (res) {
+			showToast("Login Success!", "success");
+			closeNav();
+			setOpenConnectModal(false);
+		} else {
+			showToast("Login Failed!", "warning");
+		}
+	};
+
+	useEffect(() => {
+		if (!userId) {
+			setOpenConnectModal(true);
+			return;
+		}
+	}, [userId]);
+
+	useEffect(() => {
+		needSign && handleSign();
+	}, [isConnected]);
+
+	useEffect(() => {
+		isOpen && setOpenConnectModal(false);
+	}, [isOpen]);
 
 	useEffect(() => {
 		const isHidden = localStorage.getItem("isHiddenTip") || "false";
@@ -58,35 +80,19 @@ export function ConnectModal(props: any) {
 				isCentered={true}
 			>
 				<div className="flex flex-col w-full gap-2 my-4">
-					{connectors
-						.filter((c) => c.ready)
-						.map((connector, index) => (
-							<Button
-								variant="blackPrimary"
-								color="#fff"
-								onClick={() => {
-									if (isConnected) {
-										onConnect(address as string);
-									} else {
-										connectAsync({ connector }).then((res) => {
-											setTimeout(async () => {
-												await onConnect(res.account);
-											}, 1600);
-										});
-									}
-								}}
-								className="flex w-full flex-1 items-center justify-start gap-4 rounded-md border border-transparent bg-bg-100 px-4 py-3 text-sm font-medium text-white hover:bg-bg-200 focus:outline-none"
-								key={index}
-							>
-								{connector.name}
-								{connectLoading && connector.id === pendingConnector?.id && (
-									<span className="text-[12px] font-bold">(connecting...)</span>
-								)}
-								{loading && connector.id === pendingConnector?.id && (
-									<span className="text-[12px] font-bold">(Signing...)</span>
-								)}
-							</Button>
-						))}
+					<Button
+						mb={2}
+						leftIcon={<Icon as={BiWallet} boxSize={5} />}
+						variant="blackPrimary"
+						size="md"
+						h="38px"
+						borderRadius={8}
+						onClick={() => {
+							needSign ? handleSign() : open();
+						}}
+					>
+						{needSign ? "Sign with wallet" : "Connect Wallet"}
+					</Button>
 				</div>
 
 				{!isHiddenTip ? (

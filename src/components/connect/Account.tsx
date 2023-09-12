@@ -33,7 +33,6 @@ import { BsTelegram } from "react-icons/bs";
 import { SiSubstack } from "react-icons/si";
 import { BiWallet } from "react-icons/bi";
 import { useAccount } from "wagmi";
-import { useWeb3Modal } from "@web3modal/react";
 import useWallet from "lib/useWallet";
 import api from "api";
 
@@ -45,21 +44,17 @@ const Account = ({
 	closeNav: () => void;
 }) => {
 	const { jwt, setJwt } = useJwtStore();
-	const { doLogout, projectId, onConnect } = useWallet();
+	const { doLogout } = useWallet();
 	const { address, isConnected } = useAccount();
 	const { email, userId, setUserId, setEmail } = useUserInfoStore();
 	const { setOpenInviteModal, setOpenBindEmailModal } = useStore();
-	const { setOpenRemindModal } = useConnectModalStore();
+	const { setOpenRemindModal, setOpenConnectModal } = useConnectModalStore();
 	const { totalCoupon, usedCoupon, setTotalCoupon, setUsedCoupon } =
 		useAiStore();
-	const { isOpen, open, close } = useWeb3Modal();
-	const { showToast } = useStore();
-
-	// console.log("address", address, isConnected, userId, jwt);
 
 	const needSign = useMemo(() => {
 		return isConnected && !userId && !jwt;
-	}, [isConnected, userId, userId, jwt]);
+	}, [isConnected, userId, jwt]);
 
 	const getUserInfo = async () => {
 		const res: any = await api.get(`/api/auth`);
@@ -71,20 +66,6 @@ const Account = ({
 			setEmail(res?.data?.email);
 		}
 	};
-
-	const handleSign = async () => {
-		const res = await onConnect(address as string);
-		if (res) {
-			showToast("Login Success!", "success");
-			closeNav();
-		} else {
-			showToast("Login Failed!", "warning");
-		}
-	};
-
-	useEffect(() => {
-		needSign && handleSign();
-	}, [isConnected]);
 
 	useEffect(() => {
 		if (userId) {
@@ -188,7 +169,7 @@ const Account = ({
 						</VStack>
 					</Box>
 				</VStack>
-			) : needSign ? (
+			) : (
 				<Button
 					mb={2}
 					leftIcon={<Icon as={BiWallet} boxSize={5} />}
@@ -196,24 +177,10 @@ const Account = ({
 					w="80%"
 					size="sm"
 					borderRadius={16}
-					onClick={handleSign}
+					onClick={() => setOpenConnectModal(true)}
 				>
-					Sign
+					Sign in
 				</Button>
-			) : (
-				<>
-					<Button
-						mb={2}
-						leftIcon={<Icon as={BiWallet} boxSize={5} />}
-						variant="whitePrimary"
-						size="sm"
-						w="80%"
-						borderRadius={16}
-						onClick={open}
-					>
-						Sign in
-					</Button>
-				</>
 			)}
 
 			<HStack
@@ -257,7 +224,7 @@ const Account = ({
 			</HStack>
 
 			<InviteModal isSandBox={isSandBox} />
-			{/* <ConnectModal /> */}
+			<ConnectModal closeNav={closeNav} />
 			<BindEmailModal />
 			<RemindModal />
 			<VerificationEmailModal />
