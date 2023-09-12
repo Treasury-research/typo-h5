@@ -69,7 +69,7 @@ export function Tabs({
 		<VStack w="full" h="full" pos="relative" spacing={0}>
 			<HStack w="full" justify="space-between" px={4} my={3}>
 				<Text w="full" fontSize="md" fontWeight="semibold">
-					{isSandBox ? "Sandbox" : "General Chat"}
+					{isSandBox ? "Sandbox" : "Chat"}
 				</Text>
 			</HStack>
 

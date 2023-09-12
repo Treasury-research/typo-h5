@@ -1,12 +1,9 @@
 import React, { useState } from "react";
 import { useWalletStore } from "store/walletStore";
-import { Connector, WagmiConfig, configureChains, createConfig } from "wagmi";
-import { MetaMaskConnector } from "@wagmi/core/connectors/metaMask";
-import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
-import { publicProvider } from "wagmi/providers/public";
-import { signMessage, switchNetwork, InjectedConnector } from "@wagmi/core";
-import api from "api";
-import { useBindEmailStore, useConnectModalStore } from "store/modalStore";
+import { configureChains, createConfig } from "wagmi";
+import { signMessage } from "@wagmi/core";
+
+import { useConnectModalStore } from "store/modalStore";
 import { useRouter } from "next/router";
 import { useJwtStore } from "store/jwtStore";
 import { useStore } from "store";
@@ -18,6 +15,8 @@ import {
 	w3mConnectors,
 	w3mProvider,
 } from "@web3modal/ethereum";
+
+import api from "api";
 
 const chains = [mainnet];
 const projectId = "c27e0568aa579f4d572246b7a2882010";

@@ -78,7 +78,7 @@ const Account = ({
 	return (
 		<VStack w="full" h="full" pt={4} alignItems="center" justify="flex-end">
 			{address && jwt ? (
-				<VStack w="full" px={4} mb={1}>
+				<VStack w="full" px={3} mb={1}>
 					<Box w="full" bg="whiteAlpha.300" color="#fff" borderRadius={10}>
 						<Flex className="w-full justify-between items-center" py={3} px={4}>
 							<HStack>
@@ -183,11 +183,10 @@ const Account = ({
 				w="full"
 				color="bg.white"
 				justify="center"
-				px={10}
 				py={3}
 				borderColor="whiteAlpha.300"
 				borderTopWidth="1px"
-				gap={10}
+				gap={12}
 			>
 				<Icon
 					as={AiFillTwitterCircle}
