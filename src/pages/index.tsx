@@ -30,7 +30,6 @@ export default function Home() {
 	const [input, setInput] = useState<string>();
 	const [isSandBox, setIsSandBox] = useBoolean(false);
 	const [sandBoxType, setSandBoxType] = useState("token2049");
-	const { setOpenConnectModal } = useConnectModalStore();
 
 	const localName = useMemo(() => {
 		return isSandBox ? "sandbox" : "records";
@@ -76,13 +75,6 @@ export default function Home() {
 			saveHistory(list);
 		}
 	}, [list]);
-
-	useEffect(() => {
-		if (!userId) {
-			setOpenConnectModal(true);
-			return;
-		}
-	}, [userId]);
 
 	useEffect(() => {
 		showNav

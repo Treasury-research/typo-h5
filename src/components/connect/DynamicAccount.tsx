@@ -4,10 +4,16 @@ const ConnectAccount = dynamic(() => import("./Account"), {
 	ssr: false,
 });
 
-export const DynamicAccount = ({ isSandBox }: { isSandBox: boolean }) => {
+export const DynamicAccount = ({
+	isSandBox,
+	closeNav,
+}: {
+	isSandBox: boolean;
+	closeNav: () => void;
+}) => {
 	return (
 		<>
-			<ConnectAccount isSandBox={isSandBox} />
+			<ConnectAccount isSandBox={isSandBox} closeNav={closeNav}/>
 		</>
 	);
 };

@@ -17,8 +17,7 @@ import {
 	ConnectModal,
 } from "components";
 import { useJwtStore } from "store/jwtStore";
-import useWeb3Context from "hooks/useWeb3Context";
-import { isPhone, toShortAddress } from "lib";
+import { toShortAddress } from "lib";
 import { BiLogOut, BiLogIn } from "react-icons/bi";
 import { LuUsers } from "react-icons/lu";
 import { TfiEmail } from "react-icons/tfi";
@@ -28,26 +27,39 @@ import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
 
 import { useConnectModalStore } from "store/modalStore";
 import { useUserInfoStore } from "store/userInfoStore";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { AiFillTwitterCircle } from "react-icons/ai";
 import { BsTelegram } from "react-icons/bs";
 import { SiSubstack } from "react-icons/si";
-import api from "api";
+import { BiWallet } from "react-icons/bi";
 import { useAccount } from "wagmi";
+import { useWeb3Modal } from "@web3modal/react";
 import useWallet from "lib/useWallet";
+import api from "api";
 
-const Account = ({ isSandBox }: { isSandBox: boolean }) => {
+const Account = ({
+	isSandBox,
+	closeNav,
+}: {
+	isSandBox: boolean;
+	closeNav: () => void;
+}) => {
 	const { jwt, setJwt } = useJwtStore();
-	const { doLogout } = useWallet();
-  const { address, isConnected } = useAccount();
-	const { totalCoupon, usedCoupon, setTotalCoupon, setUsedCoupon } =
-		useAiStore();
+	const { doLogout, projectId, onConnect } = useWallet();
+	const { address, isConnected } = useAccount();
 	const { email, userId, setUserId, setEmail } = useUserInfoStore();
 	const { setOpenInviteModal, setOpenBindEmailModal } = useStore();
-	const { setOpenConnectModal, setOpenRemindModal, opened, setOpend } =
-		useConnectModalStore();
+	const { setOpenRemindModal } = useConnectModalStore();
+	const { totalCoupon, usedCoupon, setTotalCoupon, setUsedCoupon } =
+		useAiStore();
+	const { isOpen, open, close } = useWeb3Modal();
+	const { showToast } = useStore();
 
-	// console.log("email", email);
+	// console.log("address", address, isConnected, userId, jwt);
+
+	const needSign = useMemo(() => {
+		return isConnected && !userId && !jwt;
+	}, [isConnected, userId, userId, jwt]);
 
 	const getUserInfo = async () => {
 		const res: any = await api.get(`/api/auth`);
@@ -60,6 +72,20 @@ const Account = ({ isSandBox }: { isSandBox: boolean }) => {
 		}
 	};
 
+	const handleSign = async () => {
+		const res = await onConnect(address as string);
+		if (res) {
+			showToast("Login Success!", "success");
+			closeNav();
+		} else {
+			showToast("Login Failed!", "warning");
+		}
+	};
+
+	useEffect(() => {
+		needSign && handleSign();
+	}, [isConnected]);
+
 	useEffect(() => {
 		if (userId) {
 			getUserInfo();
@@ -67,25 +93,13 @@ const Account = ({ isSandBox }: { isSandBox: boolean }) => {
 	}, [userId, email]);
 
 	useEffect(() => {
-		let img1: any = new Image();
-		let img2: any = new Image();
-		let img3: any = new Image();
-		let img4: any = new Image();
-		img1.src = "./images/gift/gift.svg";
-		img2.src = "./images/gift/right.svg";
-		img3.src = "./images/gift/left.svg";
-		img4.src = "./images/gift/bottom.svg";
-	}, []);
-
-	useEffect(() => {
-		if (!opened && jwt && !isPhone()) {
+		if (jwt && address) {
 			setOpenRemindModal(true);
-			setOpend(true);
 		}
-	}, [jwt, opened, setOpenRemindModal, setOpend, address]);
+	}, [jwt, setOpenRemindModal, address]);
 
 	return (
-		<VStack w="full" h="full" pt={4} alignItems="flex-start" justify="flex-end">
+		<VStack w="full" h="full" pt={4} alignItems="center" justify="flex-end">
 			{address && jwt ? (
 				<VStack w="full" px={4} mb={1}>
 					<Box w="full" bg="whiteAlpha.300" color="#fff" borderRadius={10}>
@@ -174,18 +188,32 @@ const Account = ({ isSandBox }: { isSandBox: boolean }) => {
 						</VStack>
 					</Box>
 				</VStack>
-			) : (
+			) : needSign ? (
 				<Button
-					ml={2}
-					leftIcon={<Icon as={BiLogIn} boxSize={5} />}
+					mb={2}
+					leftIcon={<Icon as={BiWallet} boxSize={5} />}
 					variant="whitePrimary"
+					w="80%"
 					size="sm"
-					px={3}
 					borderRadius={16}
-					onClick={() => setOpenConnectModal(true)}
+					onClick={handleSign}
 				>
-					Sign in
+					Sign
 				</Button>
+			) : (
+				<>
+					<Button
+						mb={2}
+						leftIcon={<Icon as={BiWallet} boxSize={5} />}
+						variant="whitePrimary"
+						size="sm"
+						w="80%"
+						borderRadius={16}
+						onClick={open}
+					>
+						Sign in
+					</Button>
+				</>
 			)}
 
 			<HStack
@@ -229,7 +257,7 @@ const Account = ({ isSandBox }: { isSandBox: boolean }) => {
 			</HStack>
 
 			<InviteModal isSandBox={isSandBox} />
-			<ConnectModal />
+			{/* <ConnectModal /> */}
 			<BindEmailModal />
 			<RemindModal />
 			<VerificationEmailModal />

@@ -97,9 +97,7 @@ p {
 		padding-inline-start: 15px !important;
 		padding-inline-end: 15px !important;
 	}
-	.invite-refer {
-		padding-left: 30px;
-	}
+
 	.invite-title {
 		white-space: nowrap;
 		font-size: 22px;
@@ -154,10 +152,6 @@ p {
 	.ai-left-content-width {
 		max-width: inherit !important;
 		width: calc(100% - 90px) !important;
-	}
-
-	.invite-refer {
-		padding-left: 30px;
 	}
 
 	.invite-title {

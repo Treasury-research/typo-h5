@@ -8,19 +8,20 @@ import { useEffect, useState } from "react";
 import { Toasts, Trace } from "components";
 import { Web3ContextProvider, isPhone, isProduction } from "lib";
 import customTheme from "styles/theme";
-import useWallet from 'lib/useWallet';
+import useWallet from "lib/useWallet";
+import { WagmiConfig } from "wagmi";
+import { Web3Modal } from "@web3modal/react";
 
 import "react-vant/lib/index.css";
 import "animate.css";
 import "styles/markdown.css";
 import "styles/globals.css";
 import "styles/h5.css";
-import { WagmiConfig } from "wagmi";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
 	const router = useRouter();
 	const { toastMessage, toastType, toastTime } = useStore();
-	const { networkConfig } = useWallet();
+	const { networkConfig, projectId, ethereumClient } = useWallet();
 
 	if (
 		typeof window !== "undefined" &&
@@ -64,8 +65,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 				<Component {...pageProps} className="flex-1" />
 				<Trace />
 				<Toasts message={toastMessage} type={toastType} time={toastTime} />
-			{/* </Web3ContextProvider> */}
+				{/* </Web3ContextProvider> */}
 			</WagmiConfig>
+			<Web3Modal projectId={projectId} ethereumClient={ethereumClient} />
 		</ChakraProvider>
 	);
 };

@@ -40,7 +40,6 @@ api.interceptors.response.use(
 			return res.data;
 		} else {
 			if (res.data.code === 1006) {
-				modalStore.setOpenConnectModal(true);
 				logOut();
 			}
 			return res;

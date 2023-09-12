@@ -17,7 +17,7 @@ export function RemindModal() {
 			onClose={() => setOpenRemindModal(false)}
 			isOpen={openRemindModal}
 			isCentered
-			size="3xl"
+			size="lg"
 		>
 			<ModalOverlay />
 			<ModalContent
@@ -33,12 +33,7 @@ export function RemindModal() {
 					pos="absolute"
 					zIndex="30"
 				/>
-				<ModalBody
-					position="relative"
-					className="invite-body"
-					pos="relative"
-					padding="0"
-				>
+				<ModalBody position="relative" pos="relative" padding="0">
 					<Image src="./images/remind.png" alt="" />
 				</ModalBody>
 			</ModalContent>

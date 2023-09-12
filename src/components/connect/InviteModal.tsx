@@ -50,14 +50,13 @@ export function InviteModal({ isSandBox }: { isSandBox: boolean }) {
 				<ModalHeader></ModalHeader>
 				<ModalCloseButton />
 				<ModalBody px="40px" position="relative" className="invite-body">
-					<VStack color="#000" align="start" fontSize="32px" fontWeight="bold">
-						<HStack className="invite-refer">
+					<VStack color="#000" fontSize="32px" fontWeight="bold">
+						<HStack className="invite-refer" mb={1}>
 							<Image src="./images/rocket.svg" alt="" />
 							<span>Refer friends</span>
 						</HStack>
-						<p className="invite-title text-[#F98E3F] !-mt-[5px]">
+						<p className="invite-title text-[#F98E3F] !-mt-[5px] !-ml-[15px]">
 							More Referrals, More Rewards
-							{/* <span className="text-[#F98E3F] text-[40px]">+200</span> TCC */}
 						</p>
 					</VStack>
 					<ul className="list-none invite-ul flex gap-4 pt-[66px]">

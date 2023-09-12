@@ -71,7 +71,7 @@ export function Menu({
 				</VStack>
 
 				<Box w="full" h="230px">
-					<DynamicAccount isSandBox={isSandBox} />
+					<DynamicAccount isSandBox={isSandBox} closeNav={closeNav} />
 				</Box>
 			</VStack>
 		</HStack>

@@ -8,11 +8,9 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { BaseModal } from "components";
-import useWeb3Context from "hooks/useWeb3Context";
+// import useWeb3Context from "hooks/useWeb3Context";
 import { useConnectModalStore, useBindEmailStore } from "store/modalStore";
 import { useRouter } from "next/router";
-import bindGithubApi from "api/binGithubApi";
-import api from "api";
 import { useJwtStore } from "store/jwtStore";
 import { useUserInfoStore } from "store/userInfoStore";
 import { useStore } from "store";
@@ -21,6 +19,7 @@ import { toShortAddress } from "lib";
 import { NoticeBar } from "react-vant";
 import useWallet from "lib/useWallet";
 import { useAccount, useConnect, useDisconnect, useSwitchNetwork } from "wagmi";
+import { useWeb3Modal } from "@web3modal/react";
 
 export function ConnectModal(props: any) {
 	const router = useRouter();
@@ -28,7 +27,6 @@ export function ConnectModal(props: any) {
 	const { inviteId } = router?.query;
 	const { openConnectModal, setOpenConnectModal } = useConnectModalStore();
 	const [isHiddenTip, setIsHiddenTip] = useBoolean(false);
-	const { onConnect, loading } = useWallet();
 	const { address, isConnected } = useAccount();
 	const {
 		connect,
@@ -38,74 +36,10 @@ export function ConnectModal(props: any) {
 		pendingConnector,
 		connectAsync,
 	} = useConnect();
-
-	const { openBindEmail, setOpenBindEmail, setPartyType, setPartyId, setType } =
-		useBindEmailStore();
-
+	const { projectId, ethereumClient, onConnect, loading } = useWallet();
+	const { open, close } = useWeb3Modal();
 	const { setUserInfo, clearUserInfo } = useUserInfoStore();
-
-	// const { doLogin, connectWallet } = useWeb3Context();
-
 	const { jwt, setJwt } = useJwtStore();
-
-	// const [isLoading, setIsLoading] = useBoolean(false);
-
-	// const connectClick = async () => {
-	// 	// setIsLoading.on();
-	// 	const res = await connectWallet();
-	// 	try {
-	// 		if (res) {
-	// 			// await doLogin(res);
-	// 			// setIsLoading.off();
-	// 		}
-	// 	} catch (error) {
-	// 		// setIsLoading.off();
-	// 	}
-	// };
-
-	const verifyGithub = async () => {
-		const res: any = await bindGithubApi.post("", {
-			code: router.query.code,
-			type: router.query.type,
-		});
-		if (res && res.jwt) {
-			let strings = res.jwt.split(".");
-			let userinfo = JSON.parse(
-				decodeURIComponent(
-					escape(window.atob(strings[1].replace(/-/g, "+").replace(/_/g, "/")))
-				)
-			);
-			if (!userinfo.is_verified) {
-				api.defaults.headers.authorization = ``;
-				setJwt("");
-				setPartyType(userinfo.third_party_type);
-				setPartyId(userinfo.third_party_id);
-				setType("github");
-				setOpenBindEmail(true);
-			} else {
-				api.defaults.headers.authorization = `Bearer ${res.jwt}`;
-				setJwt(res.jwt);
-				const res1 = await api.get(
-					`/api/users?thirdPartyType=${userinfo.third_party_type}&thirdPartyId=${userinfo.third_party_id}`
-				);
-				if (
-					res1 &&
-					res1.status &&
-					res1.status == 200 &&
-					res1.data.email_verified
-				) {
-					setUserInfo(res1.data);
-				}
-			}
-		}
-	};
-
-	useEffect(() => {
-		if (router.query && router.query.code && router.query.type) {
-			verifyGithub();
-			router.push(router.pathname);
-		}
-	}, [router]);
 
 	useEffect(() => {
 		const isHidden = localStorage.getItem("isHiddenTip") || "false";
@@ -119,7 +53,6 @@ export function ConnectModal(props: any) {
 				isOpen={openConnectModal}
 				onClose={() => {
 					setOpenConnectModal(false);
-					// setIsLoading.off();
 				}}
 				title="Sign In"
 				isCentered={true}
@@ -169,7 +102,7 @@ export function ConnectModal(props: any) {
 							>
 								<AlertIcon boxSize={4} mt="2px" />
 								<Text mr={4} lineHeight="17px" color="#487C7E">
-									You have been referred by{" "}
+									You have been referred by
 									<span style={{ color: "#DF753F" }}>
 										{toShortAddress(inviteId as string, 8)}
 									</span>
