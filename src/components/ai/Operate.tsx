@@ -15,11 +15,6 @@ import {
 } from "@chakra-ui/react";
 
 import { ChatChildren, ChatList } from "lib/types";
-import { HiOutlineEllipsisVertical } from "react-icons/hi2";
-import { RiDeleteBinLine } from "react-icons/ri";
-
-import { BiCopy } from "react-icons/bi";
-import { BsArrowRepeat } from "react-icons/bs";
 import { useStore } from "store";
 import { deepClone } from "lib";
 import { useMemo, useState } from "react";

@@ -11,12 +11,16 @@ import customTheme from "styles/theme";
 import useWallet from "lib/useWallet";
 import { WagmiConfig } from "wagmi";
 import { Web3Modal } from "@web3modal/react";
+import { ConfigProvider } from "react-vant";
+import enUS from "react-vant/es/locale/lang/en-US";
 
 import "react-vant/lib/index.css";
 import "animate.css";
 import "styles/markdown.css";
 import "styles/globals.css";
 import "styles/h5.css";
+
+// const customEnUS = mergeLocale(enUS, {});
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
 	const router = useRouter();
@@ -60,12 +64,13 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 		
 						gtag('config', 'G-2EV36YE6VQ');`}
 			</Script>
-			{/* <Web3ContextProvider> */}
+
 			<WagmiConfig config={networkConfig}>
-				<Component {...pageProps} className="flex-1" />
+				<ConfigProvider locale={enUS}>
+					<Component {...pageProps} className="flex-1" />
+				</ConfigProvider>
 				<Trace />
 				<Toasts message={toastMessage} type={toastType} time={toastTime} />
-				{/* </Web3ContextProvider> */}
 			</WagmiConfig>
 			<Web3Modal projectId={projectId} ethereumClient={ethereumClient} />
 		</ChakraProvider>
