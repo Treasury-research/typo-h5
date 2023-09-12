@@ -32,7 +32,7 @@ const networkConfig = createConfig({
 const ethereumClient = new EthereumClient(networkConfig, chains);
 
 export default function useWallet() {
-	const [loading, setLoading] = useState(false);
+	const [signLoading, setSignLoading] = useState(false);
 	const { setAutoConnect, setMessage, setSignature } = useWalletStore();
 	const { clearConnectModalStore } = useConnectModalStore();
 
@@ -95,7 +95,7 @@ export default function useWallet() {
 	const onConnect = async (address: string) => {
 		if (address) {
 			try {
-				setLoading(true);
+				setSignLoading(true);
 				const message = `Hello, welcome to TypoGraphy AI. Please sign this message to verify your wallet. Please make sure the URL is: https://app.typography.vip \nTime: ${Date.now()}`;
 				setMessage(message);
 				const signMsg = await signMessage({
@@ -103,9 +103,9 @@ export default function useWallet() {
 				});
 				await getNonce(message, signMsg, address);
 				return true;
-				setLoading(false);
+				setSignLoading(false);
 			} catch (error) {
-				setLoading(false);
+				setSignLoading(false);
 				return false;
 			}
 		}
@@ -121,7 +121,7 @@ export default function useWallet() {
 	};
 
 	return {
-		loading,
+		signLoading,
 		projectId,
 		ethereumClient,
 		networkConfig,

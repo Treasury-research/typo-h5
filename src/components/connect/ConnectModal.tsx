@@ -24,13 +24,13 @@ import { useStore } from "store";
 
 export function ConnectModal({ closeNav }: { closeNav: () => void }) {
 	const router = useRouter();
-	const { isOpen, open, close } = useWeb3Modal();
+	const { isOpen, open } = useWeb3Modal();
 	const { inviteId } = router?.query;
 	const { openConnectModal, setOpenConnectModal } = useConnectModalStore();
 	const [isHiddenTip, setIsHiddenTip] = useBoolean(false);
 	const { userId } = useUserInfoStore();
 	const { address, isConnected } = useAccount();
-	const { onConnect } = useWallet();
+	const { onConnect, signLoading } = useWallet();
 	const { showToast } = useStore();
 
 	const needSign = useMemo(() => {
@@ -82,6 +82,8 @@ export function ConnectModal({ closeNav }: { closeNav: () => void }) {
 				<div className="flex flex-col w-full gap-2 my-4">
 					<Button
 						mb={2}
+						isLoading={signLoading}
+						loadingText="Signning"
 						leftIcon={<Icon as={BiWallet} boxSize={5} />}
 						variant="blackPrimary"
 						size="md"

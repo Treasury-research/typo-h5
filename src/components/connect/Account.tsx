@@ -45,16 +45,12 @@ const Account = ({
 }) => {
 	const { jwt, setJwt } = useJwtStore();
 	const { doLogout } = useWallet();
-	const { address, isConnected } = useAccount();
+	const { address } = useAccount();
 	const { email, userId, setUserId, setEmail } = useUserInfoStore();
 	const { setOpenInviteModal, setOpenBindEmailModal } = useStore();
 	const { setOpenRemindModal, setOpenConnectModal } = useConnectModalStore();
 	const { totalCoupon, usedCoupon, setTotalCoupon, setUsedCoupon } =
 		useAiStore();
-
-	const needSign = useMemo(() => {
-		return isConnected && !userId && !jwt;
-	}, [isConnected, userId, jwt]);
 
 	const getUserInfo = async () => {
 		const res: any = await api.get(`/api/auth`);
