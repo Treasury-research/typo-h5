@@ -82,8 +82,6 @@ export function ConnectModal({ closeNav }: { closeNav: () => void }) {
 				<div className="flex flex-col w-full gap-2 my-4">
 					<Button
 						mb={2}
-						isLoading={signLoading}
-						loadingText="Signning"
 						leftIcon={<Icon as={BiWallet} boxSize={5} />}
 						variant="blackPrimary"
 						size="md"
