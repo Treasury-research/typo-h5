@@ -37,25 +37,25 @@ const commandsTips: CommandTip = {
 	"/Profile": {
 		label: "DID",
 		text: "Query the Web3 Profile",
-		left: 100,
+		left: 80,
 		tip: "my / address / xxx.eth / xxx.bnb / xxx.bit / xxx.lens",
 	},
 	"/ENS": {
 		label: "DID",
 		text: "Query the ENS domains",
-		left: 85,
+		left: 70,
 		tip: "my / address / xxx.eth / xxx.bnb / xxx.bit / xxx.lens",
 	},
 	"/POAP": {
 		label: "DID",
 		text: "Query the POAP events",
-		left: 95,
+		left: 80,
 		tip: "my / address / xxx.eth / xxx.bnb / xxx.bit / xxx.lens",
 	},
 	"/Snapshot": {
 		label: "DID",
 		text: "Query the Snapshot activies",
-		left: 125,
+		left: 105,
 		tip: "my / address / xxx.eth / xxx.bnb / xxx.bit / xxx.lens",
 	},
 };
@@ -182,6 +182,7 @@ export const TextAreaTips = forwardRef(
 							w="full"
 							py={1}
 							px={1}
+							pl={6}
 							top="-30px"
 							left="-10px"
 							zIndex={5}
@@ -214,7 +215,7 @@ export const TextAreaTips = forwardRef(
 						</HStack>
 						<HStack
 							pos="absolute"
-							top="8px"
+							bottom="12px"
 							justify="space-between"
 							left={`${variableInfo?.left}px`}
 							zIndex={5}

@@ -114,7 +114,7 @@ export function Guide({
 			</Swiper>
 
 			<VStack w="full" justify="center" flexDir="column" spacing={5} mt="45px!">
-				{cmds.map((item: any, index) => {
+				{userId && cmds.map((item: any, index) => {
 					return (
 						<Box key={index} w="full" pos="relative">
 							{isSandBox && (

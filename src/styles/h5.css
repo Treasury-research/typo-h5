@@ -6,7 +6,7 @@
 	width: 100% !important;
 	outline: none;
 	resize: none;
-	line-height: 23px;
+	line-height: 22px;
 }
 
 .chat-input > .rv-textarea__control ::-webkit-scrollbar {

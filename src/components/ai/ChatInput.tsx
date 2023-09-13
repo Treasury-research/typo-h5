@@ -279,88 +279,85 @@ export const ChatInput = forwardRef(
 		}, [userId]);
 
 		return (
-			<HStack pos="relative" w="100vw" spacing={3} py={2} px={3}>
-				{/* <Audio input={input} setInput={setInput} boxSize={5} color="bg.green" /> */}
+			<HStack
+				pos="relative"
+				w="full"
+				bg="blackAlpha.50"
+				spacing={2}
+				py={2}
+				px={4}
+				borderColor="blackAlpha.50"
+				borderTopWidth="1px"
+			>
+				<TextAreaTips
+					ref={myTip}
+					isFocus={isFocus}
+					labelValue={labelValue}
+					input={input}
+					isLoading={isLoading}
+					onSend={onSend}
+					setLabelValue={setLabelValue}
+					inputFocus={inputFocus}
+					setInput={setInput}
+				/>
 				<Flex
-					ml={1}
-					flex={1}
-					py="6px"
+					w="full"
 					px={2}
+					pt={2}
 					borderWidth="1px"
 					bg="bg.white"
 					borderColor="bg.white"
-					borderRadius={12}
+					borderRadius={8}
 					pos="relative"
 					shadow="md"
+					alignItems="center"
 				>
-					<TextAreaTips
-						ref={myTip}
-						isFocus={isFocus}
-						labelValue={labelValue}
-						input={input}
-						isLoading={isLoading}
-						onSend={onSend}
-						setLabelValue={setLabelValue}
-						inputFocus={inputFocus}
-						setInput={setInput}
+					<TextArea
+						rows={1}
+						ref={myInput}
+						className="chat-input flex-1 no-scrollbar"
+						placeholder="Use '/' to trigger commands"
+						value={input}
+						onChange={setInput}
+						autoSize={{ maxHeight: 150 }}
+						onCompositionStart={() => setIsComposition(true)}
+						onCompositionEnd={() => setIsComposition(false)}
+						onFocus={setIsFocus.on}
+						onBlur={() =>
+							setTimeout(() => {
+								setIsFocus.off();
+							}, 300)
+						}
 					/>
-					<HStack w="full" alignItems="flex-end" spacing={2}>
-						<Icon
-							as={AiOutlineClear}
-							cursor="pointer"
-							boxSize={6}
-							ml="2px"
-							mb="3px"
-							color={input ? "black" : "gray.300"}
-							onClick={() => setInput("")}
-						/>
-						<TextArea
-							rows={1}
-							ref={myInput}
-							className="chat-input flex-1"
-							placeholder="Use '/' to trigger commands"
-							value={input}
-							onChange={setInput}
-							autoSize={{ maxHeight: 150 }}
-							onCompositionStart={() => setIsComposition(true)}
-							onCompositionEnd={() => setIsComposition(false)}
-							onFocus={setIsFocus.on}
-							onBlur={() =>
-								setTimeout(() => {
-									setIsFocus.off();
-								}, 300)
-							}
-						/>
-						<Flex h="full" alignItems="flex-end">
-							{isLoading ? (
-								<Box w="38px" mb={1}>
-									<BeatLoader size={7} />
-								</Box>
-							) : (
-								<HStack
-									h="30px"
-									w="30px"
-									mb="2px"
-									borderRadius={8}
-									justify="center"
-									alignItems="center"
-									bg={input.trim() ? "black" : "gray.200"}
-								>
-									<Icon
-										as={TbSend}
-										color="bg.white"
-										boxSize={5}
-										onClick={() => {
-											if (input.trim()) {
-												onSend();
-											}
-										}}
-									/>
-								</HStack>
-							)}
-						</Flex>
-					</HStack>
+					<Flex h="full" alignItems="flex-end">
+						{isLoading && (
+							<Box w="38px" mb={1}>
+								<BeatLoader size={7} />
+							</Box>
+						)}
+					</Flex>
 				</Flex>
+				<HStack
+					h="35px"
+					w="35px"
+					mb="2px"
+					borderRadius={8}
+					justify="center"
+					alignItems="center"
+					shadow="md"
+					bg={input.trim() ? "black" : "gray.300"}
+				>
+					<Icon
+						as={TbSend}
+						color="bg.white"
+						boxSize={5}
+						onClick={() => {
+							if (input.trim()) {
+								onSend();
+							}
+						}}
+					/>
+				</HStack>
 				{userId &&
 					chatIndex !== null &&
 					list &&
