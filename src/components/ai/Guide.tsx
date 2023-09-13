@@ -69,6 +69,8 @@ export function Guide({
 		return isConnected && !userId;
 	}, [isConnected, userId]);
 
+	console.log(isConnected, needSign);
+
 	const list = useMemo(() => {
 		return isSandBox ? sandboxSlides : slides;
 	}, [isSandBox]);
@@ -95,7 +97,7 @@ export function Guide({
 		if (needSign && isLogin) {
 			sign();
 		}
-	}, [needSign]);
+	}, [needSign, isLogin]);
 
 	useEffect(() => {
 		if (userId) {
@@ -189,7 +191,7 @@ export function Guide({
 								}
 							}}
 						>
-							{needSign ? "Sign with wallet" : "Sign in"}
+							{needSign ? "Sign with wallet" : "Connect wallet "}
 						</Button>
 					</>
 				)}

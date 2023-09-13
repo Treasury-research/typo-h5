@@ -50,7 +50,7 @@ export function ConnectModal({ closeNav }: { closeNav: () => void }) {
 		if (needSign && isLogin) {
 			sign();
 		}
-	}, [needSign]);
+	}, [needSign, isLogin]);
 
 	useEffect(() => {
 		isOpen && setOpenConnectModal(false);
