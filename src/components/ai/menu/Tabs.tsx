@@ -126,13 +126,17 @@ export function Tabs({
 													Dialog.confirm({
 														title: "Edit Title",
 														closeable: true,
+														confirmButtonText: "Confirm",
+														cancelButtonText: "Cancel",
 														message: (
 															<Input
 																w="100%"
 																textAlign="left"
 																placeholder={list[index].name}
 																autoFocus
-																onChange={(e) => (channelName = e.target.value)}
+																onChange={(e: any) =>
+																	(channelName = e.target.value)
+																}
 															/>
 														),
 														onConfirm: () => {
@@ -151,6 +155,8 @@ export function Tabs({
 													const copyList: ChatList[] = deepClone(list);
 													Dialog.confirm({
 														title: "Clear",
+														confirmButtonText: "Confirm",
+														cancelButtonText: "Cancel",
 														message: "Are you sure to clear this chat?",
 													}).then(() => {
 														copyList[index].children = [];
@@ -166,6 +172,8 @@ export function Tabs({
 													const copyList: ChatList[] = deepClone(list);
 													Dialog.confirm({
 														title: "Delete",
+														confirmButtonText: "Confirm",
+														cancelButtonText: "Cancel",
 														message: "Are you sure to delete this chat?",
 													}).then(() => {
 														copyList.splice(index, 1);

@@ -12,7 +12,6 @@ import useWallet from "lib/useWallet";
 import { WagmiConfig } from "wagmi";
 import { Web3Modal } from "@web3modal/react";
 import { ConfigProvider } from "react-vant";
-import enUS from "react-vant/es/locale/lang/en-US";
 
 import "react-vant/lib/index.css";
 import "animate.css";
@@ -64,7 +63,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 			</Script>
 
 			<WagmiConfig config={networkConfig}>
-				<ConfigProvider locale={enUS}>
+				<ConfigProvider style={{ height: "100%" }}>
 					<Component {...pageProps} className="flex-1" />
 				</ConfigProvider>
 				<Trace />

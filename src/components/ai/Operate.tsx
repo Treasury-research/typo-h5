@@ -17,7 +17,7 @@ import {
 import { ChatChildren, ChatList } from "lib/types";
 import { useStore } from "store";
 import { deepClone } from "lib";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import moment from "moment";
 import { LongPressTouch } from "components";
 import { Popup, Dialog, Picker } from "react-vant";
@@ -92,6 +92,8 @@ export function Operate({
 		} else if (action === "Delete") {
 			Dialog.confirm({
 				title: "Delete",
+				confirmButtonText: "Confirm",
+				cancelButtonText: "Cancel",
 				message: "Are you sure to delete this content?",
 			}).then(() => {
 				const copyList: ChatList[] = deepClone(list);
@@ -104,6 +106,21 @@ export function Operate({
 
 		setIsOpen.off();
 	};
+
+	useEffect(() => {
+		if (isOpen) {
+			setTimeout(() => {
+				const wrapperElement = document.querySelector(
+					".rv-picker-column__wrapper"
+				);
+				const childElements = wrapperElement?.children;
+
+				if (childElements && childElements?.length > 0) {
+					childElements[0].textContent = "Select";
+				}
+			}, 200);
+		}
+	}, [isOpen]);
 
 	return (
 		<LongPressTouch
@@ -121,6 +138,8 @@ export function Operate({
 						showToolbar={true}
 						title="Operate"
 						columns={showActions}
+						confirmButtonText="Confirm"
+						cancelButtonText="Cancel"
 						onConfirm={onPickerChange}
 						onCancel={setIsOpen.off}
 					/>
