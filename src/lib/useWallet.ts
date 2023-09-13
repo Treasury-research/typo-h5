@@ -114,9 +114,9 @@ export default function useWallet() {
 	const handleSign = async (address: string) => {
 		const res = await onConnect(address as string);
 		if (res) {
-			// showToast("Login Success!", "success");
+			showToast("Login Success!", "success");
 		} else {
-			// showToast("Login Failed!", "warning");
+			showToast("Login Failed!", "warning");
 		}
 	};
 	const doLogout = async () => {
