@@ -78,7 +78,9 @@ export function Guide({
 	};
 
 	useEffect(() => {
-		getCommands();
+		if (userId) {
+			getCommands();
+		}
 	}, [userId]);
 
 	return (
@@ -91,7 +93,7 @@ export function Guide({
 		>
 			<Swiper
 				autoplay={5000}
-				indicator={(total, current) => (
+				indicator={(total: number, current: any) => (
 					<Box className="custom-indicator">
 						{current + 1}/{total}
 					</Box>

@@ -77,6 +77,10 @@ export default function Home() {
 	}, [list]);
 
 	useEffect(() => {
+		setChatIndex(null);
+	}, [isSandBox]);
+
+	useEffect(() => {
 		showNav
 			? (document.body.style.background = "#000")
 			: (document.body.style.background = "#fff");

@@ -36,6 +36,7 @@ export function ChatTitle({
 		toggle: () => void;
 	};
 }) {
+
 	return (
 		<>
 			<Box w="100vw">
@@ -48,7 +49,7 @@ export function ChatTitle({
 						<Tabs
 							type="jumbo"
 							color="#000"
-							onChange={(tabIndex) => {
+							onChange={(tabIndex:any) => {
 								tabIndex === 0 ? setIsSandBox.off() : setIsSandBox.on();
 							}}
 						>
