@@ -303,7 +303,7 @@ export const ChatInput = forwardRef(
 				<Flex
 					w="full"
 					px={2}
-					pt={2}
+					pt="6px"
 					borderWidth="1px"
 					bg="bg.white"
 					borderColor="bg.white"

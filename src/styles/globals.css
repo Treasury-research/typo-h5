@@ -65,6 +65,14 @@ p {
 	column-gap: 2rem !important;
 }
 
+.chakra-modal__overlay {
+	z-index: 3 !important;
+}
+
+.chakra-modal__content-container {
+	z-index: 3 !important;
+}
+
 /*mobile*/
 @media screen and (max-width: 600px) {
 	.base-modal {

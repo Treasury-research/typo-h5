@@ -95,7 +95,10 @@ const Account = ({
 								as={BiLogOut}
 								className="text-[21px] cursor-pointer h-6"
 								_hover={{ transform: "scale(1.1)" }}
-								onClick={() => doLogout()}
+								onClick={() => {
+									doLogout();
+									closeNav();
+								}}
 							/>
 						</Flex>
 						<VStack

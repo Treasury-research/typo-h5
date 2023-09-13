@@ -1,10 +1,23 @@
-import { Icon, Text, Flex, VStack, Center, Box, Badge } from "@chakra-ui/react";
+import {
+	Icon,
+	Text,
+	useBoolean,
+	VStack,
+	Button,
+	Box,
+	Badge,
+} from "@chakra-ui/react";
 import { BsCommand } from "react-icons/bs";
+import { BiWallet } from "react-icons/bi";
 
 import { useEffect, useMemo, useState } from "react";
 import { Cell, Swiper, Typography, Image } from "react-vant";
-import api from "api";
+
 import { useUserInfoStore } from "store/userInfoStore";
+import useWallet from "lib/useWallet";
+import { useAccount } from "wagmi";
+import { useWeb3Modal } from "@web3modal/react";
+import api from "api";
 
 const slides = [
 	{
@@ -15,18 +28,6 @@ const slides = [
 		url: "/images/aisql/guide4.png",
 		link: "https://knexus.xyz/create?utm_source=typo+quest&utm_campaign=kn+mbti",
 	},
-	// {
-	// 	url: "/images/aisql/guide1.png",
-	// 	link: "",
-	// },
-	// {
-	// 	url: "/images/aisql/guide2.png",
-	// 	link: "",
-	// },
-	// {
-	// 	url: "/images/aisql/guide3.png",
-	// 	link: "",
-	// },
 ];
 
 const sandboxSlides = [
@@ -59,6 +60,14 @@ export function Guide({
 }) {
 	const [commands, setCommands] = useState([]);
 	const { userId } = useUserInfoStore();
+	const { isConnected, address } = useAccount();
+	const { open } = useWeb3Modal();
+	const [isLogin, setIsLogin] = useBoolean(false);
+	const { handleSign } = useWallet();
+
+	const needSign = useMemo(() => {
+		return isConnected && !userId;
+	}, [isConnected, userId]);
 
 	const list = useMemo(() => {
 		return isSandBox ? sandboxSlides : slides;
@@ -76,6 +85,17 @@ export function Guide({
 			setCommands(result?.data as any);
 		}
 	};
+
+	const sign = async () => {
+		await handleSign(address);
+		setIsLogin.off();
+	};
+
+	useEffect(() => {
+		if (needSign && isLogin) {
+			sign();
+		}
+	}, [needSign]);
 
 	useEffect(() => {
 		if (userId) {
@@ -114,39 +134,65 @@ export function Guide({
 			</Swiper>
 
 			<VStack w="full" justify="center" flexDir="column" spacing={5} mt="45px!">
-				{userId && cmds.map((item: any, index) => {
-					return (
-						<Box key={index} w="full" pos="relative">
-							{isSandBox && (
-								<Badge
-									pos="absolute"
-									right="6px"
-									top="-9px"
-									colorScheme="green"
-									fontSize="xs"
-									transform="scale(0.76)"
-									zIndex={5}
-								>
-									token2049
-								</Badge>
-							)}
-							<Cell.Group card>
-								<Cell
-									style={{ alignItems: "center" }}
-									title={
-										<Typography.Text ellipsis>{item?.question}</Typography.Text>
-									}
-									icon={<Icon as={BsCommand} w="20px" />}
-									isLink
-									onClick={() => {
-										setInput(item?.question);
-										onSend();
-									}}
-								/>
-							</Cell.Group>
-						</Box>
-					);
-				})}
+				{userId ? (
+					cmds.map((item: any, index) => {
+						return (
+							<Box key={index} w="full" pos="relative">
+								{isSandBox && (
+									<Badge
+										pos="absolute"
+										right="6px"
+										top="-9px"
+										colorScheme="green"
+										fontSize="xs"
+										transform="scale(0.76)"
+										zIndex={5}
+									>
+										token2049
+									</Badge>
+								)}
+								<Cell.Group card>
+									<Cell
+										style={{ alignItems: "center" }}
+										title={
+											<Typography.Text ellipsis>
+												{item?.question}
+											</Typography.Text>
+										}
+										icon={<Icon as={BsCommand} w="20px" />}
+										isLink
+										onClick={() => {
+											setInput(item?.question);
+											onSend();
+										}}
+									/>
+								</Cell.Group>
+							</Box>
+						);
+					})
+				) : (
+					<>
+						<Button
+							mt={8}
+							leftIcon={<Icon as={BiWallet} boxSize={5} />}
+							variant="blackPrimary"
+							size="md"
+							w="85%"
+							h="38px"
+							borderRadius={8}
+							onClick={() => {
+								if (needSign) {
+									sign();
+								} else {
+									open();
+									setIsLogin.on();
+								}
+							}}
+						>
+							{needSign ? "Sign with wallet" : "Sign in"}
+						</Button>
+					</>
+				)}
 			</VStack>
 		</VStack>
 	);

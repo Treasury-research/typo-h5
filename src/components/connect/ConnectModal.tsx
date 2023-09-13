@@ -30,35 +30,27 @@ export function ConnectModal({ closeNav }: { closeNav: () => void }) {
 	const [isHiddenTip, setIsHiddenTip] = useBoolean(false);
 	const { userId } = useUserInfoStore();
 	const { address, isConnected } = useAccount();
-	const { onConnect, doLogout } = useWallet();
-	const { showToast } = useStore();
+	const { handleSign } = useWallet();
+	const [isLogin, setIsLogin] = useBoolean(false);
 
-	console.log(isConnected, userId);
 	const needSign = useMemo(() => {
 		return isConnected && !userId;
 	}, [isConnected, userId]);
 
-	const handleSign = async () => {
-		const res = await onConnect(address as string);
-		if (res) {
-			showToast("Login Success!", "success");
-			closeNav();
-			setOpenConnectModal(false);
-		} else {
-			showToast("Login Failed!", "warning");
-		}
+	console.log("needSign", needSign);
+
+	const sign = async () => {
+		await handleSign(address);
+		setOpenConnectModal(false);
+		closeNav();
+		setIsLogin.off();
 	};
 
 	useEffect(() => {
-		if (!userId) {
-			setOpenConnectModal(true);
-			return;
+		if (needSign && isLogin) {
+			sign();
 		}
-	}, [userId]);
-
-	useEffect(() => {
-		needSign && handleSign();
-	}, [isConnected]);
+	}, [needSign]);
 
 	useEffect(() => {
 		isOpen && setOpenConnectModal(false);
@@ -76,6 +68,7 @@ export function ConnectModal({ closeNav }: { closeNav: () => void }) {
 				isOpen={openConnectModal}
 				onClose={() => {
 					setOpenConnectModal(false);
+					setIsLogin.off();
 				}}
 				title="Sign In"
 				isCentered={true}
@@ -89,7 +82,12 @@ export function ConnectModal({ closeNav }: { closeNav: () => void }) {
 						h="38px"
 						borderRadius={8}
 						onClick={() => {
-							needSign ? handleSign() : open();
+							if (needSign) {
+								sign();
+							} else {
+								open();
+								setIsLogin.on();
+							}
 						}}
 					>
 						{needSign ? "Sign with wallet" : "Connect Wallet"}

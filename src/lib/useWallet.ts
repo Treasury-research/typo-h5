@@ -93,7 +93,6 @@ export default function useWallet() {
 	};
 
 	const onConnect = async (address: string) => {
-		doLogout();
 		if (address) {
 			try {
 				setSignLoading(true);
@@ -103,8 +102,8 @@ export default function useWallet() {
 					message,
 				});
 				await getNonce(message, signMsg, address);
-				return true;
 				setSignLoading(false);
+				return true;
 			} catch (error) {
 				setSignLoading(false);
 				return false;
@@ -112,6 +111,14 @@ export default function useWallet() {
 		}
 	};
 
+	const handleSign = async (address: string) => {
+		const res = await onConnect(address as string);
+		if (res) {
+			// showToast("Login Success!", "success");
+		} else {
+			// showToast("Login Failed!", "warning");
+		}
+	};
 	const doLogout = async () => {
 		api.defaults.headers.authorization = "";
 		setAutoConnect(false);
@@ -126,6 +133,7 @@ export default function useWallet() {
 		projectId,
 		ethereumClient,
 		networkConfig,
+		handleSign,
 		onConnect,
 		doLogout,
 	};
