@@ -66,6 +66,7 @@ export default function useWallet() {
 		if (res && res?.code == 200 && res?.data && res?.data?.token) {
 			api.defaults.headers.authorization = `Bearer ${res.data.token}`;
 			setJwt(res.data.token);
+			setAccount(address);
 			setTotalCoupon(res?.data?.totalCoupon);
 			setUsedCoupon(res?.data?.usedCoupon);
 			setUserId(res?.data?.user_id);
@@ -92,6 +93,7 @@ export default function useWallet() {
 	};
 
 	const onConnect = async (address: string) => {
+		doLogout();
 		if (address) {
 			try {
 				setSignLoading(true);

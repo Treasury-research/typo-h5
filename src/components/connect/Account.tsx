@@ -32,7 +32,6 @@ import { AiFillTwitterCircle } from "react-icons/ai";
 import { BsTelegram } from "react-icons/bs";
 import { SiSubstack } from "react-icons/si";
 import { BiWallet } from "react-icons/bi";
-import { useAccount } from "wagmi";
 import useWallet from "lib/useWallet";
 import api from "api";
 
@@ -45,8 +44,7 @@ const Account = ({
 }) => {
 	const { jwt, setJwt } = useJwtStore();
 	const { doLogout } = useWallet();
-	const { address } = useAccount();
-	const { email, userId, setUserId, setEmail } = useUserInfoStore();
+	const { email, userId, setUserId, setEmail, account } = useUserInfoStore();
 	const { setOpenInviteModal, setOpenBindEmailModal } = useStore();
 	const { setOpenRemindModal, setOpenConnectModal } = useConnectModalStore();
 	const { totalCoupon, usedCoupon, setTotalCoupon, setUsedCoupon } =
@@ -70,22 +68,22 @@ const Account = ({
 	}, [userId, email]);
 
 	useEffect(() => {
-		if (jwt && address) {
+		if (jwt && account) {
 			setOpenRemindModal(true);
 		}
-	}, [jwt, setOpenRemindModal, address]);
+	}, [jwt, setOpenRemindModal, account]);
 
 	return (
 		<VStack w="full" h="full" pt={4} alignItems="center" justify="flex-end">
-			{address && jwt ? (
+			{account && jwt ? (
 				<VStack w="full" px={3} mb={1}>
 					<Box w="full" bg="whiteAlpha.300" color="#fff" borderRadius={10}>
 						<Flex className="w-full justify-between items-center" py={3} px={4}>
 							<HStack>
-								<Jazzicon diameter={40} seed={jsNumberForAddress(address)} />
+								<Jazzicon diameter={40} seed={jsNumberForAddress(account)} />
 								<Box className="flex-col justify-around">
 									<Box className="text-[16px] font-bold">
-										{toShortAddress(address, 10)}
+										{toShortAddress(account, 10)}
 									</Box>
 									<Box className="text-[12px]">
 										{usedCoupon}/{totalCoupon} Credits

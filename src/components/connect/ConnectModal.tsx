@@ -30,9 +30,10 @@ export function ConnectModal({ closeNav }: { closeNav: () => void }) {
 	const [isHiddenTip, setIsHiddenTip] = useBoolean(false);
 	const { userId } = useUserInfoStore();
 	const { address, isConnected } = useAccount();
-	const { onConnect, signLoading } = useWallet();
+	const { onConnect, doLogout } = useWallet();
 	const { showToast } = useStore();
 
+	console.log(isConnected, userId);
 	const needSign = useMemo(() => {
 		return isConnected && !userId;
 	}, [isConnected, userId]);
