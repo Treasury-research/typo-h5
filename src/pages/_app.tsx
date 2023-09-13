@@ -11,7 +11,6 @@ import customTheme from "styles/theme";
 import useWallet from "lib/useWallet";
 import { WagmiConfig } from "wagmi";
 import { Web3Modal } from "@web3modal/react";
-import { ConfigProvider } from "react-vant";
 
 import "react-vant/lib/index.css";
 import "animate.css";
@@ -63,13 +62,13 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 			</Script>
 
 			<WagmiConfig config={networkConfig}>
-				<ConfigProvider style={{ height: "100%" }}>
-					<Component {...pageProps} className="flex-1" />
-				</ConfigProvider>
+				<Component {...pageProps} className="flex-1" />
+
 				<Trace />
 				<Toasts message={toastMessage} type={toastType} time={toastTime} />
+
+				<Web3Modal projectId={projectId} ethereumClient={ethereumClient} />
 			</WagmiConfig>
-			<Web3Modal projectId={projectId} ethereumClient={ethereumClient} />
 		</ChakraProvider>
 	);
 };

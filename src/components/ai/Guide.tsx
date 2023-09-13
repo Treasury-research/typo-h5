@@ -60,7 +60,7 @@ export function Guide({
 }) {
 	const [commands, setCommands] = useState([]);
 	const { userId } = useUserInfoStore();
-	const { isConnected } = useAccount();
+	const { isConnected, address } = useAccount();
 	const { open } = useWeb3Modal();
 	const [isLogin, setIsLogin] = useBoolean(false);
 	const { handleSign } = useWallet();
@@ -87,7 +87,7 @@ export function Guide({
 	};
 
 	const sign = async () => {
-		await handleSign();
+		await handleSign(address as string);
 		setIsLogin.off();
 	};
 
