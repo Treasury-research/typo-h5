@@ -10,6 +10,7 @@ import { useStore } from "store";
 import { useUserInfoStore } from "store/userInfoStore";
 import { useAiStore } from "store/aiStore";
 import { mainnet } from "wagmi/chains";
+import { useAccount } from "wagmi";
 import {
 	EthereumClient,
 	w3mConnectors,
@@ -36,18 +37,13 @@ export default function useWallet() {
 	const { clearConnectModalStore } = useConnectModalStore();
 
 	const { setTotalCoupon, setUsedCoupon } = useAiStore();
-	const {
-		setUserId,
-		clearUserInfo,
-		account,
-		setAccount,
-		setEmail,
-		setIsInvite,
-	} = useUserInfoStore();
+	const { setUserId, clearUserInfo, setAccount, setEmail, setIsInvite } =
+		useUserInfoStore();
 	const { jwt, setJwt } = useJwtStore();
 	const router = useRouter();
 	const { inviteId } = router?.query;
 	const { showToast } = useStore();
+	const { isConnected, address } = useAccount();
 
 	const getIsInvite = async () => {
 		const res: any = await api.get(`/api/auth/isInvite`);
@@ -92,7 +88,7 @@ export default function useWallet() {
 		}
 	};
 
-	const onConnect = async (address: string) => {
+	const onConnect = async () => {
 		if (address) {
 			try {
 				setSignLoading(true);
@@ -111,8 +107,8 @@ export default function useWallet() {
 		}
 	};
 
-	const handleSign = async (address: string) => {
-		const res = await onConnect(address as string);
+	const handleSign = async () => {
+		const res = await onConnect();
 		if (res) {
 			showToast("Login Success!", "success");
 		} else {

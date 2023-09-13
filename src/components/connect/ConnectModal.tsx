@@ -20,7 +20,6 @@ import { useWeb3Modal } from "@web3modal/react";
 import { BiWallet } from "react-icons/bi";
 import { useAccount } from "wagmi";
 import useWallet from "lib/useWallet";
-import { useStore } from "store";
 
 export function ConnectModal({ closeNav }: { closeNav: () => void }) {
 	const router = useRouter();
@@ -29,7 +28,7 @@ export function ConnectModal({ closeNav }: { closeNav: () => void }) {
 	const { openConnectModal, setOpenConnectModal } = useConnectModalStore();
 	const [isHiddenTip, setIsHiddenTip] = useBoolean(false);
 	const { userId } = useUserInfoStore();
-	const { address, isConnected } = useAccount();
+	const { isConnected } = useAccount();
 	const { handleSign } = useWallet();
 	const [isLogin, setIsLogin] = useBoolean(false);
 
@@ -37,10 +36,10 @@ export function ConnectModal({ closeNav }: { closeNav: () => void }) {
 		return isConnected && !userId;
 	}, [isConnected, userId]);
 
-	console.log("needSign", needSign);
+	// console.log("needSign", needSign);
 
 	const sign = async () => {
-		await handleSign(address);
+		await handleSign();
 		setOpenConnectModal(false);
 		closeNav();
 		setIsLogin.off();
