@@ -34,7 +34,7 @@ export function RemindModal() {
 					zIndex="30"
 				/>
 				<ModalBody position="relative" pos="relative" padding="0">
-					<Image src="./images/remind.png" alt="" />
+					<Image src="./images/remind.jpg" alt="" />
 				</ModalBody>
 			</ModalContent>
 		</Modal>

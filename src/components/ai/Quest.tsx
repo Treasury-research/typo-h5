@@ -432,10 +432,10 @@ export function Quest({
 								borderTopWidth="1.5px"
 								borderStyle="dashed"
 							>
-								By participating in the <b>#Token2049</b> chat box and unleash
-								your queries about <b>TOKEN2049</b> and our vibrant{" "}
-								<b>communities</b> in conversations, and sharing on Twitter, you
-								will have the opportunity to win up to 2049 TCC!
+								By participating in the #Token2049 chat box and unleash your
+								queries about TOKEN2049 and our 10+ <b>premier partners</b> in
+								conversations, and sharing on Twitter, you will have the
+								opportunity to win up to 2049 TCC!
 							</Box>
 						</Card.Body>
 						<Card.Footer>
@@ -450,7 +450,7 @@ export function Quest({
 								leftIcon={<Icon as={BsFillLightningChargeFill} boxSize={4} />}
 								onClick={() =>
 									window.open(
-										"https://www.typography.vip/quest/partners-with-token2049?utm_source=apptypo&utm_campaign=token2049-contest"
+										"https://www.typography.vip/quest/partners-with-typo?utm_source=apptypo&utm_campaign=token2049-contest"
 									)
 								}
 							>
