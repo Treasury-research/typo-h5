@@ -42,7 +42,7 @@ const Account = ({
 	isSandBox: boolean;
 	closeNav: () => void;
 }) => {
-	const { jwt, setJwt } = useJwtStore();
+	const { setJwt } = useJwtStore();
 	const { doLogout } = useWallet();
 	const { email, userId, setUserId, setEmail, account } = useUserInfoStore();
 	const { setOpenInviteModal, setOpenBindEmailModal } = useStore();
@@ -68,14 +68,14 @@ const Account = ({
 	}, [userId, email]);
 
 	useEffect(() => {
-		if (jwt && account) {
+		if (userId) {
 			setOpenRemindModal(true);
 		}
-	}, [jwt, setOpenRemindModal, account]);
+	}, [userId]);
 
 	return (
 		<VStack w="full" h="full" pt={4} alignItems="center" justify="flex-end">
-			{account && jwt ? (
+			{userId ? (
 				<VStack w="full" px={3} mb={1}>
 					<Box w="full" bg="whiteAlpha.300" color="#fff" borderRadius={10}>
 						<Flex className="w-full justify-between items-center" py={3} px={4}>

@@ -118,19 +118,16 @@ export default function useWallet() {
 
 	const doLogout = async () => {
 		api.defaults.headers.authorization = "";
+		setJwt("");
 		clearUserInfo();
 		clearConnectModalStore();
-		setJwt("");
 	};
 
 	const openConnectWallet = () => {
 		open();
+		doLogout();
 		setIsSign.on();
 	};
-
-	useEffect(() => {
-		isOpen && setOpenConnectModal(false);
-	}, [isOpen]);
 
 	return {
 		signLoading,

@@ -9,11 +9,9 @@ import {
 } from "@chakra-ui/react";
 import { ChatList } from "lib/types";
 import { ChatInput, NextSeo, ChatTitle, ChatContent, Quest } from "components";
-import { useConnectModalStore } from "store/modalStore";
 import { useState, useEffect, useRef, useMemo } from "react";
 import { useUserInfoStore } from "store/userInfoStore";
 import { deepClone, isPhone } from "lib";
-import { useJwtStore } from "store/jwtStore";
 import { Menu } from "components/ai/menu";
 import { useRouter } from "next/router";
 
