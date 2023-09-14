@@ -67,11 +67,11 @@ const Account = ({
 		}
 	}, [userId, email]);
 
-	useEffect(() => {
-		if (userId) {
-			setOpenRemindModal(true);
-		}
-	}, [userId]);
+	// useEffect(() => {
+	// 	if (userId) {
+	// 		setOpenRemindModal(true);
+	// 	}
+	// }, [userId]);
 
 	return (
 		<VStack w="full" h="full" pt={4} alignItems="center" justify="flex-end">
