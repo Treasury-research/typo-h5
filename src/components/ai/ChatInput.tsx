@@ -68,7 +68,7 @@ export const ChatInput = forwardRef(
 		const myTip = useRef<any>(null);
 		const [labelValue, setLabelValue] = useState("");
 		const [isFocus, setIsFocus] = useBoolean(false);
-		const [isComposition, setIsComposition] = useState(false);
+
 		const { setTotalCoupon, setUsedCoupon } = useAiStore();
 
 		// console.log("chatIndex", chatIndex);
@@ -314,9 +314,12 @@ export const ChatInput = forwardRef(
 						value={input}
 						onChange={setInput}
 						autoSize={{ maxHeight: 150 }}
-						onCompositionStart={() => setIsComposition(true)}
-						onCompositionEnd={() => setIsComposition(false)}
 						onFocus={setIsFocus.on}
+						onKeyDown={(e: any) => {
+							if (!e.shiftKey && e.key === "Enter" && input.trim()) {
+								onSend();
+							}
+						}}
 						onBlur={() =>
 							setTimeout(() => {
 								setIsFocus.off();

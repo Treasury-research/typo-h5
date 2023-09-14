@@ -35,14 +35,14 @@ export default function useWallet() {
 	const { inviteId } = router?.query;
 	const { showToast } = useStore();
 	const [signLoading, setSignLoading] = useState(false);
+	const { setTotalCoupon, setUsedCoupon } = useAiStore();
+	const { setJwt } = useJwtStore();
+	const { open } = useWeb3Modal();
+	const [isSign, setIsSign] = useBoolean(false);
 	const { clearConnectModalStore, setOpenConnectModal } =
 		useConnectModalStore();
-	const { setTotalCoupon, setUsedCoupon } = useAiStore();
 	const { setUserId, clearUserInfo, setAccount, setEmail, setIsInvite } =
 		useUserInfoStore();
-	const { setJwt } = useJwtStore();
-	const { open, isOpen } = useWeb3Modal();
-	const [isSign, setIsSign] = useBoolean(false);
 
 	const getIsInvite = async () => {
 		const res: any = await api.get(`/api/auth/isInvite`);

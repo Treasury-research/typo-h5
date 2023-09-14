@@ -169,7 +169,7 @@ export function Quest({
 	return (
 		<>
 			<Flex w="100vw" h="100%">
-				<VStack pos="relative" w="full" h="full" gap={3} pt={3}>
+				<VStack pos="relative" w="full" h="full" gap={3} py={3}>
 					<CloseButton pos="absolute" right={1} onClick={onClose} zIndex={5}/>
 					<HStack pos="relative" w="full" px="12px" h="24px">
 						<Icon as={BiGift} boxSize={5} />
@@ -459,8 +459,6 @@ export function Quest({
 					</Box>
 				</VStack>
 			</Flex>
-
-			{/* </Popup> */}
 
 			<BaseModal
 				isOpen={showModal}
