@@ -110,7 +110,7 @@ export function Tabs({
 									isLink
 									border={false}
 									style={{
-										background: "#292929",
+										background: "rgba(255, 255, 255, 0.12)",
 										borderRadius: "5px",
 										height: "42px",
 										color: "#fff",
@@ -161,6 +161,7 @@ export function Tabs({
 													}).then(() => {
 														copyList[index].children = [];
 														setList(copyList);
+														showToast("Cleared successfully");
 													});
 												}}
 											/>
