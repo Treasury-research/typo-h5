@@ -183,7 +183,7 @@ export const TextAreaTips = forwardRef(
 							py={1}
 							px={1}
 							pl={6}
-							top="-30px"
+							top="-28px"
 							left="-10px"
 							zIndex={5}
 							borderRadius={6}
@@ -228,7 +228,7 @@ export const TextAreaTips = forwardRef(
 								overflow="hidden"
 								color="#fff"
 								bg="blackAlpha.600"
-								transform="scale(0.85)"
+								transform="scale(0.8)"
 							>
 								<InputLeftAddon bg="blackAlpha.900" fontWeight="semibold">
 									{variableInfo?.label}

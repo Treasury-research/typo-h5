@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useWalletStore } from "store/walletStore";
+import { useBoolean } from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
 import { configureChains, createConfig } from "wagmi";
 import { signMessage } from "@wagmi/core";
 
@@ -10,13 +10,12 @@ import { useStore } from "store";
 import { useUserInfoStore } from "store/userInfoStore";
 import { useAiStore } from "store/aiStore";
 import { mainnet } from "wagmi/chains";
-
 import {
 	EthereumClient,
 	w3mConnectors,
 	w3mProvider,
 } from "@web3modal/ethereum";
-
+import { useWeb3Modal } from "@web3modal/react";
 import api from "api";
 
 const chains = [mainnet];
@@ -32,17 +31,18 @@ const networkConfig = createConfig({
 const ethereumClient = new EthereumClient(networkConfig, chains);
 
 export default function useWallet() {
-	const [signLoading, setSignLoading] = useState(false);
-	const { setAutoConnect, setMessage, setSignature } = useWalletStore();
-	const { clearConnectModalStore } = useConnectModalStore();
-
-	const { setTotalCoupon, setUsedCoupon } = useAiStore();
-	const { setUserId, clearUserInfo, setAccount, setEmail, setIsInvite } =
-		useUserInfoStore();
-	const { jwt, setJwt } = useJwtStore();
 	const router = useRouter();
 	const { inviteId } = router?.query;
 	const { showToast } = useStore();
+	const [signLoading, setSignLoading] = useState(false);
+	const { clearConnectModalStore, setOpenConnectModal } =
+		useConnectModalStore();
+	const { setTotalCoupon, setUsedCoupon } = useAiStore();
+	const { setUserId, clearUserInfo, setAccount, setEmail, setIsInvite } =
+		useUserInfoStore();
+	const { setJwt } = useJwtStore();
+	const { open, isOpen } = useWeb3Modal();
+	const [isSign, setIsSign] = useBoolean(false);
 
 	const getIsInvite = async () => {
 		const res: any = await api.get(`/api/auth/isInvite`);
@@ -87,12 +87,11 @@ export default function useWallet() {
 		}
 	};
 
-	const onConnect = async (address:string) => {
+	const onConnect = async (address: string) => {
 		if (address) {
 			try {
 				setSignLoading(true);
 				const message = `Hello, welcome to TypoGraphy AI. Please sign this message to verify your wallet. Please make sure the URL is: https://app.typography.vip \nTime: ${Date.now()}`;
-				setMessage(message);
 				const signMsg = await signMessage({
 					message,
 				});
@@ -106,28 +105,40 @@ export default function useWallet() {
 		}
 	};
 
-	const handleSign = async (address:string) => {
+	const handleSign = async (address: string) => {
 		const res = await onConnect(address);
 		if (res) {
 			showToast("Login Success!", "success");
 		} else {
 			showToast("Login Failed!", "warning");
 		}
+		setIsSign.off();
+		setOpenConnectModal(false);
 	};
+
 	const doLogout = async () => {
 		api.defaults.headers.authorization = "";
-		setAutoConnect(false);
 		clearUserInfo();
-		setJwt("");
-
 		clearConnectModalStore();
+		setJwt("");
 	};
+
+	const openConnectWallet = () => {
+		open();
+		setIsSign.on();
+	};
+
+	useEffect(() => {
+		isOpen && setOpenConnectModal(false);
+	}, [isOpen]);
 
 	return {
 		signLoading,
+		isSign,
 		projectId,
 		ethereumClient,
 		networkConfig,
+		openConnectWallet,
 		handleSign,
 		onConnect,
 		doLogout,

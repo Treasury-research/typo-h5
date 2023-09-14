@@ -16,7 +16,6 @@ import { Cell, Swiper, Typography, Image } from "react-vant";
 import { useUserInfoStore } from "store/userInfoStore";
 import useWallet from "lib/useWallet";
 import { useAccount } from "wagmi";
-import { useWeb3Modal } from "@web3modal/react";
 import api from "api";
 
 const slides = [
@@ -61,15 +60,14 @@ export function Guide({
 	const [commands, setCommands] = useState([]);
 	const { userId } = useUserInfoStore();
 	const { isConnected, address } = useAccount();
-	const { open } = useWeb3Modal();
-	const [isLogin, setIsLogin] = useBoolean(false);
-	const { handleSign } = useWallet();
+
+	const { handleSign, openConnectWallet, isSign } = useWallet();
 
 	const needSign = useMemo(() => {
 		return isConnected && !userId;
 	}, [isConnected, userId]);
 
-	console.log(isConnected, needSign);
+	// console.log(isConnected, needSign);
 
 	const list = useMemo(() => {
 		return isSandBox ? sandboxSlides : slides;
@@ -88,16 +86,11 @@ export function Guide({
 		}
 	};
 
-	const sign = async () => {
-		await handleSign(address as string);
-		setIsLogin.off();
-	};
-
 	useEffect(() => {
-		if (needSign && isLogin) {
-			sign();
+		if (needSign && isSign) {
+			handleSign(address as string);
 		}
-	}, [needSign, isLogin]);
+	}, [needSign, isSign]);
 
 	useEffect(() => {
 		if (userId) {
@@ -135,7 +128,7 @@ export function Guide({
 				})}
 			</Swiper>
 
-			<VStack w="full" justify="center" flexDir="column" spacing={5} mt="45px!">
+			<VStack w="full" justify="center" flexDir="column" spacing={5} mt="40px!">
 				{userId ? (
 					cmds.map((item: any, index) => {
 						return (
@@ -175,23 +168,18 @@ export function Guide({
 				) : (
 					<>
 						<Button
-							mt={8}
 							leftIcon={<Icon as={BiWallet} boxSize={5} />}
 							variant="blackPrimary"
 							size="md"
-							w="85%"
-							h="38px"
+							w="52%"
+							h="42px"
+							fontWeight="600"
 							borderRadius={8}
 							onClick={() => {
-								if (needSign) {
-									sign();
-								} else {
-									open();
-									setIsLogin.on();
-								}
+								needSign ? handleSign(address as string) : openConnectWallet();
 							}}
 						>
-							{needSign ? "Sign with wallet" : "Connect wallet "}
+							{needSign ? "Sign with Wallet" : "Connect Wallet "}
 						</Button>
 					</>
 				)}

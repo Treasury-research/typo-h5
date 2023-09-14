@@ -16,45 +16,34 @@ import { CloseIcon } from "@chakra-ui/icons";
 import { toShortAddress } from "lib";
 import { NoticeBar } from "react-vant";
 
-import { useWeb3Modal } from "@web3modal/react";
 import { BiWallet } from "react-icons/bi";
 import { useAccount } from "wagmi";
 import useWallet from "lib/useWallet";
- 
 
 export function ConnectModal({ closeNav }: { closeNav: () => void }) {
 	const router = useRouter();
-	const { isOpen, open } = useWeb3Modal();
+
 	const { inviteId } = router?.query;
 	const { openConnectModal, setOpenConnectModal } = useConnectModalStore();
 	const [isHiddenTip, setIsHiddenTip] = useBoolean(false);
 	const { userId } = useUserInfoStore();
-	const { isConnected,address } = useAccount();
-	const { handleSign } = useWallet();
-	const [isLogin, setIsLogin] = useBoolean(false);
+	const { isConnected, address } = useAccount();
+	const { handleSign, openConnectWallet, isSign } = useWallet();
 
 	const needSign = useMemo(() => {
 		return isConnected && !userId;
 	}, [isConnected, userId]);
 
-	// console.log("needSign", needSign);
-
 	const sign = async () => {
 		await handleSign(address as string);
-		setOpenConnectModal(false);
 		closeNav();
-		setIsLogin.off();
 	};
 
 	useEffect(() => {
-		if (needSign && isLogin) {
+		if (needSign && isSign) {
 			sign();
 		}
-	}, [needSign, isLogin]);
-
-	useEffect(() => {
-		isOpen && setOpenConnectModal(false);
-	}, [isOpen]);
+	}, [needSign, isSign]);
 
 	useEffect(() => {
 		const isHidden = localStorage.getItem("isHiddenTip") || "false";
@@ -68,7 +57,6 @@ export function ConnectModal({ closeNav }: { closeNav: () => void }) {
 				isOpen={openConnectModal}
 				onClose={() => {
 					setOpenConnectModal(false);
-					setIsLogin.off();
 				}}
 				title="Sign In"
 				isCentered={true}
@@ -82,15 +70,10 @@ export function ConnectModal({ closeNav }: { closeNav: () => void }) {
 						h="38px"
 						borderRadius={8}
 						onClick={() => {
-							if (needSign) {
-								sign();
-							} else {
-								open();
-								setIsLogin.on();
-							}
+							needSign ? sign() : openConnectWallet();
 						}}
 					>
-						{needSign ? "Sign with wallet" : "Connect Wallet"}
+						{needSign ? "Sign with Wallet" : "Connect Wallet"}
 					</Button>
 				</div>
 

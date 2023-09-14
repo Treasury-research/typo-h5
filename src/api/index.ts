@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useWalletStore } from "store/walletStore";
+
 import { useUserInfoStore } from "store/userInfoStore";
 import { useConnectModalStore } from "store/modalStore";
 import { useJwtStore } from "store/jwtStore";
@@ -9,11 +9,9 @@ const baseURL = process.env.NEXT_PUBLIC_TYPOGRAPH_API_DOMAIN;
 const modalStore = useConnectModalStore.getState();
 
 function logOut() {
-	const walletStore = useWalletStore.getState();
 	const userInfoStore = useUserInfoStore.getState();
 	const jwtStore = useJwtStore.getState();
 	userInfoStore.clearUserInfo();
-	walletStore.clearWallet();
 	jwtStore.setJwt("");
 	api.defaults.headers.authorization = "";
 }
@@ -24,12 +22,12 @@ const api = axios.create({
 } as any);
 
 api.interceptors.request.use(
-	(config) => {
+	(config: any) => {
 		const jwt = useJwtStore.getState().jwt;
 		config.headers.authorization = `Bearer ${jwt ? jwt : 123}`;
 		return config;
 	},
-	(err) => {
+	(err:any) => {
 		return Promise.reject(err);
 	}
 );
