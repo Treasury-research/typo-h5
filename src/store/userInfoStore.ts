@@ -3,7 +3,7 @@ import { persist } from "zustand/middleware";
 
 export const useUserInfoStore: any = create<any>()(
 	persist(
-		(set, get) => ({
+		(set: any, get: any) => ({
 			account: "",
 			email: "",
 			email_subscription: false,

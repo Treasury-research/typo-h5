@@ -3,7 +3,7 @@ import { persist } from 'zustand/middleware'
 
 export const useJwtStore:any = create<any>()(
   persist(
-    (set, get) => ({
+    (set:any, get:any) => ({
       jwt: '',
       setJwt: (jwt:string) => {
         set({ jwt })
