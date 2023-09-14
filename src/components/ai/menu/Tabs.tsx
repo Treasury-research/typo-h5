@@ -161,7 +161,7 @@ export function Tabs({
 													}).then(() => {
 														copyList[index].children = [];
 														setList(copyList);
-														showToast("Cleared successfully");
+														showToast("Cleared successfully", "success");
 													});
 												}}
 											/>
