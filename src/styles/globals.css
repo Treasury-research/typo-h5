@@ -95,36 +95,6 @@ p {
 		padding: 10px !important;
 	}
 
-	.invite-gift {
-		display: none;
-	}
-	.invite-content {
-		width: calc(100vw - 30px) !important;
-	}
-	.invite-body {
-		padding-inline-start: 15px !important;
-		padding-inline-end: 15px !important;
-	}
-
-	.invite-title {
-		white-space: nowrap;
-		font-size: 22px;
-		padding-left: 20px;
-	}
-	.invite-ul {
-		padding-top: 30px;
-	}
-	.invite-ul h2 {
-		white-space: nowrap;
-		font-size: 16px;
-	}
-
-	.invite-ul p {
-		font-size: 13px;
-	}
-	.invite-3 {
-		justify-content: center;
-	}
 	.dottedLine {
 		justify-content: center;
 	}
@@ -162,15 +132,6 @@ p {
 		width: calc(100% - 90px) !important;
 	}
 
-	.invite-title {
-		white-space: nowrap;
-		font-size: 22px;
-		padding-left: 20px;
-	}
-
-	.invite-3 {
-		justify-content: center;
-	}
 	.dottedLine {
 		justify-content: center;
 	}

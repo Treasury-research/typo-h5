@@ -1,12 +1,4 @@
-import {
-	Text,
-	Flex,
-	VStack,
-	Container,
-	useBoolean,
-	useDisclosure,
-	Box,
-} from "@chakra-ui/react";
+import { Flex, VStack, Container, useBoolean } from "@chakra-ui/react";
 import { ChatList } from "lib/types";
 import { ChatInput, NextSeo, ChatTitle, ChatContent, Quest } from "components";
 import { useState, useEffect, useRef, useMemo } from "react";
