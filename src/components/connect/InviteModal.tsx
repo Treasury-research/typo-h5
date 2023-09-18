@@ -31,7 +31,7 @@ export function InviteModal({ isSandBox }: { isSandBox: boolean }) {
 				isSandBox ? "sandbox" : "general"
 			}&inviteId=${userId}`
 		);
-	}, [isSandBox]);
+	}, [isSandBox, userId]);
 
 	return (
 		<Modal
@@ -66,7 +66,7 @@ export function InviteModal({ isSandBox }: { isSandBox: boolean }) {
 									border="0"
 									bg="transparent"
 									value={value}
-									autoFocus={false}
+									disabled
 								/>
 
 								<Button
