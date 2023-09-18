@@ -57,7 +57,7 @@ export function InviteModal({ isSandBox }: { isSandBox: boolean }) {
 							px={5}
 							py="28px"
 						>
-							<Flex w="full" alignItems="center" spacing={0}>
+							<Flex w="full" alignItems="center">
 								<Input
 									px={2}
 									w="60%"
