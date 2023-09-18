@@ -16,6 +16,7 @@ import { Cell, Swiper, Typography, Image } from "react-vant";
 import { useUserInfoStore } from "store/userInfoStore";
 import useWallet from "lib/useWallet";
 import { useAccount } from "wagmi";
+import { useStore } from "store";
 import api from "api";
 
 const slides = [
@@ -50,6 +51,7 @@ export function Guide({
 	const [commands, setCommands] = useState([]);
 	const { userId } = useUserInfoStore();
 	const { isConnected, address } = useAccount();
+	const { openInviteModal, setOpenInviteModal } = useStore();
 
 	const { handleSign, openConnectWallet, isSign } = useWallet();
 
@@ -104,12 +106,18 @@ export function Guide({
 					</Box>
 				)}
 			>
-				{list.map((item) => {
+				{list.map((item, index) => {
 					return (
 						<Swiper.Item key={item.url}>
 							<Box
 								cursor="pointer"
-								onClick={() => item.link && window.open(item.link)}
+								onClick={() => {
+									if (index === 0) {
+										setOpenInviteModal(true);
+									} else {
+										item.link && window.open(item.link);
+									}
+								}}
 							>
 								<Image alt="" src={item.url} fit="contain" />
 							</Box>
