@@ -168,18 +168,18 @@ export const ChatInput = forwardRef(
 		const addChatLeft = async (copyList: ChatList[], chat_index: number) => {
 			try {
 				setIsLoading.on();
-				let result: any;
+				
 				const prompt = input.trim() + (labelValue ? ` ${labelValue}` : "");
-				const type = copyList[chat_index].type;
 				const { cmd, cmdType, cmdValue } = getShortcutByprompt(prompt);
 				const cmds = commands.map((str) => str.toLowerCase());
 
-				if (isShortcut(prompt) || (isSandBox && type === "token2049")) {
+				let result: any;
+				if (isShortcut(prompt)) {
 					result = await api.get(`/api/shortcut`, {
 						params: {
 							conversation_id: copyList[chat_index]?.chatId,
-							type: cmds.includes(cmd) ? cmdType : type,
-							input: cmds.includes(cmd) ? cmdValue : prompt,
+							type: cmds.includes(cmd) ? cmdType : "",
+							input: cmds.includes(cmd) ? cmdValue : "",
 						},
 					});
 				} else {

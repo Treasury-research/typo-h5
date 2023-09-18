@@ -20,8 +20,7 @@ import api from "api";
 
 const slides = [
 	{
-		url: "/images/aisql/token2049.png",
-		link: "https://app.typography.vip?tab=sandbox",
+		url: "/images/aisql/driver.png",
 	},
 	{
 		url: "/images/aisql/guide4.png",
@@ -31,20 +30,11 @@ const slides = [
 
 const sandboxSlides = [
 	{
-		url: "/images/aisql/token2049.png",
-		link: "",
+		url: "/images/aisql/driver.png",
 	},
 	{
-		url: "/images/aisql/token1.png",
-		link: "",
-	},
-	{
-		url: "/images/aisql/token2.png",
-		link: "",
-	},
-	{
-		url: "/images/aisql/token3.png",
-		link: "",
+		url: "/images/aisql/guide4.png",
+		link: "https://knexus.xyz/create?utm_source=typo+quest&utm_campaign=kn+mbti",
 	},
 ];
 
@@ -133,19 +123,6 @@ export function Guide({
 					cmds.map((item: any, index) => {
 						return (
 							<Box key={index} w="full" pos="relative">
-								{isSandBox && (
-									<Badge
-										pos="absolute"
-										right="6px"
-										top="-9px"
-										colorScheme="green"
-										fontSize="xs"
-										transform="scale(0.76)"
-										zIndex={5}
-									>
-										token2049
-									</Badge>
-								)}
 								<Cell.Group card>
 									<Cell
 										style={{ alignItems: "center" }}

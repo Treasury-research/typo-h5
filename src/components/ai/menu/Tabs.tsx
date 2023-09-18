@@ -208,7 +208,7 @@ export function Tabs({
 						{isSandBox && (
 							<Popover
 								placement="bottom-end"
-								actions={[{ text: "token2049" }]}
+								actions={[{ text: "Regular" }]}
 								onSelect={(option: any) => setSandBoxType(option.text)}
 								reference={
 									<Badge size="xs" mt={-1} colorScheme="green">

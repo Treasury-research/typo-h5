@@ -403,7 +403,7 @@ export function Quest({
 								</Button>
 							</Card.Footer>
 						</Card>
-						<Card
+						{/* <Card
 							round
 							style={{
 								boxShadow: "0 0 4px rgba(0, 0, 0, 0.2)",
@@ -455,7 +455,7 @@ export function Quest({
 									View More Info
 								</Button>
 							</Card.Footer>
-						</Card>
+						</Card> */}
 					</Box>
 				</VStack>
 			</Flex>

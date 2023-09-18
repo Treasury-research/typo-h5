@@ -52,8 +52,8 @@ export function ChatTitle({
 								tabIndex === 0 ? setIsSandBox.off() : setIsSandBox.on();
 							}}
 						>
-							<Tabs.TabPane title="History" />
-							<Tabs.TabPane title="Sandbox" />
+							<Tabs.TabPane title="Chat" />
+							{/* <Tabs.TabPane title="Sandbox" /> */}
 						</Tabs>
 					}
 					leftText={

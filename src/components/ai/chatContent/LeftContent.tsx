@@ -86,14 +86,14 @@ export function Left({
 							<Markdown value={item.content as string} />
 						)}
 
-						<ChatSubmit
+						{/* <ChatSubmit
 							item={item}
 							index={index}
 							list={list}
 							chatIndex={chatIndex}
 							setInput={setInput}
 							setList={setList}
-						/>
+						/> */}
 					</VStack>
 				</Box>
 			</Operate>

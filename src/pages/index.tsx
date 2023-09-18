@@ -19,7 +19,7 @@ export default function Home() {
 	const [list, setList] = useState<ChatList[] | null>(null);
 	const [input, setInput] = useState<string>();
 	const [isSandBox, setIsSandBox] = useBoolean(false);
-	const [sandBoxType, setSandBoxType] = useState("token2049");
+	const [sandBoxType, setSandBoxType] = useState("Regular");
 
 	const localName = useMemo(() => {
 		return isSandBox ? "sandbox" : "records";

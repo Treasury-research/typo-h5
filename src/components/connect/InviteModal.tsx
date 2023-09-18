@@ -66,6 +66,7 @@ export function InviteModal({ isSandBox }: { isSandBox: boolean }) {
 									border="0"
 									bg="transparent"
 									value={value}
+									autoFocus={false}
 								/>
 
 								<Button
