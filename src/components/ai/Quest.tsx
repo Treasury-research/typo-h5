@@ -120,6 +120,7 @@ export function Quest({
 		const SubstackItem = awards.filter((item) => item.type === "Substack")[0];
 		const GalleryItem = awards.filter((item) => item.type === "gallery_s1")[0];
 		const Gallery2Item = awards.filter((item) => item.type === "gallery_s2")[0];
+		const Token2049Item = awards.filter((item) => item.type === "token2049")[0];
 
 		return {
 			preRegItem,
@@ -132,6 +133,7 @@ export function Quest({
 			SubstackItem,
 			GalleryItem,
 			Gallery2Item,
+			Token2049Item,
 		};
 	}, [awards]);
 
@@ -170,13 +172,18 @@ export function Quest({
 		<>
 			<Flex w="100vw" h="100%">
 				<VStack pos="relative" w="full" h="full" gap={3} py={3}>
-					<CloseButton pos="absolute" right={1} onClick={onClose} zIndex={5}/>
+					<CloseButton pos="absolute" right={1} onClick={onClose} zIndex={5} />
 					<HStack pos="relative" w="full" px="12px" h="24px">
 						<Icon as={BiGift} boxSize={5} />
 						<Text fontSize="md" fontWeight="semibold">
 							QUEST
 						</Text>
-						<Badge colorScheme="green" fontSize="12px" borderRadius={4} mt="-20px!">
+						<Badge
+							colorScheme="green"
+							fontSize="12px"
+							borderRadius={4}
+							mt="-20px!"
+						>
 							Hot
 						</Badge>
 					</HStack>
@@ -331,6 +338,14 @@ export function Quest({
 												title="Gallery S2"
 												isFinish={!!awardItems.Gallery2Item}
 												value={awardItems.Gallery2Item?.score}
+											/>
+										)}
+
+										{awardItems.Token2049Item && (
+											<AwardItem
+												title="TOKEN2049"
+												isFinish={!!awardItems.Token2049Item}
+												value={awardItems.Token2049Item?.score}
 											/>
 										)}
 

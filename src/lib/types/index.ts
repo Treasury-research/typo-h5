@@ -62,7 +62,8 @@ export type Incentive = {
 		| "TG"
 		| "Substack"
 		| "gallery_s1"
-		| "gallery_s2";
+		| "gallery_s2"
+		| "token2049";
 
 	score: number;
 };
