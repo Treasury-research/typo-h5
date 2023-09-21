@@ -71,7 +71,7 @@ const commandsTips: CommandTip = {
 	},
 	"/Uniswap": {
 		label: "",
-		text: "Search name or paste address",
+		text: "Swap on Uniswap",
 		left: 110,
 		tip: "",
 		default: "",

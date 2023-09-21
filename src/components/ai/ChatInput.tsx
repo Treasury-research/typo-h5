@@ -164,7 +164,7 @@ export const ChatInput = forwardRef(
 		};
 
 		const addChatLeft = async (copyList: ChatList[], chat_index: number) => {
-			if (input.trim() === "/Uniswap") {
+			if (input.trim().toLocaleLowerCase().includes("/uniswap")) {
 				copyList[chat_index].children.push({
 					type: "result",
 					id: "uniswap " + new Date().getTime(),
