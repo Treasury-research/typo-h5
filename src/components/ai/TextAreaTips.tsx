@@ -28,35 +28,53 @@ type CommandTip = {
 		text: string;
 		left: number;
 		tip: string;
+		default: string;
 	};
 };
 
 // const commands: string[] = ["/Profile"];
-export const commands: string[] = ["/Profile", "/ENS", "/POAP", "/Snapshot"];
+export const commands: string[] = [
+	"/Profile",
+	"/ENS",
+	"/POAP",
+	"/Snapshot",
+	"/Uniswap",
+];
 const commandsTips: CommandTip = {
 	"/Profile": {
 		label: "DID",
 		text: "Query the Web3 Profile",
 		left: 80,
+		default: "my",
 		tip: "my / address / xxx.eth / xxx.bnb / xxx.bit / xxx.lens",
 	},
 	"/ENS": {
 		label: "DID",
 		text: "Query the ENS domains",
 		left: 70,
+		default: "my",
 		tip: "my / address / xxx.eth / xxx.bnb / xxx.bit / xxx.lens",
 	},
 	"/POAP": {
 		label: "DID",
 		text: "Query the POAP events",
 		left: 80,
+		default: "my",
 		tip: "my / address / xxx.eth / xxx.bnb / xxx.bit / xxx.lens",
 	},
 	"/Snapshot": {
 		label: "DID",
 		text: "Query the Snapshot activies",
 		left: 105,
+		default: "my",
 		tip: "my / address / xxx.eth / xxx.bnb / xxx.bit / xxx.lens",
+	},
+	"/Uniswap": {
+		label: "",
+		text: "Search name or paste address",
+		left: 110,
+		tip: "",
+		default: "",
 	},
 };
 
@@ -109,7 +127,8 @@ export const TextAreaTips = forwardRef(
 		}, [input]);
 
 		useEffect(() => {
-			if (variableInfo?.label) {
+			if (variableInfo?.default) {
+				setLabelValue(variableInfo?.default);
 				myLabelInput.current.focus();
 			}
 		}, [variableInfo]);
@@ -128,6 +147,7 @@ export const TextAreaTips = forwardRef(
 						shadow="md"
 						w="60%"
 						py={2}
+						zIndex={5}
 					>
 						{list.map((item, index) => {
 							return (
@@ -140,7 +160,6 @@ export const TextAreaTips = forwardRef(
 									py={2}
 									cursor="pointer"
 									bg={tipIndex === index ? "blackAlpha.300" : ""}
-									_hover={{ bg: "blackAlpha.300" }}
 									onClick={() => {
 										setInput(item + " ");
 										setTipIndex(index);
@@ -208,72 +227,82 @@ export const TextAreaTips = forwardRef(
 								whiteSpace="nowrap"
 								flex={1}
 								overflow="hidden"
+								pt="1px"
 								textOverflow="ellipsis"
 							>
 								{variableInfo?.tip}
 							</Text>
 						</HStack>
-						<HStack
-							pos="absolute"
-							bottom="12px"
-							justify="space-between"
-							left={`${variableInfo?.left}px`}
-							zIndex={5}
-						>
-							<InputGroup
-								size="xs"
-								borderWidth="1px"
-								borderColor="blackAlpha.900"
-								borderRadius={4}
-								overflow="hidden"
-								color="#fff"
-								bg="blackAlpha.600"
-								transform="scale(0.8)"
+						{variableInfo?.default && (
+							<HStack
+								pos="absolute"
+								bottom="12px"
+								justify="space-between"
+								left={`${variableInfo?.left}px`}
+								zIndex={5}
 							>
-								<InputLeftAddon bg="blackAlpha.900" fontWeight="semibold">
-									{variableInfo?.label}
-								</InputLeftAddon>
-								<Box
-									display="flex"
-									contentEditable={"plaintext-only" as any}
-									suppressContentEditableWarning
-									ref={myLabelInput}
-									tabIndex={1}
-									w="auto"
-									h="24px"
-									ml={2}
-									mr={1}
-									minW="30px"
-									maxW="150px"
-									lineHeight="24px"
-									whiteSpace="nowrap"
-									overflowX="hidden"
-									alignItems="center"
-									border={0}
-									outline="none"
-									onKeyDown={(e: any) => {
-										if (!e.shiftKey && labelValue && e.key === "Enter") {
-											e.preventDefault();
-											onSend();
-											return;
-										}
+								<InputGroup
+									size="xs"
+									borderWidth="1px"
+									borderColor="blackAlpha.900"
+									borderRadius={4}
+									overflow="hidden"
+									color="#fff"
+									bg="blackAlpha.600"
+									transform="scale(0.8)"
+								>
+									<InputLeftAddon bg="blackAlpha.900" fontWeight="semibold">
+										{variableInfo?.label}
+									</InputLeftAddon>
+									<Box
+										display="flex"
+										contentEditable={"plaintext-only" as any}
+										suppressContentEditableWarning
+										ref={myLabelInput}
+										tabIndex={1}
+										w="auto"
+										h="24px"
+										ml={2}
+										mr={1}
+										minW="30px"
+										maxW="150px"
+										lineHeight="24px"
+										whiteSpace="nowrap"
+										overflowX="hidden"
+										alignItems="center"
+										border={0}
+										outline="none"
+										onKeyDown={(e: any) => {
+											if (!e.shiftKey && labelValue && e.key === "Enter") {
+												e.preventDefault();
+												onSend();
+												return;
+											}
 
-										if (e.key === "Backspace") {
-											setTimeout(() => {
-												if (!myLabelInput.current?.innerText) {
-													inputFocus();
-													setInput(input.trim());
-													setLabelValue("");
-												}
-											}, 100);
-										}
-									}}
-									onInput={(e: any) => {
-										setLabelValue(e.target.innerText.trim().replace("/n", ""));
-									}}
-								></Box>
-							</InputGroup>
-						</HStack>
+											if (e.key === "Backspace") {
+												setTimeout(() => {
+													if (
+														!myLabelInput.current?.innerText ||
+														myLabelInput.current?.innerText === labelValue
+													) {
+														inputFocus();
+														setInput(input.trim());
+														setLabelValue("");
+													}
+												}, 100);
+											}
+										}}
+										onInput={(e: any) => {
+											setLabelValue(
+												e.target.innerText.trim().replace("/n", "")
+											);
+										}}
+									>
+										{variableInfo?.default}
+									</Box>
+								</InputGroup>
+							</HStack>
+						)}
 					</>
 				)}
 			</>

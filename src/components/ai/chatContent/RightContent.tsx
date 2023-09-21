@@ -56,7 +56,7 @@ export function Right({
 							as={AiFillCaretRight}
 							boxSize={4}
 							pos="absolute"
-							right="-11.2px"
+							right="-11px"
 							top="9px"
 							color="bg.green"
 						/>

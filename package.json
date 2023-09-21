@@ -25,6 +25,7 @@
 		"@types/react-speech-recognition": "^3.9.2",
 		"@uiw/react-md-editor": "^3.23.3",
 		"@wagmi/core": "^1.4.1",
+		"@uniswap/widgets": "^2.53.2",
 		"@web3modal/ethereum": "^2.7.1",
 		"@web3modal/react": "^2.7.1",
 		"animate.css": "^4.1.1",

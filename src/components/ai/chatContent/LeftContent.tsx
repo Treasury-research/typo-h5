@@ -2,7 +2,15 @@ import { Box, HStack, VStack, Avatar, Icon } from "@chakra-ui/react";
 import { ChatChildren, ChatList } from "lib/types";
 import { AiFillCaretLeft } from "react-icons/ai";
 import { Operate } from "../Operate";
-import { Markdown, Profile, Ens, ChatSubmit, Poap, Snapshot } from "components";
+import {
+	Markdown,
+	Profile,
+	Ens,
+	ChatSubmit,
+	Poap,
+	Snapshot,
+	Uniswap,
+} from "components";
 
 export function Left({
 	list,
@@ -43,7 +51,10 @@ export function Left({
 			>
 				<Avatar size="sm" src="/images/aisql/TypoGraphy.svg" mr={1} />
 				<Box
-					className="ai-left-content-width relative"
+					pos="relative"
+					className={`ai-left-content-width ${
+						item.tool === "uniswap" ? "uniswap" : ""
+					}`}
 					maxW="calc(100% - 90px)"
 				>
 					<Icon
@@ -82,6 +93,8 @@ export function Left({
 							<Poap content={item.content} />
 						) : item.tool === "snapshot" ? (
 							<Snapshot content={item.content} />
+						) : item.tool === "uniswap" ? (
+							<Uniswap content={item.content} />
 						) : (
 							<Markdown value={item.content as string} />
 						)}

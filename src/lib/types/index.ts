@@ -35,7 +35,8 @@ export type ChatChildren = {
 		| "ens"
 		| "poap"
 		| "snapshot"
-		| "dataChart'";
+		| "dataChart'"
+		| "uniswap";
 	createTime: number;
 	submit?: "Submited" | false | undefined | null;
 	type: "nl" | "result";

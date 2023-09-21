@@ -155,8 +155,6 @@ export const ChatInput = forwardRef(
 					submit: false,
 				});
 
-				console.log("copyList", copyList);
-
 				setInput("");
 				setLabelValue("");
 				setList(copyList);
@@ -166,9 +164,21 @@ export const ChatInput = forwardRef(
 		};
 
 		const addChatLeft = async (copyList: ChatList[], chat_index: number) => {
+			if (input.trim() === "/Uniswap") {
+				copyList[chat_index].children.push({
+					type: "result",
+					id: "uniswap " + new Date().getTime(),
+					submit: false,
+					content: "uniswap",
+					tool: "uniswap",
+					createTime: new Date().getTime(),
+				});
+				return;
+			}
+
 			try {
 				setIsLoading.on();
-				
+
 				const prompt = input.trim() + (labelValue ? ` ${labelValue}` : "");
 				const { cmd, cmdType, cmdValue } = getShortcutByprompt(prompt);
 				const cmds = commands.map((str) => str.toLowerCase());
@@ -228,7 +238,7 @@ export const ChatInput = forwardRef(
 				onScroll(400);
 				saveHistory(copyList);
 			} catch (error: any) {
-				console.log(error);
+				// console.log(error);
 				copyList[chat_index]?.children.push({
 					type: "result",
 					error: "Send message error!",
@@ -240,10 +250,7 @@ export const ChatInput = forwardRef(
 				setInput("");
 				setList(copyList);
 				saveHistory(copyList);
-				showToast(
-					"Unknown exception, create a channel and try again.",
-					"danger"
-				);
+				showToast("Unknown exception, Send message error!", "danger");
 				onScroll(400);
 			}
 		};
@@ -297,7 +304,8 @@ export const ChatInput = forwardRef(
 				/>
 				<Flex
 					flex={1}
-					px={2}
+					pl={3}
+					pr={2}
 					pt="6px"
 					pb="2px"
 					bg="bg.white"

@@ -77,4 +77,26 @@
 	border-radius: 2px;
 }
 
+.uniswap .TokenOptions__OnHover-sc-xx1k3q-2 {
+	display: none;
+}
+
+.uniswap > svg {
+	display: none;
+}
+
+.uniswap .chat-left-content {
+	background: inherit;
+	padding-top: 0;
+	padding-inline-start: 0;
+	padding-inline-end: 0;
+}
+
+.uniswap .chat-left-content > div {
+	padding: 0;
+}
+
+.uniswap .chat-left-content> div > div {
+	box-shadow: inherit;
+}
 /*  */
