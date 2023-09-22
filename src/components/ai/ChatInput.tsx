@@ -167,7 +167,7 @@ export const ChatInput = forwardRef(
 			if (input.trim().toLocaleLowerCase().includes("/uniswap")) {
 				copyList[chat_index].children.push({
 					type: "result",
-					id: "uniswap " + new Date().getTime(),
+					id: "",
 					submit: false,
 					content: "uniswap",
 					tool: "uniswap",

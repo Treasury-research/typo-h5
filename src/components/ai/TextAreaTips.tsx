@@ -28,7 +28,6 @@ type CommandTip = {
 		text: string;
 		left: number;
 		tip: string;
-		default: string;
 	};
 };
 
@@ -45,28 +44,24 @@ const commandsTips: CommandTip = {
 		label: "DID",
 		text: "Query the Web3 Profile",
 		left: 80,
-		default: "my",
 		tip: "my / address / xxx.eth / xxx.bnb / xxx.bit / xxx.lens",
 	},
 	"/ENS": {
 		label: "DID",
 		text: "Query the ENS domains",
 		left: 70,
-		default: "my",
 		tip: "my / address / xxx.eth / xxx.bnb / xxx.bit / xxx.lens",
 	},
 	"/POAP": {
 		label: "DID",
 		text: "Query the POAP events",
 		left: 80,
-		default: "my",
 		tip: "my / address / xxx.eth / xxx.bnb / xxx.bit / xxx.lens",
 	},
 	"/Snapshot": {
 		label: "DID",
 		text: "Query the Snapshot activies",
 		left: 105,
-		default: "my",
 		tip: "my / address / xxx.eth / xxx.bnb / xxx.bit / xxx.lens",
 	},
 	"/Uniswap": {
@@ -74,7 +69,6 @@ const commandsTips: CommandTip = {
 		text: "Swap on Uniswap",
 		left: 110,
 		tip: "",
-		default: "",
 	},
 };
 
@@ -126,10 +120,14 @@ export const TextAreaTips = forwardRef(
 			return commandsTips[input.trim()];
 		}, [input]);
 
+
+		console.log("variableInfo", variableInfo);
 		useEffect(() => {
-			if (variableInfo?.default) {
-				setLabelValue(variableInfo?.default);
+			if (variableInfo?.label) {
+				setLabelValue("");
 				myLabelInput.current.focus();
+			} else {
+				inputFocus();
 			}
 		}, [variableInfo]);
 
@@ -171,21 +169,23 @@ export const TextAreaTips = forwardRef(
 										justify="flex-start"
 									>
 										<Text>{item}</Text>
-										<Box
-											ml="1"
-											fontSize="xs"
-											fontWeight="semibold"
-											borderRadius={5}
-											px={2}
-											mt="2px"
-											h="18px"
-											lineHeight="18px"
-											bg="gray.800"
-											color="#fff"
-											transform="scale(0.86)"
-										>
-											{commandsTips[item].label}
-										</Box>
+										{commandsTips[item].label && (
+											<Box
+												ml="1"
+												fontSize="xs"
+												fontWeight="semibold"
+												borderRadius={5}
+												px={2}
+												mt="2px"
+												h="18px"
+												lineHeight="18px"
+												bg="gray.800"
+												color="#fff"
+												transform="scale(0.86)"
+											>
+												{commandsTips[item].label}
+											</Box>
+										)}
 									</HStack>
 									<Text fontSize="xs">{commandsTips[item].text}</Text>
 								</VStack>
@@ -233,76 +233,68 @@ export const TextAreaTips = forwardRef(
 								{variableInfo?.tip}
 							</Text>
 						</HStack>
-						{variableInfo?.default && (
-							<HStack
-								pos="absolute"
-								bottom="12px"
-								justify="space-between"
-								left={`${variableInfo?.left}px`}
-								zIndex={5}
-							>
-								<InputGroup
-									size="xs"
-									borderWidth="1px"
-									borderColor="blackAlpha.900"
-									borderRadius={4}
-									overflow="hidden"
-									color="#fff"
-									bg="blackAlpha.600"
-									transform="scale(0.8)"
-								>
-									<InputLeftAddon bg="blackAlpha.900" fontWeight="semibold">
-										{variableInfo?.label}
-									</InputLeftAddon>
-									<Box
-										display="flex"
-										contentEditable={"plaintext-only" as any}
-										suppressContentEditableWarning
-										ref={myLabelInput}
-										tabIndex={1}
-										w="auto"
-										h="24px"
-										ml={2}
-										mr={1}
-										minW="30px"
-										maxW="150px"
-										lineHeight="24px"
-										whiteSpace="nowrap"
-										overflowX="hidden"
-										alignItems="center"
-										border={0}
-										outline="none"
-										onKeyDown={(e: any) => {
-											if (!e.shiftKey && labelValue && e.key === "Enter") {
-												e.preventDefault();
-												onSend();
-												return;
-											}
 
-											if (e.key === "Backspace") {
-												setTimeout(() => {
-													if (
-														!myLabelInput.current?.innerText ||
-														myLabelInput.current?.innerText === labelValue
-													) {
-														inputFocus();
-														setInput(input.trim());
-														setLabelValue("");
-													}
-												}, 100);
-											}
-										}}
-										onInput={(e: any) => {
-											setLabelValue(
-												e.target.innerText.trim().replace("/n", "")
-											);
-										}}
-									>
-										{variableInfo?.default}
-									</Box>
-								</InputGroup>
-							</HStack>
-						)}
+						<HStack
+							pos="absolute"
+							bottom="12px"
+							justify="space-between"
+							left={`${variableInfo?.left}px`}
+							zIndex={6}
+						>
+							<InputGroup
+								size="xs"
+								borderWidth="1px"
+								borderColor="blackAlpha.900"
+								borderRadius={4}
+								overflow="hidden"
+								color="#fff"
+								bg="blackAlpha.600"
+								transform="scale(0.8)"
+							>
+								<InputLeftAddon bg="blackAlpha.900" fontWeight="semibold">
+									{variableInfo?.label}
+								</InputLeftAddon>
+								<Box
+									display="flex"
+									contentEditable={"plaintext-only" as any}
+									suppressContentEditableWarning
+									ref={myLabelInput}
+									tabIndex={1}
+									w="auto"
+									h="24px"
+									ml={2}
+									mr={1}
+									minW="30px"
+									maxW="150px"
+									lineHeight="24px"
+									whiteSpace="nowrap"
+									overflowX="hidden"
+									alignItems="center"
+									border={0}
+									outline="none"
+									onKeyDown={(e: any) => {
+										if (!e.shiftKey && labelValue && e.key === "Enter") {
+											e.preventDefault();
+											onSend();
+											return;
+										}
+
+										if (e.key === "Backspace") {
+											setTimeout(() => {
+												if (!myLabelInput.current?.innerText) {
+													inputFocus();
+													setInput(input.trim());
+													setLabelValue("");
+												}
+											}, 100);
+										}
+									}}
+									onInput={(e: any) => {
+										setLabelValue(e.target.innerText.trim().replace("/n", ""));
+									}}
+								/>
+							</InputGroup>
+						</HStack>
 					</>
 				)}
 			</>
