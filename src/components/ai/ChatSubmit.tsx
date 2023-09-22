@@ -75,11 +75,11 @@ export function ChatSubmit({
 			}
 			setIsLoading.off();
 			ButtonClickTrace("Submit_confirm");
-			!isSandBox && setShowModal.off();
+		  setShowModal.off();
 		} catch (error) {
 			setIsLoading.off();
 			ButtonClickTrace("Submit_confirm");
-			!isSandBox && setShowModal.off();
+			setShowModal.off();
 			showToast("Submit error!", "danger");
 		}
 	};
@@ -96,16 +96,14 @@ export function ChatSubmit({
 				label={
 					item.id
 						? item.submit
-							? isSandBox
-								? "Share to win TCC"
-								: "Submited"
+							? "Submited"
 							: "Submit this Q&A to the Gallery"
 						: "The Q&A cannot be submitted, try a new question"
 				}
 				hasArrow
 			>
 				<Flex pos="absolute" mt="0!" right="-24px" top="-12px" justify="center">
-					{isSandBox ? (
+					{item.tool !== "uniswap" && (
 						<Button
 							variant="yellowPrimary"
 							size="xs"
@@ -117,37 +115,15 @@ export function ChatSubmit({
 								setShowModal.on();
 							}}
 							_hover={{ transform: "scale(0.75)" }}
-							isDisabled={!item.id}
+							isDisabled={item.id ? (item.submit ? true : false) : true}
 						>
 							<Text>
-								{item.id ? (item.submit ? "Share" : "Submit") : "Submit"}
+								{item.id ? (item.submit ? "Submited" : "Submit") : "Submit"}
 							</Text>
-							{item.id && (
+							{item.id && !item.submit && (
 								<Icon as={BsArrowRightShort} boxSize={5} ml={0} mr={-1} />
 							)}
 						</Button>
-					) : (
-						<></>
-						// <Button
-						// 	variant="yellowPrimary"
-						// 	size="xs"
-						// 	transform="scale(0.71)"
-						// 	borderRadius={5}
-						// 	fontWeight="semibold"
-						// 	onClick={() => {
-						// 		ButtonClickTrace("Submit");
-						// 		setShowModal.on();
-						// 	}}
-						// 	_hover={{ transform: "scale(0.75)" }}
-						// 	isDisabled={item.id ? (item.submit ? true : false) : true}
-						// >
-						// 	<Text>
-						// 		{item.id ? (item.submit ? "Submited" : "Submit") : "Submit"}
-						// 	</Text>
-						// 	{item.id && !item.submit && (
-						// 		<Icon as={BsArrowRightShort} boxSize={5} ml={0} mr={-1} />
-						// 	)}
-						// </Button>
 					)}
 				</Flex>
 			</Tooltip>

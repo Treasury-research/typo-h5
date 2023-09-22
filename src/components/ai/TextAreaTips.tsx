@@ -256,6 +256,7 @@ export const TextAreaTips = forwardRef(
 								</InputLeftAddon>
 								<Box
 									display="flex"
+									className="no-scrollbar"
 									contentEditable={"plaintext-only" as any}
 									suppressContentEditableWarning
 									ref={myLabelInput}
