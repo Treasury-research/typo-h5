@@ -21,10 +21,13 @@ import api from "api";
 
 const slides = [
 	{
+		url: "/images/aisql/tus.webp",
+	},
+	{
 		url: "/images/aisql/driver.png",
 	},
 	{
-		url: "/images/aisql/guide4.png",
+		url: "/images/aisql/knexus.webp",
 		link: "https://knexus.xyz/create?utm_source=typo+quest&utm_campaign=kn+mbti",
 	},
 ];
@@ -34,7 +37,7 @@ const sandboxSlides = [
 		url: "/images/aisql/driver.png",
 	},
 	{
-		url: "/images/aisql/guide4.png",
+		url: "/images/aisql/knexus.webp",
 		link: "https://knexus.xyz/create?utm_source=typo+quest&utm_campaign=kn+mbti",
 	},
 ];
@@ -112,11 +115,7 @@ export function Guide({
 							<Box
 								cursor="pointer"
 								onClick={() => {
-									if (index === 0) {
-										setOpenInviteModal(true);
-									} else {
-										item.link && window.open(item.link);
-									}
+									item.link && window.open(item.link);
 								}}
 							>
 								<Image alt="" src={item.url} fit="contain" />
