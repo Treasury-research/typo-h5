@@ -418,7 +418,7 @@ export function Quest({
 								</Button>
 							</Card.Footer>
 						</Card>
-						{/* <Card
+						<Card
 							round
 							style={{
 								boxShadow: "0 0 4px rgba(0, 0, 0, 0.2)",
@@ -431,7 +431,7 @@ export function Quest({
 									<Center bg="blackAlpha.200" p={2} borderRadius="full">
 										<Icon as={IoRocketOutline} boxSize={5} />
 									</Center>
-									<Text whiteSpace="nowrap">TOKEN2049 Journey</Text>
+									<Text whiteSpace="nowrap">Tusima zkBridge Q&A Session</Text>
 								</HStack>
 							</Card.Header>
 							<Card.Body style={{ padding: 0 }}>
@@ -445,10 +445,9 @@ export function Quest({
 									borderTopWidth="1.5px"
 									borderStyle="dashed"
 								>
-									By participating in the #Token2049 chat box and unleash your
-									queries about TOKEN2049 and our 10+ <b>premier partners</b> in
-									conversations, and sharing on Twitter, you will have the
-									opportunity to win up to 2049 TCC!
+									Explore the depths of <b>Tusima zkBridge</b> and dive into our
+									interactive Q&A session. Ask, explore, and stand a chance to
+									win TCC rewards!
 								</Box>
 							</Card.Body>
 							<Card.Footer>
@@ -463,14 +462,14 @@ export function Quest({
 									leftIcon={<Icon as={BsFillLightningChargeFill} boxSize={4} />}
 									onClick={() =>
 										window.open(
-											"https://www.typography.vip/quest/partners-with-typo?utm_source=apptypo&utm_campaign=token2049-contest"
+											"https://www.typography.vip/quest/zkbridge?utm_source=apptypo&utm_campaign=zkbridge"
 										)
 									}
 								>
 									View More Info
 								</Button>
 							</Card.Footer>
-						</Card> */}
+						</Card>
 					</Box>
 				</VStack>
 			</Flex>

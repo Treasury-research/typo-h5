@@ -166,7 +166,7 @@ export function ChatSubmit({
 								wrapable={false}
 								scrollable
 								speed={30}
-								text="*Only questions related to Small & Medium Dapps, Exchanges, and Investment 	will be rewarded."
+								text="*Only questions related to Tusima zkBridge will be rewarded."
 							/>
 						</>
 					)}
