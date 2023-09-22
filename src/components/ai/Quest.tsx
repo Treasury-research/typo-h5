@@ -445,7 +445,7 @@ export function Quest({
 									borderTopWidth="1.5px"
 									borderStyle="dashed"
 								>
-									Explore the depths of <b>Tusima zkBridge</b> and dive into our
+									Explore the depth of <b>Tusima zkBridge</b> and dive into our
 									interactive Q&A session. Ask, explore, and stand a chance to
 									win TCC rewards!
 								</Box>
