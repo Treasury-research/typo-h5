@@ -43,12 +43,11 @@ export function Error({
 			>
 				<Avatar size="sm" src="/images/aisql/TypoGraphy.svg" mr={1} />
 				<HStack
-					className="ai-left-content-width"
 					key={index}
 					bg="bg.white"
 					px="12px"
 					py="7px"
-					maxW="600px"
+					w="220px"
 					borderRadius={5}
 					alignItems="center"
 					pos="relative"

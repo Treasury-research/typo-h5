@@ -10,6 +10,7 @@ import {
 	Poap,
 	Snapshot,
 	Uniswap,
+	Goplus,
 } from "components";
 
 export function Left({
@@ -93,6 +94,12 @@ export function Left({
 							<Poap content={item.content} />
 						) : item.tool === "snapshot" ? (
 							<Snapshot content={item.content} />
+						) : item.tool === "goplus" ? (
+							<Goplus
+								content={item.content}
+								onSend={onSend}
+								setInput={setInput}
+							/>
 						) : item.tool === "uniswap" ? (
 							<Uniswap content={item.content} />
 						) : (

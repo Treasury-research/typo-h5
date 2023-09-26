@@ -37,6 +37,7 @@ export const commands: string[] = [
 	"/ENS",
 	"/POAP",
 	"/Snapshot",
+	"/Goplus",
 	"/Uniswap",
 ];
 const commandsTips: CommandTip = {
@@ -62,6 +63,12 @@ const commandsTips: CommandTip = {
 		label: "DID",
 		text: "Query the Snapshot activies",
 		left: 105,
+		tip: "my / address / xxx.eth / xxx.bnb / xxx.bit / xxx.lens",
+	},
+	"/Goplus": {
+		label: "DID",
+		text: "Detect risks of token approvals",
+		left: 90,
 		tip: "my / address / xxx.eth / xxx.bnb / xxx.bit / xxx.lens",
 	},
 	"/Uniswap": {
