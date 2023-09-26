@@ -127,8 +127,6 @@ export const TextAreaTips = forwardRef(
 			return commandsTips[input.trim()];
 		}, [input]);
 
-
-		console.log("variableInfo", variableInfo);
 		useEffect(() => {
 			if (variableInfo?.label) {
 				setLabelValue("");

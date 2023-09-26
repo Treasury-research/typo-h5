@@ -1,10 +1,4 @@
 import {
-	CheckCircleIcon,
-	WarningTwoIcon,
-	TriangleDownIcon,
-	ChevronDownIcon,
-} from "@chakra-ui/icons";
-import {
 	Box,
 	Flex,
 	HStack,
@@ -17,12 +11,62 @@ import {
 	Image,
 	Center,
 } from "@chakra-ui/react";
-import { Empty } from "components/Empty";
+import {
+	CheckCircleIcon,
+	WarningTwoIcon,
+	ChevronDownIcon,
+} from "@chakra-ui/icons";
 import { toShortAddress } from "lib";
-import { SlBadge } from "react-icons/sl";
 import { useUserInfoStore } from "store/userInfoStore";
 import { ActionSheet } from "react-vant";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { usePrepareContractWrite, useContractWrite } from "wagmi";
+import { useStore } from "store";
+
+const moke = {
+	address: "0xdc7aba9bcf799e254313053246c563c6a2382fe4",
+	approvals: 7,
+	assests: [
+		{
+			malicious_address: 1,
+			token_address: "0xe9e7cea3dedca5984780bafc599bd69add087d56",
+			token_symbol: "BUSD",
+			malicious_behavior: ["123"],
+			token_name: "BUSD Token",
+		},
+	],
+	error_approvals: {
+		count: 3,
+		list: [
+			{
+				token_address: "0xfa40d8fc324bcdd6bbae0e086de886c571c225d4",
+				token_symbol: "WZRD",
+				token_name: "Wizardia Token",
+				approval_list: [
+					{
+						approved_contract: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB00",
+						approved_amount: "750000",
+					},
+				],
+			},
+			{
+				token_address: "0x2170ed0880ac9a755fd29b2688956bd959f933f8",
+				token_symbol: "ETH",
+				token_name: "Ethereum Token",
+				approval_list: [
+					{
+						approved_contract: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+						approved_amount: "Unlimited",
+					},
+					{
+						approved_contract: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+						approved_amount: "Unlimited",
+					},
+				],
+			},
+		],
+	},
+};
 
 export function Goplus({
 	content,
@@ -36,51 +80,10 @@ export function Goplus({
 	const { account } = useUserInfoStore();
 	const [index, setIndex] = useState(0);
 	const [visible, setVisible] = useState(false);
+	const [contractAddress, setContractAddress] = useState("");
+	const { showToast } = useStore();
 
-	content = {
-		address: "0xdc7aba9bcf799e254313053246c563c6a2382fe4",
-		approvals: 7,
-		assests: [
-			{
-				malicious_address: 1,
-				token_address: "0xe9e7cea3dedca5984780bafc599bd69add087d56",
-				token_symbol: "BUSD",
-				malicious_behavior: ["123"],
-				token_name: "BUSD Token",
-			},
-		],
-		error_approvals: {
-			count: 3,
-			list: [
-				{
-					token_address: "0xfa40d8fc324bcdd6bbae0e086de886c571c225d4",
-					token_symbol: "WZRD",
-					token_name: "Wizardia Token",
-					approval_list: [
-						{
-							approved_contract: "0xaa5cd63ed1dd43211937e7540fc7c87a2203a32a",
-							approved_amount: "750000",
-						},
-					],
-				},
-				{
-					token_address: "0x2170ed0880ac9a755fd29b2688956bd959f933f8",
-					token_symbol: "ETH",
-					token_name: "Ethereum Token",
-					approval_list: [
-						{
-							approved_contract: "0x10ed43c718714eb63d5aa57b78b54704e256024e",
-							approved_amount: "Unlimited",
-						},
-						{
-							approved_contract: "0xd1c5966f9f5ee6881ff6b261bbeda45972b1b5f3",
-							approved_amount: "Unlimited",
-						},
-					],
-				},
-			],
-		},
-	};
+	content = moke;
 
 	const list = useMemo(() => {
 		content?.error_approvals?.list?.map((item: any) => {
@@ -89,6 +92,40 @@ export function Goplus({
 		return content?.error_approvals?.list || [];
 	}, [content]);
 
+	const { config } = usePrepareContractWrite({
+		address: contractAddress as any,
+		abi: [
+			{
+				constant: false,
+				inputs: [
+					{ name: "_spender", type: "address" },
+					{ name: "_value", type: "uint256" },
+				],
+				name: "approve",
+				outputs: [{ name: "", type: "bool" }],
+				payable: false,
+				stateMutability: "nonpayable",
+				type: "function",
+			},
+		],
+		functionName: "approve",
+		args: [account, 0],
+	});
+
+	const { writeAsync, isSuccess, error, isError } = useContractWrite(config);
+
+	useEffect(() => {
+		if (isError) {
+			showToast(error?.message as string, "warning");
+		}
+	}, [error, isError]);
+
+	useEffect(() => {
+		if (isSuccess) {
+			showToast("Approve Success", "success");
+		}
+	}, [isSuccess]);
+
 	return (
 		<Box width="-webkit-fill-available" padding="5px">
 			<VStack maxW="full" w="full" borderRadius={6} my={3} p={0} spacing={1}>
@@ -96,6 +133,7 @@ export function Goplus({
 					ml={1}
 					minW="270px"
 					w="full"
+					px={3}
 					justify="space-between"
 					color="gray.600"
 				>
@@ -246,7 +284,7 @@ export function Goplus({
 									w="full"
 									justify="space-between"
 									alignItems="center"
-									px="8px"
+									pl="8px"
 									py="1px"
 									whiteSpace="nowrap"
 								>
@@ -269,13 +307,14 @@ export function Goplus({
 											gap={2}
 											justify="space-between"
 											alignItems="center"
-											px="8px"
+											pl="8px"
+											pr="3px"
 											py="1px"
 											whiteSpace="nowrap"
 											fontWeight="semibold"
 											spacing={0}
 										>
-											<HStack mr={1}>
+											<HStack>
 												<Text w="70px" transform="scale(0.83)" ml="-8px">
 													{toShortAddress(item.approved_contract, 8)}
 												</Text>
@@ -285,8 +324,19 @@ export function Goplus({
 											</HStack>
 
 											<Flex transform="scale(0.7)" w="80px" justify="center">
-												{content.address === account ? (
-													<Button colorScheme="red" borderRadius={3} size="xs">
+												{content.address.toLocaleLowerCase() ===
+												account.toLocaleLowerCase() ? (
+													<Button
+														colorScheme="red"
+														borderRadius={3}
+														size="xs"
+														onClick={() => {
+															setContractAddress(item.approved_contract);
+															setTimeout(() => {
+																writeAsync?.();
+															}, 100);
+														}}
+													>
 														Revoke
 													</Button>
 												) : (
