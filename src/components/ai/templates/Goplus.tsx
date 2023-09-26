@@ -129,15 +129,8 @@ export function Goplus({
 	return (
 		<Box width="-webkit-fill-available" padding="5px">
 			<VStack maxW="full" w="full" borderRadius={6} my={3} p={0} spacing={1}>
-				<HStack
-					ml={1}
-					minW="270px"
-					w="full"
-					px={3}
-					justify="space-between"
-					color="gray.600"
-				>
-					<Text fontWeight="semibold" whiteSpace="nowrap" fontSize="13px">
+				<HStack ml={1} w="full" justify="space-between" color="gray.600">
+					<Text fontWeight="semibold" whiteSpace="nowrap" fontSize="xs">
 						Security Detection:
 					</Text>
 					{(content?.address || content?.primaryName) && (
@@ -266,7 +259,7 @@ export function Goplus({
 										onCancel={() => setVisible(false)}
 									/>
 								</HStack>
-								<Text fontSize="xs" transform="scale(0.9)">
+								<Text fontSize="xs" transform="scale(0.6)" pl="18px">
 									{list[index]?.approval_list?.length} Risk Approvals
 								</Text>
 							</HStack>

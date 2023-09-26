@@ -78,7 +78,7 @@ export const isAddress = (address: string, input: string) => {
 	// const { type } = getShortcutByprompt(input.trim());
 
 	// console.log(type, address);
-	if (address === "my") {
+	if (address === "my" || address === "My" || address === "MY") {
 		flag = true;
 	}
 	if (regular.test(address)) {
