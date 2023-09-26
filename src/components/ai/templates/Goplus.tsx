@@ -109,7 +109,7 @@ export function Goplus({
 			},
 		],
 		functionName: "approve",
-		args: [account, 0],
+		args: [account, BigInt(0)],
 	});
 
 	const { writeAsync, isSuccess, error, isError } = useContractWrite(config);
