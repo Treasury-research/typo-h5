@@ -167,9 +167,10 @@ export function Goplus({
 					>
 						{content?.assests && content?.assests.length > 0 && (
 							<VStack w="full" bg="#fff" borderRadius={5} mt={2} spacing={0}>
-								{content?.assests?.map((item: any) => {
+								{content?.assests?.map((item: any, index: number) => {
 									return (
 										<Flex
+											key={index}
 											w="full"
 											h="40px"
 											justify="space-between"
@@ -300,11 +301,12 @@ export function Goplus({
 										</Text>
 									</Flex>
 								</Flex>
-								{list[index]?.approval_list?.map((item: any) => {
+								{list[index]?.approval_list?.map((item: any, index: number) => {
 									return (
 										<HStack
 											w="full"
 											gap={2}
+											key={index}
 											justify="space-between"
 											alignItems="center"
 											pl="8px"
@@ -334,7 +336,7 @@ export function Goplus({
 															setContractAddress(item.approved_contract);
 															setTimeout(() => {
 																writeAsync?.();
-															}, 100);
+															}, 300);
 														}}
 													>
 														Revoke
