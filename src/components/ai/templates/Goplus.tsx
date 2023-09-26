@@ -271,7 +271,7 @@ export function Goplus({
 								</Text>
 							</HStack>
 
-							<Box
+							<VStack
 								w="full"
 								bg="#F2F2F2"
 								borderRadius={8}
@@ -280,52 +280,41 @@ export function Goplus({
 								overflowY="scroll"
 								className="no-scrollbar"
 								fontSize="12px"
+								spacing={0}
 							>
-								<Flex
-									w="full"
+								<HStack
+									w="110%"
 									justify="space-between"
 									alignItems="center"
-									pl="8px"
-									py="1px"
 									whiteSpace="nowrap"
+									transform="scale(0.85)"
+									spacing={2}
 								>
-									<HStack pr={1}>
-										<Text w="70px" transform="scale(0.83)" ml="-8px">
-											Risk Contract
-										</Text>
-										<Text transform="scale(0.82)">Allowance</Text>
-									</HStack>
+									<Text w="80px">Risk Contract</Text>
+									<Text>Allowance</Text>
 									<Flex w="80px" justify="center">
-										<Text transform="scale(0.82)" pl={2}>
-											Action
-										</Text>
+										<Text pl={2}>Action</Text>
 									</Flex>
-								</Flex>
+								</HStack>
 								{list[index]?.approval_list?.map((item: any, index: number) => {
 									return (
 										<HStack
-											w="full"
-											gap={2}
+											w="110%"
 											key={index}
 											justify="space-between"
 											alignItems="center"
-											pl="8px"
-											pr="3px"
 											py="1px"
 											whiteSpace="nowrap"
 											fontWeight="semibold"
-											spacing={0}
+											spacing={2}
+											transform="scale(0.85)"
 										>
-											<HStack>
-												<Text w="70px" transform="scale(0.83)" ml="-8px">
-													{toShortAddress(item.approved_contract, 8)}
-												</Text>
-												<Text transform="scale(0.83)">
-													{item.approved_amount}
-												</Text>
-											</HStack>
+											<Text w="80px">
+												{toShortAddress(item.approved_contract, 8)}
+											</Text>
+											<Text>{item.approved_amount}</Text>
 
-											<Flex transform="scale(0.7)" w="80px" justify="center">
+											<Flex w="80px" justify="center">
 												{content.address.toLocaleLowerCase() ===
 												account.toLocaleLowerCase() ? (
 													<Button
@@ -357,7 +346,7 @@ export function Goplus({
 										</HStack>
 									);
 								})}
-							</Box>
+							</VStack>
 						</VStack>
 					)}
 				</Box>
