@@ -1,12 +1,4 @@
-import {
-  Icon,
-  Text,
-  useBoolean,
-  VStack,
-  Button,
-  Box,
-  Badge,
-} from "@chakra-ui/react";
+import { Icon, VStack, Button, Box } from "@chakra-ui/react";
 import { BsCommand } from "react-icons/bs";
 import { BiWallet } from "react-icons/bi";
 
@@ -20,9 +12,10 @@ import { useStore } from "store";
 import api from "api";
 
 const slides = [
-  // {
-  //   url: "/images/aisql/tus.webp",
-  // },
+  {
+    url: "/images/moledao.png",
+    link: "https://rewards.taskon.xyz/campaign/detail/13081",
+  },
   {
     url: "/images/aisql/driver.png",
   },

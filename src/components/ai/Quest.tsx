@@ -418,58 +418,60 @@ export function Quest({
                 </Button>
               </Card.Footer>
             </Card>
-            {/* <Card
-							round
-							style={{
-								boxShadow: "0 0 4px rgba(0, 0, 0, 0.2)",
-								width: "100%",
-								marginTop: "10px",
-							}}
-						>
-							<Card.Header>
-								<HStack color="#ee6f2d">
-									<Center bg="blackAlpha.200" p={2} borderRadius="full">
-										<Icon as={IoRocketOutline} boxSize={5} />
-									</Center>
-									<Text whiteSpace="nowrap">Tusima zkBridge Q&A Session</Text>
-								</HStack>
-							</Card.Header>
-							<Card.Body style={{ padding: 0 }}>
-								<Box
-									w="full"
-									py={3}
-									px={5}
-									fontSize="sm"
-									color="#000"
-									borderColor="#ebedf0"
-									borderTopWidth="1.5px"
-									borderStyle="dashed"
-								>
-									Explore the depth of <b>Tusima zkBridge</b> and dive into our
-									interactive Q&A session. Ask, explore, and stand a chance to
-									win TCC rewards!
-								</Box>
-							</Card.Body>
-							<Card.Footer>
-								<Button
-									w="full"
-									variant="blackPrimary"
-									size="sm"
-									h="35px"
-									borderRadius={20}
-									color="#fae3b3"
-									fontWeight="semibold"
-									leftIcon={<Icon as={BsFillLightningChargeFill} boxSize={4} />}
-									onClick={() =>
-										window.open(
-											"https://www.typography.vip/quest/zkbridge?utm_source=apptypo&utm_campaign=zkbridge"
-										)
-									}
-								>
-									View More Info
-								</Button>
-							</Card.Footer>
-						</Card> */}
+            <Card
+              round
+              style={{
+                boxShadow: "0 0 4px rgba(0, 0, 0, 0.2)",
+                width: "100%",
+                marginTop: "10px",
+              }}
+            >
+              <Card.Header>
+                <HStack color="#ee6f2d">
+                  <Center bg="blackAlpha.200" p={2} borderRadius="full">
+                    <Icon as={IoRocketOutline} boxSize={5} />
+                  </Center>
+                  <Text whiteSpace="pre-wrap">
+                    Ask about Moledal on TypoGraphy AI!
+                  </Text>
+                </HStack>
+              </Card.Header>
+              <Card.Body style={{ padding: 0 }}>
+                <Box
+                  w="full"
+                  py={3}
+                  px={5}
+                  fontSize="sm"
+                  color="#000"
+                  borderColor="#ebedf0"
+                  borderTopWidth="1.5px"
+                  borderStyle="dashed"
+                >
+                  Participants who pose three Moledao-related questions in Typo
+                  will earn a matching badge and 100 TCC (Typo Chat Credit).
+                  Join us today!
+                </Box>
+              </Card.Body>
+              <Card.Footer>
+                <Button
+                  w="full"
+                  variant="blackPrimary"
+                  size="sm"
+                  h="35px"
+                  borderRadius={20}
+                  color="#fae3b3"
+                  fontWeight="semibold"
+                  leftIcon={<Icon as={BsFillLightningChargeFill} boxSize={4} />}
+                  onClick={() =>
+                    window.open(
+                      "https://www.typography.vip/quest/moledao-quest"
+                    )
+                  }
+                >
+                  View More Info
+                </Button>
+              </Card.Footer>
+            </Card>
           </Box>
         </VStack>
       </Flex>
