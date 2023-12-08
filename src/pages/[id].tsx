@@ -14,7 +14,7 @@ export default function Home() {
       >
         <Box h="full">
           <Image
-            className="absolute top-[50px] left-1/2"
+            className="absolute top-[30px] left-1/2"
             style={{ transform: "translateX(-50%)" }}
             src="./images/logo.svg"
             alt=""
@@ -26,9 +26,8 @@ export default function Home() {
             backgroundSize="cover"
           >
             <div className="w-10/12 blur-[10px] rounded-l bg-[rgba(255,255,255,0.3)] p-7 font-medium">
-              <p className="text-center text-7xl">💻</p>
               <br />
-              <p>
+              <p className="mt-10">
                 We encourage all users to take advantage of the benefits of
                 accessing the web on a computer rather than a mobile device
               </p>
