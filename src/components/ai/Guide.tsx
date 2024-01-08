@@ -70,8 +70,8 @@ export function Guide({
 
   const cmds = useMemo(() => {
     return isSandBox
-      ? commands.filter((item: any) => item?.type === "short")
-      : commands.filter((item: any) => item?.type === "normal");
+         ? commands.filter((item: any) => item?.type === "short")
+         : commands.filter((item: any) => item?.type === "normal");
   }, [isSandBox, commands]);
 
   const getCommands = async () => {

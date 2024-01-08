@@ -1,8 +1,8 @@
 import type { ComponentStyleConfig } from "@chakra-ui/react";
 
 export const Modal: ComponentStyleConfig = {
-	baseStyle: {
-		dialog: {
+  baseStyle: {
+    dialog: {
       bg: "bg.white"
     }
   }

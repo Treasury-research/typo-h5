@@ -33,8 +33,8 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   useEffect(() => {
     if (!isPhone() && !location.host.includes("localhost")) {
       location.host.includes("staging")
-        ? router.push("https://typography.staging.knn3.xyz")
-        : router.push("https://app.typography.vip/");
+      ? router.push("https://typography.staging.knn3.xyz")
+      : router.push("https://app.typography.vip/");
     }
   }, [router]);
 
@@ -47,18 +47,18 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         strategy="afterInteractive"
       />
       <Script id="google-analytics" strategy="afterInteractive">
-        {isProduction
-          ? `
-						window.dataLayer = window.dataLayer || [];
-						function gtag(){dataLayer.push(arguments);}
-						gtag('js', new Date());
-					
-						gtag('config', 'G-YNSCSNVGKH');`
-          : `window.dataLayer = window.dataLayer || [];
-						function gtag(){dataLayer.push(arguments);}
-						gtag('js', new Date());
-		
-						gtag('config', 'G-2EV36YE6VQ');`}
+      {isProduction
+      ? `
+                                                window.dataLayer = window.dataLayer || [];
+                                                function gtag(){dataLayer.push(arguments);}
+                                                gtag('js', new Date());
+
+                                                gtag('config', 'G-YNSCSNVGKH');`
+      : `window.dataLayer = window.dataLayer || [];
+                                                function gtag(){dataLayer.push(arguments);}
+                                                gtag('js', new Date());
+
+                                                gtag('config', 'G-2EV36YE6VQ');`}
       </Script>
 
       <WagmiConfig config={networkConfig}>

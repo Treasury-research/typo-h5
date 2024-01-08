@@ -6,19 +6,19 @@ import { config } from "./config";
 import { fonts } from "./fonts";
 
 const customTheme = extendTheme({
-	fonts,
-	colors,
-	config,
-	components: {
-		...components,
-	},
-	styles: {
-		global: (props: { colorMode: string }) => ({
-			body: {
-				bg: props.colorMode === "light" ? "#000" : "#000",
-			},
-		}),
-	},
+  fonts,
+  colors,
+  config,
+  components: {
+    ...components,
+  },
+  styles: {
+    global: (props: { colorMode: string }) => ({
+      body: {
+	bg: props.colorMode === "light" ? "#000" : "#000",
+      },
+    }),
+  },
 });
 
 export default customTheme;

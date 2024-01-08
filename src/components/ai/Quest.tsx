@@ -255,22 +255,22 @@ export function Quest({
                       title="Verify Telegram"
                       isFinish={!!awardItems.TGItem}
                       value={
-                        !!awardItems.TGItem ? (
-                          awardItems.TGItem?.score
-                        ) : (
-                          <HStack
-                            spacing={0}
-                            mr={-1}
-                            fontSize="sm"
-                            onClick={() => {
-                              setShowModal.on();
-                              onClose();
-                            }}
-                          >
-                            <Text>Verify</Text>
-                            <ChevronRightIcon boxSize={5} />
-                          </HStack>
-                        )
+                      !!awardItems.TGItem ? (
+                        awardItems.TGItem?.score
+                      ) : (
+                        <HStack
+                          spacing={0}
+                          mr={-1}
+                          fontSize="sm"
+                          onClick={() => {
+                            setShowModal.on();
+                            onClose();
+                          }}
+                        >
+                          <Text>Verify</Text>
+                          <ChevronRightIcon boxSize={5} />
+                        </HStack>
+                      )
                       }
                     />
 
@@ -278,22 +278,22 @@ export function Quest({
                       title="Verify Email"
                       isFinish={!!awardItems.verifyEmailItem}
                       value={
-                        !!awardItems.verifyEmailItem ? (
-                          awardItems.verifyEmailItem?.score
-                        ) : (
-                          <HStack
-                            spacing={0}
-                            mr={-1}
-                            fontSize="sm"
-                            onClick={() => {
-                              setOpenBindEmailModal(true);
-                              onClose();
-                            }}
-                          >
-                            <Text>Verify</Text>
-                            <ChevronRightIcon boxSize={5} />
-                          </HStack>
-                        )
+                      !!awardItems.verifyEmailItem ? (
+                        awardItems.verifyEmailItem?.score
+                      ) : (
+                        <HStack
+                          spacing={0}
+                          mr={-1}
+                          fontSize="sm"
+                          onClick={() => {
+                            setOpenBindEmailModal(true);
+                            onClose();
+                          }}
+                        >
+                          <Text>Verify</Text>
+                          <ChevronRightIcon boxSize={5} />
+                        </HStack>
+                      )
                       }
                     />
 
@@ -302,26 +302,26 @@ export function Quest({
                       isFinish={!!awardItems.SubstackItem}
                       email={email}
                       value={
-                        !!awardItems.SubstackItem ? (
-                          awardItems.SubstackItem?.score
-                        ) : (
-                          <HStack
-                            spacing={0}
-                            mr={-1}
-                            fontSize="sm"
-                            onClick={() => {
-                              if (email) {
-                                window.open("https://knn3.substack.com/");
-                              } else {
-                                setOpenBindEmailModal(true);
-                                onClose();
-                              }
-                            }}
-                          >
-                            <Text>Subscribe</Text>
-                            <ChevronRightIcon boxSize={5} />
-                          </HStack>
-                        )
+                      !!awardItems.SubstackItem ? (
+                        awardItems.SubstackItem?.score
+                      ) : (
+                        <HStack
+                          spacing={0}
+                          mr={-1}
+                          fontSize="sm"
+                          onClick={() => {
+                            if (email) {
+                              window.open("https://knn3.substack.com/");
+                            } else {
+                              setOpenBindEmailModal(true);
+                              onClose();
+                            }
+                          }}
+                        >
+                          <Text>Subscribe</Text>
+                          <ChevronRightIcon boxSize={5} />
+                        </HStack>
+                      )
                       }
                     />
 
@@ -354,22 +354,22 @@ export function Quest({
                         title="Referee"
                         isFinish={!!awardItems.refereeItem}
                         value={
-                          !!awardItems.refereeItem ? (
-                            awardItems.refereeItem?.score
-                          ) : (
-                            <HStack
-                              spacing={0}
-                              mr={-1}
-                              fontSize="sm"
-                              onClick={() => {
-                                setOpenBindEmailModal(true);
-                                onClose();
-                              }}
-                            >
-                              <Text>Verify</Text>
-                              <ChevronRightIcon boxSize={5} />
-                            </HStack>
-                          )
+                        !!awardItems.refereeItem ? (
+                          awardItems.refereeItem?.score
+                        ) : (
+                          <HStack
+                            spacing={0}
+                            mr={-1}
+                            fontSize="sm"
+                            onClick={() => {
+                              setOpenBindEmailModal(true);
+                              onClose();
+                            }}
+                          >
+                            <Text>Verify</Text>
+                            <ChevronRightIcon boxSize={5} />
+                          </HStack>
+                        )
                         }
                       />
                     )}
@@ -378,22 +378,22 @@ export function Quest({
                       title="Referral"
                       isFinish={!!awardItems.referralItem}
                       value={
-                        !!awardItems.referralItem ? (
-                          awardItems.referralItem?.score
-                        ) : (
-                          <HStack
-                            spacing={0}
-                            mr={-1}
-                            fontSize="sm"
-                            onClick={() => {
-                              setOpenInviteModal(true);
-                              onClose();
-                            }}
-                          >
-                            <Text>Invite</Text>
-                            <ChevronRightIcon boxSize={5} />
-                          </HStack>
-                        )
+                      !!awardItems.referralItem ? (
+                        awardItems.referralItem?.score
+                      ) : (
+                        <HStack
+                          spacing={0}
+                          mr={-1}
+                          fontSize="sm"
+                          onClick={() => {
+                            setOpenInviteModal(true);
+                            onClose();
+                          }}
+                        >
+                          <Text>Invite</Text>
+                          <ChevronRightIcon boxSize={5} />
+                        </HStack>
+                      )
                       }
                     />
                   </VStack>

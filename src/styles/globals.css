@@ -3,155 +3,155 @@
 @tailwind utilities;
 
 @font-face {
-	font-family: Robtronika;
-	src: url("./fonts/Robtronika.ttf");
+  font-family: Robtronika;
+  src: url("./fonts/Robtronika.ttf");
 }
 
 @font-face {
-	font-family: SpaceGrotesk;
-	src: url("./fonts/SpaceGrotesk-Bold.ttf");
+  font-family: SpaceGrotesk;
+  src: url("./fonts/SpaceGrotesk-Bold.ttf");
 }
 
 .no-scrollbar::-webkit-scrollbar {
-	width: 0;
-	display: none;
+  width: 0;
+  display: none;
 }
 
 .no-scrollbar::-webkit-scrollbar-track {
-	width: 0;
-	display: none;
+  width: 0;
+  display: none;
 }
 
 .no-scrollbar::-webkit-scrollbar-thumb {
-	width: 0;
-	display: none;
+  width: 0;
+  display: none;
 }
 
 .no-scrollbar::-webkit-scrollbar-thumb:hover {
-	width: 0;
-	display: none;
+  width: 0;
+  display: none;
 }
 
 .no-scrollbar {
-	-ms-overflow-style: none;
-	overflow: -moz-scrollbars-none;
+  -ms-overflow-style: none;
+  overflow: -moz-scrollbars-none;
 }
 
 html,
 body {
-	width: 100vw;
-	height: 100%;
-	-webkit-font-smoothing: antialiased;
+  width: 100vw;
+  height: 100%;
+  -webkit-font-smoothing: antialiased;
 }
 
 #__next {
-	height: 100%;
+  height: 100%;
 }
 
 p {
-	margin: 0;
+  margin: 0;
 }
 
 .chakra-container {
-	height: 100%;
-	/* position: absolute;
-	bottom: 0;
-	top: 0;
-	left: 0;
-	overflow: hidden; */
+  height: 100%;
+  /* position: absolute;
+     bottom: 0;
+     top: 0;
+     left: 0;
+     overflow: hidden; */
 }
 
 .poap {
-	column-gap: 2rem !important;
+  column-gap: 2rem !important;
 }
 
 .chakra-modal__overlay {
-	z-index: 3 !important;
+  z-index: 3 !important;
 }
 
 .chakra-modal__content-container {
-	z-index: 3 !important;
+  z-index: 3 !important;
 }
 
 /*mobile*/
 @media screen and (max-width: 600px) {
-	.base-modal {
-		width: calc(100vw - 40px) !important;
-	}
+  .base-modal {
+    width: calc(100vw - 40px) !important;
+  }
 
-	.ai-right-content-width {
-		max-width: calc(100% - 90px) !important;
-	}
+  .ai-right-content-width {
+    max-width: calc(100% - 90px) !important;
+  }
 
-	.ai-left-content-width {
-		max-width: inherit !important;
-		width: calc(100% - 65px) !important;
-	}
+  .ai-left-content-width {
+    max-width: inherit !important;
+    width: calc(100% - 65px) !important;
+  }
 
-	.chat-left-content > div {
-		padding: 0 8px;
-	}
-	.chat-card {
-		padding: 10px !important;
-	}
+  .chat-left-content > div {
+    padding: 0 8px;
+  }
+  .chat-card {
+    padding: 10px !important;
+  }
 
-	.dottedLine {
-		justify-content: center;
-	}
-	.dottedLine::after {
-		display: none;
-	}
-	.ens {
-		flex-direction: column !important;
-	}
-	.ens > div {
-		width: 100% !important;
-	}
-	.poap {
-		column-gap: 1.5rem !important;
-	}
-	.slider-arrow {
-		display: none !important;
-	}
-	.snapshot-table {
-		min-width: 100% !important;
-	}
+  .dottedLine {
+    justify-content: center;
+  }
+  .dottedLine::after {
+    display: none;
+  }
+  .ens {
+    flex-direction: column !important;
+  }
+  .ens > div {
+    width: 100% !important;
+  }
+  .poap {
+    column-gap: 1.5rem !important;
+  }
+  .slider-arrow {
+    display: none !important;
+  }
+  .snapshot-table {
+    min-width: 100% !important;
+  }
 }
 
 @media screen and (max-width: 750px) {
-	.ai-not-show {
-		display: none !important;
-	}
+  .ai-not-show {
+    display: none !important;
+  }
 
-	.ai-right-content-width {
-		max-width: calc(100% -100px) !important;
-	}
+  .ai-right-content-width {
+    max-width: calc(100% -100px) !important;
+  }
 
-	.ai-left-content-width {
-		max-width: inherit !important;
-		width: calc(100% - 90px) !important;
-	}
+  .ai-left-content-width {
+    max-width: inherit !important;
+    width: calc(100% - 90px) !important;
+  }
 
-	.dottedLine {
-		justify-content: center;
-	}
-	.dottedLine::after {
-		display: none;
-	}
+  .dottedLine {
+    justify-content: center;
+  }
+  .dottedLine::after {
+    display: none;
+  }
 
-	.ens {
-		flex-direction: column !important;
-	}
-	.ens > div {
-		width: 100% !important;
-	}
-	.poap {
-		column-gap: 1.5rem !important;
-	}
-	.slider-arrow {
-		display: none !important;
-	}
-	.snapshot-table {
-		min-width: 100% !important;
-	}
+  .ens {
+    flex-direction: column !important;
+  }
+  .ens > div {
+    width: 100% !important;
+  }
+  .poap {
+    column-gap: 1.5rem !important;
+  }
+  .slider-arrow {
+    display: none !important;
+  }
+  .snapshot-table {
+    min-width: 100% !important;
+  }
 }

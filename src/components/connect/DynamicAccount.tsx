@@ -1,19 +1,19 @@
 import dynamic from "next/dynamic";
 
 const ConnectAccount = dynamic(() => import("./Account"), {
-	ssr: false,
+  ssr: false,
 });
 
 export const DynamicAccount = ({
-	isSandBox,
-	closeNav,
+  isSandBox,
+  closeNav,
 }: {
-	isSandBox: boolean;
-	closeNav: () => void;
+  isSandBox: boolean;
+  closeNav: () => void;
 }) => {
-	return (
-		<>
-			<ConnectAccount isSandBox={isSandBox} closeNav={closeNav}/>
-		</>
-	);
+  return (
+    <>
+      <ConnectAccount isSandBox={isSandBox} closeNav={closeNav}/>
+    </>
+  );
 };

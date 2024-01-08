@@ -4,21 +4,21 @@ import { useEffect } from "react";
 
 let scrollIndex = 0;
 export function Trace() {
-	const router = useRouter();
+  const router = useRouter();
 
-	useEffect(() => {
-		scrollIndex = 0;
+  useEffect(() => {
+    scrollIndex = 0;
 
-		const pathName = router.pathname.replace("/", "");
+    const pathName = router.pathname.replace("/", "");
 
-		PageViewTrace(pathName);
-		window.addEventListener("scroll", (e) => {
-			if (document.documentElement.scrollTop > 100 && scrollIndex == 0) {
-				scrollIndex++;
-				PageScrollTrace(pathName);
-			}
-		});
-	}, [router]);
+    PageViewTrace(pathName);
+    window.addEventListener("scroll", (e) => {
+      if (document.documentElement.scrollTop > 100 && scrollIndex == 0) {
+	scrollIndex++;
+	PageScrollTrace(pathName);
+      }
+    });
+  }, [router]);
 
-	return <></>;
+  return <></>;
 }
