@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { Toasts, Trace } from "components";
 import { isPhone, isProduction } from "lib";
 import customTheme from "styles/theme";
-import useWallet from "lib/useWallet";
+import useWallet from "hooks/useWallet";
 import { WagmiConfig } from "wagmi";
 import { Web3Modal } from "@web3modal/react";
 

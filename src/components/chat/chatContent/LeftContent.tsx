@@ -6,7 +6,6 @@ import {
   Markdown,
   Profile,
   Ens,
-  ChatSubmit,
   Poap,
   Snapshot,
   Uniswap,
@@ -32,6 +31,7 @@ export function Left({
   setInput: (value: string) => void;
   setList: (value: ChatList[]) => void;
 }) {
+  console.log('item', item)
   return (
     <HStack
       key={index}
@@ -105,15 +105,6 @@ export function Left({
             ) : (
               <Markdown value={item.content as string} />
             )}
-
-            {/* <ChatSubmit
-		item={item}
-		index={index}
-		list={list}
-		chatIndex={chatIndex}
-		setInput={setInput}
-		setList={setList}
-		/> */}
           </VStack>
         </Box>
       </Operate>

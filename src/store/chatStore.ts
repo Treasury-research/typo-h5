@@ -127,6 +127,17 @@ export const useChatStore: any = create<any>()(
           },
         }));
       },
+      clearMessage: (chatId: any) => {
+        set((state: any) => ({
+          chatById: {
+            ...state.chatById,
+            [chatId]: {
+              ...state.chatById[chatId],
+                messages: [],
+            },
+          },
+        }));
+      },
       removeMessage: (chatId: any, messageId: any) => {
         const messages = get().chatById[chatId].messages.filter(
           (m: any) => m.id !== messageId

@@ -12,49 +12,33 @@ import { AiOutlineMenu } from "react-icons/ai";
 import { BiGift } from "react-icons/bi";
 import { NavBar, Tabs,Badge } from "react-vant";
 import ShareIcon from 'components/icons/Share'
+import useChatContext from "hooks/useChatContext";
 
-export function ChatTitle({
-  list,
-  chatIndex,
-  isOpen,
-  showNav,
-  onOpen,
-  openNav,
-  closeNav,
-  setIsSandBox,
-}: {
-  list: ChatList[];
-  chatIndex: number;
-  showNav: boolean;
-  isOpen: boolean;
-  onOpen: () => void;
-  openNav: () => void;
-  closeNav: () => void;
-  setIsSandBox: {
-    on: () => void;
-    off: () => void;
-    toggle: () => void;
-  };
-}) {
+export function ChatTitle() {
+  const {
+    activeChatId,
+    showNav,
+    openQuest,
+    openNav,
+    closeNav,
+    setIsSandBox
+  } = useChatContext()
 
   return (
     <>
       <Box w="100vw">
-	{showNav && (
-	  <Box w="full" h="full" pos="absolute" zIndex={5} onClick={closeNav} />
-	)}
+	{showNav && (<Box w="full" h="full" pos="absolute" zIndex={5} onClick={closeNav} />)}
 	<NavBar
 	className="nav-bar"
 	title={
 	  <Tabs
 	    type="jumbo"
 	    color="#000"
-	    onChange={(tabIndex:any) => {
+	    onChange={(tabIndex: any) => {
 	      tabIndex === 0 ? setIsSandBox.off() : setIsSandBox.on();
 	    }}
 	  >
 	    <Tabs.TabPane title="Chat" />
-	    {/* <Tabs.TabPane title="Sandbox" /> */}
 	  </Tabs>
 	}
 	leftText={
@@ -80,7 +64,7 @@ export function ChatTitle({
 	        as={BiGift}
 	        boxSize={5}
 	        onClick={() => {
-	          onOpen();
+	          openQuest();
 	        }}
 	      />
 	    </Badge>

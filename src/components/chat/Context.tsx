@@ -76,14 +76,17 @@ export default function ChatProvider({ children }: any) {
     channel,
     setChannel,
     sharedChat,
-    setSharedChat
+    setSharedChat,
+    clearMessage
   } = useChatStore();
 
   const [isSandBox, setIsSandBox] = useBoolean(false);
   const [sandBoxType, setSandBoxType] = useState("Regular");
   const [category, setCategory] = useState("");
-  const [section, setSection] = useState(router.pathname.split("/")[1]);
+  const [section, setSection] = useState('explorer');
   const [agent, setAgent] = useState("investor");
+  const [showNav, setShowNav] = useBoolean(false);
+  const [showQuest, setShowQuest] = useBoolean(false);
   const [showAgent, setShowAgent] = useState(false);
   const { onOpen, onClose, isOpen } = useDisclosure();
   const [isLoading, setIsLoading] = useBoolean(false);
@@ -108,6 +111,7 @@ export default function ChatProvider({ children }: any) {
 
       return -1;
     });
+  console.log('chatList111', chatList)
 
   const [allChatList, setAllChatList] = useState(chatList);
 
@@ -832,6 +836,7 @@ export default function ChatProvider({ children }: any) {
         }
       };
 
+      console.log('baseURL', baseURL)
       const res = await fetch(`${baseURL}api/conversation`, {
         method: "POST",
         headers: {
@@ -1352,6 +1357,23 @@ export default function ChatProvider({ children }: any) {
     }
   };
 
+  const openNav = async () => {
+    setShowNav.on()
+  };
+
+  const closeNav = async () => {
+    setShowNav.off();
+    setShowQuest.off();
+  };
+
+  const openQuest = async () => {
+    setShowQuest.on();
+  };
+
+  const closeQuest = async () => {
+    setShowQuest.off();
+  };
+
   return (
     <ChatContext.Provider
       value={{
@@ -1363,6 +1385,10 @@ export default function ChatProvider({ children }: any) {
         setAgent,
         showAgent,
         setShowAgent,
+        showNav,
+        setShowNav,
+        showQuest,
+        setShowQuest,
         isLoading,
         setIsLoading,
         onOpen,
@@ -1408,7 +1434,12 @@ export default function ChatProvider({ children }: any) {
         refreshCoupon,
         getAwards,
         isGenerate,
-        setIsGenerate
+        setIsGenerate,
+        clearMessage,
+        closeNav,
+        openNav,
+        openQuest,
+        closeQuest
       }}
     >
       {children}

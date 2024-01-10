@@ -18,7 +18,7 @@ import { NoticeBar } from "react-vant";
 
 import { BiWallet } from "react-icons/bi";
 import { useAccount } from "wagmi";
-import useWallet from "lib/useWallet";
+import useWallet from "hooks/useWallet";
 
 export function ConnectModal({ closeNav }: { closeNav: () => void }) {
   const router = useRouter();

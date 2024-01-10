@@ -36,6 +36,7 @@ import { BaseModal, Copy, Empty } from "components";
 import { base64, toShortAddress } from "lib";
 import { useAiStore } from "store/aiStore";
 import { Card } from "react-vant";
+import useChatContext from "hooks/useChatContext";
 
 const AwardItem = ({
   title,
@@ -79,13 +80,10 @@ const AwardItem = ({
   );
 };
 
-export function Quest({
-  isOpen,
-  onClose,
-}: {
-  isOpen: boolean;
-  onClose: () => void;
-}) {
+export function Quest() {
+  const { showQuest, setShowQuest, closeQuest } = useChatContext()
+  const isOpen = showQuest
+  const onClose = closeQuest
   const { onCopy, value, setValue, hasCopied } = useClipboard("");
   const { isInvite, userId, email } = useUserInfoStore();
   const [awards, setAwards] = useState<Incentive[]>([]);

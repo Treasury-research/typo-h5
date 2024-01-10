@@ -32,7 +32,7 @@ import { AiFillTwitterCircle } from "react-icons/ai";
 import { BsTelegram } from "react-icons/bs";
 import { SiSubstack } from "react-icons/si";
 import { BiWallet } from "react-icons/bi";
-import useWallet from "lib/useWallet";
+import useWallet from "hooks/useWallet";
 import api from "api";
 
 const Account = ({

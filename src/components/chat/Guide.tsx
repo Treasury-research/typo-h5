@@ -6,12 +6,13 @@ import { useEffect, useMemo, useState } from "react";
 import { Cell, Swiper, Typography, Image } from "react-vant";
 
 import { useUserInfoStore } from "store/userInfoStore";
-import useWallet from "lib/useWallet";
+import useWallet from "hooks/useWallet";
 import { useAccount } from "wagmi";
 import { useStore } from "store";
 import Logo from 'components/icons/Logo'
 import SignInIcon from 'components/icons/SignIn'
 import api from "api";
+import useChatContext from "hooks/useChatContext";
 
 const slides = [
   {
@@ -37,15 +38,8 @@ const sandboxSlides = [
   },
 ];
 
-export function Guide({
-  onSend,
-  setInput,
-  isSandBox,
-}: {
-  isSandBox: boolean;
-  onSend: (isReGenerate?: boolean) => void;
-  setInput: (value: string) => void;
-}) {
+export function Guide() {
+  const { isSandBox } = useChatContext()
   const [commands, setCommands] = useState([]);
   const { userId } = useUserInfoStore();
   const { isConnected, address } = useAccount();
@@ -87,8 +81,6 @@ export function Guide({
       getCommands();
     }
   }, [userId]);
-
-  console.log('cmds', cmds, commands)
 
   return (
     <VStack

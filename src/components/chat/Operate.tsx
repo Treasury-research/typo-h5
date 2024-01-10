@@ -21,43 +21,28 @@ import { useEffect, useMemo, useState } from "react";
 import moment from "moment";
 import { LongPressTouch } from "components";
 import { Popup, Dialog, Picker } from "react-vant";
+import useChatContext from "hooks/useChatContext";
 
 export function Operate({
   item,
   index,
-  chatIndex,
-  list,
   children,
-  setInput,
-  setList,
-  onSend,
-}: {
-  item: ChatChildren;
-  index: number;
-  chatIndex: number;
-  list: ChatList[];
-  children?: React.ReactElement | React.ReactElement[];
-  setInput?: (value: string) => void;
-  onSend?: (isReGenerate?: boolean) => void;
-  setList: (value: ChatList[]) => void;
-}) {
+}: any) {
+  const { setInput, submitMessage, activeChat, activeChatId, removeMessage,isGenerate } = useChatContext()
   const { showToast } = useStore();
   const [isOpen, setIsOpen] = useBoolean(false);
   const { onCopy } = useClipboard(item.content as string);
 
   const isLastLeftChat = useMemo(() => {
-    const child = list[chatIndex].children;
-    return index === child.length - 1;
-  }, [item, chatIndex, index, list]);
+    if (!activeChat) return false;
+    return index === activeChat?.messages.length;
+  }, [activeChat, index]);
 
   const lastUserInput = useMemo(() => {
-    const copyList: ChatList[] = deepClone(list);
-    const child = copyList[chatIndex].children;
-    const rightItems = (child.reverse() || []).filter(
-      (item) => item.type === "nl"
-    );
+    if (!activeChat) return undefined;
+    const rightItems = activeChat?.messages.filter((item: any) => item.type === "question");
     return rightItems[0]?.content || undefined;
-  }, [item, chatIndex, list]);
+  }, [activeChat]);
 
   const showActions = useMemo(() => {
     const actions = ["Delete"];
@@ -82,7 +67,7 @@ export function Operate({
   const regen = () => {
     setInput && setInput((lastUserInput as string) || "");
     deleteLastLeftChat();
-    onSend && onSend(true);
+    submitMessage({ isReGenerate: true });
   };
 
   const onPickerChange = (action: any) => {
@@ -96,9 +81,7 @@ export function Operate({
 	cancelButtonText: "Cancel",
 	message: "Are you sure to delete this content?",
       }).then(() => {
-	const copyList: ChatList[] = deepClone(list);
-	copyList[chatIndex].children.splice(index, 1);
-	setList(copyList);
+        removeMessage(activeChat.id, item.id)
       });
     } else if (action === "Regen") {
       regen();
@@ -150,10 +133,10 @@ export function Operate({
 	w="full"
 	pos="relative"
 	gap={2}
-	justify={item.type === "nl" ? "flex-end" : "flex-start"}
+	justify={item.type === "question" ? "flex-end" : "flex-start"}
       >
 	{children}
-	{item.type != "nl" && (
+	{item.type != "question" && (
 	  <Text
 	    mt={1}
 	    color="gray.400"

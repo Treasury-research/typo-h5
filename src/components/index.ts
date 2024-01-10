@@ -3,7 +3,6 @@ export * from "./Toast";
 export * from "./BaseModal";
 export * from "./Empty";
 export * from "./Copy";
-export * from "./chat";
 export * from "./Social";
 export * from "./connect";
 export * from "./LongPressTouch";
