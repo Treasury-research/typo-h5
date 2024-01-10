@@ -7,7 +7,7 @@ import { ChatContent } from "components/chat/ChatContent";
 import { Quest } from "components/chat/Quest";
 import { useState, useEffect, useRef, useMemo } from "react";
 import { useUserInfoStore } from "store/userInfoStore";
-import { deepClone, isPhone } from "lib";
+import { isPhone } from "lib";
 import { Menu } from "components/chat/menu";
 import useChatContext from "hooks/useChatContext";
 import { useRouter } from "next/router";

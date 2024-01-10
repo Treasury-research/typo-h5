@@ -8,7 +8,6 @@ import {
   Input,
   VStack,
 } from "@chakra-ui/react";
-import { deepClone } from "lib";
 import { useEffect, useRef, useState } from "react";
 import { ChatList } from "lib/types";
 import { AiOutlineClear } from "react-icons/ai";

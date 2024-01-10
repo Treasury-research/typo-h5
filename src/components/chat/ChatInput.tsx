@@ -12,7 +12,6 @@ import { TbSend } from "react-icons/tb";
 import { useStore } from "store";
 import { ChatList } from "lib/types";
 import {
-  deepClone,
   getShortcutByprompt,
   isAddress,
   isShortcut,

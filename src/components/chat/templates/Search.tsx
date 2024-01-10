@@ -260,7 +260,7 @@ const SourceBox = ({
         alignItems="start"
         p={3}
         key={source.index}
-        style={{ backdropFilter: "blur(30px)" }}
+        style={{ backdropFilter: "blur(30px)", height: '100%' }}
         className="bg-[#DAE5E5] rounded-md overflow-hidden text-[#487C7E] relative group"
       >
         <Box
@@ -348,7 +348,7 @@ const viewMoreBox = (more: boolean, langth: number, sources: ISource[]) => {
       justifyContent="center"
       alignItems="start"
       p={3}
-      style={{ backdropFilter: "blur(30px)" }}
+      style={{ backdropFilter: "blur(30px)", height: '100%' }}
       className="bg-[#DAE5E5] rounded-md overflow-hidden"
     >
       <HStack spacing={1}>

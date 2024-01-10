@@ -16,7 +16,6 @@ import {
 
 import { ChatChildren, ChatList } from "lib/types";
 import { useStore } from "store";
-import { deepClone } from "lib";
 import { useEffect, useMemo, useState } from "react";
 import moment from "moment";
 import { LongPressTouch } from "components";
