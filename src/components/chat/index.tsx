@@ -70,6 +70,7 @@ const Chat = () => {
             overflow="hidden"
             alignItems="flex-start"
             bg="#f4f5f6"
+            gap="0"
           >
             <ChatTitle />
             <VStack

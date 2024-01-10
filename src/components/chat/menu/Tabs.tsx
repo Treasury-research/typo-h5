@@ -31,6 +31,7 @@ export function Tabs() {
     setSandBoxType,
     allChatList,
     setActiveChatId,
+    removeChat,
     clearMessage,
     updateChat
   } = useChatContext()

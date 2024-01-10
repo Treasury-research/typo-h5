@@ -163,7 +163,8 @@ export default function ChatProvider({ children }: any) {
   const onScroll = (timer: number) => {
     setTimeout(() => {
       const chatContent = document.getElementById("chat-content");
-      chatContent && chatContent?.scrollTo({ top: 50000, behavior: "smooth" });
+      console.log('onScroll', chatContent)
+      chatContent && chatContent?.scrollTo({ top: chatContent.scrollHeight });
     }, timer);
   };
 
@@ -538,6 +539,7 @@ export default function ChatProvider({ children }: any) {
                 ...json,
                 previewCount: !userId ? 1 : 3,
               });
+              onScroll()
 
               resolve({
                 done: true,
@@ -559,6 +561,7 @@ export default function ChatProvider({ children }: any) {
                 prompt,
                 ...json,
               });
+              onScroll()
 
               return readChunk();
             }
@@ -816,6 +819,7 @@ export default function ChatProvider({ children }: any) {
               content: text,
               ...json,
             });
+            onScroll()
 
             return {
               done: true,
@@ -832,6 +836,7 @@ export default function ChatProvider({ children }: any) {
               prompt,
               ...json,
             });
+            onScroll()
 
             return readChunk();
           }
@@ -925,8 +930,9 @@ export default function ChatProvider({ children }: any) {
         setInput("");
         setLabelValue("");
         addMessage(chatId, newMessage);
-        onScroll(600);
       }
+
+      onScroll();
     },
     [isShowInputQuote, quoteContent, quoteType, jwt]
   );
@@ -954,6 +960,7 @@ export default function ChatProvider({ children }: any) {
       };
 
       addMessage(chatId, newMessage);
+      onScroll()
 
       if (prompt.toLocaleLowerCase().includes("/uniswap")) {
         updateMessage(chatId, messageId, {
@@ -1020,8 +1027,8 @@ export default function ChatProvider({ children }: any) {
           createTime: new Date().getTime(),
           address:account
         });
+        onScroll(0);
         setIsLoading.off();
-        onScroll(400);
         return;
       }
 
@@ -1191,7 +1198,7 @@ export default function ChatProvider({ children }: any) {
         }
 
         setInput("");
-        onScroll(400);
+        onScroll(0);
       } catch (error: any) {
         updateMessage(chatId, messageId, {
           error: "Send message error!",
@@ -1202,7 +1209,7 @@ export default function ChatProvider({ children }: any) {
         setIsGenerate(false)
         setInput("");
         showToast("Unknown exception, Send message error!", "error");
-        onScroll(400);
+        onScroll(0);
       }
     },
     [

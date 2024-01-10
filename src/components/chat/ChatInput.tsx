@@ -110,6 +110,7 @@ export const ChatInput = () => {
         pos="relative"
         shadow="md"
         alignItems="center"
+        position="relative"
       >
         <TextArea
           rows={1}
@@ -137,7 +138,7 @@ export const ChatInput = () => {
             }, 300)
           }
         />
-        <Flex h="full" alignItems="flex-end">
+        <Flex h="full" alignItems="flex-end" position="absolute" height="100%" top="0" right="0">
           {isLoading && (
             <Box w="38px" mb={1}>
               <BeatLoader size={7} />

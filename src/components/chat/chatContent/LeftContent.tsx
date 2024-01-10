@@ -32,7 +32,6 @@ export function Left({
     isGenerate
   } = useChatContext();
 
-  console.log('Markdown', Markdown)
   return (
     <HStack
       key={index}
