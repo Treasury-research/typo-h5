@@ -113,3 +113,13 @@ export function base64(text: string) {
 export function upFirst(str: string) {
 	return str.charAt(0).toUpperCase() + str.slice(1);
 }
+
+export function getTopLevelDomain(url: string) {
+  const match = url.match(
+    /^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:/\n]+)/im
+  );
+  if (match) {
+    return match[1];
+  }
+  return null;
+}

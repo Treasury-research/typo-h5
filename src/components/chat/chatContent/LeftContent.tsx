@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { Box, HStack, VStack, Avatar, Icon } from "@chakra-ui/react";
 import { ChatChildren, ChatList } from "lib/types";
 import { AiFillCaretLeft } from "react-icons/ai";
@@ -10,6 +11,7 @@ import { Snapshot } from "components/chat/templates/Snapshot"
 import { Uniswap } from "components/chat/templates/Uniswap"
 import { Goplus } from "components/chat/templates/Goplus"
 import useChatContext from 'hooks/useChatContext'
+import Search from "../templates/Search";
 
 export function Left({
   chatId,
@@ -31,6 +33,13 @@ export function Left({
     channel,
     isGenerate
   } = useChatContext();
+
+  const showQuoteIndex = useMemo(() => {
+    return activeChat.messages.findLastIndex(
+      (t: any) =>
+        t.tool == "search" || t.tool == "fix_reply" || t.tool == "chat"
+    );
+  }, [activeChat?.messages]);
 
   return (
     <HStack
@@ -92,6 +101,18 @@ export function Left({
               />
             ) : item.tool === "uniswap" ? (
               <Uniswap content={item.content} />
+            ) : item.tool === "search" ? (
+              <Search
+                item={item}
+                isLast={isLast}
+                done={item.done}
+                sources={item.sourceList}
+                content={item.content}
+                submitMessage={submitMessage}
+                setInput={setInput}
+                showQuoteIndex={showQuoteIndex}
+                index={index}
+              />
             ) : (
               <Markdown value={item.content as string} />
             )}
