@@ -31,7 +31,7 @@ const Item = ({ data }: { data: any }) => {
   );
 };
 
-export function Poap({ content }: { content: any }) {
+export function Poap({ content }: any) {
   return (
     <Box width="-webkit-fill-available" padding="5px">
       <Box

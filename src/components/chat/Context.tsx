@@ -96,6 +96,7 @@ export default function ChatProvider({ children }: any) {
   const [coplyLoading, setCoplyLoading] = useState(false);
   const [isGenerate,setIsGenerate] = useState(false);
   const [getReccordByIdLoading, setGetReccordByIdLoading] = useState(false);
+  const [isFocus, setIsFocus] = useBoolean(false);
 
   let activeChat: any = getActiveChat();
   const activeMessages: any = getActiveChatMessages();
@@ -1439,7 +1440,9 @@ export default function ChatProvider({ children }: any) {
         closeNav,
         openNav,
         openQuest,
-        closeQuest
+        closeQuest,
+        isFocus,
+        setIsFocus
       }}
     >
       {children}

@@ -59,9 +59,7 @@ export function Operate({
   }, [item, isLastLeftChat, lastUserInput]);
 
   const deleteLastLeftChat = () => {
-    const copyList: ChatList[] = deepClone(list);
-    copyList[chatIndex].children.splice(index, 1);
-    setList(copyList);
+    removeMessage(activeChat.id, item.id)
   };
 
   const regen = () => {

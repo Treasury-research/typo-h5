@@ -22,6 +22,7 @@ import { ActionSheet } from "react-vant";
 import { useEffect, useMemo, useState } from "react";
 import { usePrepareContractWrite, useContractWrite } from "wagmi";
 import { useStore } from "store";
+import useChatContext from "hooks/useChatContext";
 
 const moke = {
   address: "0xdc7aba9bcf799e254313053246c563c6a2382fe4",
@@ -70,13 +71,8 @@ const moke = {
 
 export function Goplus({
   content,
-  setInput,
-  onSend,
-}: {
-  content: any;
-  onSend: (isReGenerate?: boolean) => void;
-  setInput: (value: string) => void;
-}) {
+}: any) {
+  const { submitMessage } = useChatContext()
   const { account } = useUserInfoStore();
   const [index, setIndex] = useState(0);
   const [visible, setVisible] = useState(false);
@@ -329,8 +325,9 @@ export function Goplus({
                               variant="bluePrimary"
                               size="xs"
                               onClick={() => {
-                                setInput(`/GoPlus my`);
-                                onSend();
+                                submitMessage({
+                                  question: `/AddressRisk my`
+                                });
                               }}
                             >
                               Check Mine

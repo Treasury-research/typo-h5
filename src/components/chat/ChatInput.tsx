@@ -20,7 +20,7 @@ import {
 } from "lib";
 import { Input } from "react-vant";
 import { BeatLoader } from "react-spinners";
-import { TextAreaTips, commands } from "components";
+import { TextAreaTips, commands } from "components/chat/TextAreaTips";
 import { v4 as uuidv4 } from "uuid";
 import { useAiStore } from "store/aiStore";
 import { useJwtStore } from "store/jwtStore";
@@ -40,7 +40,11 @@ export const ChatInput = () => {
     setInput,
     openNav,
     onScroll,
-    submitMessage
+    submitMessage,
+    isFocus,
+    setIsFocus,
+    labelValue,
+    setLabelValue
   } = useChatContext()
 
   const { showToast } = useStore();
@@ -48,8 +52,6 @@ export const ChatInput = () => {
   const { jwt, setJwt } = useJwtStore();
   const myInput = useRef<any>(null);
   const myTip = useRef<any>(null);
-  const [labelValue, setLabelValue] = useState("");
-  const [isFocus, setIsFocus] = useBoolean(false);
   const [isComposition, setIsComposition] = useState(false);
   const { setTotalCoupon, setUsedCoupon } = useAiStore();
 

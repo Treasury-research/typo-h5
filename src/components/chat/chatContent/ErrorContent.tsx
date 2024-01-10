@@ -14,33 +14,12 @@ import { Operate } from "../Operate";
 import { AiFillCaretLeft } from "react-icons/ai";
 
 export function Error({
-  list,
   item,
   index,
-  chatIndex,
-  onSend,
-  setList,
-  setInput,
-}: {
-  item: ChatChildren;
-  index: number;
-  chatIndex: number;
-  list: ChatList[];
-  setInput: (value: string) => void;
-  onSend: (isReGenerate?: boolean) => void;
-  setList: (value: ChatList[]) => void;
-}) {
+}: any) {
   return (
     <HStack w="full" justify="flex-start">
-      <Operate
-	item={item}
-	index={index}
-	list={list}
-	chatIndex={chatIndex}
-	onSend={onSend}
-	setList={setList}
-	setInput={setInput}
-      >
+      <Operate item={item} index={index}>
 	<Avatar size="sm" src="/images/aisql/TypoGraphy.svg" mr={1} />
 	<HStack
 	  key={index}
@@ -53,12 +32,12 @@ export function Error({
 	  pos="relative"
 	>
 	  <Icon
-	  as={AiFillCaretLeft}
-	  boxSize={4}
-	  pos="absolute"
-	  left="-11.4px"
-	  top="9px"
-	  color="bg.white"
+	    as={AiFillCaretLeft}
+	    boxSize={4}
+	    pos="absolute"
+	    left="-11.4px"
+	    top="9px"
+	    color="bg.white"
 	  />
 	  <WarningTwoIcon color="red.500" />
 	  <Text whiteSpace="pre-wrap">{item.content as string}</Text>

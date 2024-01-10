@@ -11,27 +11,29 @@ import {
   Uniswap,
   Goplus,
 } from "components";
+import useChatContext from 'hooks/useChatContext'
 
 export function Left({
-  list,
+  chatId,
+  messageId,
   item,
   index,
-  chatIndex,
-  isLoading,
-  onSend,
-  setList,
-  setInput,
-}: {
-  list: ChatList[];
-  item: ChatChildren;
-  index: number;
-  chatIndex: number;
-  isLoading: boolean;
-  onSend: (isReGenerate?: boolean) => void;
-  setInput: (value: string) => void;
-  setList: (value: ChatList[]) => void;
-}) {
-  console.log('item', item)
+  isLast,
+  isHidden,
+  isPrivateHead,
+  isLoading
+}: any) {
+  const {
+    setInput,
+    submitMessage,
+    activeChat,
+    setTotalCoupon,
+    setDailyAdd,
+    updateMessage,
+    channel,
+    isGenerate
+  } = useChatContext();
+
   return (
     <HStack
       key={index}
@@ -41,15 +43,7 @@ export function Left({
       spacing={3}
       mb={3}
     >
-      <Operate
-        item={item}
-        index={index}
-        list={list}
-        chatIndex={chatIndex}
-        setInput={setInput}
-        onSend={onSend}
-        setList={setList}
-      >
+      <Operate item={item} index={index}>
         <Avatar size="sm" src="/images/aisql/TypoGraphy.svg" mr={1} />
         <Box
           pos="relative"
