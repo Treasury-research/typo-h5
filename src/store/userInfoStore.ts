@@ -13,6 +13,11 @@ export const useUserInfoStore: any = create<any>()(
       userId: "",
       new_email: "",
       isInvite: false,
+      isPassuser: false,
+      noPassuserSearchTimes:0,
+      setNoPassuserSearchTimes: (noPassuserSearchTimes: number) => {
+        set({ noPassuserSearchTimes });
+      },
       setUserId: (userId: string) => {
 	set({ userId });
       },

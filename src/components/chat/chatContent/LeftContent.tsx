@@ -2,15 +2,13 @@ import { Box, HStack, VStack, Avatar, Icon } from "@chakra-ui/react";
 import { ChatChildren, ChatList } from "lib/types";
 import { AiFillCaretLeft } from "react-icons/ai";
 import { Operate } from "../Operate";
-import {
-  Markdown,
-  Profile,
-  Ens,
-  Poap,
-  Snapshot,
-  Uniswap,
-  Goplus,
-} from "components";
+import { Markdown } from "components/chat/templates/Markdown"
+import { Profile } from "components/chat/templates/Profile"
+import { Ens } from "components/chat/templates/Ens"
+import { Poap } from "components/chat/templates/Poap"
+import { Snapshot } from "components/chat/templates/Snapshot"
+import { Uniswap } from "components/chat/templates/Uniswap"
+import { Goplus } from "components/chat/templates/Goplus"
 import useChatContext from 'hooks/useChatContext'
 
 export function Left({
@@ -34,6 +32,7 @@ export function Left({
     isGenerate
   } = useChatContext();
 
+  console.log('Markdown', Markdown)
   return (
     <HStack
       key={index}
@@ -91,8 +90,6 @@ export function Left({
             ) : item.tool === "goplus" ? (
               <Goplus
                 content={item.content}
-                onSend={onSend}
-                setInput={setInput}
               />
             ) : item.tool === "uniswap" ? (
               <Uniswap content={item.content} />

@@ -30,6 +30,7 @@ const Chat = () => {
   const { userId } = useUserInfoStore();
   const needSign = isConnected && !userId
 
+  console.log('chatKey', chatKey)
   useEffect(() => {
     if (section) {
       setSection(section)

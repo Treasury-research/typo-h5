@@ -28,6 +28,8 @@ export function ChatContent() {
   const { userId } = useUserInfoStore();
   const showChat = activeChat?.messages?.length > 0
 
+  console.log('showChat', showChat)
+
   return (
     <>
       {showChat && (
@@ -76,33 +78,33 @@ export function ChatContent() {
                 <Box key={index} w="full">
                   {item.type === "question" ? (
                     <Right
-                      list={list}
+                      chatId={activeChat.id}
+                      messageId={item.id}
                       item={item}
-                      chatIndex={chatIndex || 0}
                       isLoading={isLoading}
-                      index={index}
-                      setList={setList}
+                      index={index + activeChat.messages.length - 2}
                     />
                   ) : item.error ? (
                     <Error
+                      chatId={activeChat.id}
+                      messageId={item.id}
                       item={item}
-                      chatIndex={chatIndex || 0}
-                      index={index}
-                      list={list}
-                      onSend={onSend}
-                      setList={setList}
+                      index={index + activeChat.messages.length - 2}
                       setInput={setInput}
                     />
                   ) : (
                     <Left
-                      list={list}
+                      chatId={activeChat.id}
+                      messageId={item.id}
                       item={item}
-                      chatIndex={chatIndex || 0}
                       isLoading={isLoading}
-                      index={index}
-                      setList={setList}
-                      onSend={onSend}
+                      index={index + activeChat.messages.length - 2}
                       setInput={setInput}
+                      isLast={index + activeChat.messages.length - 2 === activeChat.messages?.length - 1}
+                      isHidden={showAgent && isInPrivateChat && index + activeChat.messages.length - 2 < privateChatStartIndex}
+                      isPrivateHead={showAgent && isInPrivateChat && index + activeChat.messages.length - 2 === privateChatStartIndex}
+                      setAgent={setAgent}
+                      showAgent={showAgent}
                     />
                   )}
                 </Box>

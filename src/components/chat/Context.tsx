@@ -129,8 +129,9 @@ export default function ChatProvider({ children }: any) {
       setActiveChatId("");
     }
     if (router.pathname) {
-      setSection(router.pathname.split("/")[1]);
-      setChannel(router.pathname.split("/")[1]);
+      console.log('router', router.pathname.split("/")[1])
+      // setSection(router.pathname.split("/")[1]);
+      // setChannel(router.pathname.split("/")[1]);
     }
   }, [router]);
 
