@@ -8,6 +8,7 @@ import { useJwtStore } from "store/jwtStore";
 import { useAiStore } from "store/aiStore";
 import { useStore } from "store";
 import { useRouter } from "next/router";
+import { useToast } from "@chakra-ui/react";
 import api from "api";
 
 const errorMsg = `Metamask plugin not found or not active. Please check your browser's plugin list.`;
@@ -55,7 +56,7 @@ export const Web3ContextProvider = ({ children }) => {
   const router = useRouter();
   const { inviteId } = router?.query;
 
-  const { showToast } = useStore();
+  const showToast = useToast();
   const [web3, setWeb3] = useState("");
   const [signer, setSigner] = useState("");
   const [chainId, setChainId] = useState("");
@@ -165,7 +166,11 @@ export const Web3ContextProvider = ({ children }) => {
       const objStartIndex = error.message.indexOf("{");
       const obj = JSON.parse(error.message.slice(objStartIndex));
       // toast.error(obj.message);
-      showToast(obj.message);
+      showToast({
+        position: 'top',
+        title: obj.message,
+        variant: 'subtle',
+      })
     }
   };
 
@@ -205,7 +210,12 @@ export const Web3ContextProvider = ({ children }) => {
       setEmail(res?.data?.email);
       getIsInvite();
     } else {
-      showToast("Authentication failed", "error");
+      showToast({
+        position: 'top',
+        title: 'Authentication failed',
+        variant: 'subtle',
+        status: 'error'
+      })
     }
   };
 

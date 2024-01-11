@@ -10,6 +10,7 @@ import {
   Link,
   Image,
   Center,
+  useToast
 } from "@chakra-ui/react";
 import {
   CheckCircleIcon,
@@ -77,7 +78,7 @@ export function Goplus({
   const [index, setIndex] = useState(0);
   const [visible, setVisible] = useState(false);
   const [contractAddress, setContractAddress] = useState("");
-  const { showToast } = useStore();
+  const showToast = useToast();
 
   // content = moke;
 
@@ -112,13 +113,22 @@ export function Goplus({
 
   useEffect(() => {
     if (isError) {
-      showToast(error?.message as string, "warning");
+      showToast({
+        position: 'top',
+        title: error?.message as string,
+        variant: 'subtle',
+        status: 'warning'
+      })
     }
   }, [error, isError]);
 
   useEffect(() => {
     if (isSuccess) {
-      showToast("Approve Success", "success");
+      showToast({
+        position: 'top',
+        title: 'Approve Success',
+        variant: 'subtle',
+      })
     }
   }, [isSuccess]);
 

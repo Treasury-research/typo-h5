@@ -12,6 +12,7 @@ import {
   useClipboard,
   Portal,
   VStack,
+  useToast
 } from "@chakra-ui/react";
 
 import { ChatChildren, ChatList } from "lib/types";
@@ -28,7 +29,7 @@ export function Operate({
   children,
 }: any) {
   const { setInput, submitMessage, activeChat, activeChatId, removeMessage,isGenerate } = useChatContext()
-  const { showToast } = useStore();
+  const showToast = useToast();
   const [isOpen, setIsOpen] = useBoolean(false);
   const { onCopy } = useClipboard(item.content as string);
 
@@ -69,7 +70,11 @@ export function Operate({
 
   const onPickerChange = (action: any) => {
     if (action === "Copy") {
-      showToast("Copied", "success");
+      showToast({
+        position: 'top',
+        title: 'Copied',
+        variant: 'subtle',
+      })
       onCopy();
     } else if (action === "Delete") {
       Dialog.confirm({

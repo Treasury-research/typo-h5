@@ -7,6 +7,7 @@ import {
   HStack,
   Text,
   CloseButton,
+  useToast
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { AiFillAudio } from "react-icons/ai";
@@ -19,7 +20,7 @@ export function Audio({
   color,
 }: any) {
   const { input, setInput } = useChatContext()
-  const { showToast } = useStore();
+  const showToast = useToast();
   const {
     transcript,
     listening,
@@ -31,7 +32,12 @@ export function Audio({
 
   useEffect(() => {
     if (!browserSupportsSpeechRecognition) {
-      showToast("Your browser is not supported!", "warning");
+      showToast({
+        position: 'top',
+        title: 'Your browser is not supported!',
+        variant: 'subtle',
+        status: 'warning'
+      })
     }
   }, []);
 

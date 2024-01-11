@@ -2,7 +2,7 @@ import { Icon, VStack, Button, Box } from "@chakra-ui/react";
 import { BsCommand } from "react-icons/bs";
 import { BiWallet } from "react-icons/bi";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useCallback } from "react";
 import { Cell, Swiper, Typography, Image } from "react-vant";
 
 import { useUserInfoStore } from "store/userInfoStore";
@@ -44,24 +44,16 @@ export function Guide() {
   const { userId } = useUserInfoStore();
   const { isConnected, address } = useAccount();
   const { openInviteModal, setOpenInviteModal } = useStore();
-
   const { handleSign, openConnectWallet, isSign } = useWallet();
 
-  const needSign = useMemo(() => {
-    return isConnected && !userId;
-  }, [isConnected, userId]);
-
+  const needSign = isConnected && !userId
   // console.log(isConnected, needSign);
+  const list = isSandBox ? sandboxSlides : slides
 
-  const list = useMemo(() => {
-    return isSandBox ? sandboxSlides : slides;
-  }, [isSandBox]);
-
-  const cmds = useMemo(() => {
-    return isSandBox
-         ? commands.filter((item: any) => item?.type === "short")
-         : commands.filter((item: any) => item?.type === "normal");
-  }, [isSandBox, commands]);
+  const cmds =
+    isSandBox
+    ? commands.filter((item: any) => item?.type === "short")
+    : commands.filter((item: any) => item?.type === "normal")
 
   const getCommands = async () => {
     const result: any = await api.get("api/shortcut/questions");
@@ -69,6 +61,10 @@ export function Guide() {
       setCommands(result?.data as any);
     }
   };
+
+  const signUp = useCallback(() => {
+    handleSign(address as string)
+  }, [address])
 
   useEffect(() => {
     if (needSign && isSign) {
@@ -81,6 +77,8 @@ export function Guide() {
       getCommands();
     }
   }, [userId]);
+
+  console.log('needSign', needSign, isConnected, userId)
 
   return (
     <VStack
@@ -165,7 +163,7 @@ export function Guide() {
         >
           <Box>⌘ /Profile my</Box>
         </Box>
-        {needSign && (
+        {!userId && (
           <Box marginTop="20px" width="100%">
             <Button
               leftIcon={<SignInIcon />}
@@ -178,10 +176,30 @@ export function Guide() {
               color="white"
               padding="10px 20px"
               onClick={() => {
-                needSign ? handleSign(address as string) : openConnectWallet();
+                handleSign(address as string)
               }}
             >
               Sign in
+            </Button>
+          </Box>
+        )}
+        {!isConnected && !!userId && (
+          <Box marginTop="20px" width="100%">
+            <Button
+              leftIcon={<SignInIcon />}
+              size="md"
+              w="100%"
+              minHeight="44px"
+              fontWeight="600"
+              borderRadius={8}
+              background="#357E7F"
+              color="white"
+              padding="10px 20px"
+              onClick={() => {
+                openConnectWallet();
+              }}
+            >
+              Connect Wallet
             </Button>
           </Box>
         )}

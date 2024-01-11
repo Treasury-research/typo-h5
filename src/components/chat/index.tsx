@@ -57,17 +57,6 @@ const Chat = () => {
     }
   }, [isConnected])
 
-  useEffect(() => {
-    // setInterval(() => {
-      console.log('showToast', 'hello')
-      showToast({
-        position: 'top',
-        title: 'hello',
-        variant: 'subtle'
-      })
-    // }, 5000)
-  }, [])
-
   return (
     <>
       <NextSeo title={"TypoGraphy AI"} />
@@ -103,7 +92,7 @@ const Chat = () => {
               alignItems="flex-start"
             >
               <ChatContent />
-              {!needSign && (<ChatInput />)}
+              {!!isConnected && (<ChatInput />)}
             </VStack>
           </VStack>
           <Quest />

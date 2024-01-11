@@ -6,6 +6,7 @@ import {
   InputGroup,
   InputLeftAddon,
   ModalFooter,
+  useToast
 } from "@chakra-ui/react";
 import { useStore } from "store";
 import * as EmailValidator from "email-validator";
@@ -20,7 +21,7 @@ export function BindEmailModal() {
     setEmail,
     email,
   } = useStore();
-  const { showToast } = useStore();
+  const showToast = useToast();
   const [invalidEmail, setInvalidEmail] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -34,7 +35,12 @@ export function BindEmailModal() {
 	setOpenBindEmailModal(false);
 	setOpenVerificationEmailModal(true);
       } else {
-	showToast(result.data?.errorMsg || "Bind error!", "danger");
+        showToast({
+          position: 'top',
+          title: result.data?.errorMsg || "Bind error!",
+          variant: 'subtle',
+          status: 'error'
+        })
       }
       setIsLoading(false);
     } catch (error) {

@@ -7,6 +7,7 @@ import {
   Flex,
   Tooltip,
   Skeleton,
+  useToast
 } from "@chakra-ui/react";
 import React, { useState, useMemo } from "react";
 import { Markdown } from "./Markdown";
@@ -41,7 +42,7 @@ const SourceBox = ({
   const { activeChat, updateMessage, getMessage, setTotalCoupon, setDailyAdd, isGenerate, setIsGenerate } =
     useChatContext();
   const jwt = useJwtStore.getState().jwt;
-  const { showToast } = useStore();
+  const showToast = useToast();
   const [value, setValue] = useState("");
   const { userId, isPassuser } = useUserInfoStore();
   const { setOpenConnectModal } = useConnectModalStore();
@@ -65,7 +66,12 @@ const SourceBox = ({
 
   const sourcePreview = async (url: string) => {
     if (loading) {
-      showToast("Please wait, AI is generating the answer.", "warning");
+      showToast({
+        position: 'top',
+        title: 'Please wait, AI is generating the answer.',
+        variant: 'subtle',
+        status: 'warning'
+      })
       return;
     }
 
@@ -76,7 +82,11 @@ const SourceBox = ({
     // }
 
     if (activeChat && activeChat.isShare) {
-      showToast("Please start your thread", "info");
+      showToast({
+        position: 'top',
+        title: 'Please start your thread',
+        variant: 'subtle',
+      })
       return;
     }
     loadingChange(true);
@@ -89,10 +99,12 @@ const SourceBox = ({
       loadingChange(false);
       doneChange(true);
       // updateActiveLink("");
-      showToast(
-        "We are unable to read the article in your link due to its anti-crawling mechanism.",
-        "warning"
-      );
+      showToast({
+        position: 'top',
+        title: 'We are unable to read the article in your link due to its anti-crawling mechanism.',
+        variant: 'subtle',
+        status: 'warning'
+      })
       setTimeout(() => {
         localStorage.setItem("isForceScroll", "yes");
       }, 2000);
@@ -121,10 +133,13 @@ const SourceBox = ({
             const jsonStr1 = JSON.parse(str1);
             if (jsonStr1.code && jsonStr1.code == 1016) {
               loadingChange(false);
-              showToast(
-                "We are unable to read the article in your link due to its anti-crawling mechanism.",
-                "warning"
-              );
+              showToast({
+                position: 'top',
+                title: 'We are unable to read the article in your link due to its anti-crawling mechanism.',
+                variant: 'subtle',
+                status: 'warning'
+              })
+
               resolve({
                 done: true,
                 summarizeContent: "",
@@ -134,10 +149,20 @@ const SourceBox = ({
             if (jsonStr1.code && jsonStr1.code == 1019) {
               loadingChange(false);
               if (!userId) {
-                showToast("You're not logged in yet.", "warning");
+                showToast({
+                  position: 'top',
+                  title: `You're not logged in yet.`,
+                  variant: 'subtle',
+                  status: 'warning'
+                })
                 setOpenConnectModal(true);
               } else {
-                showToast("Exceed usage limit.", "warning");
+                showToast({
+                  position: 'top',
+                  title: 'Exceed usage limit.',
+                  variant: 'subtle',
+                  status: 'warning'
+                })
               }
               resolve({
                 done: true,
@@ -244,7 +269,11 @@ const SourceBox = ({
     //   return;
     // }
     if (activeChat && activeChat.isShare) {
-      showToast("Please start your thread", "info");
+      showToast({
+        position: 'top',
+        title: 'Please start your thread',
+        variant: 'subtle',
+      })
       return;
     }
 
@@ -274,10 +303,12 @@ const SourceBox = ({
               className="text-[#000] bg-[#DAE5E5] rounded-[4px] py-1 font-bold flex items-center px-2 w-[fit-content] cursor-pointer hover:opacity-70"
               onClick={() => {
                 if (item.previewCount <= 0 && !isPassuser && userId) {
-                  showToast(
-                    `Three previews have been used up, please activate unlimited pass.`,
-                    "warning"
-                  );
+                  showToast({
+                    position: 'top',
+                    title: 'Three previews have been used up, please activate unlimited pass.',
+                    variant: 'subtle',
+                    status: 'warning'
+                  })
                   return;
                 } else {
                   sourcePreview(source.link);
@@ -404,7 +435,8 @@ export default function Search({
   const [donePreview, setDonePreview] = useState(true);
   const { userId, isPassuser } = useUserInfoStore();
   const { setOpenConnectModal } = useConnectModalStore();
-  const { showToast } = useStore();
+  const showToast = useToast();
+
   return (
     <VStack spacing={5} p={2} alignItems="start" className="w-full">
       <Box className="w-full">
@@ -431,12 +463,21 @@ export default function Search({
                   return;
                 }
                 if (!userId) {
-                  showToast("You're not logged in yet.", "warning");
+                  showToast({
+                    position: 'top',
+                    title: `You're not logged in yet.`,
+                    variant: 'subtle',
+                    status: 'warning'
+                  })
                   setOpenConnectModal(true);
                   return;
                 }
                 if (activeChat && activeChat.isShare) {
-                  showToast("Please start your thread", "info");
+                  showToast({
+                    position: 'top',
+                    title: 'Please start your thread',
+                    variant: 'subtle',
+                  })
                   return;
                 }
                 setIsShowInputQuote(true);

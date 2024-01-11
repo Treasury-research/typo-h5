@@ -1,4 +1,4 @@
-import { useBoolean } from "@chakra-ui/react";
+import { useBoolean, useToast } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { configureChains, createConfig } from "wagmi";
 import { signMessage } from "@wagmi/core";
@@ -33,16 +33,14 @@ const ethereumClient = new EthereumClient(networkConfig, chains);
 export default function useWallet() {
   const router = useRouter();
   const { inviteId } = router?.query;
-  const { showToast } = useStore();
+  const showToast = useToast();
   const [signLoading, setSignLoading] = useState(false);
   const { setTotalCoupon, setUsedCoupon } = useAiStore();
   const { setJwt } = useJwtStore();
   const { open } = useWeb3Modal();
   const [isSign, setIsSign] = useBoolean(false);
-  const { clearConnectModalStore, setOpenConnectModal } =
-    useConnectModalStore();
-  const { setUserId, clearUserInfo, setAccount, setEmail, setIsInvite } =
-    useUserInfoStore();
+  const { clearConnectModalStore, setOpenConnectModal } = useConnectModalStore();
+  const { setUserId, clearUserInfo, setAccount, setEmail, setIsInvite } = useUserInfoStore();
 
   const getIsInvite = async () => {
     const res: any = await api.get(`/api/auth/isInvite`);
@@ -68,7 +66,12 @@ export default function useWallet() {
       setEmail(res?.data?.email);
       getIsInvite();
     } else {
-      showToast("Authentication failed", "danger");
+      showToast({
+        position: 'top',
+        title: 'Authentication failed',
+        variant: 'subtle',
+        status: 'error'
+      })
     }
   };
 
@@ -108,11 +111,22 @@ export default function useWallet() {
 
   const handleSign = async (address: string) => {
     const res = await onConnect(address);
+
     if (res) {
-      showToast("Login Success!", "success");
+      showToast({
+        position: 'top',
+        title: 'Login Success!',
+        variant: 'subtle',
+      })
     } else {
-      showToast("Login Failed!", "warning");
+      showToast({
+        position: 'top',
+        title: 'Login Failed!',
+        variant: 'subtle',
+        status: 'warning'
+      })
     }
+
     setIsSign.off();
     setOpenConnectModal(false);
   };

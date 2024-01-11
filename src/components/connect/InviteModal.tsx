@@ -14,6 +14,7 @@ import {
   Box,
   useClipboard,
   Flex,
+  useToast
 } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { useStore } from "store";
@@ -23,13 +24,11 @@ export function InviteModal({ isSandBox }: { isSandBox: boolean }) {
   const { openInviteModal, setOpenInviteModal } = useStore();
   const { userId } = useUserInfoStore();
   const { onCopy, value, setValue } = useClipboard("");
-  const { showToast } = useStore();
+  const showToast = useToast();
 
   useEffect(() => {
     setValue(
-      `${location.origin}?tab=${
-				isSandBox ? "sandbox" : "general"
-			}&inviteId=${userId}`
+      `${location.origin}?tab=${isSandBox ? "sandbox" : "general"}&inviteId=${userId}`
     );
   }, [isSandBox, userId]);
 
@@ -74,7 +73,11 @@ export function InviteModal({ isSandBox }: { isSandBox: boolean }) {
 		flex={1}
 		onClick={() => {
 		  onCopy();
-		  showToast("Copied", "success");
+                  showToast({
+                    position: 'top',
+                    title: 'Copied',
+                    variant: 'subtle',
+                  })
 		}}
 		borderRadius={1}
 		bg="transparent!"
@@ -82,14 +85,14 @@ export function InviteModal({ isSandBox }: { isSandBox: boolean }) {
 	      </Flex>
 	    </InputGroup>
 	    <Box
-	    w="300px"
-	    color="#fff"
-	    top="inherit"
-	    pos="absolute"
-	    bottom="0"
-	    zIndex="30"
-	    h="30px"
-	    onClick={() => setOpenInviteModal(false)}
+	      w="300px"
+	      color="#fff"
+	      top="inherit"
+	      pos="absolute"
+	      bottom="0"
+	      zIndex="30"
+	      h="30px"
+	      onClick={() => setOpenInviteModal(false)}
 	    />
 	  </VStack>
 	</ModalBody>

@@ -1,6 +1,6 @@
 import React from "react";
 import dynamic from "next/dynamic";
-import { Flex } from "@chakra-ui/react";
+import { Flex, useToast } from "@chakra-ui/react";
 import { BarLoader } from "react-spinners";
 import { useUserInfoStore } from "store/userInfoStore";
 import { useStore } from "store";
@@ -25,7 +25,7 @@ const MDPreview = dynamic(
 export const Markdown = ({ value }: any) => {
   const { submitMessage, activeChat, channel } = useChatContext();
   const { userId } = useUserInfoStore();
-  const { showToast } = useStore();
+  const showToast = useToast();
   const { setOpenConnectModal } = useConnectModalStore();
 
   const customComponent = ({ children, ...props }: any) => {
@@ -42,12 +42,21 @@ export const Markdown = ({ value }: any) => {
         <span
           onClick={() => {
             if (!userId) {
-              showToast("You're not logged in yet.", "warning");
+              showToast({
+                position: 'top',
+                title: `You're not logged in yet.`,
+                variant: 'subtle',
+                status: 'warning'
+              })
               setOpenConnectModal(true);
               return;
             }
             if (activeChat && activeChat.isShare) {
-              showToast("Please start your thread", "info");
+              showToast({
+                position: 'top',
+                title: 'Please start your thread',
+                variant: 'subtle',
+              })
               return;
             }
 
@@ -67,12 +76,21 @@ export const Markdown = ({ value }: any) => {
         <span
           onClick={() => {
             if (!userId) {
-              showToast("You're not logged in yet.", "warning");
+              showToast({
+                position: 'top',
+                title: `You're not logged in yet.`,
+                variant: 'subtle',
+                status: 'warning'
+              })
               setOpenConnectModal(true);
               return;
             }
             if (activeChat && activeChat.isShare) {
-              showToast("Please start your thread", "info");
+              showToast({
+                position: 'top',
+                title: 'Please start your thread',
+                variant: 'subtle',
+              })
               return;
             }
 

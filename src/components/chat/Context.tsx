@@ -1,6 +1,6 @@
 import React, { createContext, useCallback, useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { useBoolean, useDisclosure } from "@chakra-ui/react";
+import { useBoolean, useDisclosure, useToast } from "@chakra-ui/react";
 import { useStore } from "store";
 import { useConnectModalStore } from "store/modalStore";
 import { useUserInfoStore } from "store/userInfoStore";
@@ -27,7 +27,7 @@ const isJSONString = (str: string) => {
 export const ChatContext = createContext({});
 
 export default function ChatProvider({ children }: any) {
-  const { showToast } = useStore();
+  const showToast = useToast();
   const { setOpenConnectModal } = useConnectModalStore();
   const {
     userId,
@@ -1140,20 +1140,32 @@ export default function ChatProvider({ children }: any) {
           }
           if (result?.code === 1019) {
             if (!userId) {
-              showToast("You're not logged in yet.", "warning");
+              showToast({
+                position: 'top',
+                title: `You're not logged in yet.`,
+                variant: 'subtle',
+                status: 'warning'
+              })
               setOpenConnectModal(true);
             } else {
-              showToast("Exceed usage limit.", "warning");
+              showToast({
+                position: 'top',
+                title: 'Exceed usage limit.',
+                variant: 'subtle',
+                status: 'warning'
+              })
             }
           }
 
           if (result?.code === 1006) {
             clearUserInfo();
             setJwt("");
-            showToast(
-              "The login session has expired. Please sign in again.",
-              "warning"
-            );
+            showToast({
+              position: 'top',
+              title: 'The login session has expired. Please sign in again.',
+              variant: 'subtle',
+              status: 'warning'
+            })
             setOpenConnectModal(true);
           }
 
@@ -1208,7 +1220,12 @@ export default function ChatProvider({ children }: any) {
         setIsLoading.off();
         setIsGenerate(false)
         setInput("");
-        showToast("Unknown exception, Send message error!", "error");
+        showToast({
+          position: 'top',
+          title: 'Unknown exception, Send message error!',
+          variant: 'subtle',
+          status: 'error'
+        })
         onScroll(0);
       }
     },
@@ -1248,22 +1265,42 @@ export default function ChatProvider({ children }: any) {
         (question || input).trim() + (labelValue ? ` ${labelValue}` : "");
 
       if (isLoading) {
-        showToast("Please wait, AI is generating the answer.", "warning");
+        showToast({
+          position: 'top',
+          title: 'Please wait, AI is generating the answer.',
+          variant: 'subtle',
+          status: 'warning'
+        })
         return;
       }
       if (!toAgent && !prompt) {
-        showToast("Please enter your question.", "warning");
+        showToast({
+          position: 'top',
+          title: 'Please enter your question.',
+          variant: 'subtle',
+          status: 'warning'
+        })
         return;
       }
 
       if (!userId && section == 'magicWand') {
-        showToast("You're not logged in yet.", "warning");
+        showToast({
+          position: 'top',
+          title: `You're not logged in yet.`,
+          variant: 'subtle',
+          status: 'warning'
+        })
         setOpenConnectModal(true);
         return;
       }
 
       if (labelValue && !isAddress(labelValue, prompt)) {
-        showToast("Please enter the correct address.", "warning");
+        showToast({
+          position: 'top',
+          title: 'Please enter the correct address.',
+          variant: 'subtle',
+          status: 'warning'
+        })
         return;
       }
 
@@ -1273,10 +1310,12 @@ export default function ChatProvider({ children }: any) {
         noPassuserSearchTimes >= 30 &&
         ((channel === "search" && !isShowInputQuote) || isRelationsQuestion)
       ) {
-        showToast(
-          `Thirty searchs have been used up, please activate unlimited pass.`,
-          "warning"
-        );
+        showToast({
+          position: 'top',
+          title: 'Thirty searchs have been used up, please activate unlimited pass.',
+          variant: 'subtle',
+          status: 'warning'
+        })
         return;
       }
 

@@ -7,6 +7,7 @@ import {
   Badge,
   Input,
   VStack,
+  useToast
 } from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
 import { ChatList } from "lib/types";
@@ -34,13 +35,18 @@ export function Tabs() {
     clearMessage,
     updateChat
   } = useChatContext()
-  const { showToast } = useStore();
+  const showToast = useToast();
   const { userId } = useUserInfoStore();
   console.log('allChatList', allChatList)
 
   const addChatChannel = () => {
     if (allChatList.length >= 10) {
-      showToast(`Maximum 10 channels`, "warning");
+      showToast({
+        position: 'top',
+        title: 'Maximum 10 channels',
+        variant: 'subtle',
+        status: 'warning'
+      })
       return;
     }
     // addChannel();
@@ -149,7 +155,11 @@ export function Tabs() {
 		           message: "Are you sure to clear this chat?",
 		         }).then(() => {
 		           clearMessage(item.id)
-		           showToast("Cleared successfully", "success");
+                           showToast({
+                             position: 'top',
+                             title: 'Cleared successfully',
+                             variant: 'subtle',
+                           })
 		         });
 		       }}
 		     />

@@ -1,4 +1,4 @@
-import { Box, Icon, Flex, HStack, useBoolean } from "@chakra-ui/react";
+import { Box, Icon, Flex, HStack, useBoolean, useToast } from "@chakra-ui/react";
 import api from "api";
 import {
   useImperativeHandle,
@@ -46,7 +46,7 @@ export const ChatInput = () => {
     setLabelValue
   } = useChatContext()
 
-  const { showToast } = useStore();
+  const showToast = useToast();
   const { userId, account } = useUserInfoStore();
   const { jwt, setJwt } = useJwtStore();
   const myInput = useRef<any>(null);
@@ -64,7 +64,12 @@ export const ChatInput = () => {
           !userId &&
           commands.findIndex((item) => input.trim().includes(item)) > -1
         ) {
-          showToast("You're not logged in yet.", "warning");
+          showToast({
+            position: 'top',
+            title: `You're not logged in yet.`,
+            variant: 'subtle',
+            status: 'warning'
+          })
           setOpenConnectModal(true);
           return;
         }
