@@ -17,8 +17,11 @@ export function Toasts({
 
   useEffect(() => {
     if (message) {
-      Notify.show({ type: type, message: message, duration: time });
-      showToast("");
+      // Notify.show({ type: type, message: message, duration: time });
+      // showToast("");
+      toast({
+        description: 'some text'
+      })
     }
   }, [message, type, time, toast, showToast]);
 

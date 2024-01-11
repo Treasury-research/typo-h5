@@ -11,11 +11,25 @@ const customTheme = extendTheme({
   config,
   components: {
     ...components,
+    Alert: {
+      variants: {
+        subtle: (props) => { // only applies to `subtle` variant
+          const { colorScheme: c } = props
+
+          return {
+            container: {
+              bg: `white`, // or literal color, e.g. "#0984ff"
+              radii: '40px',
+            },
+          }
+        }
+      }
+    }
   },
   styles: {
     global: (props: { colorMode: string }) => ({
       body: {
-	bg: props.colorMode === "light" ? "#000" : "#000",
+        bg: props.colorMode === "light" ? "#000" : "#000",
       },
     }),
   },

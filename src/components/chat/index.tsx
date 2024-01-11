@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Box, Flex, VStack, Container } from "@chakra-ui/react";
+import { Box, Flex, VStack, Container, useToast } from "@chakra-ui/react";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import useChatContext from 'hooks/useChatContext'
@@ -12,6 +12,7 @@ import { ChatTitle } from "components/chat/ChatTitle";
 import { useUserInfoStore } from "store/userInfoStore";
 import { Quest } from "components/chat/Quest";
 import ChatProvider from 'components/chat/Context'
+import { useStore } from "store";
 
 const Chat = () => {
   const router = useRouter();
@@ -29,6 +30,7 @@ const Chat = () => {
   const { isConnected, address } = useAccount();
   const { userId } = useUserInfoStore();
   const needSign = isConnected && !userId
+  const showToast = useToast();
 
   console.log('chatKey', chatKey)
   useEffect(() => {
@@ -39,6 +41,7 @@ const Chat = () => {
 
   useEffect(() => {
     if (chatId) {
+      console.log('chatId', chatId, getChat(chatId))
       if (getChat(chatId)) {
         setActiveChatId(chatId)
       } else {
@@ -46,6 +49,17 @@ const Chat = () => {
       }
     }
   }, [chatId])
+
+  useEffect(() => {
+    // setInterval(() => {
+      console.log('showToast', 'hello')
+      showToast({
+        position: 'top',
+        title: 'hello',
+        variant: 'subtle'
+      })
+    // }, 5000)
+  }, [])
 
   return (
     <>

@@ -124,7 +124,7 @@ export function Tabs() {
 			     <Input
 			       w="100%"
 			       textAlign="left"
-			       placeholder={list[index].name}
+			       placeholder={item.name}
 			       autoFocus
 			       onChange={(e: any) =>
 			         (channelName = e.target.value)

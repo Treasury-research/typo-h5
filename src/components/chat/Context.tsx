@@ -126,7 +126,7 @@ export default function ChatProvider({ children }: any) {
       }
     } else {
       setSharedChat(null);
-      setActiveChatId("");
+      // setActiveChatId("");
     }
     if (router.pathname) {
       console.log('router', router.pathname.split("/")[1])
