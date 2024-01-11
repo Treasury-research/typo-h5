@@ -41,14 +41,21 @@ const Chat = () => {
 
   useEffect(() => {
     if (chatId) {
-      console.log('chatId', chatId, getChat(chatId))
-      if (getChat(chatId)) {
+      if (getChat(chatId) && getChat(chatId).userId === userId) {
         setActiveChatId(chatId)
       } else {
         loadChat(chatId)
       }
+    } else {
+      setActiveChatId('')
     }
   }, [chatId])
+
+  useEffect(() => {
+    if (!isConnected) {
+      setActiveChatId('')
+    }
+  }, [isConnected])
 
   useEffect(() => {
     // setInterval(() => {

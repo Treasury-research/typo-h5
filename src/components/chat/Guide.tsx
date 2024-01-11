@@ -165,24 +165,26 @@ export function Guide() {
         >
           <Box>⌘ /Profile my</Box>
         </Box>
-        <Box marginTop="20px" width="100%">
-          <Button
-            leftIcon={<SignInIcon />}
-            size="md"
-            w="100%"
-            minHeight="44px"
-            fontWeight="600"
-            borderRadius={8}
-            background="#357E7F"
-            color="white"
-            padding="10px 20px"
-            onClick={() => {
-              needSign ? handleSign(address as string) : openConnectWallet();
-            }}
-          >
-            {needSign ? "Sign in" : "Connect Wallet "}
-          </Button>
-        </Box>
+        {needSign && (
+          <Box marginTop="20px" width="100%">
+            <Button
+              leftIcon={<SignInIcon />}
+              size="md"
+              w="100%"
+              minHeight="44px"
+              fontWeight="600"
+              borderRadius={8}
+              background="#357E7F"
+              color="white"
+              padding="10px 20px"
+              onClick={() => {
+                needSign ? handleSign(address as string) : openConnectWallet();
+              }}
+            >
+              Sign in
+            </Button>
+          </Box>
+        )}
       </VStack>
     </VStack>
   );
