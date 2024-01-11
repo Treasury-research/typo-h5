@@ -1,6 +1,11 @@
-import { Box, Flex } from "@chakra-ui/react";
+import React from "react";
 import dynamic from "next/dynamic";
+import { Flex } from "@chakra-ui/react";
 import { BarLoader } from "react-spinners";
+import { useUserInfoStore } from "store/userInfoStore";
+import { useStore } from "store";
+import { useConnectModalStore } from "store/modalStore";
+import useChatContext from "hooks/useChatContext";
 
 const MDPreview = dynamic(
   () =>
@@ -11,24 +16,99 @@ const MDPreview = dynamic(
     ssr: false,
     loading: () => (
       <Flex h="20px" alignItems="center" justify="center">
-	<BarLoader color="#0000003d" width="60px" />
+        <BarLoader color="#0000003d" width="60px" />
       </Flex>
     ),
   }
 );
 
-export function Markdown({ value }: { value: string }) {
+export const Markdown = ({ value }: any) => {
+  const { submitMessage, activeChat, channel } = useChatContext();
+  const { userId } = useUserInfoStore();
+  const { showToast } = useStore();
+  const { setOpenConnectModal } = useConnectModalStore();
+
+  const customComponent = ({ children, ...props }: any) => {
+    if (props.className == "tooltip") {
+      return (
+        <span {...props}>
+          <a href={children[0]["props"]["href"]} target="_blank">
+            {children[0]["props"]["children"][0]}
+          </a>
+        </span>
+      );
+    } else if (props.className == "click-item-1") {
+      return (
+        <span
+          onClick={() => {
+            if (!userId) {
+              showToast("You're not logged in yet.", "warning");
+              setOpenConnectModal(true);
+              return;
+            }
+            if (activeChat && activeChat.isShare) {
+              showToast("Please start your thread", "info");
+              return;
+            }
+
+            submitMessage({
+              isRelationsQuestion: channel !== "magicWand",
+              question: children[0],
+              entriType: 1,
+            });
+          }}
+          {...props}
+        >
+          {children[0]}
+        </span>
+      );
+    } else if (props.className == "click-item-2") {
+      return (
+        <span
+          onClick={() => {
+            if (!userId) {
+              showToast("You're not logged in yet.", "warning");
+              setOpenConnectModal(true);
+              return;
+            }
+            if (activeChat && activeChat.isShare) {
+              showToast("Please start your thread", "info");
+              return;
+            }
+
+            let question;
+
+            if (children[0].toUpperCase() === "KNN3") {
+              question = `What's ${children[0]} network?`;
+            } else {
+              question = `What's ${children[0]} ?`;
+            }
+
+            submitMessage({
+              question,
+              entriType: 2,
+              isRelationsQuestion: channel !== "magicWand",
+            });
+          }}
+          {...props}
+        >
+          {children[0]}
+        </span>
+      );
+    }
+  };
+
   return (
-    <Box
-      width="-webkit-fill-available"
-      data-color-mode="light"
-      // padding="10px 5px"
-    >
+    <div data-color-mode="light">
+      <div className="wmde-markdown-var"> </div>
       <MDPreview
-      source={value || ""}
-      className="md-preview"
-      linkTarget="_blank"
+        style={{ background: "transparent" }}
+        source={(value && value.trim()) || ""}
+        className="md-preview"
+        linkTarget="_blank"
+        components={{ span: customComponent as any }}
       />
-    </Box>
+      {/* <div dangerouslySetInnerHTML={{ __html: value }}></div> */}
+    </div>
   );
-}
+};

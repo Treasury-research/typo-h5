@@ -155,3 +155,62 @@ p {
     min-width: 100% !important;
   }
 }
+
+
+.tooltip > a {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  white-space: nowrap;
+  background-color: #d2d2d2 !important;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  transform: translateY(-2px);
+  color: #24292f !important;
+  font-weight: 500;
+  font-size: 12px;
+  margin-left: 3px;
+}
+
+.tooltip > a:hover {
+  background-color: #487c7e !important;
+  color: #fff !important;
+}
+
+.tooltip-text {
+  background-color: #dae5e5;
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  padding: 10px;
+  position: absolute;
+  z-index: 100;
+  top: 40px;
+  opacity: 0;
+  transform: translateX(-50%);
+  transition: opacity 0.3s;
+  word-wrap: break-word;
+  word-break: break-all;
+  color: #357e7f;
+  border: 1px solid #dae5e5;
+  font-size: 16px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.click-item-1,
+.click-item-2 {
+  border-bottom: 1px dashed #24292f !important;
+  color: #24292f !important;
+}
+
+.underline {
+  text-decoration-line: none !important;
+}
+
+.carousel .slide .pass-img{
+  width: 40px !important;
+}
