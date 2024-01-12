@@ -14,6 +14,7 @@ import { ChatChildren, ChatList } from "lib/types";
 import { Operate } from "../Operate";
 import { AiFillCaretLeft, AiFillCaretRight } from "react-icons/ai";
 import useChatContext from "hooks/useChatContext";
+import { QuoteTem } from "./../QuoteTem";
 
 export function Right({ item, index, isLoading }: any) {
   const { activeChat, channel } = useChatContext();
@@ -22,7 +23,7 @@ export function Right({ item, index, isLoading }: any) {
 
   return (
     <VStack w="full" spacing={3}>
-      <HStack w="full" justify="flex-end">
+      <HStack w="full" justify="flex-end" alignItems="flex-start">
 	<Box
 	  className="ai-right-content-width relative"
 	  key={item.createTime}
@@ -34,6 +35,15 @@ export function Right({ item, index, isLoading }: any) {
 	  color="bg.white"
 	  borderRadius={5}
 	>
+          {item.quoteContent && (
+            <Box className="mt-2 mb-2 w-[fit-content]">
+              <QuoteTem
+                content={item.quoteContent}
+                showDeleteIcon={false}
+                type={item.quoteType}
+              />
+            </Box>
+          )}
 	  <Text whiteSpace="pre-wrap">{item.content as string}</Text>
 	  <Icon
 	    as={AiFillCaretRight}

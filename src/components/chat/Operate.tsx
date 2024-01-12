@@ -18,25 +18,74 @@ import {
 
 import { ChatChildren, ChatList } from "lib/types";
 import { useStore } from "store";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useCallback } from "react";
 import moment from "moment";
 import { LongPressTouch } from "components";
 import { Popup, Dialog, Picker } from "react-vant";
 import useChatContext from "hooks/useChatContext";
+import { useQuoteStore } from "store/quoteStore";
+import { useUserInfoStore } from "store/userInfoStore";
 
-export function MessageActionSheet({ item, index }) {
+export function MessageActionSheet({ item, index, onClose }) {
+  const {
+    activeChat,
+    removeMessage,
+    isGenerate,
+  } = useChatContext()
+  const { userId } = useUserInfoStore();
+  const { setIsShowInputQuote, setQuoteContent, setQuoteType } = useQuoteStore()
+  const { onCopy } = useClipboard(item.content as string)
+  const showToast = useToast();
+
+  const quoteMessage = useCallback(() => {
+    if(isGenerate){
+      return;
+    }
+    if (!userId) {
+      showToast("You're not logged in yet.", "warning");
+      return;
+    }
+    if (activeChat && activeChat.isShare) {
+      showToast("Please start your thread", "info");
+      return;
+    }
+
+    setIsShowInputQuote(true);
+    setQuoteContent(
+      (item.content) as string
+    );
+    setQuoteType("Chat");
+
+    onClose()
+  }, [item])
+
+  const copyMessage = useCallback(() => {
+    onCopy()
+    showToast({
+      position: 'top',
+      title: 'Copied',
+      variant: 'subtle',
+    })
+    onClose()
+  }, [item])
+
+  const deleteMessage = useCallback(() => {
+    removeMessage(activeChat.id, item.id)
+    onClose()
+  }, [item, activeChat])
+
   return (
     <>
-      <Box width="100%" height="60px" display="flex" alignItems="center" justifyContent="center" fontSize="16ox" fontWeight="500">
+      <Box width="100%" height="60px" display="flex" alignItems="center" justifyContent="center" fontSize="16ox" fontWeight="500" cursor="pointer" cursor="pointer" onClick={quoteMessage}>
         Quote
       </Box>
-      <Box width="100%" height="60px" display="flex" alignItems="center" justifyContent="center" fontSize="16ox" fontWeight="500" borderTop="1px solid #D8D8D8">
+      <Box width="100%" height="60px" display="flex" alignItems="center" justifyContent="center" fontSize="16ox" fontWeight="500" borderTop="1px solid #D8D8D8" cursor="pointer" onClick={copyMessage}>
         Copy
       </Box>
-      <Box width="100%" height="60px" display="flex" alignItems="center" justifyContent="center" fontSize="16ox" fontWeight="500" borderTop="1px solid #D8D8D8">
+      <Box width="100%" height="60px" display="flex" alignItems="center" justifyContent="center" fontSize="16ox" fontWeight="500" borderTop="1px solid #D8D8D8" cursor="pointer" onClick={deleteMessage}>
         Delete
       </Box>
-      <Box width="100%" height="60px" display="flex" alignItems="center" justifyContent="center" borderTop="2px solid #D8D8D8" fontSize="16ox" fontWeight="500">
+      <Box width="100%" height="60px" display="flex" alignItems="center" justifyContent="center" borderTop="2px solid #D8D8D8" fontSize="16ox" fontWeight="500" cursor="pointer" onClick={onClose}>
         Cancel
       </Box>
     </>
@@ -191,13 +240,13 @@ export function Operate({
               <Box height="4px" width="40px" background="#CCCCCC" />
             </Box>
             {type === 'message' && (
-              <MessageActionSheet {...actionSheetProps} />
+              <MessageActionSheet {...actionSheetProps} onClose={setIsActionSheetOpen.off} />
             )}
             {type === 'share' && (
-              <ShareActionSheet {...actionSheetProps} />
+              <ShareActionSheet {...actionSheetProps} onClose={setIsActionSheetOpen.off} />
             )}
             {type === 'source' && (
-              <SourceActionSheet {...actionSheetProps} />
+              <SourceActionSheet {...actionSheetProps} onClose={setIsActionSheetOpen.off} />
             )}
           </Box>
         </Popup>

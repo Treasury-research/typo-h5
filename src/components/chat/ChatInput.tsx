@@ -25,6 +25,8 @@ import { useAiStore } from "store/aiStore";
 import { useJwtStore } from "store/jwtStore";
 import { useUserInfoStore } from "store/userInfoStore";
 import useChatContext from "hooks/useChatContext";
+import { useQuoteStore } from "store/quoteStore";
+import { QuoteTem } from "./QuoteTem";
 
 const { TextArea } = Input;
 
@@ -43,8 +45,22 @@ export const ChatInput = () => {
     isFocus,
     setIsFocus,
     labelValue,
-    setLabelValue
+    setLabelValue,
+    section
   } = useChatContext()
+
+  const {
+    isShowInputQuote,
+    quoteContent,
+    quoteType,
+    setIsShowInputQuote,
+    setQuoteContent,
+    setQuoteType,
+    isCopilot,
+    setIsCopilot,
+    setClickList,
+    clickList,
+  } = useQuoteStore();
 
   const showToast = useToast();
   const { userId, account } = useUserInfoStore();
@@ -116,6 +132,15 @@ export const ChatInput = () => {
         alignItems="center"
         position="relative"
       >
+        {isShowInputQuote && section !== "magicWand" && (
+          <Box className="mt-4 ml-4 w-[fit-content] mr-[auto]">
+            <QuoteTem
+              content={quoteContent}
+              showDeleteIcon={true}
+              type={quoteType}
+            />
+          </Box>
+        )}
         <TextArea
           rows={1}
           ref={myInput}

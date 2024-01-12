@@ -55,7 +55,7 @@ export function Left({
       type: 'message'
     })
     setIsActionSheetOpen.on()
-  }, [])
+  }, [item, index])
 
   const openSourceActionSheet = useCallback(() => {
     setActionSheetProps({
@@ -64,7 +64,7 @@ export function Left({
       type: 'source'
     })
     setIsActionSheetOpen.on()
-  }, [])
+  }, [item, index])
 
   return (
     <VStack>
