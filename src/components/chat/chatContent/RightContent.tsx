@@ -23,34 +23,32 @@ export function Right({ item, index, isLoading }: any) {
   return (
     <VStack w="full" spacing={3}>
       <HStack w="full" justify="flex-end">
-	<Operate item={item} index={index} isOpen={isOpen} setIsOpen={setIsOpen}>
-	  <Box
-	    className="ai-right-content-width relative"
-	    key={item.createTime}
-	    mr={1}
-	    px="12px"
-	    py="7px"
-	    maxW="calc(100% - 90px)"
-	    bg="bg.green"
-	    color="bg.white"
-	    borderRadius={5}
-	  >
-	    <Text whiteSpace="pre-wrap">{item.content as string}</Text>
-	    <Icon
-	      as={AiFillCaretRight}
-	      boxSize={4}
-	      pos="absolute"
-	      right="-11px"
-	      top="9px"
-	      color="bg.green"
-	    />
-	  </Box>
-	  {username ? (
-	    <Avatar name={username || ""} size="sm" />
-	  ) : (
-	    <Avatar size="sm" bg="bg.green" />
-	  )}
-	</Operate>
+	<Box
+	  className="ai-right-content-width relative"
+	  key={item.createTime}
+	  mr={1}
+	  px="12px"
+	  py="7px"
+	  maxW="calc(100% - 90px)"
+	  bg="bg.green"
+	  color="bg.white"
+	  borderRadius={5}
+	>
+	  <Text whiteSpace="pre-wrap">{item.content as string}</Text>
+	  <Icon
+	    as={AiFillCaretRight}
+	    boxSize={4}
+	    pos="absolute"
+	    right="-11px"
+	    top="9px"
+	    color="bg.green"
+	  />
+	</Box>
+	{username ? (
+	  <Avatar name={username || ""} size="sm" />
+	) : (
+	  <Avatar size="sm" bg="bg.green" />
+	)}
       </HStack>
       {index === activeChat.messages.length - 1 && isLoading && (
 	<HStack w="full" justify="flex-start" spacing={3}>

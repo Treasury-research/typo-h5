@@ -81,6 +81,8 @@ export default function ChatProvider({ children }: any) {
   } = useChatStore();
 
   const [isSandBox, setIsSandBox] = useBoolean(false);
+  const [isActionSheetOpen, setIsActionSheetOpen] = useBoolean(false);
+  const [actionSheetProps, setActionSheetProps] = useState({});
   const [sandBoxType, setSandBoxType] = useState("Regular");
   const [category, setCategory] = useState("");
   const [section, setSection] = useState('explorer');
@@ -1489,7 +1491,11 @@ export default function ChatProvider({ children }: any) {
         openQuest,
         closeQuest,
         isFocus,
-        setIsFocus
+        setIsFocus,
+        isActionSheetOpen,
+        setIsActionSheetOpen,
+        actionSheetProps,
+        setActionSheetProps
       }}
     >
       {children}

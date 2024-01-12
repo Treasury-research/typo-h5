@@ -12,6 +12,7 @@ import { ChatTitle } from "components/chat/ChatTitle";
 import { useUserInfoStore } from "store/userInfoStore";
 import { Quest } from "components/chat/Quest";
 import ChatProvider from 'components/chat/Context'
+import { Operate } from "./Operate";
 import { useStore } from "store";
 
 const Chat = () => {
@@ -60,44 +61,46 @@ const Chat = () => {
   return (
     <>
       <NextSeo title={"TypoGraphy AI"} />
-      <Container
-        w="100vw"
-        pr={0}
-        pl={0}
-        overflow="hidden"
-        className="no-scrollbar"
-      >
-        <Flex
-          w="280vw"
-          h="full"
-          className={showNav ? "move-left" : showQuest ? "move-right" : "move-center"}
+      <Operate>
+        <Container
+          w="100vw"
+          pr={0}
+          pl={0}
+          overflow="hidden"
+          className="no-scrollbar"
         >
-          <Menu />
-          <VStack
-            w="100vw"
+          <Flex
+            w="280vw"
             h="full"
-            pos="relative"
-            overflow="hidden"
-            alignItems="flex-start"
-            bg="#f4f5f6"
-            gap="0"
+            className={showNav ? "move-left" : showQuest ? "move-right" : "move-center"}
           >
-            <ChatTitle />
+            <Menu />
             <VStack
-              pt={1}
-              w="full"
-              h="calc(100% - 55px)"
-              mt="0!"
-              bg="#f4f5f6"
+              w="100vw"
+              h="full"
+              pos="relative"
+              overflow="hidden"
               alignItems="flex-start"
+              bg="#f4f5f6"
+              gap="0"
             >
-              <ChatContent />
-              {!!isConnected && (<ChatInput />)}
+              <ChatTitle />
+              <VStack
+                pt={1}
+                w="full"
+                h="calc(100% - 55px)"
+                mt="0!"
+                bg="#f4f5f6"
+                alignItems="flex-start"
+              >
+                <ChatContent />
+                {!!isConnected && (<ChatInput />)}
+              </VStack>
             </VStack>
-          </VStack>
-          <Quest />
-        </Flex>
-      </Container>
+            <Quest />
+          </Flex>
+        </Container>
+      </Operate>
     </>
   );
 }

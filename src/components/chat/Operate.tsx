@@ -12,7 +12,8 @@ import {
   useClipboard,
   Portal,
   VStack,
-  useToast
+  useToast,
+  Box
 } from "@chakra-ui/react";
 
 import { ChatChildren, ChatList } from "lib/types";
@@ -23,133 +24,161 @@ import { LongPressTouch } from "components";
 import { Popup, Dialog, Picker } from "react-vant";
 import useChatContext from "hooks/useChatContext";
 
+export function MessageActionSheet({ item, index }) {
+  console.log('MessageActionSheet', item)
+
+  return (
+    <>
+      <Box width="100%" height="60px" display="flex" alignItems="center" justifyContent="center" fontSize="16ox" fontWeight="500">
+        Quote
+      </Box>
+      <Box width="100%" height="60px" display="flex" alignItems="center" justifyContent="center" fontSize="16ox" fontWeight="500" borderTop="1px solid #D8D8D8">
+        Copy
+      </Box>
+      <Box width="100%" height="60px" display="flex" alignItems="center" justifyContent="center" fontSize="16ox" fontWeight="500" borderTop="1px solid #D8D8D8">
+        Delete
+      </Box>
+    </>
+  )
+}
+
+export function ShareActionSheet({}) {
+
+}
+
+export function SourceActionSheet({}) {
+
+}
+
 export function Operate({
-  item,
-  index,
   children,
 }: any) {
-  const { setInput, submitMessage, activeChat, activeChatId, removeMessage,isGenerate } = useChatContext()
-  const showToast = useToast();
-  const [isOpen, setIsOpen] = useBoolean(false);
-  const { onCopy } = useClipboard(item.content as string);
+  const {
+    setInput,
+    submitMessage,
+    activeChat,
+    activeChatId,
+    removeMessage,
+    isGenerate,
+    isActionSheetOpen,
+    setIsActionSheetOpen,
+    actionSheetProps
+  } = useChatContext()
+  const { type } = actionSheetProps
+  // const showToast = useToast();
+  // const [isOpen, setIsOpen] = useBoolean(false);
+  /*
+   *   console.log('item', item)
+   *   const { onCopy } = useClipboard(item.content as string);
+   *
+   *   const isLastLeftChat = useMemo(() => {
+   *     if (!activeChat) return false;
+   *     return index === activeChat?.messages.length;
+   *   }, [activeChat, index]);
+   *
+   *   const lastUserInput = useMemo(() => {
+   *     if (!activeChat) return undefined;
+   *     const rightItems = activeChat?.messages.filter((item: any) => item.type === "question");
+   *     return rightItems[0]?.content || undefined;
+   *   }, [activeChat]);
+   *
+   *   const showActions = useMemo(() => {
+   *     const actions = ["Delete"];
+   *
+   *     if (item.type === "result" && isLastLeftChat && lastUserInput) {
+   *       actions.unshift("Regen");
+   *     }
+   *
+   *     if (!["profile", "ens", "poap", "snapshot"].includes(item?.tool || "")) {
+   *       actions.unshift("Copy");
+   *     }
+   *
+   *     return actions;
+   *   }, [item, isLastLeftChat, lastUserInput]);
+   *
+   *   const deleteLastLeftChat = () => {
+   *     removeMessage(activeChat.id, item.id)
+   *   };
+   *
+   *   const regen = () => {
+   *     setInput && setInput((lastUserInput as string) || "");
+   *     deleteLastLeftChat();
+   *     submitMessage({ isReGenerate: true });
+   *   };
+   *
+   *   const onPickerChange = (action: any) => {
+   *     if (action === "Copy") {
+   *       showToast({
+   *         position: 'top',
+   *         title: 'Copied',
+   *         variant: 'subtle',
+   *       })
+   *       onCopy();
+   *     } else if (action === "Delete") {
+   *       Dialog.confirm({
+   *         title: "Delete",
+   *         confirmButtonText: "Confirm",
+   *         cancelButtonText: "Cancel",
+   *         message: "Are you sure to delete this content?",
+   *       }).then(() => {
+   *         removeMessage(activeChat.id, item.id)
+   *       });
+   *     } else if (action === "Regen") {
+   *       regen();
+   *     }
+   *
+   *     setIsOpen.off();
+   *   };
+   *
+   *   useEffect(() => {
+   *     if (isOpen) {
+   *       setTimeout(() => {
+   *         const wrapperElement = document.querySelector(
+   *           ".rv-picker-column__wrapper"
+   *         );
+   *         const childElements = wrapperElement?.children;
+   *
+   *         if (childElements && childElements?.length > 0) {
+   *           childElements[0].textContent = "Select";
+   *         }
+   *       }, 200);
+   *     }
+   *   }, [isOpen]);
+   *  */
 
-  const isLastLeftChat = useMemo(() => {
-    if (!activeChat) return false;
-    return index === activeChat?.messages.length;
-  }, [activeChat, index]);
-
-  const lastUserInput = useMemo(() => {
-    if (!activeChat) return undefined;
-    const rightItems = activeChat?.messages.filter((item: any) => item.type === "question");
-    return rightItems[0]?.content || undefined;
-  }, [activeChat]);
-
-  const showActions = useMemo(() => {
-    const actions = ["Delete"];
-
-    if (item.type === "result" && isLastLeftChat && lastUserInput) {
-      actions.unshift("Regen");
-    }
-
-    if (!["profile", "ens", "poap", "snapshot"].includes(item?.tool || "")) {
-      actions.unshift("Copy");
-    }
-
-    return actions;
-  }, [item, isLastLeftChat, lastUserInput]);
-
-  const deleteLastLeftChat = () => {
-    removeMessage(activeChat.id, item.id)
-  };
-
-  const regen = () => {
-    setInput && setInput((lastUserInput as string) || "");
-    deleteLastLeftChat();
-    submitMessage({ isReGenerate: true });
-  };
-
-  const onPickerChange = (action: any) => {
-    if (action === "Copy") {
-      showToast({
-        position: 'top',
-        title: 'Copied',
-        variant: 'subtle',
-      })
-      onCopy();
-    } else if (action === "Delete") {
-      Dialog.confirm({
-	title: "Delete",
-	confirmButtonText: "Confirm",
-	cancelButtonText: "Cancel",
-	message: "Are you sure to delete this content?",
-      }).then(() => {
-        removeMessage(activeChat.id, item.id)
-      });
-    } else if (action === "Regen") {
-      regen();
-    }
-
-    setIsOpen.off();
-  };
-
-  useEffect(() => {
-    if (isOpen) {
-      setTimeout(() => {
-	const wrapperElement = document.querySelector(
-	  ".rv-picker-column__wrapper"
-	);
-	const childElements = wrapperElement?.children;
-
-	if (childElements && childElements?.length > 0) {
-	  childElements[0].textContent = "Select";
-	}
-      }, 200);
-    }
-  }, [isOpen]);
 
   return (
     <LongPressTouch
-      isOpen={isOpen}
-      onOpen={setIsOpen.on}
+      isOpen={isActionSheetOpen}
+      onOpen={setIsActionSheetOpen.on}
       PressArea={
-	<Popup
-	  round
-	  position="bottom"
-	  style={{ paddingBottom: "40px" }}
-	  visible={isOpen}
-	  onClose={setIsOpen.off}
-	>
-	  <Picker
-	  showToolbar={true}
-	  title="Operate"
-	  columns={showActions}
-	  confirmButtonText="Confirm"
-	  cancelButtonText="Cancel"
-	  onConfirm={onPickerChange}
-	  onCancel={setIsOpen.off}
-	  />
-	</Popup>
+        <Popup
+          round
+          position="bottom"
+          style={{  width: "calc(100% + 1px)" }}
+          visible={isActionSheetOpen}
+          onClose={setIsActionSheetOpen.off}
+        >
+          <Box>
+            <Box height="30px" width="100%" display="flex" alignItems="center" justifyContent="center" marginBottom="10px">
+              <Box height="4px" width="40px" background="#CCCCCC" />
+            </Box>
+            {type === 'message' && (
+              <MessageActionSheet {...actionSheetProps} />
+            )}
+            <Box width="100%" height="60px" display="flex" alignItems="center" justifyContent="center" borderTop="2px solid #D8D8D8" fontSize="16ox" fontWeight="500">
+              Cancel
+            </Box>
+          </Box>
+        </Popup>
       }
     >
       <Flex
-	w="full"
-	pos="relative"
-	gap={2}
-	justify={item.type === "question" ? "flex-end" : "flex-start"}
+        w="full"
+        pos="relative"
+        gap={2}
       >
-	{children}
-	{item.type != "question" && (
-	  <Text
-	    mt={1}
-	    color="gray.400"
-	    fontSize="12px"
-	    pos="absolute"
-	    left="48px"
-	    bottom="-20px"
-	  >
-	    {moment(Number(item.createTime)).fromNow()}
-	  </Text>
-	)}
+        {children}
       </Flex>
     </LongPressTouch>
   );
