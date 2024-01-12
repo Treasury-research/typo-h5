@@ -21,6 +21,8 @@ import { useStore } from "store";
 import { useEffect, useMemo, useState, useCallback } from "react";
 import moment from "moment";
 import { LongPressTouch } from "components";
+import TwitterIcon from "components/icons/Twitter";
+import LinkIcon from "components/icons/Link";
 import { Popup, Dialog, Picker } from "react-vant";
 import useChatContext from "hooks/useChatContext";
 import { useQuoteStore } from "store/quoteStore";
@@ -92,20 +94,38 @@ export function MessageActionSheet({ item, index, onClose }) {
   )
 }
 
-export function ShareActionSheet({ item, index }) {
+export function ShareActionSheet({ item, index, onClose }) {
+  const { onCopy } = useClipboard(window.location.href)
+  const showToast = useToast();
+
+  const copyLink = useCallback(() => {
+    onCopy()
+    showToast({
+      position: 'top',
+      title: 'Copied',
+      variant: 'subtle',
+    })
+    onClose()
+  }, [item])
+
   return (
     <>
-      <Box width="100%" height="60px" display="flex" alignItems="center" justifyContent="center" fontSize="16ox" fontWeight="500">
-        Quote
+      <Box width="100%" fontWeight="500" fontSize="16px" display="flex" alignItems="center" justifyContent="center" marginBottom="10px">
+        <Box>Share To</Box>
       </Box>
-      <Box width="100%" height="60px" display="flex" alignItems="center" justifyContent="center" fontSize="16ox" fontWeight="500" borderTop="1px solid #D8D8D8">
-        Copy
-      </Box>
-      <Box width="100%" height="60px" display="flex" alignItems="center" justifyContent="center" fontSize="16ox" fontWeight="500" borderTop="1px solid #D8D8D8">
-        Delete
-      </Box>
-      <Box width="100%" height="60px" display="flex" alignItems="center" justifyContent="center" borderTop="2px solid #D8D8D8" fontSize="16ox" fontWeight="500">
-        Cancel
+      <Box width="100%" display="flex" alignItems="center" justifyContent="space-around" marginBottom="20px" marginTop="20px">
+        <Box display="flex" alignItems="center" justifyContent="center" flexDirection="column">
+          <Box marginBottom="10px">
+            <TwitterIcon />
+          </Box>
+          <Box fontWeight="500" fontSize="16px">Twitter</Box>
+        </Box>
+        <Box display="flex" alignItems="center" justifyContent="center" flexDirection="column" onClick={copyLink}>
+          <Box marginBottom="10px">
+            <LinkIcon />
+          </Box>
+          <Box fontWeight="500" fontSize="16px">Copy Link</Box>
+        </Box>
       </Box>
     </>
   )

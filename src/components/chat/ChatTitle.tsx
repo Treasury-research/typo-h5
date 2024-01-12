@@ -7,6 +7,7 @@ import {
   HStack,
   Box,
 } from "@chakra-ui/react";
+import { useCallback } from 'react'
 import { ChatList } from "lib/types";
 import { AiOutlineMenu } from "react-icons/ai";
 import { BiGift } from "react-icons/bi";
@@ -21,8 +22,17 @@ export function ChatTitle() {
     openQuest,
     openNav,
     closeNav,
-    setIsSandBox
+    setIsSandBox,
+    setActionSheetProps,
+    setIsActionSheetOpen
   } = useChatContext()
+
+  const openShareActionSheet = useCallback(() => {
+    setActionSheetProps({
+      type: 'share',
+    })
+    setIsActionSheetOpen.on()
+  }, [])
 
   return (
     <>
@@ -55,6 +65,8 @@ export function ChatTitle() {
           <Box display="flex" alignItems="center">
             <Box
               marginRight="18px"
+              cursor="pointer"
+              onClick={openShareActionSheet}
             >
               <ShareIcon />
             </Box>
