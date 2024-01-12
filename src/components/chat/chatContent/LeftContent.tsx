@@ -1,9 +1,10 @@
 import { useMemo } from 'react'
-import { Box, HStack, VStack, Avatar, Icon } from "@chakra-ui/react";
+import { Box, HStack, VStack, Avatar, Icon, useBoolean } from "@chakra-ui/react";
 import { ChatChildren, ChatList } from "lib/types";
 import { AiFillCaretLeft } from "react-icons/ai";
 import { Operate } from "../Operate";
 import { Markdown } from "components/chat/templates/Markdown"
+import MoreIcon from "components/icons/More"
 import { Profile } from "components/chat/templates/Profile"
 import { Ens } from "components/chat/templates/Ens"
 import { Poap } from "components/chat/templates/Poap"
@@ -34,6 +35,7 @@ export function Left({
     channel,
     isGenerate
   } = useChatContext();
+  const [isOpen, setIsOpen] = useBoolean(false);
 
   const showQuoteIndex = useMemo(() => {
     return activeChat.messages.findLastIndex(
@@ -52,7 +54,7 @@ export function Left({
         spacing={3}
         mb={3}
       >
-        <Operate item={item} index={index}>
+        <Operate item={item} index={index} isOpen={isOpen} setIsOpen={setIsOpen}>
           <Avatar size="sm" src="/images/aisql/TypoGraphy.svg" mr={1} />
           <Box
             pos="relative"

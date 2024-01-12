@@ -6,6 +6,7 @@ import {
   Avatar,
   Flex,
   Icon,
+  useBoolean
 } from "@chakra-ui/react";
 
 import { ChatChildren, ChatList } from "lib/types";
@@ -15,33 +16,35 @@ import { AiFillCaretLeft } from "react-icons/ai";
 
 export function Error({
   item,
-  index,
+  index
 }: any) {
+  const [isOpen, setIsOpen] = useBoolean(false);
+
   return (
     <HStack w="full" justify="flex-start">
-      <Operate item={item} index={index}>
-	<Avatar size="sm" src="/images/aisql/TypoGraphy.svg" mr={1} />
-	<HStack
-	  key={index}
-	  bg="bg.white"
-	  px="12px"
-	  py="7px"
-	  w="220px"
-	  borderRadius={5}
-	  alignItems="center"
-	  pos="relative"
-	>
-	  <Icon
-	    as={AiFillCaretLeft}
-	    boxSize={4}
-	    pos="absolute"
-	    left="-11.4px"
-	    top="9px"
-	    color="bg.white"
-	  />
-	  <WarningTwoIcon color="red.500" />
-	  <Text whiteSpace="pre-wrap">{item.content as string}</Text>
-	</HStack>
+      <Operate item={item} index={index} isOpen={isOpen} setIsOpen={setIsOpen}>
+        <Avatar size="sm" src="/images/aisql/TypoGraphy.svg" mr={1} />
+        <HStack
+          key={index}
+          bg="bg.white"
+          px="12px"
+          py="7px"
+          w="220px"
+          borderRadius={5}
+          alignItems="center"
+          pos="relative"
+        >
+          <Icon
+            as={AiFillCaretLeft}
+            boxSize={4}
+            pos="absolute"
+            left="-11.4px"
+            top="9px"
+            color="bg.white"
+          />
+          <WarningTwoIcon color="red.500" />
+          <Text whiteSpace="pre-wrap">{item.content as string}</Text>
+        </HStack>
       </Operate>
     </HStack>
   );

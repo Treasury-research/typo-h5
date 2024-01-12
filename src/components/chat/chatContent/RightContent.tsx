@@ -6,6 +6,7 @@ import {
   Avatar,
   Flex,
   Icon,
+  useBoolean
 } from "@chakra-ui/react";
 import { useUserInfoStore } from "store/userInfoStore";
 import BeatLoader from "react-spinners/BeatLoader";
@@ -17,11 +18,12 @@ import useChatContext from "hooks/useChatContext";
 export function Right({ item, index, isLoading }: any) {
   const { activeChat, channel } = useChatContext();
   const { username } = useUserInfoStore();
+  const [isOpen, setIsOpen] = useBoolean(false);
 
   return (
     <VStack w="full" spacing={3}>
       <HStack w="full" justify="flex-end">
-	<Operate item={item} index={index}>
+	<Operate item={item} index={index} isOpen={isOpen} setIsOpen={setIsOpen}>
 	  <Box
 	    className="ai-right-content-width relative"
 	    key={item.createTime}
