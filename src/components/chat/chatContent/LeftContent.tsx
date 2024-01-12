@@ -57,15 +57,6 @@ export function Left({
     setIsActionSheetOpen.on()
   }, [item, index])
 
-  const openSourceActionSheet = useCallback(() => {
-    setActionSheetProps({
-      item,
-      index,
-      type: 'source'
-    })
-    setIsActionSheetOpen.on()
-  }, [item, index])
-
   return (
     <VStack>
       <HStack

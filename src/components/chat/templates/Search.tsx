@@ -284,12 +284,26 @@ const SourceBox = ({
 
   const openSourceActionSheet = useCallback(() => {
     setActionSheetProps({
-      item,
-      type: 'source'
+      source,
+      type: 'source',
+      onPreview
     })
     setIsActionSheetOpen.on()
     // window.open(source.link)
-  }, [])
+  }, [source])
+
+  const onPreview = () => {
+    if (item.previewCount <= 0 && !isPassuser && userId) {
+      showToast(
+        `Three previews have been used up, please activate unlimited pass.`,
+        "warning"
+      );
+      return;
+    } else {
+      sourcePreview(source.link);
+      updateActiveLink(source.link);
+    }
+  }
 
   return (
     <Box>
@@ -306,7 +320,7 @@ const SourceBox = ({
             } ${donePreview ? "group-hover:visible" : ""
             } flex items-center justify-center`}
           onClick={() => {
-            openSourceActionSheet()
+            openSourceActionSheet(source)
           }}
         >
 

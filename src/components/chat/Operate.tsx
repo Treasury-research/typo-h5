@@ -111,16 +111,29 @@ export function ShareActionSheet({ item, index }) {
   )
 }
 
-export function SourceActionSheet({ item, index }) {
+export function SourceActionSheet({ source, index, onClose, onPreview }) {
+  const previewSource = useCallback(() => {
+    if (onPreview) {
+      onPreview()
+    }
+
+    onClose()
+  }, [source])
+
+  const openSource = useCallback(() => {
+    window.open(source.link)
+    onClose()
+  }, [source])
+
   return (
     <>
-      <Box width="100%" height="60px" display="flex" alignItems="center" justifyContent="center" fontSize="16ox" fontWeight="500">
+      <Box width="100%" height="60px" display="flex" alignItems="center" justifyContent="center" fontSize="16ox" fontWeight="500" onClick={previewSource}>
         Preview
       </Box>
-      <Box width="100%" height="60px" display="flex" alignItems="center" justifyContent="center" fontSize="16ox" fontWeight="500" borderTop="1px solid #D8D8D8">
+      <Box width="100%" height="60px" display="flex" alignItems="center" justifyContent="center" fontSize="16ox" fontWeight="500" borderTop="1px solid #D8D8D8" onClick={openSource}>
         Original Link
       </Box>
-      <Box width="100%" height="60px" display="flex" alignItems="center" justifyContent="center" borderTop="2px solid #D8D8D8" fontSize="16ox" fontWeight="500">
+      <Box width="100%" height="60px" display="flex" alignItems="center" justifyContent="center" borderTop="2px solid #D8D8D8" fontSize="16ox" fontWeight="500" onClick={onClose}>
         Cancel
       </Box>
     </>
