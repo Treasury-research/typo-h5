@@ -71,7 +71,6 @@ const Chat = () => {
         >
           <Flex
             w="280vw"
-            h="full"
             className={showNav ? "move-left" : showQuest ? "move-right" : "move-center"}
           >
             <Menu />

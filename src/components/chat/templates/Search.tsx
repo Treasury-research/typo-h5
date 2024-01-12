@@ -9,7 +9,7 @@ import {
   Skeleton,
   useToast
 } from "@chakra-ui/react";
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import { Markdown } from "./Markdown";
 import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai";
 import { getTopLevelDomain } from "lib";
@@ -39,7 +39,7 @@ const SourceBox = ({
   doneChange,
   donePreview,
 }: any) => {
-  const { activeChat, updateMessage, getMessage, setTotalCoupon, setDailyAdd, isGenerate, setIsGenerate } =
+  const { activeChat, updateMessage, getMessage, setTotalCoupon, setDailyAdd, isGenerate, setIsGenerate, setActionSheetProps, setIsActionSheetOpen } =
     useChatContext();
   const jwt = useJwtStore.getState().jwt;
   const showToast = useToast();
@@ -282,6 +282,15 @@ const SourceBox = ({
     });
   };
 
+  const openSourceActionSheet = useCallback(() => {
+    setActionSheetProps({
+      item,
+      type: 'source'
+    })
+    setIsActionSheetOpen.on()
+    // window.open(source.link)
+  }, [])
+
   return (
     <Box>
       <VStack
@@ -302,18 +311,19 @@ const SourceBox = ({
             <Box
               className="text-[#000] bg-[#DAE5E5] rounded-[4px] py-1 font-bold flex items-center px-2 w-[fit-content] cursor-pointer hover:opacity-70"
               onClick={() => {
-                if (item.previewCount <= 0 && !isPassuser && userId) {
-                  showToast({
+                {/* if (item.previewCount <= 0 && !isPassuser && userId) {
+                    showToast({
                     position: 'top',
                     title: 'Three previews have been used up, please activate unlimited pass.',
                     variant: 'subtle',
                     status: 'warning'
-                  })
-                  return;
-                } else {
-                  sourcePreview(source.link);
-                  updateActiveLink(source.link);
-                }
+                    })
+                    return;
+                    } else {
+                    sourcePreview(source.link);
+                    updateActiveLink(source.link);
+                    } */}
+                openSourceActionSheet()
               }}
             >
               <Image className="mr-1" src="./images/source-pre.png" alt="" />
@@ -427,7 +437,7 @@ export default function Search({
   showQuoteIndex,
   index,
 }: any) {
-  const { activeChat ,isGenerate} = useChatContext();
+  const { activeChat, isGenerate, setIsActionSheetOpen, setActionSheetProps } = useChatContext();
   const [more, setMore] = useState(false);
   const { setIsShowInputQuote, setQuoteContent, setQuoteType } =
     useQuoteStore();
