@@ -261,7 +261,7 @@ export const TextAreaTips = () => {
                 onKeyDown={(e: any) => {
                   if (!e.shiftKey && labelValue && e.key === "Enter") {
                     e.preventDefault();
-                    onSend();
+                    // onSend();
                     return;
                   }
 

@@ -86,8 +86,6 @@ export function Left({
             {item.tool && item.tool === "profile" ? (
               <Profile
                 content={item.content}
-                onSend={onSend}
-                setInput={setInput}
               />
             ) : item.tool === "ens" ? (
               <Ens content={item.content} />

@@ -39,7 +39,7 @@ const sandboxSlides = [
 ];
 
 export function Guide() {
-  const { isSandBox } = useChatContext()
+  const { isSandBox, submitMessage } = useChatContext()
   const [commands, setCommands] = useState([]);
   const { userId } = useUserInfoStore();
   const { isConnected, address } = useAccount();
@@ -77,6 +77,12 @@ export function Guide() {
       getCommands();
     }
   }, [userId]);
+
+  const runCommand = useCallback((text) => {
+    submitMessage({
+      question: text
+    })
+  }, [])
 
   console.log('needSign', needSign, isConnected, userId)
 
@@ -130,6 +136,7 @@ export function Guide() {
           alignItems="center"
           width="100%"
           padding="10px 20px"
+          onClick={() => runCommand(`What's KNN3 Network?`)}
         >
           <Box>⌘ What's KNN3 Network?</Box>
         </Box>
@@ -140,6 +147,7 @@ export function Guide() {
           alignItems="center"
           width="100%"
           padding="10px 20px"
+          onClick={() => runCommand(`What's TypoGraphy AI?`)}
         >
           <Box>⌘ What's TypoGraphy AI?</Box>
         </Box>
@@ -150,6 +158,7 @@ export function Guide() {
           alignItems="center"
           width="100%"
           padding="10px 20px"
+          onClick={() => runCommand(`What can I do with TypoGraphy AI now?`)}
         >
           <Box>⌘ What can I do with TypoGraphy AI now?</Box>
         </Box>
@@ -160,6 +169,7 @@ export function Guide() {
           alignItems="center"
           width="100%"
           padding="10px 20px"
+          onClick={() => runCommand(`/Profile my`)}
         >
           <Box>⌘ /Profile my</Box>
         </Box>
