@@ -231,7 +231,7 @@ export function Operate({
         <Popup
           round
           position="bottom"
-          style={{  width: "calc(100% + 1px)" }}
+          style={{  width: "calc(100%)" }}
           visible={isActionSheetOpen}
           onClose={setIsActionSheetOpen.off}
         >
@@ -256,6 +256,7 @@ export function Operate({
         w="full"
         pos="relative"
         gap={2}
+        background="transparent"
       >
         {children}
       </Flex>

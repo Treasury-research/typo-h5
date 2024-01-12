@@ -122,7 +122,7 @@ export const ChatInput = () => {
       <Flex
         flex={1}
         pl={3}
-        pr={2}
+        pr={3}
         pt="6px"
         pb="2px"
         bg="bg.white"
@@ -131,9 +131,10 @@ export const ChatInput = () => {
         shadow="md"
         alignItems="center"
         position="relative"
+        flexDirection="column"
       >
         {isShowInputQuote && section !== "magicWand" && (
-          <Box className="mt-4 ml-4 w-[fit-content] mr-[auto]">
+          <Box className="mt-2 w-[fit-content]" marginBottom="4px">
             <QuoteTem
               content={quoteContent}
               showDeleteIcon={true}

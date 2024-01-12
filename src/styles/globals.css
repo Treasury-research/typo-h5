@@ -220,3 +220,7 @@ p {
   background: white;
   margin-top: 50px;
 }
+
+.rv-overlay {
+  background: rgba(0, 0, 0, 0.4);
+}
