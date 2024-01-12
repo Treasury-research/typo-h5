@@ -48,11 +48,20 @@ export function Left({
     );
   }, [activeChat?.messages]);
 
-  const openActionSheet = useCallback(() => {
+  const openMessageActionSheet = useCallback(() => {
     setActionSheetProps({
       item,
       index,
       type: 'message'
+    })
+    setIsActionSheetOpen.on()
+  }, [])
+
+  const openSourceActionSheet = useCallback(() => {
+    setActionSheetProps({
+      item,
+      index,
+      type: 'source'
     })
     setIsActionSheetOpen.on()
   }, [])
@@ -101,7 +110,7 @@ export function Left({
             position="relative"
             paddingRight="20px"
           >
-            <Box position="absolute" right="0px" top="10px" onClick={openActionSheet}><MoreIcon /></Box>
+            <Box position="absolute" right="0px" top="10px" onClick={openMessageActionSheet}><MoreIcon /></Box>
             {item.tool && item.tool === "profile" ? (
               <Profile
                 content={item.content}

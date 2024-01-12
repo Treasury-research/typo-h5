@@ -17,6 +17,7 @@
 .move-left {
   transform: translate(0vw, 0px);
   transition: transform 0.16s ease-in-out;
+  height: 100vh;
 }
 
 .move-left > div:nth-child(2) {
@@ -28,12 +29,14 @@
 .move-right {
   transform: translate(-180vw, 0px);
   transition: transform 0.16s ease-in-out;
+  height: 100vh;
 }
 
 .move-center {
   height: 100%;
   transform: translate(-80vw, 0px);
   transition: transform 0.1s ease-in-out;
+  height: 100vh;
 }
 
 .nav-bar .rv-nav-bar__content {

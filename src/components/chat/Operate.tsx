@@ -25,8 +25,6 @@ import { Popup, Dialog, Picker } from "react-vant";
 import useChatContext from "hooks/useChatContext";
 
 export function MessageActionSheet({ item, index }) {
-  console.log('MessageActionSheet', item)
-
   return (
     <>
       <Box width="100%" height="60px" display="flex" alignItems="center" justifyContent="center" fontSize="16ox" fontWeight="500">
@@ -38,16 +36,46 @@ export function MessageActionSheet({ item, index }) {
       <Box width="100%" height="60px" display="flex" alignItems="center" justifyContent="center" fontSize="16ox" fontWeight="500" borderTop="1px solid #D8D8D8">
         Delete
       </Box>
+      <Box width="100%" height="60px" display="flex" alignItems="center" justifyContent="center" borderTop="2px solid #D8D8D8" fontSize="16ox" fontWeight="500">
+        Cancel
+      </Box>
     </>
   )
 }
 
-export function ShareActionSheet({}) {
-
+export function ShareActionSheet({ item, index }) {
+  return (
+    <>
+      <Box width="100%" height="60px" display="flex" alignItems="center" justifyContent="center" fontSize="16ox" fontWeight="500">
+        Quote
+      </Box>
+      <Box width="100%" height="60px" display="flex" alignItems="center" justifyContent="center" fontSize="16ox" fontWeight="500" borderTop="1px solid #D8D8D8">
+        Copy
+      </Box>
+      <Box width="100%" height="60px" display="flex" alignItems="center" justifyContent="center" fontSize="16ox" fontWeight="500" borderTop="1px solid #D8D8D8">
+        Delete
+      </Box>
+      <Box width="100%" height="60px" display="flex" alignItems="center" justifyContent="center" borderTop="2px solid #D8D8D8" fontSize="16ox" fontWeight="500">
+        Cancel
+      </Box>
+    </>
+  )
 }
 
-export function SourceActionSheet({}) {
-
+export function SourceActionSheet({ item, index }) {
+  return (
+    <>
+      <Box width="100%" height="60px" display="flex" alignItems="center" justifyContent="center" fontSize="16ox" fontWeight="500">
+        Preview
+      </Box>
+      <Box width="100%" height="60px" display="flex" alignItems="center" justifyContent="center" fontSize="16ox" fontWeight="500" borderTop="1px solid #D8D8D8">
+        Original Link
+      </Box>
+      <Box width="100%" height="60px" display="flex" alignItems="center" justifyContent="center" borderTop="2px solid #D8D8D8" fontSize="16ox" fontWeight="500">
+        Cancel
+      </Box>
+    </>
+  )
 }
 
 export function Operate({
@@ -146,7 +174,6 @@ export function Operate({
    *   }, [isOpen]);
    *  */
 
-
   return (
     <LongPressTouch
       isOpen={isActionSheetOpen}
@@ -166,9 +193,12 @@ export function Operate({
             {type === 'message' && (
               <MessageActionSheet {...actionSheetProps} />
             )}
-            <Box width="100%" height="60px" display="flex" alignItems="center" justifyContent="center" borderTop="2px solid #D8D8D8" fontSize="16ox" fontWeight="500">
-              Cancel
-            </Box>
+            {type === 'share' && (
+              <ShareActionSheet {...actionSheetProps} />
+            )}
+            {type === 'source' && (
+              <SourceActionSheet {...actionSheetProps} />
+            )}
           </Box>
         </Popup>
       }
