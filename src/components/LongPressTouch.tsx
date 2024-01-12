@@ -24,7 +24,7 @@ export function LongPressTouch({
     const handleTouchStart = () => {
       // onOpen && onOpen();
       timer = window.setTimeout(() => {
-	onOpen && onOpen();
+	// onOpen && onOpen();
 	onLongPress && onLongPress();
       }, 1000);
     };

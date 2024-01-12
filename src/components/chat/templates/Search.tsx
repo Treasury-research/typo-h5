@@ -305,42 +305,11 @@ const SourceBox = ({
           className={`w-full h-full absolute left-0 top-0 bg-[rgba(0,0,0,0.5)] z-10 ${activeLink == source.link ? "visible" : "invisible"
             } ${donePreview ? "group-hover:visible" : ""
             } flex items-center justify-center`}
+          onClick={() => {
+            openSourceActionSheet()
+          }}
         >
-          {
-            !isGenerate &&
-            <Box
-              className="text-[#000] bg-[#DAE5E5] rounded-[4px] py-1 font-bold flex items-center px-2 w-[fit-content] cursor-pointer hover:opacity-70"
-              onClick={() => {
-                {/* if (item.previewCount <= 0 && !isPassuser && userId) {
-                    showToast({
-                    position: 'top',
-                    title: 'Three previews have been used up, please activate unlimited pass.',
-                    variant: 'subtle',
-                    status: 'warning'
-                    })
-                    return;
-                    } else {
-                    sourcePreview(source.link);
-                    updateActiveLink(source.link);
-                    } */}
-                openSourceActionSheet()
-              }}
-            >
-              <Image className="mr-1" src="./images/source-pre.png" alt="" />
-              Preview
-            </Box>
-          }
 
-          <Box
-            className={`absolute top-[-10px] right-[-10px] h-10 w-10 rounded-[14px] bg-[#DAE5E5]`}
-            onClick={() => window.open(source.link)}
-          >
-            <Image
-              src="/images/source-link.png"
-              alt=""
-              className="mt-4 ml-[7px]"
-            />
-          </Box>
         </Box>
 
         <p className="overflow-ellipsis overflow-hidden whitespace-nowrap w-full">
