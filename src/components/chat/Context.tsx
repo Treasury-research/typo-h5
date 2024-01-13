@@ -1495,7 +1495,8 @@ export default function ChatProvider({ children }: any) {
         isActionSheetOpen,
         setIsActionSheetOpen,
         actionSheetProps,
-        setActionSheetProps
+        setActionSheetProps,
+        addChat
       }}
     >
       {children}

@@ -16,6 +16,7 @@ import {
   VerificationEmailModal,
   ConnectModal,
 } from "components";
+import { v4 as uuidv4 } from "uuid";
 import { useJwtStore } from "store/jwtStore";
 import { toShortAddress } from "lib";
 import { BiLogOut, BiLogIn } from "react-icons/bi";
@@ -24,31 +25,35 @@ import { TfiEmail } from "react-icons/tfi";
 import { useStore } from "store";
 import { useAiStore } from "store/aiStore";
 import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
-
+import useChatContext from 'hooks/useChatContext'
 import { useConnectModalStore } from "store/modalStore";
 import { useUserInfoStore } from "store/userInfoStore";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useCallback } from "react";
 import { AiFillTwitterCircle } from "react-icons/ai";
 import { BsTelegram } from "react-icons/bs";
 import { SiSubstack } from "react-icons/si";
 import { BiWallet } from "react-icons/bi";
 import useWallet from "hooks/useWallet";
+import PlusIcon from 'components/icons/Plus'
+import BookIcon from 'components/icons/Book'
 import api from "api";
 
-const Account = ({
-  isSandBox,
-  closeNav,
-}: {
-  isSandBox: boolean;
-  closeNav: () => void;
-}) => {
+const Account = () => {
+  const {
+    isSandBox,
+    closeNav,
+    sandBoxType,
+    channel,
+    section,
+    addChat,
+    setActiveChatId,
+  } = useChatContext()
   const { setJwt } = useJwtStore();
   const { doLogout } = useWallet();
   const { email, userId, setUserId, setEmail, account } = useUserInfoStore();
   const { setOpenInviteModal, setOpenBindEmailModal } = useStore();
   const { setOpenRemindModal, setOpenConnectModal } = useConnectModalStore();
-  const { totalCoupon, usedCoupon, setTotalCoupon, setUsedCoupon } =
-    useAiStore();
+  const { totalCoupon, usedCoupon, setTotalCoupon, setUsedCoupon } = useAiStore();
 
   const getUserInfo = async () => {
     const res: any = await api.get(`/api/auth`);
@@ -67,6 +72,29 @@ const Account = ({
     }
   }, [userId, email]);
 
+  const addNewChat = useCallback(() => {
+    closeNav();
+    const timestamp = new Date().getTime();
+    const time = new Date(timestamp).toLocaleTimeString();
+    const newChatId = uuidv4();
+
+    const newChat: any = {
+      id: newChatId,
+      timestamp: timestamp,
+      type: isSandBox ? sandBoxType : "general",
+      isSandBox: isSandBox,
+      channel,
+      messages: [],
+      userId,
+      section,
+    };
+
+    newChat.name = `New Chat ${time}`;
+
+    addChat(newChat);
+    setActiveChatId(newChat.id)
+  }, [isSandBox, sandBoxType, channel, userId, section])
+
   // useEffect(() => {
   // 	if (userId) {
   // 		setOpenRemindModal(true);
@@ -77,18 +105,45 @@ const Account = ({
     <VStack w="full" h="full" pt={4} alignItems="center" justify="flex-end">
       {userId ? (
 	<VStack w="full" px={3} mb={1}>
+          <Button
+            width="100%"
+            borderRadius="8px"
+            color="#487C7E"
+            background="#FFE3AC"
+            height="40px"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            fontWeight="600"
+            marginBottom="20px"
+            onClick={addNewChat}
+          >
+            <Box marginRight="8px"><PlusIcon /></Box>
+            <Box>New Chat</Box>
+          </Button>
 	  <Box w="full" bg="whiteAlpha.300" color="#fff" borderRadius={10}>
-	    <Flex className="w-full justify-between items-center" py={3} px={4}>
-	      <HStack>
+	    <Flex
+              className="w-full justify-between"
+              py={3}
+              px={4}
+              alignItems="center"
+            >
+	      <HStack alignItems="flex-start">
 		<Jazzicon diameter={40} seed={jsNumberForAddress(account)} />
-		<Box className="flex-col justify-around">
+		<Box className="flex-col justify-around" marginLeft="4px">
 		  <Box className="text-[16px] font-bold">
 		    {toShortAddress(account, 10)}
 		  </Box>
-		  <Box className="text-[12px]">
-		    {usedCoupon}/{totalCoupon} Credits
+                  <Box marginTop="4px" marginBottom="4px">
+                    Daily Reward
+                  </Box>
+		  <Box className="text-[12px]" display="flex" alignItems="center" justifyContent="flex-start">
+                    <Box width="120px" background="#EAEDF1" height="10px" borderRadius="24px" overflow="hidden" marginRight="6px">
+                      <Box height="100%" width="20px" background="#FFE3AC" width={`${(usedCoupon || 0)/(totalCoupon) * 100}%`} />
+                    </Box>
+		    <Box>{usedCoupon || 0}/{totalCoupon}</Box>
 		  </Box>
-		</Box>
+	        </Box>
 	      </HStack>
 
 	      <Icon
@@ -113,19 +168,23 @@ const Account = ({
 	      <HStack w="full" justify="space-between">
 		<HStack spacing={1} whiteSpace="nowrap">
 		  <Icon as={LuUsers} boxSize={4} />
-		  <Text transform="scale(0.95)">Refer friends</Text>
+		  <Text transform="scale(0.95)">Invite friedns</Text>
 		</HStack>
 		<Button
-		  variant="whitePrimary"
 		  size="xs"
 		  px={3}
 		  h="20px"
 		  w="55px"
+                  color="white"
+                  background="transparent"
+                  border="1px solid white"
+                  padding="4px 10px"
+                  width="70px"
 		  onClick={() => {
 		    setOpenInviteModal(true);
 		  }}
 		>
-		  Invite
+		  Referral
 		</Button>
 	      </HStack>
 	      <HStack w="full" justify="space-between">
@@ -149,12 +208,16 @@ const Account = ({
 		  </Tooltip>
 		) : (
 		  <Button
-		    variant="whitePrimary"
 		    size="xs"
 		    px={3}
 		    isDisabled={email}
 		    h="20px"
 		    w="55px"
+                    color="white"
+                    background="transparent"
+                    border="1px solid white"
+                    padding="4px 10px"
+                    width="70px"
 		    onClick={() => {
 		      setOpenBindEmailModal(true);
 		    }}
@@ -165,7 +228,7 @@ const Account = ({
 	      </HStack>
 	    </VStack>
 	  </Box>
-	</VStack>
+        </VStack>
       ) : (
 	<Button
 	  mb={2}
@@ -181,42 +244,45 @@ const Account = ({
       )}
 
       <HStack
-	w="full"
-	color="bg.white"
-	justify="center"
-	py={3}
-	borderColor="whiteAlpha.300"
-	borderTopWidth="1px"
-	gap={12}
+        w="full"
+        color="bg.white"
+        justify="center"
+        py={3}
+        borderColor="whiteAlpha.300"
+        borderTopWidth="1px"
+        gap={12}
       >
-	<Icon
-	as={AiFillTwitterCircle}
-	className="cursor-pointer"
-	onClick={() => window.open("https://twitter.com/Knn3Network")}
-	boxSize={9}
-	/>
+        <Icon
+          as={AiFillTwitterCircle}
+          className="cursor-pointer"
+          onClick={() => window.open("https://twitter.com/Knn3Network")}
+          boxSize={9}
+        />
 
-	<Icon
-	as={BsTelegram}
-	className="cursor-pointer"
-	onClick={() => window.open("https://t.me/+zR-uaI0Bt_hjMjY9")}
-	boxSize={8}
-	/>
+        <Icon
+          as={BsTelegram}
+          className="cursor-pointer"
+          onClick={() => window.open("https://t.me/+zR-uaI0Bt_hjMjY9")}
+          boxSize={8}
+        />
 
-	<Center
+        <Center
 	  borderRadius="full"
 	  bg="#fff"
 	  w="34px"
 	  h="34px"
 	  onClick={() => window.open("https://knn3.substack.com/")}
-	>
+        >
 	  <Icon
 	    as={SiSubstack}
 	    color="#000"
 	    className="cursor-pointer"
 	    boxSize={4}
 	  />
-	</Center>
+        </Center>
+        <Box>
+          <BookIcon />
+        </Box>
       </HStack>
 
       <InviteModal isSandBox={isSandBox} />

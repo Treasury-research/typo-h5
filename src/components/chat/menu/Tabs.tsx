@@ -186,8 +186,8 @@ export function Tabs() {
 	  })}
 	</Box>
 
-	<Box px={4} w="full" h="40px">
-	  <HStack
+	{/* <Box px={4} w="full" h="40px">
+	    <HStack
 	    w="full"
 	    justify="space-between"
 	    fontWeight="semibold"
@@ -195,26 +195,26 @@ export function Tabs() {
 	    fontSize="sm"
 	    borderRadius={6}
 	    px={2}
-	  >
+	    >
 	    <Flex gap={2} flex={1} onClick={addChatChannel}>
-	      <Icon as={IoIosAdd} boxSize={5} />
-	      <Text> Add Chat</Text>
+	    <Icon as={IoIosAdd} boxSize={5} />
+	    <Text> Add Chat</Text>
 	    </Flex>
 
 	    {isSandBox && (
-	      <Popover
-	        placement="bottom-end"
-	        actions={[{ text: "Regular" }]}
-	        onSelect={(option: any) => setSandBoxType(option.text)}
-	        reference={
-		  <Badge size="xs" mt={-1} colorScheme="green">
-		    {sandBoxType}
-		  </Badge>
-	        }
-	      />
+	    <Popover
+	    placement="bottom-end"
+	    actions={[{ text: "Regular" }]}
+	    onSelect={(option: any) => setSandBoxType(option.text)}
+	    reference={
+	    <Badge size="xs" mt={-1} colorScheme="green">
+	    {sandBoxType}
+	    </Badge>
+	    }
+	    />
 	    )}
-	  </HStack>
-	</Box>
+	    </HStack>
+	    </Box> */}
       </VStack>
     </VStack>
   );
