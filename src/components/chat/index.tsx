@@ -68,10 +68,11 @@ const Chat = () => {
           pl={0}
           overflow="hidden"
           className="no-scrollbar"
+          position="relative"
         >
           <Flex
             w="280vw"
-            className={showNav ? "move-left" : showQuest ? "move-right" : "move-center"}
+            className={showNav ? "move-left" : "move-center"}
           >
             <Menu />
             <VStack
@@ -96,8 +97,18 @@ const Chat = () => {
                 {!!isConnected && (<ChatInput />)}
               </VStack>
             </VStack>
-            <Quest />
           </Flex>
+          <Box
+            position="absolute"
+            top="0"
+            height="100vh"
+            left="0"
+            zIndex="2"
+            background="rgba(0, 0, 0, 0.4)"
+            background="white"
+          >
+            <Box><Quest /></Box>
+          </Box>
         </Container>
       </Operate>
     </>

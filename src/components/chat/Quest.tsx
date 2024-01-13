@@ -35,8 +35,32 @@ import { useStore } from "store";
 import { BaseModal, Copy, Empty } from "components";
 import { base64, toShortAddress } from "lib";
 import { useAiStore } from "store/aiStore";
-import { Card } from "react-vant";
+import { Card, Swiper } from "react-vant";
 import useChatContext from "hooks/useChatContext";
+
+const slides = [
+  {
+    url: "/images/moledao.png",
+    link: "https://rewards.taskon.xyz/campaign/detail/13081",
+  },
+  {
+    url: "/images/aisql/driver.png",
+  },
+  {
+    url: "/images/aisql/knexus.webp",
+    link: "https://knexus.xyz/create?utm_source=typo+quest&utm_campaign=kn+mbti",
+  },
+];
+
+const sandboxSlides = [
+  {
+    url: "/images/aisql/driver.png",
+  },
+  {
+    url: "/images/aisql/knexus.webp",
+    link: "https://knexus.xyz/create?utm_source=typo+quest&utm_campaign=kn+mbti",
+  },
+];
 
 const AwardItem = ({
   title,
@@ -81,7 +105,7 @@ const AwardItem = ({
 };
 
 export function Quest() {
-  const { showQuest, setShowQuest, closeQuest } = useChatContext()
+  const { showQuest, setShowQuest, closeQuest, isSandBox } = useChatContext()
   const isOpen = showQuest
   const onClose = closeQuest
   const { onCopy, value, setValue, hasCopied } = useClipboard("");
@@ -166,24 +190,19 @@ export function Quest() {
     }
   }, [userId, email]);
 
+  const list = isSandBox ? sandboxSlides : slides
+
+  console.log('list', list)
+
   return (
     <>
       <Flex w="100vw" h="100%">
-        <VStack pos="relative" w="full" h="full" gap={3} py={3}>
+        <VStack pos="relative" w="full" h="full" gap={3} padding="20px">
           <CloseButton pos="absolute" right={1} onClick={onClose} zIndex={5} />
           <HStack pos="relative" w="full" px="12px" h="24px">
-            <Icon as={BiGift} boxSize={5} />
-            <Text fontSize="md" fontWeight="semibold">
-              QUEST
+            <Text fontSize="md" fontWeight="semibold" fontSize="16px">
+              Account
             </Text>
-            <Badge
-              colorScheme="green"
-              fontSize="12px"
-              borderRadius={4}
-              mt="-20px!"
-            >
-              Hot
-            </Badge>
           </HStack>
           <Box
             h="calc(100% - 25px)"
@@ -192,24 +211,56 @@ export function Quest() {
             pt={2}
             overflowY="scroll"
           >
+            <Swiper
+              autoplay={5000}
+              indicator={(total: number, current: any) => (
+                <Box width="100%" marginBottom="10px">
+                  <Box width="100%" display="flex" alignItems="center" justifyContent="center" height="30px">
+                    {(new Array(3)).fill(1).map((_: any, i: any) =>
+                      <Box
+                        width="8px"
+                        height="8px"
+                        borderRadius="8px"
+                        background={(current == i) ? `#D9D9D9` : `#F0F0F0`}
+                        margin="4px"
+                      />
+                    )}
+                  </Box>
+                </Box>
+              )}
+            >
+              {list.map((item, index) => {
+                return (
+                  <Swiper.Item key={item.url}>
+                    <Box
+                      borderRadius="8px"
+                      overflow="hidden"
+                      cursor="pointer"
+                      onClick={() => {
+                        item.link && window.open(item.link);
+                      }}
+                    >
+                      <Image alt="" src={item.url} fit="contain" />
+                    </Box>
+                  </Swiper.Item>
+                );
+              })}
+            </Swiper>
+
             <Card
               round
               style={{
-                boxShadow: "0 0 4px rgba(0, 0, 0, 0.2)",
                 width: "100%",
+                background: "#F7F8FA",
               }}
             >
               <Card.Header>
-                <HStack color="#ee6f2d">
-                  <Center bg="blackAlpha.200" p={2} borderRadius="full">
-                    <Image src="/images/aisql/tcc.svg" boxSize={5} alt="" />
-                  </Center>
+                <HStack color="black">
                   <Box lineHeight="19px">
                     <HStack spacing={1} fontSize="md">
                       <Text mr={1}>{totalScore} TCC</Text>
-                      <Text></Text>
                     </HStack>
-                    <Text fontSize="sm">Total TCC Earned</Text>
+                    <Text fontSize="10px" color="rgba(0, 0, 0, 0.20)">Balance</Text>
                   </Box>
                 </HStack>
               </Card.Header>
@@ -225,8 +276,34 @@ export function Quest() {
                     color="#000"
                     borderColor="#ebedf0"
                     borderTopWidth="1.5px"
-                    borderStyle="dashed"
+                    borderStyle="solid"
                   >
+                    <Box
+                      width="100%"
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="flex-start"
+                      marginBottom="10px"
+                    >
+                      <Box
+                        background="#487C7E"
+                        borderRadius="20px"
+                        color="white"
+                        padding="5px 10px"
+                        marginRight="10px"
+                      >
+                        Earn
+                      </Box>
+                      <Box
+                        background="#487C7E"
+                        borderRadius="20px"
+                        color="white"
+                        padding="5px 10px"
+                        opacity="50%"
+                      >
+                        Log
+                      </Box>
+                    </Box>
                     {awardItems.preRegItem && (
                       <AwardItem
                         title="Pre-reg"
@@ -400,11 +477,11 @@ export function Quest() {
               <Card.Footer>
                 <Button
                   w="full"
-                  variant="blackPrimary"
+                  background="#357E7F"
                   size="sm"
                   h="35px"
-                  borderRadius={20}
-                  color="#fae3b3"
+                  borderRadius={8}
+                  color="white"
                   fontWeight="semibold"
                   leftIcon={<Icon as={FaUserGroup} boxSize={4} />}
                   onClick={() => {
@@ -416,60 +493,60 @@ export function Quest() {
                 </Button>
               </Card.Footer>
             </Card>
-            <Card
-              round
-              style={{
+            {/* <Card
+                round
+                style={{
                 boxShadow: "0 0 4px rgba(0, 0, 0, 0.2)",
                 width: "100%",
                 marginTop: "10px",
-              }}
-            >
-              <Card.Header>
+                }}
+                >
+                <Card.Header>
                 <HStack color="#ee6f2d">
-                  <Center bg="blackAlpha.200" p={2} borderRadius="full">
-                    <Icon as={IoRocketOutline} boxSize={5} />
-                  </Center>
-                  <Text whiteSpace="pre-wrap">
-                    Ask about Moledal on TypoGraphy AI!
-                  </Text>
+                <Center bg="blackAlpha.200" p={2} borderRadius="full">
+                <Icon as={IoRocketOutline} boxSize={5} />
+                </Center>
+                <Text whiteSpace="pre-wrap">
+                Ask about Moledal on TypoGraphy AI!
+                </Text>
                 </HStack>
-              </Card.Header>
-              <Card.Body style={{ padding: 0 }}>
+                </Card.Header>
+                <Card.Body style={{ padding: 0 }}>
                 <Box
-                  w="full"
-                  py={3}
-                  px={5}
-                  fontSize="sm"
-                  color="#000"
-                  borderColor="#ebedf0"
-                  borderTopWidth="1.5px"
-                  borderStyle="dashed"
+                w="full"
+                py={3}
+                px={5}
+                fontSize="sm"
+                color="#000"
+                borderColor="#ebedf0"
+                borderTopWidth="1.5px"
+                borderStyle="dashed"
                 >
-                  Participants who pose three Moledao-related questions in Typo
-                  will earn a matching badge and 100 TCC (Typo Chat Credit).
-                  Join us today!
+                Participants who pose three Moledao-related questions in Typo
+                will earn a matching badge and 100 TCC (Typo Chat Credit).
+                Join us today!
                 </Box>
-              </Card.Body>
-              <Card.Footer>
+                </Card.Body>
+                <Card.Footer>
                 <Button
-                  w="full"
-                  variant="blackPrimary"
-                  size="sm"
-                  h="35px"
-                  borderRadius={20}
-                  color="#fae3b3"
-                  fontWeight="semibold"
-                  leftIcon={<Icon as={BsFillLightningChargeFill} boxSize={4} />}
-                  onClick={() =>
-                    window.open(
-                      "https://www.typography.vip/quest/moledao-quest"
-                    )
-                  }
+                w="full"
+                variant="blackPrimary"
+                size="sm"
+                h="35px"
+                borderRadius={20}
+                color="#fae3b3"
+                fontWeight="semibold"
+                leftIcon={<Icon as={BsFillLightningChargeFill} boxSize={4} />}
+                onClick={() =>
+                window.open(
+                "https://www.typography.vip/quest/moledao-quest"
+                )
+                }
                 >
-                  View More Info
+                View More Info
                 </Button>
-              </Card.Footer>
-            </Card>
+                </Card.Footer>
+                </Card> */}
           </Box>
         </VStack>
       </Flex>

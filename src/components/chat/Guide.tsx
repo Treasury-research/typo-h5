@@ -94,30 +94,6 @@ export function Guide() {
       justify="flex-start"
       alignItems="center"
     >
-      {/* <Swiper
-          autoplay={5000}
-          indicator={(total: number, current: any) => (
-          <Box className="custom-indicator">
-          {current + 1}/{total}
-          </Box>
-          )}
-          >
-          {list.map((item, index) => {
-          return (
-          <Swiper.Item key={item.url}>
-          <Box
-          cursor="pointer"
-          onClick={() => {
-          item.link && window.open(item.link);
-          }}
-          >
-          <Image alt="" src={item.url} fit="contain" />
-          </Box>
-          </Swiper.Item>
-          );
-          })}
-          </Swiper> */}
-
       <VStack
         w="full"
         justify="center"

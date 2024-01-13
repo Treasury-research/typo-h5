@@ -190,7 +190,7 @@ const Account = () => {
 	      <HStack w="full" justify="space-between">
 		<HStack spacing={1} whiteSpace="nowrap">
 		  <Icon as={TfiEmail} boxSize={4} transform="scale(0.93)" />
-		  <Text transform="scale(0.93)">Verify Email</Text>
+		  <Text transform="scale(0.93)">Bind Email</Text>
 		</HStack>
 		{email ? (
 		  <Tooltip placement="top" fontSize="xs" label={email} hasArrow>
