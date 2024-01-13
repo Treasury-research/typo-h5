@@ -14,7 +14,8 @@ import {
   Box,
   useClipboard,
   Flex,
-  useToast
+  useToast,
+  Text
 } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { useStore } from "store";
@@ -23,7 +24,7 @@ import { useUserInfoStore } from "store/userInfoStore";
 export function InviteModal({ isSandBox }: { isSandBox: boolean }) {
   const { openInviteModal, setOpenInviteModal } = useStore();
   const { userId } = useUserInfoStore();
-  const { onCopy, value, setValue } = useClipboard("");
+  const { onCopy, value, setValue } = useClipboard('');
   const showToast = useToast();
 
   useEffect(() => {
@@ -31,6 +32,17 @@ export function InviteModal({ isSandBox }: { isSandBox: boolean }) {
       `${location.origin}?tab=${isSandBox ? "sandbox" : "general"}&inviteId=${userId}`
     );
   }, [isSandBox, userId]);
+
+  const copyUrl = () => {
+    onCopy()
+
+    showToast({
+      position: 'top',
+      title: 'Copied!',
+      variant: 'subtle',
+      status: 'info'
+    })
+  }
 
   return (
     <Modal
@@ -40,62 +52,113 @@ export function InviteModal({ isSandBox }: { isSandBox: boolean }) {
     >
       <ModalOverlay />
       <ModalContent
-	borderRadius="12px"
-	overflow="hidden"
-	className="invite-content"
-	bg="inherit"
+        borderRadius="12px"
+        overflow="hidden"
+        className="invite-content"
+        bg="inherit"
       >
-	<ModalBody pos="relative" padding="0">
-	  <VStack w="full" alignItems="center" position="relative">
-	    <Image src="./images/invite.svg" alt="" w="300px" />
-	    <InputGroup
-	      w="300px"
-	      bg="transparent"
-	      pos="absolute"
-	      bottom="45px"
-	      px={5}
-	      py="28px"
-	    >
-	      <Flex w="full" alignItems="center">
-		<Input
-		px={2}
-		w="60%"
-		fontSize="16px"
-		fontWeight="500"
-		border="0"
-		bg="transparent"
-		value={value}
-		disabled
-		/>
-
-		<Button
-		w="140px"
-		flex={1}
-		onClick={() => {
-		  onCopy();
-                  showToast({
-                    position: 'top',
-                    title: 'Copied',
-                    variant: 'subtle',
-                  })
-		}}
-		borderRadius={1}
-		bg="transparent!"
-		/>
-	      </Flex>
-	    </InputGroup>
-	    <Box
-	      w="300px"
-	      color="#fff"
-	      top="inherit"
-	      pos="absolute"
-	      bottom="0"
-	      zIndex="30"
-	      h="30px"
-	      onClick={() => setOpenInviteModal(false)}
-	    />
-	  </VStack>
-	</ModalBody>
+        <ModalBody pos="relative" padding="0">
+          <VStack w="full" alignItems="center">
+            <Box
+              width="284px"
+              background="linear-gradient(108deg, #FFE7B6 0%, #E4A930 114.32%)"
+              border="1px solid #C7C9D8"
+              borderRadius="12px"
+              padding="18px"
+            >
+              <Box
+                color="black"
+                fontSize="24px"
+                fontWeight="700"
+              >
+                Refer friends
+              </Box>
+              <Box
+                color="#F98E3F"
+                fontSize="16px"
+                fontWeight="700"
+              >
+                More Referrals, More Rewards
+              </Box>
+              <Box display="flex" marginTop="10px">
+                <Box
+                  width="28px"
+                  minWidth="28px"
+                  height="28px"
+                  borderRadius="28px"
+                  background="white"
+                  color="black"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                  fontWeight="700"
+                >
+                  1
+                </Box>
+                <Box display="flex" flexDirection="column" marginLeft="8px">
+                  <Box fontSize="14px" fontWeight="700">
+                    Copy link
+                  </Box>
+                  <Box fontSize="12px">
+                    Copy your referral link below
+                  </Box>
+                </Box>
+              </Box>
+              <Box display="flex" marginTop="10px">
+                <Box
+                  width="28px"
+                  minWidth="28px"
+                  height="28px"
+                  borderRadius="28px"
+                  background="white"
+                  color="black"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                  fontWeight="700"
+                >
+                  2
+                </Box>
+                <Box display="flex" flexDirection="column" marginLeft="8px">
+                  <Box fontSize="14px" fontWeight="700">
+                    Invite friends
+                  </Box>
+                  <Box fontSize="12px">
+                    Share your referral link with your friends to signup
+                  </Box>
+                </Box>
+              </Box>
+              <Box display="flex" marginTop="10px">
+                <Box
+                  width="28px"
+                  minWidth="28px"
+                  height="28px"
+                  borderRadius="28px"
+                  background="white"
+                  color="black"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                  fontWeight="700"
+                >
+                  3
+                </Box>
+                <Box display="flex" flexDirection="column" marginLeft="8px">
+                  <Box fontSize="14px" fontWeight="700">
+                    Earn together
+                  </Box>
+                  <Box fontSize="12px">
+                    Refer friends to verify by email to earn 20 TCC for each referral
+                  </Box>
+                </Box>
+              </Box>
+              <Box width="100%" border="1px solid #979797" borderRadius="6px" padding="8px" marginTop="10px" display="flex" alignItems="center">
+                <Text fontSize="12px" fontWeight="700" marginRight="10px">https://app.quseisid</Text>
+                <Button background="white" fontWeight="700" fontSize="14px" borderRadius="6px" onClick={copyUrl}>Copy Link</Button>
+              </Box>
+            </Box>
+          </VStack>
+        </ModalBody>
       </ModalContent>
     </Modal>
   );

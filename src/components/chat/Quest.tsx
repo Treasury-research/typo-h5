@@ -14,6 +14,12 @@ import {
   Link,
   useBoolean,
   useClipboard,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalHeader,
+  ModalOverlay,
 } from "@chakra-ui/react";
 
 import { BiGift } from "react-icons/bi";
@@ -32,7 +38,7 @@ import {
   InfoOutlineIcon,
 } from "@chakra-ui/icons";
 import { useStore } from "store";
-import { BaseModal, Copy, Empty } from "components";
+import { BaseModal, Copy, Empty, InviteModal } from "components";
 import { base64, toShortAddress } from "lib";
 import { useAiStore } from "store/aiStore";
 import { Card, Swiper } from "react-vant";
@@ -115,6 +121,9 @@ export function Quest() {
   const [showModal, setShowModal] = useBoolean(false);
   const [uuid, setUuid] = useState("");
   const { setTotalCoupon, setUsedCoupon } = useAiStore();
+  const [showReferer, setShowReferer] = useState(false)
+
+  console.log('showReferer', showReferer)
 
   const totalScore = useMemo(() => {
     return awards.reduce(
@@ -122,6 +131,10 @@ export function Quest() {
       0
     );
   }, [awards]);
+
+  const openReferer = () => {
+    setShowReferer(true)
+  }
 
   const awardItems = useMemo(() => {
     const preRegItem = awards.filter(
@@ -594,6 +607,19 @@ export function Quest() {
             Verify
           </Button>
         </Flex>
+        <Modal isOpen={showReferer}>
+          <ModalContent>
+            <ModalBody>
+              <Box
+                width="284px"
+                height="300px"
+                background="linear-gradient(108deg, #FFE7B6 0%, #E4A930 114.32%)"
+              >
+
+              </Box>
+            </ModalBody>
+          </ModalContent>
+        </Modal>
       </BaseModal>
     </>
   );
