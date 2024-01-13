@@ -3,9 +3,8 @@ import { Box, Flex, VStack, Container, useToast } from "@chakra-ui/react";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import useChatContext from 'hooks/useChatContext'
-import ChatLayout from "components/Layout";
 import { Menu } from "components/chat/menu";
-import { ChatContent } from "components/chat/chatContent";
+import { ChatContent } from "components/chat/ChatContent";
 import { ChatInput } from "components/chat/ChatInput";
 import { useAccount } from "wagmi";
 import { ChatTitle } from "components/chat/ChatTitle";
@@ -123,8 +122,6 @@ const Chat = () => {
               <Box
                 position="absolute"
                 top="0"
-                height="100vh"
-                width="100vw"
                 marginLeft="60px"
                 background="white"
                 height="100%"

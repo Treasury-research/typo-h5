@@ -541,7 +541,7 @@ export default function ChatProvider({ children }: any) {
                 ...json,
                 previewCount: !userId ? 1 : 3,
               });
-              onScroll()
+              onScroll(0)
 
               resolve({
                 done: true,
@@ -563,7 +563,7 @@ export default function ChatProvider({ children }: any) {
                 prompt,
                 ...json,
               });
-              onScroll()
+              onScroll(0)
 
               return readChunk();
             }
@@ -821,7 +821,7 @@ export default function ChatProvider({ children }: any) {
               content: text,
               ...json,
             });
-            onScroll()
+            onScroll(0)
 
             return {
               done: true,
@@ -838,7 +838,7 @@ export default function ChatProvider({ children }: any) {
               prompt,
               ...json,
             });
-            onScroll()
+            onScroll(0)
 
             return readChunk();
           }
@@ -934,7 +934,7 @@ export default function ChatProvider({ children }: any) {
         addMessage(chatId, newMessage);
       }
 
-      onScroll();
+      onScroll(0);
     },
     [isShowInputQuote, quoteContent, quoteType, jwt]
   );
@@ -962,7 +962,7 @@ export default function ChatProvider({ children }: any) {
       };
 
       addMessage(chatId, newMessage);
-      onScroll()
+      onScroll(0)
 
       if (prompt.toLocaleLowerCase().includes("/uniswap")) {
         updateMessage(chatId, messageId, {

@@ -1,4 +1,3 @@
-import { ChatList, MenuItem } from "lib/types";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
@@ -11,7 +10,7 @@ export const useChatStore: any = create<any>()(
       totalCoupon: 0,
       dailyAdd: 0,
       channel: "explorer",
-      setChannel: (channel: MenuItem) => {
+      setChannel: (channel: any) => {
         set({ channel });
       },
       sharedChat: null,

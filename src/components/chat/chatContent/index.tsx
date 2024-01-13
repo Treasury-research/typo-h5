@@ -101,8 +101,8 @@ export function ChatContent() {
                       index={index + activeChat.messages.length - 2}
                       setInput={setInput}
                       isLast={index + activeChat.messages.length - 2 === activeChat.messages?.length - 1}
-                      isHidden={showAgent && isInPrivateChat && index + activeChat.messages.length - 2 < privateChatStartIndex}
-                      isPrivateHead={showAgent && isInPrivateChat && index + activeChat.messages.length - 2 === privateChatStartIndex}
+                      isHidden={showAgent}
+                      isPrivateHead={showAgent}
                       setAgent={setAgent}
                       showAgent={showAgent}
                     />

@@ -86,7 +86,7 @@ export const ChatInput = () => {
             variant: 'subtle',
             status: 'warning'
           })
-          setOpenConnectModal(true);
+          // setOpenConnectModal(true);
           return;
         }
         submitMessage();

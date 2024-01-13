@@ -78,7 +78,7 @@ export function Guide() {
     }
   }, [userId]);
 
-  const runCommand = useCallback((text) => {
+  const runCommand = useCallback((text: any) => {
     submitMessage({
       question: text
     })
@@ -114,7 +114,7 @@ export function Guide() {
           padding="10px 20px"
           onClick={() => runCommand(`What's KNN3 Network?`)}
         >
-          <Box>⌘ What's KNN3 Network?</Box>
+          <Box>{`⌘ What's KNN3 Network?`}</Box>
         </Box>
         <Box
           background="white"
@@ -125,7 +125,7 @@ export function Guide() {
           padding="10px 20px"
           onClick={() => runCommand(`What's TypoGraphy AI?`)}
         >
-          <Box>⌘ What's TypoGraphy AI?</Box>
+          <Box>{`⌘ What's TypoGraphy AI?`}</Box>
         </Box>
         <Box
           background="white"
@@ -136,7 +136,7 @@ export function Guide() {
           padding="10px 20px"
           onClick={() => runCommand(`What can I do with TypoGraphy AI now?`)}
         >
-          <Box>⌘ What can I do with TypoGraphy AI now?</Box>
+          <Box>{`⌘ What can I do with TypoGraphy AI now?`}</Box>
         </Box>
         <Box
           background="white"
@@ -147,7 +147,7 @@ export function Guide() {
           padding="10px 20px"
           onClick={() => runCommand(`/Profile my`)}
         >
-          <Box>⌘ /Profile my</Box>
+          <Box>{`⌘ /Profile my`}</Box>
         </Box>
         {!userId && (
           <Box marginTop="20px" width="100%">

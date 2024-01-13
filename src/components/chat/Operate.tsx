@@ -28,7 +28,7 @@ import useChatContext from "hooks/useChatContext";
 import { useQuoteStore } from "store/quoteStore";
 import { useUserInfoStore } from "store/userInfoStore";
 
-export function MessageActionSheet({ item, index, onClose }) {
+export function MessageActionSheet({ item, index, onClose }: any) {
   const {
     activeChat,
     removeMessage,
@@ -44,11 +44,21 @@ export function MessageActionSheet({ item, index, onClose }) {
       return;
     }
     if (!userId) {
-      showToast("You're not logged in yet.", "warning");
+      showToast({
+        position: 'top',
+        title: `You're not logged in yet.`,
+        variant: 'subtle',
+        status: 'warning'
+      })
       return;
     }
     if (activeChat && activeChat.isShare) {
-      showToast("Please start your thread", "info");
+      showToast({
+        position: 'top',
+        title: 'Please start your thread',
+        variant: 'subtle',
+        status: 'info'
+      })
       return;
     }
 
@@ -78,7 +88,7 @@ export function MessageActionSheet({ item, index, onClose }) {
 
   return (
     <>
-      <Box width="100%" height="60px" display="flex" alignItems="center" justifyContent="center" fontSize="16ox" fontWeight="500" cursor="pointer" cursor="pointer" onClick={quoteMessage}>
+      <Box width="100%" height="60px" display="flex" alignItems="center" justifyContent="center" fontSize="16ox" fontWeight="500" cursor="pointer" onClick={quoteMessage}>
         Quote
       </Box>
       <Box width="100%" height="60px" display="flex" alignItems="center" justifyContent="center" fontSize="16ox" fontWeight="500" borderTop="1px solid #D8D8D8" cursor="pointer" onClick={copyMessage}>
@@ -94,7 +104,7 @@ export function MessageActionSheet({ item, index, onClose }) {
   )
 }
 
-export function ShareActionSheet({ item, index, onClose }) {
+export function ShareActionSheet({ item, index, onClose }: any) {
   const { onCopy } = useClipboard(window.location.href)
   const showToast = useToast();
 
@@ -131,7 +141,7 @@ export function ShareActionSheet({ item, index, onClose }) {
   )
 }
 
-export function SourceActionSheet({ source, index, onClose, onPreview }) {
+export function SourceActionSheet({ source, index, onClose, onPreview }: any) {
   const previewSource = useCallback(() => {
     if (onPreview) {
       onPreview()

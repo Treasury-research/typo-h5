@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from "uuid";
 
 const gateway = process.env.NEXT_PUBLIC_GATEWAY;
 
@@ -122,4 +123,29 @@ export function getTopLevelDomain(url: string) {
     return match[1];
   }
   return null;
+}
+
+export function extractJSON(str: string) {
+  let lastOpen, lastClose, candidate;
+  lastClose = str.lastIndexOf("}");
+  lastOpen = str.lastIndexOf("{");
+
+  if (lastClose <= lastOpen || lastClose !== str.length - 1) {
+    return { content: str };
+  }
+
+  candidate = str.substring(lastOpen, lastClose + 1);
+
+  try {
+    const res = JSON.parse(candidate);
+    const text = str.substring(0, lastOpen);
+
+    return {
+      content: text,
+      id: uuidv4(),
+      ...res,
+    };
+  } catch (e) {
+    return { content: str };
+  }
 }

@@ -1,5 +1,5 @@
 import { useMemo, useCallback } from 'react'
-import { Box, HStack, VStack, Avatar, Icon, useBoolean } from "@chakra-ui/react";
+import { Box, HStack, VStack, Avatar, Icon, useBoolean, useToast } from "@chakra-ui/react";
 import { ChatChildren, ChatList } from "lib/types";
 import { AiFillCaretLeft } from "react-icons/ai";
 import { Operate } from "../Operate";
@@ -40,6 +40,7 @@ export function Left({
     setActionSheetProps
   } = useChatContext();
   const [isOpen, setIsOpen] = useBoolean(false);
+  const showToast = useToast();
 
   const showQuoteIndex = useMemo(() => {
     return activeChat.messages.findLastIndex(
@@ -149,7 +150,12 @@ export function Left({
                     return;
                   }
                   if (activeChat && activeChat.isShare) {
-                    showToast("Please start your thread", "info");
+                    showToast({
+                      position: 'top',
+                      title: 'Please start your thread',
+                      variant: 'subtle',
+                      status: 'info'
+                    })
                     return;
                   }
                   submitMessage({

@@ -1,4 +1,4 @@
-import { useBoolean } from "@chakra-ui/react";
+import { useBoolean, useToast } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { configureChains, createConfig } from "wagmi";
 import { signMessage } from "@wagmi/core";

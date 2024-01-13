@@ -139,7 +139,7 @@ const Account = () => {
                   </Box>
 		  <Box className="text-[12px]" display="flex" alignItems="center" justifyContent="flex-start">
                     <Box width="120px" background="#EAEDF1" height="10px" borderRadius="24px" overflow="hidden" marginRight="6px">
-                      <Box height="100%" width="20px" background="#FFE3AC" width={`${(usedCoupon || 0)/(totalCoupon) * 100}%`} />
+                      <Box height="100%" background="#FFE3AC" width={`${(usedCoupon || 0)/(totalCoupon) * 100}%`} />
                     </Box>
 		    <Box>{usedCoupon || 0}/{totalCoupon}</Box>
 		  </Box>

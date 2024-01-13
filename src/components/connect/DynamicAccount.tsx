@@ -6,11 +6,9 @@ const ConnectAccount = dynamic(() => import("./Account"), {
 });
 
 export const DynamicAccount = () => {
-  const { isSandBox, closeNav } = useChatContext()
-
   return (
     <>
-      <ConnectAccount isSandBox={isSandBox} closeNav={closeNav}/>
+      <ConnectAccount />
     </>
   );
 };

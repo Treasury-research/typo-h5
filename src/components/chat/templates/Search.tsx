@@ -18,7 +18,6 @@ import api, { baseURL } from "api";
 import { useJwtStore } from "store/jwtStore";
 import { BarLoader } from "react-spinners";
 import { useStore } from "store";
-import { useThrottleEffect } from "ahooks";
 import { useUserInfoStore } from "store/userInfoStore";
 import { useConnectModalStore } from "store/modalStore";
 import useChatContext from "hooks/useChatContext";
@@ -294,10 +293,12 @@ const SourceBox = ({
 
   const onPreview = () => {
     if (item.previewCount <= 0 && !isPassuser && userId) {
-      showToast(
-        `Three previews have been used up, please activate unlimited pass.`,
-        "warning"
-      );
+      showToast({
+        position: 'top',
+        title: `Three previews have been used up, please activate unlimited pass.`,
+        variant: 'subtle',
+        status: 'warning'
+      })
       return;
     } else {
       sourcePreview(source.link);
@@ -320,7 +321,7 @@ const SourceBox = ({
             } ${donePreview ? "group-hover:visible" : ""
             } flex items-center justify-center`}
           onClick={() => {
-            openSourceActionSheet(source)
+            openSourceActionSheet()
           }}
         >
 

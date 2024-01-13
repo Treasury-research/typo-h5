@@ -13,7 +13,7 @@ const customTheme = extendTheme({
     ...components,
     Alert: {
       variants: {
-        subtle: (props) => { // only applies to `subtle` variant
+        subtle: (props: any) => { // only applies to `subtle` variant
           const { colorScheme: c } = props
 
           return {
@@ -27,7 +27,7 @@ const customTheme = extendTheme({
     }
   },
   styles: {
-    global: (props: { colorMode: string }) => ({
+    global: (props: any) => ({
       body: {
         bg: props.colorMode === "light" ? "#000" : "#000",
       },

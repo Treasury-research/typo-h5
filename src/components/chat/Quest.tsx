@@ -211,7 +211,7 @@ export function Quest() {
         <VStack pos="relative" w="full" h="full" gap={3} padding="20px">
           <CloseButton pos="absolute" right={1} onClick={onClose} zIndex={5} />
           <HStack pos="relative" w="full" px="12px" h="24px">
-            <Text fontSize="md" fontWeight="semibold" fontSize="16px">
+            <Text fontWeight="semibold" fontSize="16px">
               Account
             </Text>
           </HStack>
@@ -229,6 +229,7 @@ export function Quest() {
                   <Box width="100%" display="flex" alignItems="center" justifyContent="center" height="30px">
                     {(new Array(3)).fill(1).map((_: any, i: any) =>
                       <Box
+                        key={i}
                         width="8px"
                         height="8px"
                         borderRadius="8px"
@@ -607,7 +608,7 @@ export function Quest() {
             Verify
           </Button>
         </Flex>
-        <Modal isOpen={showReferer}>
+        <Modal isOpen={showReferer} onClose={() => {}}>
           <ModalContent>
             <ModalBody>
               <Box
