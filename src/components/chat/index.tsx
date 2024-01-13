@@ -24,7 +24,8 @@ const Chat = () => {
     loadChat,
     isLoading,
     showNav,
-    showQuest
+    showQuest,
+    closeQuest
   } = useChatContext()
   const chatKey: any = router?.query?.chatKey || [];
   const [section, chatId] = chatKey;
@@ -69,6 +70,7 @@ const Chat = () => {
           overflow="hidden"
           className="no-scrollbar"
           position="relative"
+          height="100%"
         >
           <Flex
             w="280vw"
@@ -101,13 +103,40 @@ const Chat = () => {
           <Box
             position="absolute"
             top="0"
-            height="100vh"
             left="0"
+            height="100vh"
+            width="100vw"
             zIndex="2"
-            background="rgba(0, 0, 0, 0.4)"
-            background="white"
+            background={showQuest ? `rgba(0, 0, 0, 0.4)` : 'transparent'}
+            pointerEvents={showQuest ? `all` : 'none'}
+            sx={{
+              transition: 'all 0.2s ease'
+            }}
+            onClick={closeQuest}
           >
-            <Box><Quest /></Box>
+            <Box
+              position="relative"
+              height="100vh"
+              width="100vw"
+              pointerEvents="none"
+            >
+              <Box
+                position="absolute"
+                top="0"
+                height="100vh"
+                width="100vw"
+                marginLeft="60px"
+                background="white"
+                height="100%"
+                width="calc(100% - 60px)"
+                left={showQuest ? `0` : '100vw'}
+                sx={{
+                  transition: 'all 0.2s ease'
+                }}
+              >
+                <Quest />
+              </Box>
+            </Box>
           </Box>
         </Container>
       </Operate>

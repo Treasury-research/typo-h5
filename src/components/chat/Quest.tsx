@@ -192,11 +192,9 @@ export function Quest() {
 
   const list = isSandBox ? sandboxSlides : slides
 
-  console.log('list', list)
-
   return (
     <>
-      <Flex w="100vw" h="100%">
+      <Flex w="100%" h="100%">
         <VStack pos="relative" w="full" h="full" gap={3} padding="20px">
           <CloseButton pos="absolute" right={1} onClick={onClose} zIndex={5} />
           <HStack pos="relative" w="full" px="12px" h="24px">
