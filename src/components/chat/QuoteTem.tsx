@@ -4,7 +4,7 @@ import {
   Box
 } from "@chakra-ui/react";
 import { useQuoteStore } from "store/quoteStore";
-
+import CancelIcon from 'components/icons/Cancel'
 
 export function QuoteTem({
   content,
@@ -31,7 +31,7 @@ export function QuoteTem({
 
   return (
     <>
-      <Box className="w-[fit-content] bg-[#EDF2F2] p-2 pl-3 pr-10 text-[#487C7E] relative rounded-[10px]">
+      <Box className="w-[fit-content] bg-[#EDF2F2] p-2 pl-3 pr-10 text-[#487C7E] relative rounded-[10px]" position="relative">
         <Box className="mb-1">{content ? `${getQuote()}...` : '--'}</Box>
         <Flex className="items-center">
           <Image
@@ -42,17 +42,20 @@ export function QuoteTem({
           <Box>{type}</Box>
         </Flex>
         {
-          showDeleteIcon &&
-          <Image
-            className="absolute right-3 top-5 cursor-pointer hover:opacity-70"
-            onClick={() => {
-              setIsShowInputQuote(false)
-              setQuoteContent('')
-              setQuoteType('')
-            }}
-            src="/images/chat-delete.png"
-            alt=""
-          />
+          showDeleteIcon && (
+            <Box
+              position="absolute"
+              right="0px"
+              top="0px"
+              onClick={() => {
+                setIsShowInputQuote(false)
+                setQuoteContent('')
+                setQuoteType('')
+              }}
+            >
+              <CancelIcon />
+            </Box>
+          )
         }
       </Box>
     </>

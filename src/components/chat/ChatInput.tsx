@@ -133,15 +133,6 @@ export const ChatInput = () => {
         position="relative"
         flexDirection="column"
       >
-        {isShowInputQuote && section !== "magicWand" && (
-          <Box className="mt-2 w-[fit-content]" marginBottom="4px">
-            <QuoteTem
-              content={quoteContent}
-              showDeleteIcon={true}
-              type={quoteType}
-            />
-          </Box>
-        )}
         <TextArea
           rows={1}
           ref={myInput}
@@ -175,6 +166,15 @@ export const ChatInput = () => {
             </Box>
           )}
         </Flex>
+        {isShowInputQuote && section !== "magicWand" && (
+          <Box className="mt-2 w-[fit-content]" marginBottom="4px">
+            <QuoteTem
+              content={quoteContent}
+              showDeleteIcon={true}
+              type={quoteType}
+            />
+          </Box>
+        )}
       </Flex>
       <HStack
         h="33px"
