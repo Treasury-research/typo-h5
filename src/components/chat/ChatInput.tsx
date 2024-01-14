@@ -121,7 +121,7 @@ export const ChatInput = () => {
       gap={3}
     >
       <Flex
-        boxSadow="2px 2px 6px 0px rgba(0, 0, 0, 0.12), -2px -2px 6px 0px rgba(255, 255, 255, 0.90)"
+        boxShadow="2px 2px 6px 0px rgba(0, 0, 0, 0.12), -2px -2px 6px 0px rgba(255, 255, 255, 0.90)"
         flex={1}
         pl={3}
         pr={3}
@@ -134,41 +134,44 @@ export const ChatInput = () => {
         alignItems="center"
         position="relative"
       >
-        <TextArea
-          rows={1}
-          ref={myInput}
-          className="chat-input flex-1 no-scrollbar"
-          placeholder="You can ask me anything! I am here to help."
-          value={input}
-          onChange={setInput}
-          autoSize={{ maxHeight: 150 }}
-          onFocus={setIsFocus.on}
-        // onPressEnter={onPressEnter}
-          onKeyDown={(e: any) => {
-            if (e.code === "ArrowUp" || e.code === "ArrowDown") {
-              myTip.current.popupKeyUp(e.code);
-            } else if (e.code === "Enter") {
-              onPressEnter(e)
+        <Box display="flex" flexDirection="column" marginRight="auto" width="calc(100% - 90px)">
+          <TextArea
+            rows={1}
+            ref={myInput}
+            minHeight="40px"
+            className="chat-input flex-1 no-scrollbar"
+            placeholder="You can ask me anything! I am here to help."
+            value={input}
+            onChange={setInput}
+            autoSize={{ maxHeight: 150 }}
+            onFocus={setIsFocus.on}
+          // onPressEnter={onPressEnter}
+            onKeyDown={(e: any) => {
+              if (e.code === "ArrowUp" || e.code === "ArrowDown") {
+                myTip.current.popupKeyUp(e.code);
+              } else if (e.code === "Enter") {
+                onPressEnter(e)
+                setTimeout(() => {
+                  myInput.current.focus();
+                });
+              }
+            }}
+            onBlur={() =>
               setTimeout(() => {
-                myInput.current.focus();
-              });
+                setIsFocus.off();
+              }, 300)
             }
-          }}
-          onBlur={() =>
-            setTimeout(() => {
-              setIsFocus.off();
-            }, 300)
-          }
-        />
-        {isShowInputQuote && section !== "magicWand" && (
-          <Box className="mt-2 w-[fit-content]" marginBottom="4px">
-            <QuoteTem
-              content={quoteContent}
-              showDeleteIcon={true}
-              type={quoteType}
-            />
-          </Box>
-        )}
+          />
+          {isShowInputQuote && section !== "magicWand" && (
+            <Box className="mt-2 w-[fit-content]" marginBottom="4px">
+              <QuoteTem
+                content={quoteContent}
+                showDeleteIcon={true}
+                type={quoteType}
+              />
+            </Box>
+          )}
+        </Box>
         <HStack
           h="33px"
           minW="33px"
