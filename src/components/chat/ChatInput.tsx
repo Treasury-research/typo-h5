@@ -20,6 +20,7 @@ import {
 import { Input } from "react-vant";
 import { BeatLoader } from "react-spinners";
 import { TextAreaTips, commands } from "components/chat/TextAreaTips";
+import SearchIcon from "components/icons/Search";
 import { v4 as uuidv4 } from "uuid";
 import { useAiStore } from "store/aiStore";
 import { useJwtStore } from "store/jwtStore";
@@ -111,15 +112,16 @@ export const ChatInput = () => {
     <HStack
       pos="relative"
       w="full"
-      bg="blackAlpha.50"
+      // bg="blackAlpha.50"
       spacing={0}
       py={2}
       px={4}
-      borderColor="blackAlpha.50"
-      borderTopWidth="1px"
+      // borderColor="blackAlpha.50"
+      // borderTopWidth="1px"
       gap={3}
     >
       <Flex
+        boxSadow="2px 2px 6px 0px rgba(0, 0, 0, 0.12), -2px -2px 6px 0px rgba(255, 255, 255, 0.90)"
         flex={1}
         pl={3}
         pr={3}
@@ -131,7 +133,6 @@ export const ChatInput = () => {
         shadow="md"
         alignItems="center"
         position="relative"
-        flexDirection="column"
       >
         <TextArea
           rows={1}
@@ -159,13 +160,6 @@ export const ChatInput = () => {
             }, 300)
           }
         />
-        <Flex h="full" alignItems="flex-end" position="absolute" height="100%" top="0" right="0">
-          {isLoading && (
-            <Box w="38px" mb={1}>
-              <BeatLoader size={7} />
-            </Box>
-          )}
-        </Flex>
         {isShowInputQuote && section !== "magicWand" && (
           <Box className="mt-2 w-[fit-content]" marginBottom="4px">
             <QuoteTem
@@ -175,28 +169,51 @@ export const ChatInput = () => {
             />
           </Box>
         )}
+        <HStack
+          h="33px"
+          minW="33px"
+          padding="0 4px"
+          ml={2}
+          borderRadius={8}
+          justify="center"
+          alignItems="center"
+          shadow="md"
+          bg={input.trim() ? "black" : "gray.300"}
+        >
+          {!isLoading && (
+            <Box
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              onClick={() => {
+                if (input.trim()) {
+                  submitMessage();
+                }
+              }}>
+              <Box marginTop="2px" height="100%">
+                <SearchIcon />
+              </Box>
+              {/* <Icon
+                  as={TbSend}
+                  color="bg.white"
+                  boxSize={5}
+                  marginTop="2px"
+                  onClick={() => {
+                  if (input.trim()) {
+                  submitMessage();
+                  }
+                  }}
+                  /> */}
+              <Box marginLeft="4px" marginRight="10px"  color="white">{`(0/30)`}</Box>
+            </Box>
+          )}
+          {isLoading && (
+            <Box w="38px" mb={1} height="100%" display="flex" alignItems="center" justifyContent="center">
+              <BeatLoader size={7} />
+            </Box>
+          )}
+        </HStack>
       </Flex>
-      <HStack
-        h="33px"
-        w="33px"
-        ml={2}
-        borderRadius={8}
-        justify="center"
-        alignItems="center"
-        shadow="md"
-        bg={input.trim() ? "black" : "gray.300"}
-      >
-        <Icon
-          as={TbSend}
-          color="bg.white"
-          boxSize={5}
-          onClick={() => {
-            if (input.trim()) {
-              submitMessage();
-            }
-          }}
-        />
-      </HStack>
       {userId && allChatList && allChatList.length && (
         <Box
           pos="absolute"
