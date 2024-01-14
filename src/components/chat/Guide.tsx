@@ -162,7 +162,7 @@ export function Guide() {
               color="white"
               padding="10px 20px"
               onClick={() => {
-                handleSign(address as string)
+                needSign ? handleSign(address as string) : openConnectWallet();
               }}
             >
               Sign in
@@ -182,7 +182,7 @@ export function Guide() {
               color="white"
               padding="10px 20px"
               onClick={() => {
-                openConnectWallet();
+                needSign ? handleSign(address as string) : openConnectWallet();
               }}
             >
               Connect Wallet

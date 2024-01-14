@@ -152,6 +152,7 @@ const Account = () => {
 	      _hover={{ transform: "scale(1.1)" }}
 	        onClick={() => {
 		  doLogout();
+                  setActiveChatId('')
 		  closeNav();
 	        }}
 	      />
