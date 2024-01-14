@@ -15,7 +15,6 @@ import {
   useToast,
   Box
 } from "@chakra-ui/react";
-
 import { ChatChildren, ChatList } from "lib/types";
 import { useStore } from "store";
 import { useEffect, useMemo, useState, useCallback } from "react";
@@ -37,6 +36,7 @@ export function MessageActionSheet({ item, index, onClose }: any) {
   const { userId } = useUserInfoStore();
   const { setIsShowInputQuote, setQuoteContent, setQuoteType } = useQuoteStore()
   const { onCopy } = useClipboard(item.content as string)
+  const [showDelete, setShowDelete] = useState(false)
   const showToast = useToast();
 
   const quoteMessage = useCallback(() => {
@@ -86,6 +86,33 @@ export function MessageActionSheet({ item, index, onClose }: any) {
     onClose()
   }, [item, activeChat])
 
+  const startDelete = useCallback(() => {
+    setShowDelete(true)
+  }, [])
+
+  const endDelete = useCallback(() => {
+    setShowDelete(false)
+  }, [])
+
+  if (showDelete) {
+    return (
+      <Box padding="24px">
+        <Box fontSize="16px" fontWeight="700">
+          Notice
+        </Box>
+        <Box fontSize="16px" fontWeight="500">
+          Are you sure you want to delete this content? This operation is irreversible
+        </Box>
+        <Box width="100%" height="48px" display="flex" alignItems="center" justifyContent="center" fontSize="14ox" fontWeight="700" cursor="pointer" onClick={deleteMessage} borderRadius="6px" background="#357E7F" color="white" marginTop="10px">
+          Confirm
+        </Box>
+        <Box width="100%" height="48px" display="flex" alignItems="center" justifyContent="center" fontSize="14ox" fontWeight="700" cursor="pointer" onClick={endDelete} borderRadius="6px" background="white" color="#357E7F" border="1px solid #357E7F" marginTop="10px">
+          Cancel
+        </Box>
+      </Box>
+    )
+  }
+
   return (
     <>
       <Box width="100%" height="60px" display="flex" alignItems="center" justifyContent="center" fontSize="16ox" fontWeight="500" cursor="pointer" onClick={quoteMessage}>
@@ -94,7 +121,7 @@ export function MessageActionSheet({ item, index, onClose }: any) {
       <Box width="100%" height="60px" display="flex" alignItems="center" justifyContent="center" fontSize="16ox" fontWeight="500" borderTop="1px solid #D8D8D8" cursor="pointer" onClick={copyMessage}>
         Copy
       </Box>
-      <Box width="100%" height="60px" display="flex" alignItems="center" justifyContent="center" fontSize="16ox" fontWeight="500" borderTop="1px solid #D8D8D8" cursor="pointer" onClick={deleteMessage}>
+      <Box width="100%" height="60px" display="flex" alignItems="center" justifyContent="center" fontSize="16ox" fontWeight="500" borderTop="1px solid #D8D8D8" cursor="pointer" onClick={startDelete}>
         Delete
       </Box>
       <Box width="100%" height="60px" display="flex" alignItems="center" justifyContent="center" borderTop="2px solid #D8D8D8" fontSize="16ox" fontWeight="500" cursor="pointer" onClick={onClose}>
