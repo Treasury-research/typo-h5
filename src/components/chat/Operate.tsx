@@ -133,6 +133,7 @@ export function MessageActionSheet({ item, index, onClose }: any) {
 
 export function ShareActionSheet({ item, index, onClose }: any) {
   const { onCopy } = useClipboard(window.location.href)
+  const [showCopy, setShowCopy] = useState(false)
   const showToast = useToast();
 
   const copyLink = useCallback(() => {
@@ -144,6 +145,33 @@ export function ShareActionSheet({ item, index, onClose }: any) {
     })
     onClose()
   }, [item])
+
+  const startCopy = useCallback(() => {
+    setShowCopy(true)
+  }, [])
+
+  const endCopy = useCallback(() => {
+    setShowCopy(false)
+  }, [])
+
+  if (showCopy) {
+    return (
+      <Box padding="24px">
+        <Box fontSize="16px" fontWeight="700">
+          Notice
+        </Box>
+        <Box fontSize="16px" fontWeight="500">
+          Anyone who has access to a shared link can view and share the linked conversation. We encourage you not to share any sensitive content such as your wallet address, as anyone with the link can access the conversation or share the link with other people.
+        </Box>
+        <Box width="100%" height="48px" display="flex" alignItems="center" justifyContent="center" fontSize="14ox" fontWeight="700" cursor="pointer" onClick={copyLink} borderRadius="6px" background="#357E7F" color="white" marginTop="10px">
+          OK
+        </Box>
+        <Box width="100%" height="48px" display="flex" alignItems="center" justifyContent="center" fontSize="14ox" fontWeight="700" cursor="pointer" onClick={endCopy} borderRadius="6px" background="white" color="#357E7F" border="1px solid #357E7F" marginTop="10px">
+          Cancel
+        </Box>
+      </Box>
+    )
+  }
 
   return (
     <>
@@ -157,7 +185,7 @@ export function ShareActionSheet({ item, index, onClose }: any) {
           </Box>
           <Box fontWeight="500" fontSize="16px">Twitter</Box>
         </Box>
-        <Box display="flex" alignItems="center" justifyContent="center" flexDirection="column" onClick={copyLink}>
+        <Box display="flex" alignItems="center" justifyContent="center" flexDirection="column" onClick={startCopy}>
           <Box marginBottom="10px">
             <LinkIcon />
           </Box>
