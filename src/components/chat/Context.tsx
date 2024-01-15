@@ -1040,13 +1040,15 @@ export default function ChatProvider({ children }: any) {
         const { cmd, cmdType, cmdValue } = getShortcutByprompt(prompt);
         const cmds = commands.map((str) => str.toLowerCase());
         let result: any;
-        if (isShortcut(prompt)) {
-          result = await handleShortcutPrompt({
-            chatId,
-            messageId,
-            prompt,
-          });
-        } else if (showAgent && agent) {
+        // if (isShortcut(prompt)) {
+        //   result = await handleShortcutPrompt({
+        //     chatId,
+        //     messageId,
+        //     prompt,
+        //   });
+        // }  
+        
+        if (showAgent && agent) {
           result = await handleAgentPrompt({
             chatId,
             messageId,

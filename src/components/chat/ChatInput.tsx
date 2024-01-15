@@ -21,7 +21,6 @@ import { Input } from "react-vant";
 import { BeatLoader } from "react-spinners";
 import { TextAreaTips, commands } from "components/chat/TextAreaTips";
 import SearchIcon from "components/icons/Search";
-import { v4 as uuidv4 } from "uuid";
 import { useAiStore } from "store/aiStore";
 import { useJwtStore } from "store/jwtStore";
 import { useUserInfoStore } from "store/userInfoStore";
