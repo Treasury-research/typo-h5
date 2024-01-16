@@ -3,7 +3,6 @@ import { BsCommand } from "react-icons/bs";
 import { BiWallet } from "react-icons/bi";
 
 import { useEffect, useMemo, useState, useCallback } from "react";
-import { Cell, Swiper, Typography, Image } from "react-vant";
 
 import { useUserInfoStore } from "store/userInfoStore";
 import useWallet from "hooks/useWallet";
