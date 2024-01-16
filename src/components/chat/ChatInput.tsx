@@ -15,10 +15,8 @@ import {
 	useEffect,
 	useMemo,
 } from "react";
-import { TbSend } from "react-icons/tb";
-import { useStore } from "store";
-import { ChatList } from "lib/types";
-import { getShortcutByprompt, isAddress, isShortcut, upFirst } from "lib";
+
+import { Search2Icon } from "@chakra-ui/icons";
 import { Input } from "react-vant";
 import { BeatLoader } from "react-spinners";
 import { TextAreaTips, commands } from "components/chat/TextAreaTips";
@@ -174,10 +172,9 @@ export const ChatInput = () => {
 				</Box>
 				<HStack
 					h="32px"
-					minW="33px"
+					minW="35px"
 					padding="0 4px"
 					mb={1}
-					ml="4px"
 					mr="2px"
 					borderRadius={8}
 					justify="center"
@@ -186,8 +183,7 @@ export const ChatInput = () => {
 					bg={input.trim() ? "black" : isLoading ? "" : "gray.300"}
 				>
 					{!isLoading && (
-						<Box
-							display="flex"
+						<Flex
 							alignItems="center"
 							justifyContent="center"
 							onClick={() => {
@@ -196,11 +192,16 @@ export const ChatInput = () => {
 								}
 							}}
 						>
-							<Box marginTop="1px" height="100%" w="20px">
-								<SearchIcon />
+							<Box height="100%" w="20px" ml={1}>
+								<Search2Icon color="#fff" />
 							</Box>
-							<Box mx="4px" color="white">{`(${searchLimit}/30)`}</Box>
-						</Box>
+							<Box
+								pl="2px"
+								pr="4px"
+								color="white"
+								fontSize="sm"
+							>{`(${searchLimit}/30)`}</Box>
+						</Flex>
 					)}
 					{isLoading && (
 						<Box

@@ -286,7 +286,7 @@ export function Quest() {
 							>
 								<Card.Header>
 									<HStack color="black">
-										<Box lineHeight="19px">
+										<Box lineHeight="18px">
 											<HStack spacing={1} fontSize="md">
 												<Text mr={1}>{totalScore} TCC</Text>
 											</HStack>
@@ -326,7 +326,7 @@ export function Quest() {
 												>
 													Earn
 												</Box>
-												<Box
+												{/* <Box
 													background="#487C7E"
 													borderRadius="20px"
 													color="white"
@@ -334,7 +334,7 @@ export function Quest() {
 													opacity="50%"
 												>
 													Log
-												</Box>
+												</Box> */}
 											</Box>
 											{awardItems.preRegItem && (
 												<AwardItem
