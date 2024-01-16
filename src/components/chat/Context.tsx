@@ -81,12 +81,8 @@ export default function ChatProvider({ children }: any) {
 		setSharedChat,
 		clearMessage,
 	} = useChatStore();
-
-	const [isSandBox, setIsSandBox] = useBoolean(false);
 	const [isActionSheetOpen, setIsActionSheetOpen] = useBoolean(false);
 	const [actionSheetProps, setActionSheetProps] = useState({});
-	const [sandBoxType, setSandBoxType] = useState("Regular");
-	const [category, setCategory] = useState("");
 	const [section, setSection] = useState("explorer");
 	const [agent, setAgent] = useState("investor");
 	const [showNav, setShowNav] = useBoolean(false);
@@ -199,18 +195,15 @@ export default function ChatProvider({ children }: any) {
 			const newChat: any = {
 				id: newChatId,
 				timestamp: timestamp,
-				type: isSandBox ? sandBoxType : "general",
-				isSandBox: isSandBox,
+				type: "general",
+				isSandBox: false,
 				channel,
 				messages: [...activeChat.messages],
 				userId,
 				section,
 			};
 
-			const count = activeMessages.length;
-			newChat.name = isSandBox
-				? `${upFirst(sandBoxType).toUpperCase()} Chat${" "}${count}`
-				: `New Chat ${time}`;
+			newChat.name = `New Chat ${time}`;
 
 			if (activeChat.isShare) {
 				try {
@@ -236,8 +229,6 @@ export default function ChatProvider({ children }: any) {
 			activeChat,
 			channel,
 			activeChatId,
-			isSandBox,
-			sandBoxType,
 			userId,
 			activeMessages,
 			section,
@@ -259,8 +250,8 @@ export default function ChatProvider({ children }: any) {
 			const newChat: any = {
 				id: newChatId,
 				timestamp: timestamp,
-				type: isSandBox ? sandBoxType : "general",
-				isSandBox: isSandBox,
+				type: "general",
+				isSandBox: false,
 				channel,
 				messages: [],
 				userId,
@@ -268,9 +259,7 @@ export default function ChatProvider({ children }: any) {
 			};
 
 			const count = activeMessages.length;
-			newChat.name = isSandBox
-				? `${upFirst(sandBoxType).toUpperCase()} Chat${" "}${count}`
-				: `New Chat ${time}`;
+			newChat.name = `New Chat ${time}`;
 
 			if (isShare) {
 				try {
@@ -292,8 +281,6 @@ export default function ChatProvider({ children }: any) {
 		[
 			channel,
 			activeChatId,
-			isSandBox,
-			sandBoxType,
 			userId,
 			activeMessages,
 			section,
@@ -860,7 +847,7 @@ export default function ChatProvider({ children }: any) {
 					},
 					conversation_id: chatId,
 					input_prompt: prompt,
-					isSandbox: isSandBox,
+					isSandbox: false,
 				}),
 			})
 				.then(processChunkedResponse)
@@ -1125,7 +1112,7 @@ export default function ChatProvider({ children }: any) {
 											},
 											conversation_id: chatId,
 											input_prompt: prompt,
-											isSandbox: isSandBox,
+											isSandbox: false,
 										},
 								  },
 							...result.data,
@@ -1212,7 +1199,7 @@ export default function ChatProvider({ children }: any) {
 										},
 										conversation_id: chatId,
 										input_prompt: prompt,
-										isSandbox: isSandBox,
+										isSandbox: false,
 									},
 							  },
 					});
@@ -1245,7 +1232,6 @@ export default function ChatProvider({ children }: any) {
 			clickList,
 			input,
 			isCopilot,
-			isSandBox,
 			isShowInputQuote,
 			jwt,
 			labelValue,
@@ -1433,10 +1419,6 @@ export default function ChatProvider({ children }: any) {
 	return (
 		<ChatContext.Provider
 			value={{
-				isSandBox,
-				setIsSandBox,
-				sandBoxType,
-				setSandBoxType,
 				agent,
 				setAgent,
 				showAgent,

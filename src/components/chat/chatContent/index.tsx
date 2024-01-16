@@ -14,8 +14,6 @@ export function ChatContent() {
   const {
     activeChat,
     setInput,
-    isSandBox,
-    setIsSandBox,
     isLoading,
     setAgent,
     showAgent,

@@ -39,15 +39,8 @@ import BookIcon from "components/icons/Book";
 import api from "api";
 
 const Account = () => {
-	const {
-		isSandBox,
-		closeNav,
-		sandBoxType,
-		channel,
-		section,
-		addChat,
-		setActiveChatId,
-	} = useChatContext();
+	const { closeNav, sandBoxType, channel, section, addChat, setActiveChatId } =
+		useChatContext();
 	const { setJwt } = useJwtStore();
 	const { doLogout } = useWallet();
 	const { email, userId, setUserId, setEmail, account } = useUserInfoStore();
@@ -95,8 +88,8 @@ const Account = () => {
 		const newChat: any = {
 			id: newChatId,
 			timestamp: timestamp,
-			type: isSandBox ? sandBoxType : "general",
-			isSandBox: isSandBox,
+			type: "general",
+			isSandBox: false,
 			channel,
 			messages: [],
 			userId,
@@ -107,7 +100,7 @@ const Account = () => {
 
 		addChat(newChat);
 		setActiveChatId(newChat.id);
-	}, [isSandBox, sandBoxType, channel, userId, section]);
+	}, [sandBoxType, channel, userId, section]);
 
 	// useEffect(() => {
 	// 	if (userId) {
@@ -320,7 +313,7 @@ const Account = () => {
 				</Box>
 			</HStack>
 
-			<InviteModal isSandBox={isSandBox} />
+			<InviteModal />
 			<ConnectModal closeNav={closeNav} />
 			<BindEmailModal />
 			<RemindModal />

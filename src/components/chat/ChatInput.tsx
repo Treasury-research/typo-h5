@@ -38,7 +38,6 @@ export const ChatInput = () => {
 		isLoading,
 		setIsLoading,
 		allChatList,
-		isSandBox,
 		sandBoxType,
 		setInput,
 		openNav,

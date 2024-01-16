@@ -21,7 +21,7 @@ import React, { useEffect } from "react";
 import { useStore } from "store";
 import { useUserInfoStore } from "store/userInfoStore";
 
-export function InviteModal({ isSandBox }: { isSandBox: boolean }) {
+export function InviteModal() {
   const { openInviteModal, setOpenInviteModal } = useStore();
   const { userId } = useUserInfoStore();
   const { onCopy, value, setValue } = useClipboard('');
@@ -29,9 +29,9 @@ export function InviteModal({ isSandBox }: { isSandBox: boolean }) {
 
   useEffect(() => {
     setValue(
-      `${location.origin}?tab=${isSandBox ? "sandbox" : "general"}&inviteId=${userId}`
+      `${location.origin}&inviteId=${userId}`
     );
-  }, [isSandBox, userId]);
+  }, [userId]);
 
   const copyUrl = () => {
     onCopy()
