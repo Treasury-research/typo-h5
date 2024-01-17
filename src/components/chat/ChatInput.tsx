@@ -19,8 +19,7 @@ import {
 import { Search2Icon } from "@chakra-ui/icons";
 import { Input } from "react-vant";
 import { BeatLoader } from "react-spinners";
-import { TextAreaTips, commands } from "components/chat/TextAreaTips";
-import SearchIcon from "components/icons/Search";
+import { commands } from "components/chat/TextAreaTips";
 import { useAiStore } from "store/aiStore";
 import { useJwtStore } from "store/jwtStore";
 import { useUserInfoStore } from "store/userInfoStore";
