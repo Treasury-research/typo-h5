@@ -29,91 +29,93 @@ export function ChatContent() {
   console.log('showChat', showChat)
 
   return (
-    <>
-      {showChat && (
-        <Text
-          className="animate__animated animate__fadeInLeft"
-          pos="absolute"
-          top="65px"
-          left="-2px"
-          fontSize="xs"
-          fontWeight="semibold"
-          bg="blackAlpha.100"
-          px={2}
-          py="2px"
-          color="blackAlpha.700"
-          borderRightRadius={5}
-          zIndex={5}
-          onClick={openNav}
-        >
-          {activeChat?.name || "Title"}
-        </Text>
-      )}
+		<>
+			{showChat && (
+				<Text
+					className="animate__animated animate__fadeInLeft"
+					pos="absolute"
+					top="65px"
+					left="-2px"
+					fontSize="xs"
+					fontWeight="semibold"
+					bg="blackAlpha.100"
+					px={2}
+					py="2px"
+					color="blackAlpha.700"
+					borderRightRadius={5}
+					zIndex={5}
+					onClick={openNav}
+				>
+					{activeChat?.name || "Title"}
+				</Text>
+			)}
 
-      <Box
-        w="full"
-        mt={showChat ? "35px!" : "10px"}
-        pb={showChat ? "50px!" : "20px"}
-        mb="20px!"
-        id="chat-content"
-        h="calc(100% - 90px)"
-        overflowY="scroll"
-        className="no-scrollbar"
-      >
-        {showChat ? (
-          <VStack
-            pos="relative"
-            w="full"
-            justify="flex-start"
-            alignItems="center"
-            spacing={8}
-            mt={3}
-            px={3}
-            fontFamily="Söhne,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto"
-          >
-            {activeChat.messages.map((item: any, index: any) => {
-              return (
-                <Box key={index} w="full">
-                  {item.type === "question" ? (
-                    <Right
-                      chatId={activeChat.id}
-                      messageId={item.id}
-                      item={item}
-                      isLoading={isLoading}
-                      index={index + activeChat.messages.length - 2}
-                    />
-                  ) : item.error ? (
-                    <Error
-                      chatId={activeChat.id}
-                      messageId={item.id}
-                      item={item}
-                      index={index + activeChat.messages.length - 2}
-                      setInput={setInput}
-                    />
-                  ) : (
-                    <Left
-                      chatId={activeChat.id}
-                      messageId={item.id}
-                      item={item}
-                      isLoading={isLoading}
-                      index={index + activeChat.messages.length - 2}
-                      setInput={setInput}
-                      isLast={index + activeChat.messages.length - 2 === activeChat.messages?.length - 1}
-                      isHidden={showAgent}
-                      isPrivateHead={showAgent}
-                      setAgent={setAgent}
-                      showAgent={showAgent}
-                    />
-                  )}
-                </Box>
-              );
-            }
-            )}
-          </VStack>
-        ) : (
-          <Guide />
-        )}
-      </Box>
-    </>
-  );
+			<Box
+				w="full"
+				mt={showChat ? "35px!" : "10px"}
+				pb={showChat ? "50px!" : "20px"}
+				mb="20px!"
+				id="chat-content"
+				h="calc(100% - 90px)"
+				overflowY="scroll"
+				className="no-scrollbar"
+			>
+				{showChat ? (
+					<VStack
+						pos="relative"
+						w="full"
+						justify="flex-start"
+						alignItems="center"
+						spacing={8}
+						mt={3}
+						px={3}
+						fontFamily="Söhne,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto"
+					>
+						{activeChat.messages.map((item: any, index: any) => {
+							return (
+								<Box key={index} w="full">
+									{item.type === "question" ? (
+										<Right
+											chatId={activeChat.id}
+											messageId={item.id}
+											item={item}
+											isLoading={isLoading}
+											index={index + activeChat.messages.length - 2}
+										/>
+									) : item.error ? (
+										<Error
+											chatId={activeChat.id}
+											messageId={item.id}
+											item={item}
+											index={index + activeChat.messages.length - 2}
+											setInput={setInput}
+										/>
+									) : (
+										<Left
+											chatId={activeChat.id}
+											messageId={item.id}
+											item={item}
+											isLoading={isLoading}
+											index={index + activeChat.messages.length - 2}
+											setInput={setInput}
+											isLast={
+												index + activeChat.messages.length - 2 ===
+												activeChat.messages?.length - 1
+											}
+											isHidden={showAgent}
+											isPrivateHead={showAgent}
+											setAgent={setAgent}
+											showAgent={showAgent}
+										/>
+									)}
+								</Box>
+							);
+						})}
+					</VStack>
+				) : (
+					<Guide />
+				)}
+			</Box>
+		</>
+	);
 }

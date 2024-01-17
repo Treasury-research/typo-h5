@@ -17,6 +17,7 @@ import useChatContext from "hooks/useChatContext";
 
 export function ChatTitle() {
 	const {
+		activeChat,
 		activeChatId,
 		showNav,
 		openQuest,
@@ -25,6 +26,8 @@ export function ChatTitle() {
 		setActionSheetProps,
 		setIsActionSheetOpen,
 	} = useChatContext();
+
+	console.log("activeChatId", activeChatId);
 
 	const openShareActionSheet = useCallback(() => {
 		setActionSheetProps({
@@ -58,13 +61,15 @@ export function ChatTitle() {
 					}
 					rightText={
 						<Box display="flex" alignItems="center">
-							<Box
-								marginRight="18px"
-								cursor="pointer"
-								onClick={openShareActionSheet}
-							>
-								<ShareIcon />
-							</Box>
+							{activeChat && activeChat.messages.length > 0 && (
+								<Box
+									marginRight="18px"
+									cursor="pointer"
+									onClick={openShareActionSheet}
+								>
+									<ShareIcon />
+								</Box>
+							)}
 							<Badge dot>
 								<Icon
 									mt={1}

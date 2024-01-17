@@ -39,7 +39,7 @@ import BookIcon from "components/icons/Book";
 import api from "api";
 
 const Account = () => {
-	const { closeNav, sandBoxType, channel, section, addChat, setActiveChatId } =
+	const { closeNav, channel, section, addChat, setActiveChatId } =
 		useChatContext();
 	const { setJwt } = useJwtStore();
 	const { doLogout } = useWallet();
@@ -80,7 +80,7 @@ const Account = () => {
 	}, [userId, email]);
 
 	const addNewChat = useCallback(() => {
-		closeNav();
+		// closeNav();
 		const timestamp = new Date().getTime();
 		const time = new Date(timestamp).toLocaleTimeString();
 		const newChatId = uuidv4();
@@ -100,7 +100,7 @@ const Account = () => {
 
 		addChat(newChat);
 		setActiveChatId(newChat.id);
-	}, [sandBoxType, channel, userId, section]);
+	}, [channel, userId, section]);
 
 	// useEffect(() => {
 	// 	if (userId) {
@@ -196,7 +196,7 @@ const Account = () => {
 							<HStack w="full" justify="space-between">
 								<HStack spacing={1} whiteSpace="nowrap">
 									<Icon as={LuUsers} boxSize={4} />
-									<Text transform="scale(0.95)">Invite friedns</Text>
+									<Text transform="scale(0.95)">Invite friends</Text>
 								</HStack>
 								<Button
 									size="xs"

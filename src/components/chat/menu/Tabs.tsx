@@ -23,11 +23,8 @@ import useChatContext from "hooks/useChatContext";
 export function Tabs() {
 	const myTab = useRef<any>(null);
 	const {
-		sandBoxType,
-		addChannel,
 		setInput,
 		closeNav,
-		setSandBoxType,
 		allChatList,
 		activeChat,
 		setActiveChatId,
@@ -37,21 +34,7 @@ export function Tabs() {
 	} = useChatContext();
 	const showToast = useToast();
 	const { userId } = useUserInfoStore();
-	console.log("allChatList", allChatList);
-
-	const addChatChannel = () => {
-		if (allChatList.length >= 10) {
-			showToast({
-				position: "top",
-				title: "Maximum 10 channels",
-				variant: "subtle",
-				status: "warning",
-			});
-			return;
-		}
-		// addChannel();
-		onScroll();
-	};
+	// console.log("allChatList", allChatList);
 
 	const onScroll = () => {
 		setTimeout(() => {
@@ -108,7 +91,10 @@ export function Tabs() {
 									isLink
 									border={false}
 									style={{
-										background: "rgba(255, 255, 255, 0.12)",
+										background:
+											item?.id === activeChat?.id
+												? "rgba(255, 255, 255, 0.4)"
+												: "rgba(255, 255, 255, 0.15)",
 										borderRadius: "5px",
 										height: "42px",
 										color: "#fff",
@@ -174,15 +160,15 @@ export function Tabs() {
 														cancelButtonText: "Cancel",
 														message: "Are you sure to delete this chat?",
 													}).then(() => {
-														if (activeChat.id === item.id) {
-															const leftChats = allChatList.map(
-																(chat: any) => item.id === chat.id
-															);
-															if (leftChats && leftChats.length) {
-																console.log("leftChats", leftChats);
-																setActiveChatId(leftChats[0].id);
-															}
+														// if (activeChat.id === item.id) {
+														const leftChats = allChatList.map(
+															(chat: any) => item.id === chat.id
+														);
+														if (leftChats && leftChats.length) {
+															console.log("leftChats", leftChats);
+															setActiveChatId(leftChats[0].id);
 														}
+														// }
 
 														removeChat(item.id);
 													});

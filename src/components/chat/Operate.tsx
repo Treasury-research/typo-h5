@@ -15,10 +15,9 @@ import {
 	useToast,
 	Box,
 } from "@chakra-ui/react";
-import { ChatChildren, ChatList } from "lib/types";
-import { useStore } from "store";
-import { useEffect, useMemo, useState, useCallback } from "react";
-import moment from "moment";
+import { useState, useCallback } from "react";
+import { useCopyToClipboard } from "react-use";
+import html2Canvas from "html2canvas";
 import { LongPressTouch } from "components";
 import TwitterIcon from "components/icons/Twitter";
 import LinkIcon from "components/icons/Link";
@@ -26,6 +25,7 @@ import { Popup, Dialog, Picker } from "react-vant";
 import useChatContext from "hooks/useChatContext";
 import { useQuoteStore } from "store/quoteStore";
 import { useUserInfoStore } from "store/userInfoStore";
+import api from "api";
 
 export function MessageActionSheet({ item, index, onClose }: any) {
 	const { activeChat, removeMessage, isGenerate } = useChatContext();
@@ -200,21 +200,105 @@ export function MessageActionSheet({ item, index, onClose }: any) {
 }
 
 export function ShareActionSheet({ item, index, onClose }: any) {
-	const { onCopy } = useClipboard(window.location.href);
+	const { activeChat, onScroll, isGenerate } = useChatContext();
+	const [state, copyToClipboard] = useCopyToClipboard();
 	const [showCopy, setShowCopy] = useState(false);
+	const [createLoading, setCreateLoading] = useBoolean(false);
+	const [shareName, setShareName] = useState("");
 	const showToast = useToast();
 
-	const copyLink = useCallback(() => {
-		onCopy();
-		showToast({
-			position: "top",
-			title: "Copied",
-			variant: "subtle",
+	const handleCreateShareChat: any = useCallback(() => {
+		return new Promise(async (resolve, reject) => {
+			try {
+				const node: any = document.getElementById("chat-content");
+				if (!activeChat || !node) return;
+				html2Canvas(node, {
+					useCORS: true,
+					allowTaint: true,
+					height: ((node.clientWidth + 40) * 3) / 4,
+					width: node.clientWidth + 40,
+					scrollX: 20,
+					backgroundColor: "#EAEDF1",
+				}).then((canvas: any) => {
+					const dataURL: any = canvas.toBlob(async (blob: any) => {
+						const filename = `${new Date().getTime()}.png`;
+						//转换canvas图片数据格式为formData
+						const file = new File([blob], filename, { type: "image/png" });
+						const formData = new FormData();
+						formData.append("file", file);
+						formData.append("conversation_id", activeChat.id);
+						formData.append(
+							"conversation",
+							JSON.stringify({
+								...activeChat,
+								isShare: true,
+							})
+						);
+						setCreateLoading.on();
+						const { data } = await api.post(
+							`/api/conversation/shared/create`,
+							formData
+						);
+						if (data) {
+							setCreateLoading.off();
+							resolve({
+								value: `${window.location.origin}/explorer/${data}`,
+							});
+						}
+					});
+					setCreateLoading.off();
+				});
+				setCreateLoading.off();
+			} catch (error) {
+				setCreateLoading.off();
+				reject();
+			}
 		});
-		onClose();
+	}, [activeChat, showToast]);
+
+	const shareTwitter = async () => {
+		handleCreateShareChat()
+			.then((res: any) => {
+				if (res.value) {
+					let shareUrl = "";
+					const question = activeChat.messages[activeChat.messages.length - 2]
+						.content as string;
+					shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(`Q: “${
+						question.length > 90 ? question.substring(0, 90) + "..." : question
+					}”
+          🚀 Just wrapped up a thought-provoking chat with @TypoX_AI! 🤖️
+          👇 Dive in & ask followup
+          #TypoGraphyAI #TypoX #Web3Search`)}&url=${encodeURIComponent(
+						`${res.value}`
+					)}`;
+					window.open(shareUrl, "_blank");
+				}
+			})
+			.catch((error: any) => {
+				console.log(error);
+			});
+	};
+
+	const copyLink = useCallback(() => {
+		handleCreateShareChat()
+			.then((res: any) => {
+				if (res.value) {
+					copyToClipboard(res.value);
+					showToast({
+						position: "top",
+						title: "Copied",
+						variant: "subtle",
+					});
+					onClose();
+				}
+			})
+			.catch((error: any) => {
+				console.log(error);
+			});
 	}, [item]);
 
 	const startCopy = useCallback(() => {
+		onScroll(1000);
 		setShowCopy(true);
 	}, []);
 
@@ -243,13 +327,15 @@ export function ShareActionSheet({ item, index, onClose }: any) {
 					fontSize="14ox"
 					fontWeight="700"
 					cursor="pointer"
-					onClick={copyLink}
+					onClick={() => {
+						shareName === "link" ? copyLink() : shareTwitter();
+					}}
 					borderRadius="6px"
 					background="#357E7F"
 					color="white"
 					marginTop="10px"
 				>
-					OK
+					{createLoading ? "Waitting..." : "OK"}
 				</Box>
 				<Box
 					width="100%"
@@ -299,6 +385,10 @@ export function ShareActionSheet({ item, index, onClose }: any) {
 					alignItems="center"
 					justifyContent="center"
 					flexDirection="column"
+					onClick={() => {
+						setShareName("twitter");
+						startCopy();
+					}}
 				>
 					<Box marginBottom="10px">
 						<TwitterIcon />
@@ -312,7 +402,10 @@ export function ShareActionSheet({ item, index, onClose }: any) {
 					alignItems="center"
 					justifyContent="center"
 					flexDirection="column"
-					onClick={startCopy}
+					onClick={() => {
+						setShareName("link");
+						startCopy();
+					}}
 				>
 					<Box marginBottom="10px">
 						<LinkIcon />
