@@ -225,14 +225,7 @@ export default function ChatProvider({ children }: any) {
 				router.push(`/${section}/${newChatId}`);
 			}
 		},
-		[
-			activeChat,
-			channel,
-			activeChatId,
-			userId,
-			activeMessages,
-			section,
-		]
+		[activeChat, channel, activeChatId, userId, activeMessages, section]
 	);
 
 	const createChat = useCallback(
@@ -278,13 +271,7 @@ export default function ChatProvider({ children }: any) {
 			console.log("section", section);
 			router.push(`/${section}/${newChat.id}`);
 		},
-		[
-			channel,
-			activeChatId,
-			userId,
-			activeMessages,
-			section,
-		]
+		[channel, activeChatId, userId, activeMessages, section]
 	);
 
 	const loadClickList = useCallback(() => {
@@ -1363,7 +1350,7 @@ export default function ChatProvider({ children }: any) {
 
 			console.log("data", data);
 			if (JSON.stringify(data) !== "{}") {
-				const chat = { ...data.data, id: chatId }; // 将id更新
+				const chat = { ...data.data, id: chatId, shareImg: data.image }; // 将id更新
 				setSharedChat(chat);
 				setActiveChatId(chat.id);
 			} else {

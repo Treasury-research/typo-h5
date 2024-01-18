@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Box, Flex, VStack, Container, useToast } from "@chakra-ui/react";
-import { NextSeo } from "next-seo";
+import { NextSeo } from "components";
 import { useRouter } from "next/router";
 import useChatContext from "hooks/useChatContext";
 import { Menu } from "components/chat/menu";
@@ -10,9 +10,7 @@ import { useAccount } from "wagmi";
 import { ChatTitle } from "components/chat/ChatTitle";
 import { useUserInfoStore } from "store/userInfoStore";
 import { Quest } from "components/chat/Quest";
-import ChatProvider from "components/chat/Context";
 import { Operate } from "./Operate";
-import { useStore } from "store";
 
 const Chat = () => {
 	const router = useRouter();
@@ -30,10 +28,8 @@ const Chat = () => {
 	const [section, chatId] = chatKey;
 	const { isConnected, address } = useAccount();
 	const { userId } = useUserInfoStore();
-	const needSign = isConnected && !userId;
-	const showToast = useToast();
 
-	console.log("chatKey", chatKey);
+	console.log("chatKey", section, chatId);
 	useEffect(() => {
 		if (section) {
 			setSection(section);
