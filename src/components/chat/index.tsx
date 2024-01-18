@@ -4,7 +4,7 @@ import { NextSeo } from "components";
 import { useRouter } from "next/router";
 import useChatContext from "hooks/useChatContext";
 import { Menu } from "components/chat/menu";
-import { ChatContent } from "components/chat/ChatContent";
+import ChatContent from "components/chat/content";
 import { ChatInput } from "components/chat/ChatInput";
 import { useAccount } from "wagmi";
 import { ChatTitle } from "components/chat/ChatTitle";

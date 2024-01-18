@@ -433,18 +433,18 @@ export function SourceActionSheet({ source, index, onClose, onPreview }: any) {
 		return;
 	}
 
-	const previewSource = useCallback(() => {
+	const previewSource = () => {
 		if (onPreview) {
 			onPreview();
 		}
 
 		onClose();
-	}, [source]);
+	};
 
-	const openSource = useCallback(() => {
+	const openSource = () => {
 		window.open(source.link);
 		onClose();
-	}, [source]);
+	};
 
 	return (
 		<>

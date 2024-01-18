@@ -14,7 +14,7 @@ import { ChatChildren, ChatList } from "lib/types";
 import { Operate } from "../Operate";
 import { AiFillCaretLeft, AiFillCaretRight } from "react-icons/ai";
 import useChatContext from "hooks/useChatContext";
-import { QuoteTem } from "./../QuoteTem";
+import { QuoteTem } from "../QuoteTem";
 
 export function Right({ item, index, isLoading }: any) {
   const { activeChat, channel } = useChatContext();

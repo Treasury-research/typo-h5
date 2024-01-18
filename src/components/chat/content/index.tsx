@@ -1,34 +1,35 @@
 import { Box, VStack, Text } from "@chakra-ui/react";
 import { ChatChildren, ChatList } from "lib/types";
 
-import { Left } from "./LeftContent";
-import { Error } from "./ErrorContent";
-import { Right } from "./RightContent";
-import { Guide } from "./../Guide";
+import { Left } from "components/chat/content/LeftContent";
+import { Error } from "components/chat/content/ErrorContent";
+import { Right } from "components/chat/content/RightContent";
+import { Guide } from "components/chat/Guide";
 
 import { useUserInfoStore } from "store/userInfoStore";
 import { useMemo } from "react";
-import useChatContext from 'hooks/useChatContext'
+import useChatContext from "hooks/useChatContext";
 
-export function ChatContent() {
-  const {
-    activeChat,
-    setInput,
-    isLoading,
-    setAgent,
-    showAgent,
-    onScroll,
-    openNav
-  } = useChatContext();
+export default function ChatContent() {
+	const {
+		activeChat,
+		setInput,
+		isLoading,
+		setAgent,
+		showAgent,
+		onScroll,
+		openNav,
+	} = useChatContext();
 
-  const messages = activeChat?.messages;
-  const lastMessage = messages && messages.findLast((item: any) => item.type === "answer");
-  const { userId } = useUserInfoStore();
-  const showChat = activeChat?.messages?.length > 0
+	const messages = activeChat?.messages;
+	const lastMessage =
+		messages && messages.findLast((item: any) => item.type === "answer");
+	const { userId } = useUserInfoStore();
+	const showChat = activeChat?.messages?.length > 0;
 
-  console.log('showChat', showChat)
+	console.log("showChat", showChat);
 
-  return (
+	return (
 		<>
 			{showChat && (
 				<Text

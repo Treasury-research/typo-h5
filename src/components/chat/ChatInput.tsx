@@ -135,8 +135,7 @@ export const ChatInput = () => {
 					<TextArea
 						rows={1}
 						ref={myInput}
-						minHeight="40px"
-						className="chat-input flex-1 no-scrollbar"
+						className="chat-input m-h-[40px] flex-1 no-scrollbar"
 						placeholder="You can ask me anything!"
 						value={input}
 						onChange={setInput}
