@@ -156,6 +156,12 @@ export function Quest() {
 		const GalleryItem = awards.filter((item) => item.type === "gallery_s1")[0];
 		const Gallery2Item = awards.filter((item) => item.type === "gallery_s2")[0];
 		const Token2049Item = awards.filter((item) => item.type === "token2049")[0];
+		const OlaGalaItem = awards.filter((item) => item.type === "OlaGala")[0];
+		const CampaignRewardsItem =
+			(GalleryItem?.score || 0) +
+			(Gallery2Item?.score || 0) +
+			(Token2049Item?.score || 0) +
+			(OlaGalaItem?.score || 0);
 
 		return {
 			preRegItem,
@@ -166,9 +172,7 @@ export function Quest() {
 			referralItem,
 			TGItem,
 			SubstackItem,
-			GalleryItem,
-			Gallery2Item,
-			Token2049Item,
+			CampaignRewardsItem,
 		};
 	}, [awards]);
 
@@ -432,29 +436,11 @@ export function Quest() {
 												}
 											/>
 
-											{awardItems.GalleryItem && (
-												<AwardItem
-													title="Gallery S1"
-													isFinish={!!awardItems.GalleryItem}
-													value={awardItems.GalleryItem?.score}
-												/>
-											)}
-
-											{awardItems.Gallery2Item && (
-												<AwardItem
-													title="Gallery S2"
-													isFinish={!!awardItems.Gallery2Item}
-													value={awardItems.Gallery2Item?.score}
-												/>
-											)}
-
-											{awardItems.Token2049Item && (
-												<AwardItem
-													title="TOKEN2049"
-													isFinish={!!awardItems.Token2049Item}
-													value={awardItems.Token2049Item?.score}
-												/>
-											)}
+											<AwardItem
+												title="Campaign Rewards"
+												isFinish={!!awardItems.CampaignRewardsItem}
+												value={awardItems.CampaignRewardsItem}
+											/>
 
 											{isInvite && (
 												<AwardItem
