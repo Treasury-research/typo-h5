@@ -1,50 +1,48 @@
 import {
-  HStack,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalHeader,
-  ModalOverlay,
-  VStack,
-  Image,
-  InputGroup,
-  Input,
-  Button,
-  Box,
-  useClipboard,
-  Flex,
-  useToast,
-  Text
+	HStack,
+	Modal,
+	ModalBody,
+	ModalCloseButton,
+	ModalContent,
+	ModalHeader,
+	ModalOverlay,
+	VStack,
+	Image,
+	InputGroup,
+	Input,
+	Button,
+	Box,
+	useClipboard,
+	Flex,
+	useToast,
+	Text,
 } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { useStore } from "store";
 import { useUserInfoStore } from "store/userInfoStore";
 
 export function InviteModal() {
-  const { openInviteModal, setOpenInviteModal } = useStore();
-  const { userId } = useUserInfoStore();
-  const { onCopy, value, setValue } = useClipboard('');
-  const showToast = useToast();
+	const { openInviteModal, setOpenInviteModal } = useStore();
+	const { userId } = useUserInfoStore();
+	const { onCopy, value, setValue } = useClipboard("");
+	const showToast = useToast();
 
-  useEffect(() => {
-    setValue(
-      `${location.origin}&inviteId=${userId}`
-    );
-  }, [userId]);
+	useEffect(() => {
+		setValue(`${location.origin}&inviteId=${userId}`);
+	}, [userId]);
 
-  const copyUrl = () => {
-    onCopy()
+	const copyUrl = () => {
+		onCopy();
 
-    showToast({
-      position: 'top',
-      title: 'Copied!',
-      variant: 'subtle',
-      status: 'info'
-    })
-  }
+		showToast({
+			position: "top",
+			title: "Copied!",
+			variant: "subtle",
+			status: "info",
+		});
+	};
 
-  return (
+	return (
 		<Modal
 			onClose={() => setOpenInviteModal(false)}
 			isOpen={openInviteModal}
@@ -152,12 +150,19 @@ export function InviteModal() {
 								display="flex"
 								alignItems="center"
 							>
-								<Text fontSize="12px" fontWeight="700" marginRight="10px">
-									https://app.quseisid
+								<Text
+									fontSize="12px"
+									fontWeight="700"
+									marginRight="10px"
+									whiteSpace="nowrap"
+									overflow="hidden"
+								>
+									{value}
 								</Text>
 								<Button
+									w="180px"
 									background="white"
-									fontWeight="700"
+									fontWeight="600"
 									fontSize="14px"
 									borderRadius="6px"
 									onClick={copyUrl}
