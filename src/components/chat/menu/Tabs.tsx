@@ -4,15 +4,16 @@ import {
 	Flex,
 	HStack,
 	Icon,
-	Badge,
+	Button,
 	Input,
 	VStack,
 	useToast,
 } from "@chakra-ui/react";
-import { useEffect, useRef, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+import { useEffect, useRef, useCallback } from "react";
 import { ChatList } from "lib/types";
 import { AiOutlineClear } from "react-icons/ai";
-import { IoIosAdd, IoIosAddCircle } from "react-icons/io";
+import PlusIcon from "components/icons/Plus";
 import { RiCopperCoinLine, RiDeleteBinLine } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
 import { useUserInfoStore } from "store/userInfoStore";
@@ -24,12 +25,15 @@ export function Tabs() {
 	const myTab = useRef<any>(null);
 	const {
 		setInput,
+		addChat,
 		closeNav,
 		allChatList,
 		activeChat,
 		setActiveChatId,
 		removeChat,
 		clearMessage,
+		channel,
+		section,
 		updateChat,
 	} = useChatContext();
 	const showToast = useToast();
@@ -46,6 +50,29 @@ export function Tabs() {
 		}, 100);
 	};
 
+	const addNewChat = useCallback(() => {
+		// closeNav();
+		const timestamp = new Date().getTime();
+		const time = new Date(timestamp).toLocaleTimeString();
+		const newChatId = uuidv4();
+
+		const newChat: any = {
+			id: newChatId,
+			timestamp: timestamp,
+			type: "general",
+			isSandBox: false,
+			channel,
+			messages: [],
+			userId,
+			section,
+		};
+
+		newChat.name = `New Chat ${time}`;
+
+		addChat(newChat);
+		setActiveChatId(newChat.id);
+	}, [channel, userId, section]);
+
 	return (
 		<VStack w="full" h="full" pos="relative" spacing={0}>
 			<HStack w="full" justify="space-between" px={4} my={3}>
@@ -54,7 +81,7 @@ export function Tabs() {
 				</Text>
 			</HStack>
 
-			<VStack w="full" h="calc(100% - 40px)" alignItems="flex-start">
+			<VStack w="full" maxH="calc(100% - 50px)" alignItems="center">
 				<Box
 					w="full"
 					ref={myTab}
@@ -180,6 +207,25 @@ export function Tabs() {
 							);
 						})}
 				</Box>
+				<Button
+					width="90%"
+					mt="10px"
+					borderRadius="8px"
+					color="#487C7E"
+					background="#FFE3AC"
+					height="38px"
+					display="flex"
+					alignItems="center"
+					justifyContent="center"
+					fontWeight="500"
+					marginBottom="20px"
+					onClick={addNewChat}
+				>
+					<Box marginRight="8px">
+						<PlusIcon />
+					</Box>
+					<Box>New Chat</Box>
+				</Button>
 			</VStack>
 		</VStack>
 	);

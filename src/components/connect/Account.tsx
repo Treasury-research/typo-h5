@@ -16,7 +16,6 @@ import {
 	VerificationEmailModal,
 	ConnectModal,
 } from "components";
-import { v4 as uuidv4 } from "uuid";
 import { useJwtStore } from "store/jwtStore";
 import { toShortAddress } from "lib";
 import { BiLogOut, BiLogIn } from "react-icons/bi";
@@ -34,13 +33,11 @@ import { BsTelegram } from "react-icons/bs";
 import { SiSubstack } from "react-icons/si";
 import { BiWallet } from "react-icons/bi";
 import useWallet from "hooks/useWallet";
-import PlusIcon from "components/icons/Plus";
 import BookIcon from "components/icons/Book";
 import api from "api";
 
 const Account = () => {
-	const { closeNav, channel, section, addChat, setActiveChatId } =
-		useChatContext();
+	const { closeNav, addChat, setActiveChatId } = useChatContext();
 	const { setJwt } = useJwtStore();
 	const { doLogout } = useWallet();
 	const { email, userId, setUserId, setEmail, account } = useUserInfoStore();
@@ -79,29 +76,6 @@ const Account = () => {
 		}
 	}, [userId, email]);
 
-	const addNewChat = useCallback(() => {
-		// closeNav();
-		const timestamp = new Date().getTime();
-		const time = new Date(timestamp).toLocaleTimeString();
-		const newChatId = uuidv4();
-
-		const newChat: any = {
-			id: newChatId,
-			timestamp: timestamp,
-			type: "general",
-			isSandBox: false,
-			channel,
-			messages: [],
-			userId,
-			section,
-		};
-
-		newChat.name = `New Chat ${time}`;
-
-		addChat(newChat);
-		setActiveChatId(newChat.id);
-	}, [channel, userId, section]);
-
 	// useEffect(() => {
 	// 	if (userId) {
 	// 		setOpenRemindModal(true);
@@ -110,26 +84,8 @@ const Account = () => {
 
 	return (
 		<VStack w="full" h="full" pt={4} alignItems="center" justify="flex-end">
-			{userId ? (
-				<VStack w="full" px={3} mb={1}>
-					<Button
-						width="100%"
-						borderRadius="8px"
-						color="#487C7E"
-						background="#FFE3AC"
-						height="40px"
-						display="flex"
-						alignItems="center"
-						justifyContent="center"
-						fontWeight="600"
-						marginBottom="20px"
-						onClick={addNewChat}
-					>
-						<Box marginRight="8px">
-							<PlusIcon />
-						</Box>
-						<Box>New Chat</Box>
-					</Button>
+			<VStack w="full" px={3} mb={1}>
+				{userId ? (
 					<Box w="full" bg="whiteAlpha.300" color="#fff" borderRadius={10}>
 						<Flex
 							className="w-full justify-between"
@@ -256,20 +212,21 @@ const Account = () => {
 							</HStack>
 						</VStack>
 					</Box>
-				</VStack>
-			) : (
-				<Button
-					mb={2}
-					leftIcon={<Icon as={BiWallet} boxSize={5} />}
-					variant="whitePrimary"
-					w="80%"
-					size="sm"
-					borderRadius={16}
-					onClick={() => setOpenConnectModal(true)}
-				>
-					Sign in
-				</Button>
-			)}
+				) : (
+					<Button
+						mb={2}
+						leftIcon={<Icon as={BiWallet} boxSize={5} />}
+						variant="whitePrimary"
+						w="95%"
+            h="32px"
+						size="sm"
+						borderRadius={16}
+						onClick={() => setOpenConnectModal(true)}
+					>
+						Sign in
+					</Button>
+				)}
+			</VStack>
 
 			<HStack
 				w="full"
