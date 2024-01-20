@@ -237,7 +237,7 @@ export function Quest() {
 							mt={3}
 							overflowY="scroll"
 						>
-							<Swiper
+							{/* <Swiper
 								autoplay={5000}
 								indicator={(total: number, current: any) => (
 									<Box width="100%" marginBottom="10px">
@@ -278,7 +278,7 @@ export function Quest() {
 										</Swiper.Item>
 									);
 								})}
-							</Swiper>
+							</Swiper> */}
 
 							<Card
 								round

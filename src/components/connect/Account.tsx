@@ -168,7 +168,7 @@ const Account = () => {
 										setOpenInviteModal(true);
 									}}
 								>
-									Referral
+									Refer
 								</Button>
 							</HStack>
 							<HStack w="full" justify="space-between">
@@ -218,7 +218,7 @@ const Account = () => {
 						leftIcon={<Icon as={BiWallet} boxSize={5} />}
 						variant="whitePrimary"
 						w="95%"
-            h="32px"
+						h="32px"
 						size="sm"
 						borderRadius={16}
 						onClick={() => setOpenConnectModal(true)}
