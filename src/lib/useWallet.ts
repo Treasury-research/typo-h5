@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 import { useJwtStore } from "store/jwtStore";
 import { useStore } from "store";
 import { useUserInfoStore } from "store/userInfoStore";
-import { useAiStore } from "store/aiStore";
+import { useChatStore } from "store/chatStore";
 import { mainnet } from "wagmi/chains";
 import {
   EthereumClient,
@@ -35,7 +35,7 @@ export default function useWallet() {
   const { inviteId } = router?.query;
   const showToast = useToast();
   const [signLoading, setSignLoading] = useState(false);
-  const { setTotalCoupon, setUsedCoupon } = useAiStore();
+  const { setTotalCoupon, setUsedCoupon } = useChatStore();
   const { setJwt } = useJwtStore();
   const { open } = useWeb3Modal();
   const [isSign, setIsSign] = useBoolean(false);

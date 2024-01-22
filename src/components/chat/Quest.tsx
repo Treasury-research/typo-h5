@@ -40,9 +40,12 @@ import {
 import { useStore } from "store";
 import { BaseModal, Copy, Empty, InviteModal } from "components";
 import { base64, toShortAddress } from "lib";
-import { useAiStore } from "store/aiStore";
+import { useChatStore } from "store/chatStore";
 import { Card, Swiper, Popup } from "react-vant";
 import useChatContext from "hooks/useChatContext";
+import useWallet from "hooks/useWallet";
+import { useNftStore } from "store/nftStore";
+import moment from "moment";
 
 const slides = [
 	{
@@ -120,8 +123,11 @@ export function Quest() {
 	const { setOpenInviteModal, setOpenBindEmailModal } = useStore();
 	const [showModal, setShowModal] = useBoolean(false);
 	const [uuid, setUuid] = useState("");
-	const { setTotalCoupon, setUsedCoupon } = useAiStore();
+	const { setTotalCoupon, setUsedCoupon } = useChatStore();
 	const [showReferer, setShowReferer] = useState(false);
+	const [isLog, setIsLog] = useBoolean(false);
+	const { getTccLog } = useWallet();
+	const { logList } = useNftStore();
 
 	console.log("showReferer", showReferer);
 
@@ -157,11 +163,14 @@ export function Quest() {
 		const Gallery2Item = awards.filter((item) => item.type === "gallery_s2")[0];
 		const Token2049Item = awards.filter((item) => item.type === "token2049")[0];
 		const OlaGalaItem = awards.filter((item) => item.type === "OlaGala")[0];
+		const TccItem = awards.filter(
+			(item: any) => item.type === "conversation"
+		)[0];
 		const CampaignRewardsItem =
-			(GalleryItem?.score || 0) +
-			(Gallery2Item?.score || 0) +
-			(Token2049Item?.score || 0) +
-			(OlaGalaItem?.score || 0);
+			parseInt(String(GalleryItem?.score) || "0") +
+			parseInt(String(Gallery2Item?.score) || "0") +
+			parseInt(String(Token2049Item?.score) || "0") +
+			parseInt(String(OlaGalaItem?.score) || "0");
 
 		return {
 			preRegItem,
@@ -172,6 +181,7 @@ export function Quest() {
 			referralItem,
 			TGItem,
 			SubstackItem,
+			TccItem,
 			CampaignRewardsItem,
 		};
 	}, [awards]);
@@ -208,6 +218,10 @@ export function Quest() {
 	}, [userId, email]);
 
 	const list = slides;
+
+	useEffect(() => {
+		getTccLog();
+	}, [userId]);
 
 	return (
 		<>
@@ -327,189 +341,231 @@ export function Quest() {
 													color="white"
 													padding="5px 10px"
 													marginRight="10px"
+													opacity={isLog ? "50%" : "100%"}
+													onClick={setIsLog.off}
 												>
 													Earn
 												</Box>
-												{/* <Box
+												<Box
 													background="#487C7E"
 													borderRadius="20px"
 													color="white"
 													padding="5px 10px"
-													opacity="50%"
+													opacity={isLog ? "100%" : "50%"}
+													onClick={setIsLog.on}
 												>
 													Log
-												</Box> */}
+												</Box>
 											</Box>
-											{awardItems.preRegItem && (
-												<AwardItem
-													title="Pre-reg"
-													isFinish={!!awardItems.preRegItem}
-													value={awardItems.preRegItem?.score}
-												/>
+											{isLog ? (
+												<VStack w="full" spacing={2}>
+													<Box
+														color="gray.600"
+														className="w-full max-h-[250px] overflow-auto"
+													>
+														{logList?.map((t: any, i: number) => (
+															<Box className="flex mb-1" key={i}>
+																<Text className="w-[140px]">
+																	{moment(t.createdAt).format("MM/DD/YYYY")}
+																</Text>
+																<Text>{t.type}</Text>
+																<Text className="ml-auto">
+																	{t.score < 0 ? t.score : `+${t.score}`}
+																</Text>
+															</Box>
+														))}
+
+														{logList.length == 0 && (
+															<Empty height="150px" message ="No Logs"/>
+														)}
+													</Box>
+												</VStack>
+											) : (
+												<VStack w="full" spacing={2}>
+													{awardItems.preRegItem && (
+														<AwardItem
+															title="Pre-reg"
+															isFinish={!!awardItems.preRegItem}
+															value={awardItems.preRegItem?.score}
+														/>
+													)}
+
+													<AwardItem
+														title="Sign in"
+														isFinish={!!awardItems.signInItem}
+														value={awardItems.signInItem?.score}
+													/>
+
+													{awardItems.typeHunterItem && (
+														<AwardItem
+															title="Typo Hunter"
+															isFinish={!!awardItems.typeHunterItem}
+															value={awardItems.typeHunterItem?.score}
+														/>
+													)}
+
+													<AwardItem
+														title="Verify Telegram"
+														isFinish={!!awardItems.TGItem}
+														value={
+															!!awardItems.TGItem ? (
+																awardItems.TGItem?.score
+															) : (
+																<HStack
+																	spacing={0}
+																	mr={-1}
+																	fontSize="sm"
+																	onClick={() => {
+																		setShowModal.on();
+																		onClose();
+																	}}
+																>
+																	<Text>Verify</Text>
+																	<ChevronRightIcon boxSize={5} />
+																</HStack>
+															)
+														}
+													/>
+
+													<AwardItem
+														title="Verify Email"
+														isFinish={!!awardItems.verifyEmailItem}
+														value={
+															!!awardItems.verifyEmailItem ? (
+																awardItems.verifyEmailItem?.score
+															) : (
+																<HStack
+																	spacing={0}
+																	mr={-1}
+																	fontSize="sm"
+																	onClick={() => {
+																		setOpenBindEmailModal(true);
+																		onClose();
+																	}}
+																>
+																	<Text>Verify</Text>
+																	<ChevronRightIcon boxSize={5} />
+																</HStack>
+															)
+														}
+													/>
+
+													<AwardItem
+														title="Email subscription"
+														isFinish={!!awardItems.SubstackItem}
+														email={email}
+														value={
+															!!awardItems.SubstackItem ? (
+																awardItems.SubstackItem?.score
+															) : (
+																<HStack
+																	spacing={0}
+																	mr={-1}
+																	fontSize="sm"
+																	onClick={() => {
+																		if (email) {
+																			window.open("https://knn3.substack.com/");
+																		} else {
+																			setOpenBindEmailModal(true);
+																			onClose();
+																		}
+																	}}
+																>
+																	<Text>Subscribe</Text>
+																	<ChevronRightIcon boxSize={5} />
+																</HStack>
+															)
+														}
+													/>
+
+													<AwardItem
+														title="Campaign Rewards"
+														isFinish={!!awardItems.CampaignRewardsItem}
+														value={awardItems.CampaignRewardsItem}
+													/>
+
+													{isInvite && (
+														<AwardItem
+															title="Referee"
+															isFinish={!!awardItems.refereeItem}
+															value={
+																!!awardItems.refereeItem ? (
+																	awardItems.refereeItem?.score
+																) : (
+																	<HStack
+																		spacing={0}
+																		mr={-1}
+																		fontSize="sm"
+																		onClick={() => {
+																			setOpenBindEmailModal(true);
+																			onClose();
+																		}}
+																	>
+																		<Text>Verify</Text>
+																		<ChevronRightIcon boxSize={5} />
+																	</HStack>
+																)
+															}
+														/>
+													)}
+
+													{awardItems.TccItem && (
+														<AwardItem
+															title="Daily Reward"
+															isFinish={!!awardItems.TccItem}
+															value={Number(
+																awardItems.TccItem?.score.toFixed(1)
+															)}
+														/>
+													)}
+
+													<AwardItem
+														title="Referral"
+														isFinish={!!awardItems.referralItem}
+														value={
+															!!awardItems.referralItem ? (
+																awardItems.referralItem?.score
+															) : (
+																<HStack
+																	spacing={0}
+																	mr={-1}
+																	fontSize="sm"
+																	onClick={() => {
+																		setOpenInviteModal(true);
+																		onClose();
+																	}}
+																>
+																	<Text>Invite</Text>
+																	<ChevronRightIcon boxSize={5} />
+																</HStack>
+															)
+														}
+													/>
+												</VStack>
 											)}
-
-											<AwardItem
-												title="Sign in"
-												isFinish={!!awardItems.signInItem}
-												value={awardItems.signInItem?.score}
-											/>
-
-											{awardItems.typeHunterItem && (
-												<AwardItem
-													title="Typo Hunter"
-													isFinish={!!awardItems.typeHunterItem}
-													value={awardItems.typeHunterItem?.score}
-												/>
-											)}
-
-											<AwardItem
-												title="Verify Telegram"
-												isFinish={!!awardItems.TGItem}
-												value={
-													!!awardItems.TGItem ? (
-														awardItems.TGItem?.score
-													) : (
-														<HStack
-															spacing={0}
-															mr={-1}
-															fontSize="sm"
-															onClick={() => {
-																setShowModal.on();
-																onClose();
-															}}
-														>
-															<Text>Verify</Text>
-															<ChevronRightIcon boxSize={5} />
-														</HStack>
-													)
-												}
-											/>
-
-											<AwardItem
-												title="Verify Email"
-												isFinish={!!awardItems.verifyEmailItem}
-												value={
-													!!awardItems.verifyEmailItem ? (
-														awardItems.verifyEmailItem?.score
-													) : (
-														<HStack
-															spacing={0}
-															mr={-1}
-															fontSize="sm"
-															onClick={() => {
-																setOpenBindEmailModal(true);
-																onClose();
-															}}
-														>
-															<Text>Verify</Text>
-															<ChevronRightIcon boxSize={5} />
-														</HStack>
-													)
-												}
-											/>
-
-											<AwardItem
-												title="Email subscription"
-												isFinish={!!awardItems.SubstackItem}
-												email={email}
-												value={
-													!!awardItems.SubstackItem ? (
-														awardItems.SubstackItem?.score
-													) : (
-														<HStack
-															spacing={0}
-															mr={-1}
-															fontSize="sm"
-															onClick={() => {
-																if (email) {
-																	window.open("https://knn3.substack.com/");
-																} else {
-																	setOpenBindEmailModal(true);
-																	onClose();
-																}
-															}}
-														>
-															<Text>Subscribe</Text>
-															<ChevronRightIcon boxSize={5} />
-														</HStack>
-													)
-												}
-											/>
-
-											<AwardItem
-												title="Campaign Rewards"
-												isFinish={!!awardItems.CampaignRewardsItem}
-												value={awardItems.CampaignRewardsItem}
-											/>
-
-											{isInvite && (
-												<AwardItem
-													title="Referee"
-													isFinish={!!awardItems.refereeItem}
-													value={
-														!!awardItems.refereeItem ? (
-															awardItems.refereeItem?.score
-														) : (
-															<HStack
-																spacing={0}
-																mr={-1}
-																fontSize="sm"
-																onClick={() => {
-																	setOpenBindEmailModal(true);
-																	onClose();
-																}}
-															>
-																<Text>Verify</Text>
-																<ChevronRightIcon boxSize={5} />
-															</HStack>
-														)
-													}
-												/>
-											)}
-
-											<AwardItem
-												title="Referral"
-												isFinish={!!awardItems.referralItem}
-												value={
-													!!awardItems.referralItem ? (
-														awardItems.referralItem?.score
-													) : (
-														<HStack
-															spacing={0}
-															mr={-1}
-															fontSize="sm"
-															onClick={() => {
-																setOpenInviteModal(true);
-																onClose();
-															}}
-														>
-															<Text>Invite</Text>
-															<ChevronRightIcon boxSize={5} />
-														</HStack>
-													)
-												}
-											/>
 										</VStack>
 									</Box>
 								</Card.Body>
-								<Card.Footer>
-									<Button
-										w="full"
-										background="#357E7F"
-										size="sm"
-										h="35px"
-										borderRadius={8}
-										color="white"
-										fontWeight="semibold"
-										leftIcon={<Icon as={FaUserGroup} boxSize={4} />}
-										onClick={() => {
-											setOpenInviteModal(true);
-											onClose();
-										}}
-									>
-										Invite more friends
-									</Button>
-								</Card.Footer>
+								{!isLog && (
+									<Card.Footer>
+										<Button
+											w="full"
+											background="#357E7F"
+											size="sm"
+											h="35px"
+											borderRadius={8}
+											color="white"
+											fontWeight="semibold"
+											leftIcon={<Icon as={FaUserGroup} boxSize={4} />}
+											onClick={() => {
+												setOpenInviteModal(true);
+												onClose();
+											}}
+										>
+											Invite more friends
+										</Button>
+									</Card.Footer>
+								)}
 							</Card>
 							{/* <Card
                 round

@@ -8,6 +8,7 @@ import {
 	Tooltip,
 	Text,
 	Center,
+	useToast,
 } from "@chakra-ui/react";
 import {
 	InviteModal,
@@ -22,7 +23,7 @@ import { BiLogOut, BiLogIn } from "react-icons/bi";
 import { LuUsers } from "react-icons/lu";
 import { TfiEmail } from "react-icons/tfi";
 import { useStore } from "store";
-import { useAiStore } from "store/aiStore";
+import { useChatStore } from "store/chatStore";
 import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
 import useChatContext from "hooks/useChatContext";
 import { useConnectModalStore } from "store/modalStore";
@@ -37,7 +38,7 @@ import BookIcon from "components/icons/Book";
 import api from "api";
 
 const Account = () => {
-	const { closeNav, addChat, setActiveChatId } = useChatContext();
+	const { closeNav, addChat, setActiveChatId, isLoading } = useChatContext();
 	const { setJwt } = useJwtStore();
 	const { doLogout } = useWallet();
 	const {
@@ -49,6 +50,7 @@ const Account = () => {
 		isPassuser,
 		setIsPassuser,
 	} = useUserInfoStore();
+	const showToast = useToast();
 	const { setOpenInviteModal, setOpenBindEmailModal } = useStore();
 	const { setOpenRemindModal, setOpenConnectModal } = useConnectModalStore();
 	const {
@@ -59,7 +61,7 @@ const Account = () => {
 		setUsedCoupon,
 		setSearchLimit,
 		setDailyAdd,
-	} = useAiStore();
+	} = useChatStore();
 
 	const getUserInfo = async () => {
 		const res: any = await api.get(`/api/auth`);
@@ -106,7 +108,10 @@ const Account = () => {
 						>
 							<HStack flex="1" alignItems="flex-start">
 								<Jazzicon diameter={40} seed={jsNumberForAddress(account)} />
-								<Box className="flex-col flex-1 justify-around" marginLeft="4px">
+								<Box
+									className="flex-col flex-1 justify-around"
+									marginLeft="4px"
+								>
 									<Box className="text-[16px] font-bold">
 										{toShortAddress(account, 10)}
 									</Box>
@@ -145,6 +150,14 @@ const Account = () => {
 								className="text-[21px] cursor-pointer h-6"
 								_hover={{ transform: "scale(1.1)" }}
 								onClick={() => {
+									if (isLoading) {
+										showToast({
+											position: "top",
+											title: "Please Wait...",
+											variant: "subtle",
+										});
+										return;
+									}
 									doLogout();
 									setActiveChatId("");
 									closeNav();

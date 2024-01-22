@@ -5,7 +5,7 @@ import { useBindEmailStore, useConnectModalStore } from "store/modalStore";
 import { useWalletStore } from "store/walletStore";
 import { useUserInfoStore } from "store/userInfoStore";
 import { useJwtStore } from "store/jwtStore";
-import { useAiStore } from "store/aiStore";
+import { useChatStore } from "store/chatStore";
 import { useStore } from "store";
 import { useRouter } from "next/router";
 import { useToast } from "@chakra-ui/react";
@@ -43,7 +43,7 @@ export const Web3ContextProvider = ({ children }) => {
     useConnectModalStore();
   const { autoConnect, setAutoConnect, setMessage, setSignature } =
     useWalletStore();
-  const { setTotalCoupon, setUsedCoupon } = useAiStore();
+  const { setTotalCoupon, setUsedCoupon } = useChatStore();
   const { jwt, setJwt } = useJwtStore();
   const {
     setUserId,

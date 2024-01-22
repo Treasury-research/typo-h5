@@ -20,7 +20,7 @@ import { Search2Icon } from "@chakra-ui/icons";
 import { Input } from "react-vant";
 import { BeatLoader } from "react-spinners";
 import { commands } from "components/chat/TextAreaTips";
-import { useAiStore } from "store/aiStore";
+import { useChatStore } from "store/chatStore";
 import { useJwtStore } from "store/jwtStore";
 import { useUserInfoStore } from "store/userInfoStore";
 import useChatContext from "hooks/useChatContext";
@@ -66,7 +66,7 @@ export const ChatInput = () => {
 	const myInput = useRef<any>(null);
 	const myTip = useRef<any>(null);
 	const [isComposition, setIsComposition] = useState(false);
-	const { searchLimit, setSearchLimit } = useAiStore();
+	const { searchLimit, setSearchLimit } = useChatStore();
 
 	const onPressEnter = (e: any) => {
 		console.log("onPressEnter", e);
@@ -139,6 +139,7 @@ export const ChatInput = () => {
 						placeholder="You can ask me anything!"
 						value={input}
 						onChange={setInput}
+						readOnly={isLoading}
 						autoSize={{ maxHeight: 150 }}
 						onFocus={setIsFocus.on}
 						// onPressEnter={onPressEnter}

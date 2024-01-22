@@ -14,7 +14,6 @@ import { useRouter } from "next/router";
 import { commands } from "components/chat/TextAreaTips";
 import moment from "moment";
 import { extractJSON } from "lib/common";
-import { useAiStore } from "store/aiStore";
 
 const isJSONString = (str: string) => {
 	try {
@@ -41,7 +40,7 @@ export default function ChatProvider({ children }: any) {
 	const { account } = useWeb3Context();
 	const { jwt, setJwt } = useJwtStore();
 	const router = useRouter();
-	const { searchLimit, setSearchLimit } = useAiStore();
+	const { searchLimit, setSearchLimit } = useChatStore();
 
 	const {
 		isShowInputQuote,
@@ -279,6 +278,7 @@ export default function ChatProvider({ children }: any) {
 			getClickList();
 		}
 	}, [clickList]);
+	
 
 	const handleShortcutPrompt = useCallback(
 		async ({ chatId, messageId, prompt }: any) => {

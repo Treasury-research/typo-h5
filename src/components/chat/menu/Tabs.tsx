@@ -24,7 +24,7 @@ import useChatContext from "hooks/useChatContext";
 export function Tabs() {
 	const myTab = useRef<any>(null);
 	const {
-		setInput,
+		isLoading,
 		addChat,
 		closeNav,
 		allChatList,
@@ -51,7 +51,14 @@ export function Tabs() {
 	};
 
 	const addNewChat = useCallback(() => {
-		// closeNav();
+		if (isLoading) {
+			showToast({
+				position: "top",
+				title: "Please Wait...",
+				variant: "subtle",
+			});
+		}
+
 		const timestamp = new Date().getTime();
 		const time = new Date(timestamp).toLocaleTimeString();
 		const newChatId = uuidv4();
@@ -133,6 +140,13 @@ export function Tabs() {
 												as={FiEdit}
 												boxSize={4}
 												onClick={() => {
+													if (isLoading) {
+														showToast({
+															position: "top",
+															title: "Please Wait...",
+															variant: "subtle",
+														});
+													}
 													let channelName = "";
 													Dialog.confirm({
 														title: "Edit Title",
@@ -161,6 +175,13 @@ export function Tabs() {
 												as={AiOutlineClear}
 												boxSize={4}
 												onClick={() => {
+													if (isLoading) {
+														showToast({
+															position: "top",
+															title: "Please Wait...",
+															variant: "subtle",
+														});
+													}
 													Dialog.confirm({
 														title: "Clear",
 														confirmButtonText: "Confirm",
@@ -181,6 +202,13 @@ export function Tabs() {
 												as={RiDeleteBinLine}
 												boxSize={4}
 												onClick={() => {
+													if (isLoading) {
+														showToast({
+															position: "top",
+															title: "Please Wait...",
+															variant: "subtle",
+														});
+													}
 													Dialog.confirm({
 														title: "Delete",
 														confirmButtonText: "Confirm",

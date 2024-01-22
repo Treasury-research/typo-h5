@@ -47,6 +47,7 @@ const SourceBox = ({
 		setTotalCoupon,
 		setDailyAdd,
 		isGenerate,
+    isLoading,
 		setIsGenerate,
 		setActionSheetProps,
 		setIsActionSheetOpen,
@@ -295,6 +296,14 @@ const SourceBox = ({
 	};
 
 	const openSourceActionSheet = useCallback(() => {
+    if (isLoading) {
+			showToast({
+				position: "top",
+				title: "Please Wait...",
+				variant: "subtle",
+			});
+			return;
+		}
 		setActionSheetProps({
 			source,
 			type: "source",
@@ -435,8 +444,7 @@ export default function Search({
 	showQuoteIndex,
 	index,
 }: any) {
-	const { activeChat, isGenerate, setIsActionSheetOpen, setActionSheetProps } =
-		useChatContext();
+	const { activeChat, isGenerate, isLoading } = useChatContext();
 	const [more, setMore] = useState(false);
 	const { setIsShowInputQuote, setQuoteContent, setQuoteType } =
 		useQuoteStore();
@@ -445,7 +453,6 @@ export default function Search({
 	const { userId, isPassuser } = useUserInfoStore();
 	const { setOpenConnectModal } = useConnectModalStore();
 	const showToast = useToast();
-	const [isLoadingText, setIsLoadingText] = useBoolean(true);
 
 	const isLastLeftChat = useMemo(() => {
 		if (!activeChat) return false;
@@ -454,20 +461,41 @@ export default function Search({
 		return isLast && isAnswer;
 	}, [activeChat, chatIndex]);
 
-	useEffect(() => {
-		setTimeout(() => {
-			setIsLoadingText.off();
-		}, 1300);
-	}, []);
-
 	return (
 		<VStack spacing={5} p={2} alignItems="start" className="w-full">
 			<Box className="w-full">
 				<h2 className="text-2xl">Answer</h2>
-
-				<Box className="w-full">
-					<Markdown value={content} />
-				</Box>
+				{!done ? (
+					<Stack mt="10px">
+						<Skeleton
+							height="16px"
+							mb={1}
+							w={"90%"}
+							startColor="#F3F3F3"
+							endColor="#DFDFDF"
+							borderRadius={"8px"}
+						/>
+						<Skeleton
+							height="16px"
+							mb={1}
+							w={"80%"}
+							startColor="#F3F3F3"
+							endColor="#DFDFDF"
+							borderRadius={"8px"}
+						/>
+						<Skeleton
+							height="16px"
+							w={"70%"}
+							startColor="#F3F3F3"
+							endColor="#DFDFDF"
+							borderRadius={"8px"}
+						/>
+					</Stack>
+				) : (
+					<Box className="w-full">
+						<Markdown value={content} />
+					</Box>
+				)}
 
 				{done && isLastLeftChat && (
 					<Tooltip
@@ -545,7 +573,19 @@ export default function Search({
 										donePreview={donePreview}
 									/>
 								))}
-							<div onClick={() => setMore(!more)}>
+							<div
+								onClick={() => {
+									if (isLoading) {
+										showToast({
+											position: "top",
+											title: "Please Wait...",
+											variant: "subtle",
+										});
+                    return
+									}
+									setMore(!more);
+								}}
+							>
 								{viewMoreBox(more, sources.length - 3, sources)}
 							</div>
 						</div>

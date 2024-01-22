@@ -5,6 +5,7 @@ import {
 	VStack,
 	Avatar,
 	Icon,
+	Flex,
 	useBoolean,
 	useToast,
 } from "@chakra-ui/react";
@@ -22,6 +23,7 @@ import { Goplus } from "components/chat/templates/Goplus";
 import useChatContext from "hooks/useChatContext";
 import { BsSearch } from "react-icons/bs";
 import Search from "../templates/Search";
+import { BarLoader } from "react-spinners";
 
 export function Left({
 	chatId,
@@ -112,7 +114,7 @@ export function Left({
 						position="relative"
 						paddingRight="12px"
 					>
-						{!isLoading && (
+						{item.done && !isLoading && (
 							<Box
 								position="absolute"
 								right="0px"

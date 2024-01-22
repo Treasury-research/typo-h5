@@ -25,6 +25,7 @@ export function ChatTitle() {
 		openQuest,
 		openNav,
 		closeNav,
+		isLoading,
 		setActionSheetProps,
 		setIsActionSheetOpen,
 	} = useChatContext();
@@ -34,15 +35,14 @@ export function ChatTitle() {
 	const showToast = useToast();
 
 	const openShareActionSheet = useCallback(() => {
-		if (!userId) {
+		if (isLoading) {
 			showToast({
 				position: "top",
-				title: `You're not logged in yet.`,
+				title: "Please Wait...",
 				variant: "subtle",
-				status: "warning",
 			});
-			return;
 		}
+
 		setActionSheetProps({
 			type: "share",
 		});
@@ -74,7 +74,7 @@ export function ChatTitle() {
 					}
 					rightText={
 						<Box display="flex" alignItems="center">
-							{activeChat && activeChat.messages.length > 0 && (
+							{userId && activeChat && activeChat.messages.length > 0 && (
 								<Box
 									marginRight="18px"
 									cursor="pointer"
@@ -89,6 +89,15 @@ export function ChatTitle() {
 									as={BiGift}
 									boxSize={5}
 									onClick={() => {
+										if (!userId) {
+											showToast({
+												position: "top",
+												title: `You're not logged in yet.`,
+												variant: "subtle",
+												status: "warning",
+											});
+											return;
+										}
 										openQuest();
 									}}
 								/>
