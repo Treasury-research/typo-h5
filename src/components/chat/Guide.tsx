@@ -125,9 +125,10 @@ export function Guide() {
 						/>
 					</Stack>
 				) : (
-					cmds.map((item: any) => {
+					cmds.map((item: any, index) => {
 						return (
 							<Box
+								key={index}
 								background="white"
 								minHeight="40px"
 								whiteSpace="nowrap"
