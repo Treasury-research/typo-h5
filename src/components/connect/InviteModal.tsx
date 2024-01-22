@@ -163,7 +163,7 @@ export function InviteModal() {
 									w="180px"
 									background="white"
 									fontWeight="600"
-									fontSize="14px"
+									fontSize="13px"
 									borderRadius="6px"
 									onClick={copyUrl}
 								>

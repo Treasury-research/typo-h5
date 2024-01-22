@@ -125,7 +125,7 @@ export function Tabs() {
 										borderRadius: "5px",
 										height: "42px",
 										color: "#fff",
-										marginBottom: "10px",
+										marginBottom: "12px",
 									}}
 									rightIcon={
 										<HStack color="#fff" fontSize="sm" pl={3}>
@@ -209,11 +209,11 @@ export function Tabs() {
 				</Box>
 				<Button
 					width="90%"
-					mt="10px"
+					mt="12px"
 					borderRadius="8px"
 					color="#487C7E"
 					background="#FFE3AC"
-					height="38px"
+					height="44px"
 					display="flex"
 					alignItems="center"
 					justifyContent="center"
