@@ -110,16 +110,19 @@ export function Left({
 						bg="bg.white"
 						borderRadius={5}
 						position="relative"
-						paddingRight="20px"
+						paddingRight="12px"
 					>
-						<Box
-							position="absolute"
-							right="0px"
-							top="10px"
-							onClick={openMessageActionSheet}
-						>
-							<MoreIcon />
-						</Box>
+						{!isLoading && (
+							<Box
+								position="absolute"
+								right="0px"
+								top="10px"
+								onClick={openMessageActionSheet}
+							>
+								<MoreIcon />
+							</Box>
+						)}
+
 						{item.tool && item.tool === "profile" ? (
 							<Profile content={item.content} />
 						) : item.tool === "ens" ? (
@@ -139,6 +142,7 @@ export function Left({
 								done={item.done}
 								sources={item.sourceList}
 								content={item.content}
+								chatIndex={chatIndex}
 								submitMessage={submitMessage}
 								setInput={setInput}
 								showQuoteIndex={showQuoteIndex}

@@ -21,15 +21,16 @@ const Chat = () => {
 		loadChat,
 		isLoading,
 		showNav,
-		showQuest,
+		activeChat,
 		closeQuest,
 	} = useChatContext();
 	const chatKey: any = router?.query?.chatKey || [];
 	const [section, chatId] = chatKey;
 	const { isConnected, address } = useAccount();
 	const { userId } = useUserInfoStore();
+	const showChat = activeChat?.messages?.length > 0;
 
-	console.log("chatKey", section, chatId);
+	// console.log("chatKey", section, chatId);
 	useEffect(() => {
 		if (section) {
 			setSection(section);
@@ -63,15 +64,15 @@ const Chat = () => {
 					pr={0}
 					pl={0}
 					overflow="hidden"
-					className="no-scrollbar"
+					className="container no-scrollbar"
 					position="relative"
-					height="100%"
 				>
 					<Flex w="280vw" className={showNav ? "move-left" : "move-center"}>
 						<Menu />
 						<VStack
 							w="100vw"
 							h="full"
+							className="chat-panel"
 							pos="relative"
 							overflow="hidden"
 							alignItems="flex-start"
@@ -88,7 +89,7 @@ const Chat = () => {
 								alignItems="flex-start"
 							>
 								<ChatContent />
-								{!!isConnected && <ChatInput />}
+								{showChat && <ChatInput />}
 							</VStack>
 						</VStack>
 						<Quest />

@@ -93,7 +93,9 @@ export function MessageActionSheet({ item, chatIndex, onClose }: any) {
 
 	const isLastLeftChat = useMemo(() => {
 		if (!activeChat) return false;
-		return chatIndex === activeChat?.messages.length - 1;
+		const isLast = chatIndex === activeChat?.messages.length - 1;
+		const isAnswer = activeChat?.messages[chatIndex].type === "answer";
+		return isLast && isAnswer;
 	}, [activeChat, chatIndex]);
 
 	if (showDelete) {
@@ -636,7 +638,7 @@ export function Operate({ children }: any) {
 				</Popup>
 			}
 		>
-			<Flex w="full" pos="relative" gap={2} background="transparent">
+			<Flex w="full" h="100vh" pos="relative" gap={2} background="transparent">
 				{children}
 			</Flex>
 		</LongPressTouch>

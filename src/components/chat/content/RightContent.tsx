@@ -48,15 +48,18 @@ export function Right({ item, index, chatIndex, isLoading }: any) {
 					color="bg.white"
 					borderRadius={5}
 				>
-					<Box
-						position="absolute"
-						left="-25px"
-						top="9px"
-						transform="rotate(90deg);"
-						onClick={openMessageActionSheet}
-					>
-						<MoreIcon />
-					</Box>
+					{!isLoading && (
+						<Box
+							position="absolute"
+							left="-25px"
+							top="9px"
+							transform="rotate(90deg);"
+							onClick={openMessageActionSheet}
+						>
+							<MoreIcon />
+						</Box>
+					)}
+
 					{item.quoteContent && (
 						<Box className="mt-2 mb-2 w-[fit-content]">
 							<QuoteTem

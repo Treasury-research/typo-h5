@@ -1,105 +1,105 @@
 .chat-input {
-  margin-bottom: 4px !important;
+	margin-bottom: 4px !important;
 }
 
 .chat-input > .rv-textarea__control {
-  width: 100% !important;
-  outline: none;
-  resize: none;
-  line-height: 22px;
+	width: 100% !important;
+	outline: none;
+	resize: none;
+	line-height: 22px;
 }
 
 .chat-input > .rv-textarea__control ::-webkit-scrollbar {
-  width: 0;
-  display: none;
+	width: 0;
+	display: none;
 }
 
 .move-left {
-  transform: translate(0vw, 0px);
-  transition: transform 0.16s ease-in-out;
-  height: 100vh;
+	transform: translate(0vw, 0px);
+	transition: transform 0.16s ease-in-out;
+	height: 100vh;
 }
 
 .move-left > div:nth-child(2) {
-  border-radius: 20px;
-  margin: 20px 0;
-  height: calc(100% - 40px);
+	border-radius: 20px;
+	margin: 20px 0;
+	height: calc(100% - 40px);
 }
 
 .move-right {
-  transform: translate(-180vw, 0px);
-  transition: transform 0.16s ease-in-out;
-  height: 100vh;
+	transform: translate(-180vw, 0px);
+	transition: transform 0.16s ease-in-out;
+	height: 100vh;
 }
 
 .move-center {
-  height: 100%;
-  transform: translate(-80vw, 0px);
-  transition: transform 0.1s ease-in-out;
-  height: 100vh;
+	height: 100%;
+	transform: translate(-80vw, 0px);
+	transition: transform 0.1s ease-in-out;
+	height: calc(100vh - env(safe-area-inset-bottom));
 }
 
 .nav-bar .rv-nav-bar__content {
-  height: 55px;
-  overflow: hidden;
+	height: 55px;
+	overflow: hidden;
 }
 
 .nav-bar .rv-nav-bar__left,
 .nav-bar .rv-nav-bar__right {
-  padding: 10px;
+	padding: 10px;
 }
 
 .nav-bar .rv-nav-bar__title {
-  width: 200px;
+	width: 200px;
 }
 
 .nav-bar .rv-tabs {
-  margin-left: -20px;
+	margin-left: -20px;
 }
 
 .nav-bar .rv-tabs__wrap {
-  height: 100%;
+	height: 100%;
 }
 
 .nav-bar .rv-tabs__nav {
-  padding-bottom: 0;
+	padding-bottom: 0;
 }
 
 .guide .rv-cell__title {
-  width: 83%;
+	width: 83%;
 }
 
 .guide .custom-indicator {
-  position: absolute;
-  right: 10px;
-  bottom: 8px;
-  padding: 1px 4px;
-  color: #fff;
-  font-size: 12px;
-  background-color: rgba(0, 0, 0, 0.7);
-  border-radius: 2px;
+	position: absolute;
+	right: 10px;
+	bottom: 8px;
+	padding: 1px 4px;
+	color: #fff;
+	font-size: 12px;
+	background-color: rgba(0, 0, 0, 0.7);
+	border-radius: 2px;
 }
 
 .uniswap .TokenOptions__OnHover-sc-xx1k3q-2 {
-  display: none;
+	display: none;
 }
 
 .uniswap > svg {
-  display: none;
+	display: none;
 }
 
 .uniswap .chat-left-content {
-  background: inherit;
-  padding-top: 0;
-  padding-inline-start: 0;
-  padding-inline-end: 0;
+	background: inherit;
+	padding-top: 0;
+	padding-inline-start: 0;
+	padding-inline-end: 0;
 }
 
 .uniswap .chat-left-content > div {
-  padding: 0;
+	padding: 0;
 }
 
-.uniswap .chat-left-content> div > div {
-  box-shadow: inherit;
+.uniswap .chat-left-content > div > div {
+	box-shadow: inherit;
 }
 /*  */

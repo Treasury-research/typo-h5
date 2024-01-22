@@ -1,5 +1,5 @@
 import {
-  Stack,
+	Stack,
 	VStack,
 	Text,
 	Box,
@@ -340,7 +340,7 @@ const SourceBox = ({
 					}}
 				></Box>
 
-				<p className="overflow-ellipsis overflow-hidden whitespace-nowrap w-full">
+				<p className="overflow-ellipsis overflow-hidden whitespace-nowrap w-full text-[13px]">
 					{source.pageContent}
 				</p>
 				<HStack justifyContent="space-between" w="full">
@@ -351,14 +351,14 @@ const SourceBox = ({
 									source.favicon ||
 									"https://storage.googleapis.com/knn3-online/typography/logo/default.svg"
 								}
-								w="20px"
+								w="14px"
 								borderRadius="full"
 								alt=""
 							/>
 							{source.isKnn3 ? (
 								<Image
 									src="/images/knn3.png"
-									w="12px"
+									w="10px"
 									borderRadius="full"
 									alt=""
 									pos="absolute"
@@ -368,7 +368,7 @@ const SourceBox = ({
 							) : null}
 						</Box>
 
-						<Text>{getTopLevelDomain(source.link)}</Text>
+						<Text fontSize="13px">{getTopLevelDomain(source.link)}</Text>
 					</HStack>
 					<div className="w-[20px] h-[20px] rounded-full bg-[#487C7E] text-white flex justify-center items-center text-xs">
 						{source.index}
@@ -430,6 +430,7 @@ export default function Search({
 	sources,
 	done,
 	isLast,
+	chatIndex,
 	item,
 	showQuoteIndex,
 	index,
@@ -446,6 +447,13 @@ export default function Search({
 	const showToast = useToast();
 	const [isLoadingText, setIsLoadingText] = useBoolean(true);
 
+	const isLastLeftChat = useMemo(() => {
+		if (!activeChat) return false;
+		const isLast = chatIndex === activeChat?.messages.length - 1;
+		const isAnswer = activeChat?.messages[chatIndex].type === "answer";
+		return isLast && isAnswer;
+	}, [activeChat, chatIndex]);
+
 	useEffect(() => {
 		setTimeout(() => {
 			setIsLoadingText.off();
@@ -456,39 +464,12 @@ export default function Search({
 		<VStack spacing={5} p={2} alignItems="start" className="w-full">
 			<Box className="w-full">
 				<h2 className="text-2xl">Answer</h2>
-				{isLoadingText ? (
-					<Stack mt="10px">
-						<Skeleton
-							height="16px"
-							mb={1}
-							w={"90%"}
-							startColor="#F3F3F3"
-							endColor="#DFDFDF"
-							borderRadius={"8px"}
-						/>
-						<Skeleton
-							height="16px"
-							mb={1}
-							w={"80%"}
-							startColor="#F3F3F3"
-							endColor="#DFDFDF"
-							borderRadius={"8px"}
-						/>
-						<Skeleton
-							height="16px"
-							w={"70%"}
-							startColor="#F3F3F3"
-							endColor="#DFDFDF"
-							borderRadius={"8px"}
-						/>
-					</Stack>
-				) : (
-					<Box className="w-full">
-						<Markdown value={content} />
-					</Box>
-				)}
 
-				{done && showQuoteIndex == index && (
+				<Box className="w-full">
+					<Markdown value={content} />
+				</Box>
+
+				{done && isLastLeftChat && (
 					<Tooltip
 						placement="top"
 						rounded={"4px"}
@@ -572,7 +553,7 @@ export default function Search({
 				</>
 			) : null}
 			{loading ? (
-				<>
+				<Stack mt="10px">
 					<Skeleton
 						height="16px"
 						mb={1}
@@ -596,7 +577,7 @@ export default function Search({
 						endColor="#DFDFDF"
 						borderRadius={"8px"}
 					/>
-				</>
+				</Stack>
 			) : (
 				<Markdown value={item.summarizeContent} />
 			)}
