@@ -6,6 +6,7 @@ import {
 	Button,
 	HStack,
 	Box,
+	useToast,
 } from "@chakra-ui/react";
 import { useCallback } from "react";
 import { ChatList } from "lib/types";
@@ -14,6 +15,7 @@ import { BiGift } from "react-icons/bi";
 import { NavBar, Tabs, Badge } from "react-vant";
 import ShareIcon from "components/icons/Share";
 import useChatContext from "hooks/useChatContext";
+import { useUserInfoStore } from "store/userInfoStore";
 
 export function ChatTitle() {
 	const {
@@ -26,10 +28,21 @@ export function ChatTitle() {
 		setActionSheetProps,
 		setIsActionSheetOpen,
 	} = useChatContext();
+	const { userId } = useUserInfoStore();
 
-	console.log("activeChatId", activeChatId);
+	// console.log("activeChatId", activeChatId);
+	const showToast = useToast();
 
 	const openShareActionSheet = useCallback(() => {
+		if (!userId) {
+			showToast({
+				position: "top",
+				title: `You're not logged in yet.`,
+				variant: "subtle",
+				status: "warning",
+			});
+			return;
+		}
 		setActionSheetProps({
 			type: "share",
 		});

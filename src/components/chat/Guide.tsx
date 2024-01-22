@@ -1,4 +1,4 @@
-import { Icon, VStack, Button, Box } from "@chakra-ui/react";
+import { Stack, VStack, Button, Box, Skeleton } from "@chakra-ui/react";
 import { BsCommand } from "react-icons/bs";
 import { BiWallet } from "react-icons/bi";
 
@@ -46,10 +46,11 @@ export function Guide() {
 	const { handleSign, openConnectWallet, isSign } = useWallet();
 
 	const needSign = isConnected && !userId;
-	// console.log(isConnected, needSign);
 	const list = slides;
 
 	const cmds = commands.filter((item: any) => item?.type === "normal");
+
+	console.log(cmds);
 
 	const getCommands = async () => {
 		const result: any = await api.get("api/shortcut/questions");
@@ -69,9 +70,7 @@ export function Guide() {
 	}, [needSign, isSign]);
 
 	useEffect(() => {
-		if (userId) {
-			getCommands();
-		}
+		getCommands();
 	}, [userId]);
 
 	const runCommand = useCallback((text: any) => {
@@ -96,55 +95,55 @@ export function Guide() {
 				flexDir="column"
 				spacing={5}
 				mt="40px!"
-				padding="0 40px"
+				padding="0 30px"
 			>
 				<Box marginBottom="24px">
 					<Logo />
 				</Box>
-				<Box
-					background="white"
-					minHeight="40px"
-					display="flex"
-					alignItems="center"
-					width="100%"
-					padding="10px 20px"
-					onClick={() => runCommand(`What's KNN3 Network?`)}
-				>
-					<Box>{`⌘ What's KNN3 Network?`}</Box>
-				</Box>
-				<Box
-					background="white"
-					minHeight="40px"
-					display="flex"
-					alignItems="center"
-					width="100%"
-					padding="10px 20px"
-					onClick={() => runCommand(`What's TypoGraphy AI?`)}
-				>
-					<Box>{`⌘ What's TypoGraphy AI?`}</Box>
-				</Box>
-				<Box
-					background="white"
-					minHeight="40px"
-					display="flex"
-					alignItems="center"
-					width="100%"
-					padding="10px 20px"
-					onClick={() => runCommand(`What can I do with TypoGraphy AI now?`)}
-				>
-					<Box>{`⌘ What can I do with TypoGraphy AI now?`}</Box>
-				</Box>
-				<Box
-					background="white"
-					minHeight="40px"
-					display="flex"
-					alignItems="center"
-					width="100%"
-					padding="10px 20px"
-					onClick={() => runCommand(`/Profile my`)}
-				>
-					<Box>{`⌘ /Profile my`}</Box>
-				</Box>
+				{cmds.length == 0 ? (
+					<Stack width="full">
+						<Skeleton
+							h="40px"
+							w="100%"
+							startColor="#F3F3F3"
+							endColor="#DFDFDF"
+							borderRadius="8px"
+						/>
+						<Skeleton
+							h="40px"
+							w="100%"
+							startColor="#F3F3F3"
+							endColor="#DFDFDF"
+							borderRadius="8px"
+						/>
+						<Skeleton
+							h="40px"
+							w="100%"
+							startColor="#F3F3F3"
+							endColor="#DFDFDF"
+							borderRadius="8px"
+						/>
+					</Stack>
+				) : (
+					cmds.map((item: any) => {
+						return (
+							<Box
+								background="white"
+								minHeight="40px"
+								whiteSpace="nowrap"
+								display="flex"
+								alignItems="center"
+								width="100%"
+								fontSize="14px"
+								padding="10px 15px"
+								onClick={() => runCommand(item.question)}
+							>
+								<Box>{item.question}</Box>
+							</Box>
+						);
+					})
+				)}
+
 				{!userId && (
 					<Box marginTop="20px" width="100%">
 						<Button

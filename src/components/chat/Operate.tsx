@@ -15,7 +15,7 @@ import {
 	useToast,
 	Box,
 } from "@chakra-ui/react";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { useCopyToClipboard } from "react-use";
 import html2Canvas from "html2canvas";
 import { LongPressTouch } from "components";
@@ -27,7 +27,7 @@ import { useQuoteStore } from "store/quoteStore";
 import { useUserInfoStore } from "store/userInfoStore";
 import api from "api";
 
-export function MessageActionSheet({ item, index, onClose }: any) {
+export function MessageActionSheet({ item, chatIndex, onClose }: any) {
 	const { activeChat, removeMessage, isGenerate } = useChatContext();
 	const { userId } = useUserInfoStore();
 	const { setIsShowInputQuote, setQuoteContent, setQuoteType } =
@@ -89,6 +89,13 @@ export function MessageActionSheet({ item, index, onClose }: any) {
 		setShowDelete(false);
 	}, []);
 
+	// console.log(chatIndex, activeChat?.messages);
+
+	const isLastLeftChat = useMemo(() => {
+		if (!activeChat) return false;
+		return chatIndex === activeChat?.messages.length - 1;
+	}, [activeChat, chatIndex]);
+
 	if (showDelete) {
 		return (
 			<Box padding="24px">
@@ -140,19 +147,22 @@ export function MessageActionSheet({ item, index, onClose }: any) {
 
 	return (
 		<>
-			<Box
-				width="100%"
-				height="60px"
-				display="flex"
-				alignItems="center"
-				justifyContent="center"
-				fontSize="16ox"
-				fontWeight="500"
-				cursor="pointer"
-				onClick={quoteMessage}
-			>
-				Quote
-			</Box>
+			{isLastLeftChat && (
+				<Box
+					width="100%"
+					height="60px"
+					display="flex"
+					alignItems="center"
+					justifyContent="center"
+					fontSize="16ox"
+					fontWeight="500"
+					cursor="pointer"
+					onClick={quoteMessage}
+				>
+					Quote
+				</Box>
+			)}
+
 			<Box
 				width="100%"
 				height="60px"
@@ -205,6 +215,7 @@ export function ShareActionSheet({ item, index, onClose }: any) {
 	const [showCopy, setShowCopy] = useState(false);
 	const [createLoading, setCreateLoading] = useBoolean(false);
 	const [shareName, setShareName] = useState("");
+	const { userId } = useUserInfoStore();
 	const showToast = useToast();
 
 	const handleCreateShareChat: any = useCallback(() => {
@@ -509,10 +520,6 @@ export function Operate({ children }: any) {
 	 *   console.log('item', item)
 	 *   const { onCopy } = useClipboard(item.content as string);
 	 *
-	 *   const isLastLeftChat = useMemo(() => {
-	 *     if (!activeChat) return false;
-	 *     return index === activeChat?.messages.length;
-	 *   }, [activeChat, index]);
 	 *
 	 *   const lastUserInput = useMemo(() => {
 	 *     if (!activeChat) return undefined;

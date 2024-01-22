@@ -7,6 +7,7 @@ export const useAiStore: any = create<any>()(
 			totalCoupon: 0,
 			usedCoupon: 0,
 			searchLimit: 0,
+			dailyAdd: 0,
 			setTotalCoupon: (totalCoupon: number) => {
 				set({ totalCoupon });
 			},
@@ -15,6 +16,9 @@ export const useAiStore: any = create<any>()(
 			},
 			setSearchLimit: (searchLimit: number) => {
 				set({ searchLimit });
+			},
+			setDailyAdd: (dailyAdd: number) => {
+				set({ dailyAdd });
 			},
 		}),
 		{

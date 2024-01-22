@@ -40,21 +40,32 @@ const Account = () => {
 	const { closeNav, addChat, setActiveChatId } = useChatContext();
 	const { setJwt } = useJwtStore();
 	const { doLogout } = useWallet();
-	const { email, userId, setUserId, setEmail, account } = useUserInfoStore();
+	const {
+		email,
+		userId,
+		setUserId,
+		setEmail,
+		account,
+		isPassuser,
+		setIsPassuser,
+	} = useUserInfoStore();
 	const { setOpenInviteModal, setOpenBindEmailModal } = useStore();
 	const { setOpenRemindModal, setOpenConnectModal } = useConnectModalStore();
 	const {
 		totalCoupon,
 		usedCoupon,
+		dailyAdd,
 		setTotalCoupon,
 		setUsedCoupon,
 		setSearchLimit,
+		setDailyAdd,
 	} = useAiStore();
 
 	const getUserInfo = async () => {
 		const res: any = await api.get(`/api/auth`);
 		if (res?.code === 200) {
 			setJwt(res.data.token);
+			setDailyAdd(res?.data?.dailyAdd);
 			setTotalCoupon(res?.data?.totalCoupon);
 			setUsedCoupon(res?.data?.usedCoupon);
 			setUserId(res?.data?.user_id);
@@ -93,9 +104,9 @@ const Account = () => {
 							px={4}
 							alignItems="center"
 						>
-							<HStack alignItems="flex-start">
+							<HStack flex="1" alignItems="flex-start">
 								<Jazzicon diameter={40} seed={jsNumberForAddress(account)} />
-								<Box className="flex-col justify-around" marginLeft="4px">
+								<Box className="flex-col flex-1 justify-around" marginLeft="4px">
 									<Box className="text-[16px] font-bold">
 										{toShortAddress(account, 10)}
 									</Box>
@@ -109,7 +120,7 @@ const Account = () => {
 										justifyContent="flex-start"
 									>
 										<Box
-											width="120px"
+											width="80%"
 											background="#EAEDF1"
 											height="10px"
 											borderRadius="24px"
@@ -119,11 +130,11 @@ const Account = () => {
 											<Box
 												height="100%"
 												background="#FFE3AC"
-												width={`${((usedCoupon || 0) / totalCoupon) * 100}%`}
+												width={(dailyAdd / (isPassuser ? 120 : 60)) * 100}
 											/>
 										</Box>
 										<Box>
-											{usedCoupon || 0}/{totalCoupon}
+											{dailyAdd.toFixed(1)}/{isPassuser ? "120" : "60"}
 										</Box>
 									</Box>
 								</Box>

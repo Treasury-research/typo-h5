@@ -80,6 +80,11 @@ export default function ChatContent() {
 											chatId={activeChat.id}
 											messageId={item.id}
 											item={item}
+											isLast={
+												index + activeChat.messages?.length - 2 ===
+												activeChat.messages?.length - 1
+											}
+											chatIndex={index}
 											isLoading={isLoading}
 											index={index + activeChat.messages.length - 2}
 										/>
@@ -99,6 +104,7 @@ export default function ChatContent() {
 											isLoading={isLoading}
 											index={index + activeChat.messages.length - 2}
 											setInput={setInput}
+											chatIndex={index}
 											isLast={
 												index + activeChat.messages.length - 2 ===
 												activeChat.messages?.length - 1
