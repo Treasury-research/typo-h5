@@ -15,7 +15,7 @@ import {
 	useEffect,
 	useMemo,
 } from "react";
-
+import { useConnectModalStore } from "store/modalStore";
 import { Search2Icon } from "@chakra-ui/icons";
 import { Input } from "react-vant";
 import { BeatLoader } from "react-spinners";
@@ -67,6 +67,7 @@ export const ChatInput = () => {
 	const myTip = useRef<any>(null);
 	const [isComposition, setIsComposition] = useState(false);
 	const { searchLimit, setSearchLimit } = useChatStore();
+	const { setOpenRemindModal, setOpenConnectModal } = useConnectModalStore();
 
 	const onPressEnter = (e: any) => {
 		console.log("onPressEnter", e);
@@ -78,13 +79,7 @@ export const ChatInput = () => {
 					!userId &&
 					commands.findIndex((item) => input.trim().includes(item)) > -1
 				) {
-					showToast({
-						position: "top",
-						title: `You're not logged in yet.`,
-						variant: "subtle",
-						status: "warning",
-					});
-					// setOpenConnectModal(true);
+					setOpenConnectModal(true);
 					return;
 				}
 				submitMessage();
@@ -132,6 +127,15 @@ export const ChatInput = () => {
 				position="relative"
 			>
 				<Box display="flex" flex="1" flexDirection="column" marginRight="auto">
+					{isShowInputQuote && section !== "magicWand" && (
+						<Box className="my-2 mr-2 w-[fit-content]">
+							<QuoteTem
+								content={quoteContent}
+								showDeleteIcon={true}
+								type={quoteType}
+							/>
+						</Box>
+					)}
 					<TextArea
 						rows={1}
 						ref={myInput}
@@ -159,15 +163,6 @@ export const ChatInput = () => {
 							}, 300)
 						}
 					/>
-					{isShowInputQuote && section !== "magicWand" && (
-						<Box className="mt-2 w-[fit-content]" marginBottom="4px">
-							<QuoteTem
-								content={quoteContent}
-								showDeleteIcon={true}
-								type={quoteType}
-							/>
-						</Box>
-					)}
 				</Box>
 				<HStack
 					h="32px"
@@ -198,8 +193,9 @@ export const ChatInput = () => {
 								pl="2px"
 								pr="4px"
 								color="white"
-								fontSize="sm"
-							>{`(${searchLimit}/30)`}</Box>
+								fontSize="13px"
+								fontWeight="500"
+							>{isShowInputQuote ? "Send": `(${searchLimit}/30)`}</Box>
 						</Flex>
 					)}
 					{isLoading && (

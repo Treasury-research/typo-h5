@@ -26,12 +26,14 @@ import useChatContext from "hooks/useChatContext";
 import { useQuoteStore } from "store/quoteStore";
 import { useUserInfoStore } from "store/userInfoStore";
 import api from "api";
+import { useConnectModalStore } from "store/modalStore";
 
 export function MessageActionSheet({ item, chatIndex, onClose }: any) {
 	const { activeChat, removeMessage, isGenerate } = useChatContext();
 	const { userId } = useUserInfoStore();
 	const { setIsShowInputQuote, setQuoteContent, setQuoteType } =
 		useQuoteStore();
+	const { setOpenRemindModal, setOpenConnectModal } = useConnectModalStore();
 	const { onCopy } = useClipboard(item.content as string);
 	const [showDelete, setShowDelete] = useState(false);
 	const showToast = useToast();
@@ -41,12 +43,7 @@ export function MessageActionSheet({ item, chatIndex, onClose }: any) {
 			return;
 		}
 		if (!userId) {
-			showToast({
-				position: "top",
-				title: `You're not logged in yet.`,
-				variant: "subtle",
-				status: "warning",
-			});
+			setOpenConnectModal(true);
 			return;
 		}
 		if (activeChat && activeChat.isShare) {
@@ -348,7 +345,7 @@ export function ShareActionSheet({ item, index, onClose }: any) {
 					color="white"
 					marginTop="10px"
 				>
-					{createLoading ? "Waitting..." : "OK"}
+					{createLoading ? "Waiting..." : "OK"}
 				</Box>
 				<Box
 					width="100%"
@@ -435,13 +432,9 @@ export function ShareActionSheet({ item, index, onClose }: any) {
 export function SourceActionSheet({ source, index, onClose, onPreview }: any) {
 	const { userId } = useUserInfoStore();
 	const showToast = useToast();
+	const { setOpenRemindModal, setOpenConnectModal } = useConnectModalStore();
 	if (!userId) {
-		showToast({
-			position: "top",
-			title: `You're not logged in yet.`,
-			variant: "subtle",
-			status: "warning",
-		});
+		setOpenConnectModal(true);
 		onClose();
 		return;
 	}

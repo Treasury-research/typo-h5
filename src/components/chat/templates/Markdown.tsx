@@ -42,12 +42,6 @@ export const Markdown = ({ value }: any) => {
         <span
           onClick={() => {
             if (!userId) {
-              showToast({
-                position: 'top',
-                title: `You're not logged in yet.`,
-                variant: 'subtle',
-                status: 'warning'
-              })
               setOpenConnectModal(true);
               return;
             }
@@ -76,12 +70,6 @@ export const Markdown = ({ value }: any) => {
         <span
           onClick={() => {
             if (!userId) {
-              showToast({
-                position: 'top',
-                title: `You're not logged in yet.`,
-                variant: 'subtle',
-                status: 'warning'
-              })
               setOpenConnectModal(true);
               return;
             }

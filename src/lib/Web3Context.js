@@ -43,7 +43,7 @@ export const Web3ContextProvider = ({ children }) => {
     useConnectModalStore();
   const { autoConnect, setAutoConnect, setMessage, setSignature } =
     useWalletStore();
-  const { setTotalCoupon, setUsedCoupon } = useChatStore();
+  const { setTotalCoupon } = useChatStore();
   const { jwt, setJwt } = useJwtStore();
   const {
     setUserId,
@@ -205,7 +205,6 @@ export const Web3ContextProvider = ({ children }) => {
       api.defaults.headers.authorization = `Bearer ${res.data.token}`;
       setJwt(res.data.token);
       setTotalCoupon(res?.data?.totalCoupon);
-      setUsedCoupon(res?.data?.usedCoupon);
       setUserId(res?.data?.user_id);
       setEmail(res?.data?.email);
       getIsInvite();

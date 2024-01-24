@@ -61,16 +61,6 @@ const slides = [
 	},
 ];
 
-const sandboxSlides = [
-	{
-		url: "/images/aisql/driver.png",
-	},
-	{
-		url: "/images/aisql/knexus.webp",
-		link: "https://knexus.xyz/create?utm_source=typo+quest&utm_campaign=kn+mbti",
-	},
-];
-
 const AwardItem = ({
 	title,
 	value,
@@ -123,7 +113,7 @@ export function Quest() {
 	const { setOpenInviteModal, setOpenBindEmailModal } = useStore();
 	const [showModal, setShowModal] = useBoolean(false);
 	const [uuid, setUuid] = useState("");
-	const { setTotalCoupon, setUsedCoupon } = useChatStore();
+	const { setTotalCoupon } = useChatStore();
 	const [showReferer, setShowReferer] = useState(false);
 	const [isLog, setIsLog] = useBoolean(false);
 	const { getTccLog } = useWallet();
@@ -197,7 +187,6 @@ export function Quest() {
 		const res: any = await api.get(`/api/auth`);
 		if (res?.code === 200) {
 			setTotalCoupon(res?.data?.totalCoupon);
-			setUsedCoupon(res?.data?.usedCoupon);
 		}
 	};
 
@@ -208,14 +197,14 @@ export function Quest() {
 	};
 
 	useEffect(() => {
-		if (userId) {
+		if (userId && showQuest) {
 			getAwards();
 			getUuid();
 		} else {
 			setAwards([]);
 			setValue("");
 		}
-	}, [userId, email]);
+	}, [userId, email, showQuest]);
 
 	const list = slides;
 
@@ -511,7 +500,7 @@ export function Quest() {
 
 													{awardItems.TccItem && (
 														<AwardItem
-															title="Daily Reward"
+															title="Daily Rewards"
 															isFinish={!!awardItems.TccItem}
 															value={Number(
 																awardItems.TccItem?.score.toFixed(1)

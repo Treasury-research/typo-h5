@@ -53,15 +53,8 @@ const Account = () => {
 	const showToast = useToast();
 	const { setOpenInviteModal, setOpenBindEmailModal } = useStore();
 	const { setOpenRemindModal, setOpenConnectModal } = useConnectModalStore();
-	const {
-		totalCoupon,
-		usedCoupon,
-		dailyAdd,
-		setTotalCoupon,
-		setUsedCoupon,
-		setSearchLimit,
-		setDailyAdd,
-	} = useChatStore();
+	const { totalCoupon, dailyAdd, setTotalCoupon, setSearchLimit, setDailyAdd } =
+		useChatStore();
 
 	const getUserInfo = async () => {
 		const res: any = await api.get(`/api/auth`);
@@ -69,7 +62,6 @@ const Account = () => {
 			setJwt(res.data.token);
 			setDailyAdd(res?.data?.dailyAdd);
 			setTotalCoupon(res?.data?.totalCoupon);
-			setUsedCoupon(res?.data?.usedCoupon);
 			setUserId(res?.data?.user_id);
 			setEmail(res?.data?.email);
 		}
@@ -115,7 +107,10 @@ const Account = () => {
 									<Box className="text-[16px] font-bold">
 										{toShortAddress(account, 10)}
 									</Box>
-									<Box marginTop="4px" marginBottom="4px">
+									<Box marginTop="2px" fontSize="13px" marginBottom="4px">
+										TCC: {totalCoupon}
+									</Box>
+									<Box marginTop="2px" fontSize="13px" marginBottom="4px">
 										Daily Reward
 									</Box>
 									<Box
@@ -153,7 +148,7 @@ const Account = () => {
 									if (isLoading) {
 										showToast({
 											position: "top",
-											title: "Please Wait...",
+											title: "Content is loading, please wait.",
 											variant: "subtle",
 										});
 										return;

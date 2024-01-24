@@ -35,7 +35,7 @@ export default function useWallet() {
   const { inviteId } = router?.query;
   const showToast = useToast();
   const [signLoading, setSignLoading] = useState(false);
-  const { setTotalCoupon, setUsedCoupon } = useChatStore();
+  const { setTotalCoupon } = useChatStore();
   const { setJwt } = useJwtStore();
   const { open } = useWeb3Modal();
   const [isSign, setIsSign] = useBoolean(false);
@@ -63,7 +63,6 @@ export default function useWallet() {
       setJwt(res.data.token);
       setAccount(address);
       setTotalCoupon(res?.data?.totalCoupon);
-      setUsedCoupon(res?.data?.usedCoupon);
       setUserId(res?.data?.user_id);
       setEmail(res?.data?.email);
       getIsInvite();

@@ -162,12 +162,6 @@ const SourceBox = ({
 						if (jsonStr1.code && jsonStr1.code == 1019) {
 							loadingChange(false);
 							if (!userId) {
-								showToast({
-									position: "top",
-									title: `You're not logged in yet.`,
-									variant: "subtle",
-									status: "warning",
-								});
 								setOpenConnectModal(true);
 							} else {
 								showToast({
@@ -299,7 +293,7 @@ const SourceBox = ({
     if (isLoading) {
 			showToast({
 				position: "top",
-				title: "Please Wait...",
+				title: "Content is loading, please wait.",
 				variant: "subtle",
 			});
 			return;
@@ -518,12 +512,6 @@ export default function Search({
 									return;
 								}
 								if (!userId) {
-									showToast({
-										position: "top",
-										title: `You're not logged in yet.`,
-										variant: "subtle",
-										status: "warning",
-									});
 									setOpenConnectModal(true);
 									return;
 								}
@@ -578,7 +566,7 @@ export default function Search({
 									if (isLoading) {
 										showToast({
 											position: "top",
-											title: "Please Wait...",
+											title: "Content is loading, please wait.",
 											variant: "subtle",
 										});
                     return

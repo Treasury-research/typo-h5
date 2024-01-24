@@ -177,6 +177,13 @@ export default function ChatProvider({ children }: any) {
 		}
 	};
 
+	const getDayLimit = async () => {
+		const res: any = await api.get(`/api/limit`);
+		if (res?.code === 200) {
+			setSearchLimit(res.data || 0);
+		}
+	};
+
 	const cloneChat = useCallback(
 		async (isShare?: boolean, isSecuretyCmds?: boolean) => {
 			// if (!userId) {
@@ -278,7 +285,6 @@ export default function ChatProvider({ children }: any) {
 			getClickList();
 		}
 	}, [clickList]);
-	
 
 	const handleShortcutPrompt = useCallback(
 		async ({ chatId, messageId, prompt }: any) => {
@@ -1060,11 +1066,11 @@ export default function ChatProvider({ children }: any) {
 				}
 
 				setIsLoading.off();
+				getDayLimit();
 				setIsGenerate(false);
 				getAwards();
 				console.log("result124", result);
 				if (result.code === 200) {
-					setSearchLimit(searchLimit + 1);
 					updateMessage(
 						chatId,
 						isShortcut(prompt) ? messageId : result.data.id,
@@ -1123,12 +1129,6 @@ export default function ChatProvider({ children }: any) {
 					}
 					if (result?.code === 1019) {
 						if (!userId) {
-							showToast({
-								position: "top",
-								title: `You're not logged in yet.`,
-								variant: "subtle",
-								status: "warning",
-							});
 							setOpenConnectModal(true);
 						} else {
 							showToast({
@@ -1265,12 +1265,6 @@ export default function ChatProvider({ children }: any) {
 			}
 
 			if (!userId && section == "magicWand") {
-				showToast({
-					position: "top",
-					title: `You're not logged in yet.`,
-					variant: "subtle",
-					status: "warning",
-				});
 				setOpenConnectModal(true);
 				return;
 			}

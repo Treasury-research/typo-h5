@@ -16,6 +16,7 @@ import { NavBar, Tabs, Badge } from "react-vant";
 import ShareIcon from "components/icons/Share";
 import useChatContext from "hooks/useChatContext";
 import { useUserInfoStore } from "store/userInfoStore";
+import { useConnectModalStore } from "store/modalStore";
 
 export function ChatTitle() {
 	const {
@@ -30,7 +31,7 @@ export function ChatTitle() {
 		setIsActionSheetOpen,
 	} = useChatContext();
 	const { userId } = useUserInfoStore();
-
+	const { setOpenRemindModal, setOpenConnectModal } = useConnectModalStore();
 	// console.log("activeChatId", activeChatId);
 	const showToast = useToast();
 
@@ -38,7 +39,7 @@ export function ChatTitle() {
 		if (isLoading) {
 			showToast({
 				position: "top",
-				title: "Please Wait...",
+				title: "Content is loading, please wait.",
 				variant: "subtle",
 			});
 		}
@@ -90,12 +91,7 @@ export function ChatTitle() {
 									boxSize={5}
 									onClick={() => {
 										if (!userId) {
-											showToast({
-												position: "top",
-												title: `You're not logged in yet.`,
-												variant: "subtle",
-												status: "warning",
-											});
+											setOpenConnectModal(true);
 											return;
 										}
 										openQuest();
