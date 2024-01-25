@@ -74,9 +74,11 @@ export function Guide() {
 	}, [userId]);
 
 	const runCommand = useCallback((text: any) => {
-		submitMessage({
-			question: text,
-		});
+		setTimeout(() => {
+			submitMessage({
+				question: text,
+			});
+		}, 200);
 	}, []);
 
 	console.log("needSign", needSign, isConnected, userId);
