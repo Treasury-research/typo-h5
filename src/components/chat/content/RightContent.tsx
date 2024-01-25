@@ -6,7 +6,7 @@ import {
 	Avatar,
 	Flex,
 	Icon,
-	useBoolean,
+	useToast,
 } from "@chakra-ui/react";
 import { useUserInfoStore } from "store/userInfoStore";
 import BeatLoader from "react-spinners/BeatLoader";
@@ -19,12 +19,21 @@ import MoreIcon from "components/icons/More/white";
 import { useCallback } from "react";
 
 export function Right({ item, index, chatIndex, isLoading }: any) {
-	const { activeChat, channel, setActionSheetProps, setIsActionSheetOpen } =
+	const { activeChat, isGenerate, setActionSheetProps, setIsActionSheetOpen } =
 		useChatContext();
-	const { username } = useUserInfoStore();
-	const [isOpen, setIsOpen] = useBoolean(false);
+
+	const showToast = useToast();
 
 	const openMessageActionSheet = useCallback(() => {
+		if (isLoading || isGenerate) {
+			showToast({
+				position: "top",
+				title: "Content is loading, please wait.",
+				variant: "subtle",
+			});
+			return;
+		}
+
 		setActionSheetProps({
 			item,
 			index,
@@ -79,11 +88,7 @@ export function Right({ item, index, chatIndex, isLoading }: any) {
 						color="bg.green"
 					/>
 				</Box>
-				{username ? (
-					<Avatar name={username || ""} size="sm" />
-				) : (
-					<Avatar size="sm" bg="bg.green" />
-				)}
+				<Avatar size="sm" bg="bg.green" />
 			</HStack>
 			{index === activeChat.messages.length - 1 && isLoading && (
 				<HStack w="full" justify="flex-start" spacing={3}>

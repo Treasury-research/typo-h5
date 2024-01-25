@@ -61,6 +61,15 @@ export function Left({
 	}, [activeChat?.messages]);
 
 	const openMessageActionSheet = useCallback(() => {
+		if (isLoading || isGenerate) {
+			showToast({
+				position: "top",
+				title: "Content is loading, please wait.",
+				variant: "subtle",
+			});
+			return;
+		}
+
 		setActionSheetProps({
 			item,
 			index,

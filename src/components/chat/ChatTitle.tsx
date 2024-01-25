@@ -21,12 +21,12 @@ import { useConnectModalStore } from "store/modalStore";
 export function ChatTitle() {
 	const {
 		activeChat,
-		activeChatId,
+		isLoading,
 		showNav,
 		openQuest,
 		openNav,
 		closeNav,
-		isLoading,
+		isGenerate,
 		setActionSheetProps,
 		setIsActionSheetOpen,
 	} = useChatContext();
@@ -36,12 +36,13 @@ export function ChatTitle() {
 	const showToast = useToast();
 
 	const openShareActionSheet = useCallback(() => {
-		if (isLoading) {
+		if (isLoading || isGenerate) {
 			showToast({
 				position: "top",
 				title: "Content is loading, please wait.",
 				variant: "subtle",
 			});
+			return;
 		}
 
 		setActionSheetProps({

@@ -27,7 +27,7 @@ export default function ChatContent() {
 	const { userId } = useUserInfoStore();
 	const showChat = activeChat?.messages?.length > 0;
 
-	console.log("showChat", showChat);
+	// console.log("showChat", showChat);
 
 	return (
 		<>

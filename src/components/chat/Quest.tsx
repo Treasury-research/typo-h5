@@ -119,7 +119,7 @@ export function Quest() {
 	const { getTccLog } = useWallet();
 	const { logList } = useNftStore();
 
-	console.log("showReferer", showReferer);
+	// console.log("showReferer", showReferer);
 
 	const totalScore = useMemo(() => {
 		return awards.reduce(

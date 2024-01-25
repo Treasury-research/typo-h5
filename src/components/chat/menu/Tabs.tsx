@@ -34,6 +34,7 @@ export function Tabs() {
 		clearMessage,
 		channel,
 		section,
+		isGenerate,
 		updateChat,
 	} = useChatContext();
 	const showToast = useToast();
@@ -51,12 +52,13 @@ export function Tabs() {
 	};
 
 	const addNewChat = useCallback(() => {
-		if (isLoading) {
+		if (isLoading || isGenerate) {
 			showToast({
 				position: "top",
-				title: "Please Wait...",
+				title: "Content is loading, please wait.",
 				variant: "subtle",
 			});
+			return;
 		}
 
 		const timestamp = new Date().getTime();
@@ -140,12 +142,13 @@ export function Tabs() {
 												as={FiEdit}
 												boxSize={4}
 												onClick={() => {
-													if (isLoading) {
+													if (isLoading || isGenerate) {
 														showToast({
 															position: "top",
-															title: "Please Wait...",
+															title: "Content is loading, please wait.",
 															variant: "subtle",
 														});
+														return;
 													}
 													let channelName = "";
 													Dialog.confirm({
@@ -175,12 +178,13 @@ export function Tabs() {
 												as={AiOutlineClear}
 												boxSize={4}
 												onClick={() => {
-													if (isLoading) {
+													if (isLoading || isGenerate) {
 														showToast({
 															position: "top",
-															title: "Please Wait...",
+															title: "Content is loading, please wait.",
 															variant: "subtle",
 														});
+														return;
 													}
 													Dialog.confirm({
 														title: "Clear",
@@ -202,12 +206,13 @@ export function Tabs() {
 												as={RiDeleteBinLine}
 												boxSize={4}
 												onClick={() => {
-													if (isLoading) {
+													if (isLoading || isGenerate) {
 														showToast({
 															position: "top",
-															title: "Please Wait...",
+															title: "Content is loading, please wait.",
 															variant: "subtle",
 														});
+														return;
 													}
 													Dialog.confirm({
 														title: "Delete",

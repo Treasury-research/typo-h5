@@ -14,7 +14,7 @@ export const NextSeo = ({ title, description, keywords }: NextSeoProps) => {
 	const { activeChat } = useChatContext();
 	const router = useRouter();
 
-	console.log("activeChat", activeChat);
+	// console.log("activeChat", activeChat);
 
 	return (
 		<>

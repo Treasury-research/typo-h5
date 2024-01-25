@@ -1,4 +1,10 @@
-import React, { createContext, useCallback, useState, useEffect } from "react";
+import React, {
+	createContext,
+	useCallback,
+	useState,
+	useEffect,
+	useMemo,
+} from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useBoolean, useDisclosure, useToast } from "@chakra-ui/react";
 import { useStore } from "store";
@@ -80,6 +86,7 @@ export default function ChatProvider({ children }: any) {
 		setSharedChat,
 		clearMessage,
 	} = useChatStore();
+
 	const [isActionSheetOpen, setIsActionSheetOpen] = useBoolean(false);
 	const [actionSheetProps, setActionSheetProps] = useState({});
 	const [section, setSection] = useState("explorer");
@@ -111,7 +118,6 @@ export default function ChatProvider({ children }: any) {
 
 			return -1;
 		});
-	console.log("chatList111", chatList);
 
 	const [allChatList, setAllChatList] = useState(chatList);
 

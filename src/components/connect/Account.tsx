@@ -38,7 +38,7 @@ import BookIcon from "components/icons/Book";
 import api from "api";
 
 const Account = () => {
-	const { closeNav, addChat, setActiveChatId, isLoading } = useChatContext();
+	const { closeNav, isLoading, setActiveChatId, isGenerate } = useChatContext();
 	const { setJwt } = useJwtStore();
 	const { doLogout } = useWallet();
 	const {
@@ -104,12 +104,14 @@ const Account = () => {
 									className="flex-col flex-1 justify-around"
 									marginLeft="4px"
 								>
-									<Box className="text-[16px] font-bold">
-										{toShortAddress(account, 10)}
-									</Box>
-									<Box marginTop="2px" fontSize="13px" marginBottom="4px">
-										TCC: {totalCoupon}
-									</Box>
+									<Flex
+										justify="space-between"
+										className="text-[16px] font-bold"
+									>
+										<Text> {toShortAddress(account, 9)}</Text>
+										<Text fontSize="14px" pr="1px"> TCC: {totalCoupon} </Text>
+									</Flex>
+
 									<Box marginTop="2px" fontSize="13px" marginBottom="4px">
 										Daily Reward
 									</Box>
@@ -145,7 +147,7 @@ const Account = () => {
 								className="text-[21px] cursor-pointer h-6"
 								_hover={{ transform: "scale(1.1)" }}
 								onClick={() => {
-									if (isLoading) {
+									if (isLoading || isGenerate) {
 										showToast({
 											position: "top",
 											title: "Content is loading, please wait.",

@@ -47,7 +47,7 @@ const SourceBox = ({
 		setTotalCoupon,
 		setDailyAdd,
 		isGenerate,
-    isLoading,
+		isLoading,
 		setIsGenerate,
 		setActionSheetProps,
 		setIsActionSheetOpen,
@@ -290,7 +290,7 @@ const SourceBox = ({
 	};
 
 	const openSourceActionSheet = useCallback(() => {
-    if (isLoading) {
+		if (isLoading || !isGenerate) {
 			showToast({
 				position: "top",
 				title: "Content is loading, please wait.",
@@ -438,7 +438,8 @@ export default function Search({
 	showQuoteIndex,
 	index,
 }: any) {
-	const { activeChat, isGenerate, isLoading } = useChatContext();
+	const { activeChat, isGenerate, isLoading, isLastMessageRender } =
+		useChatContext();
 	const [more, setMore] = useState(false);
 	const { setIsShowInputQuote, setQuoteContent, setQuoteType } =
 		useQuoteStore();
@@ -456,7 +457,7 @@ export default function Search({
 	}, [activeChat, chatIndex]);
 
 	return (
-		<VStack spacing={5} p={2} alignItems="start" className="w-full">
+		<VStack spacing={5} p={2} alignItems="start" w="full">
 			<Box className="w-full">
 				<h2 className="text-2xl">Answer</h2>
 				{!done ? (
@@ -508,7 +509,7 @@ export default function Search({
 								isGenerate ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
 							} text-[#487C7E] bg-[#DAE5E5] rounded-[4px] py-2 font-bold flex items-center px-3 w-[fit-content] mt-[10px] cursor-pointer hover:opacity-70`}
 							onClick={() => {
-								if (isGenerate) {
+								if (isLoading || isGenerate) {
 									return;
 								}
 								if (!userId) {
@@ -563,13 +564,13 @@ export default function Search({
 								))}
 							<div
 								onClick={() => {
-									if (isLoading) {
+									if (isLoading || isGenerate) {
 										showToast({
 											position: "top",
 											title: "Content is loading, please wait.",
 											variant: "subtle",
 										});
-                    return
+										return;
 									}
 									setMore(!more);
 								}}

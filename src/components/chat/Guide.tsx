@@ -50,7 +50,7 @@ export function Guide() {
 
 	const cmds = commands.filter((item: any) => item?.type === "normal");
 
-	console.log(cmds);
+	// console.log(cmds);
 
 	const getCommands = async () => {
 		const result: any = await api.get("api/shortcut/questions");
