@@ -85,6 +85,7 @@ export default function ChatProvider({ children }: any) {
 		sharedChat,
 		setSharedChat,
 		clearMessage,
+		addAndSwitchChat,
 	} = useChatStore();
 
 	const [isActionSheetOpen, setIsActionSheetOpen] = useBoolean(false);
@@ -1471,6 +1472,7 @@ export default function ChatProvider({ children }: any) {
 				setIsActionSheetOpen,
 				actionSheetProps,
 				setActionSheetProps,
+				addAndSwitchChat,
 				addChat,
 			}}
 		>

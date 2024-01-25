@@ -457,11 +457,12 @@ export default function Search({
 	}, [activeChat, chatIndex]);
 
 	return (
-		<VStack spacing={5} p={2} alignItems="start" w="full">
-			<Box className="w-full">
+		<VStack spacing={5} p={2} minW="270px" alignItems="start" w="full">
+			<Box w="full">
 				<h2 className="text-2xl">Answer</h2>
+
 				{!done ? (
-					<Stack mt="10px">
+					<Stack mt="15px" w="full">
 						<Skeleton
 							height="16px"
 							mb={1}
@@ -487,7 +488,7 @@ export default function Search({
 						/>
 					</Stack>
 				) : (
-					<Box className="w-full">
+					<Box w="full">
 						<Markdown value={content} />
 					</Box>
 				)}
@@ -535,11 +536,44 @@ export default function Search({
 					</Tooltip>
 				)}
 			</Box>
-			{sources && sources.length ? (
-				<>
-					{/* <hr className="h-[1px] w-full bg-[#D9D9D9]" /> */}
+
+			{!done ? (
+				<Flex
+					w="full"
+					my="10px"
+					pr="10px"
+					gap="5px"
+					flexFlow="row wrap"
+					justify="space-between"
+				>
+					<Skeleton
+						height="20px"
+						mb={1}
+						w={"46%"}
+						startColor="#F3F3F3"
+						endColor="#DFDFDF"
+						borderRadius={"8px"}
+					/>
+					<Skeleton
+						height="20px"
+						mb={1}
+						w={"46%"}
+						startColor="#F3F3F3"
+						endColor="#DFDFDF"
+						borderRadius={"8px"}
+					/>
+					<Skeleton
+						height="20px"
+						w={"46%"}
+						startColor="#F3F3F3"
+						endColor="#DFDFDF"
+						borderRadius={"8px"}
+					/>
+				</Flex>
+			) : (
+				sources &&
+				sources.length && (
 					<Box>
-						{/* <h2 className="text-2xl">Sources</h2> */}
 						<div className="flex items-center justify-between mb-4">
 							<div className="text-2xl">Sources</div>
 							{!isPassuser && userId && item.isNewSearch && (
@@ -579,8 +613,9 @@ export default function Search({
 							</div>
 						</div>
 					</Box>
-				</>
-			) : null}
+				)
+			)}
+
 			{loading ? (
 				<Stack mt="10px">
 					<Skeleton

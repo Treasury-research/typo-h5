@@ -631,7 +631,7 @@ export function Operate({ children }: any) {
 				</Popup>
 			}
 		>
-			<Flex w="full" h="100vh" pos="relative" gap={2} background="transparent">
+			<Flex w="full" pos="relative" gap={2} background="transparent">
 				{children}
 			</Flex>
 		</LongPressTouch>
