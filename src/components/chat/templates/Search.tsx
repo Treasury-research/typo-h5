@@ -290,6 +290,10 @@ const SourceBox = ({
 	};
 
 	const openSourceActionSheet = useCallback(() => {
+		if (!userId) {
+			setOpenConnectModal(true);
+			return;
+		}
 		if (isLoading || isGenerate) {
 			showToast({
 				position: "top",
@@ -510,11 +514,11 @@ export default function Search({
 								isGenerate ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
 							} text-[#487C7E] bg-[#DAE5E5] rounded-[4px] py-2 font-bold flex items-center px-3 w-[fit-content] mt-[10px] cursor-pointer hover:opacity-70`}
 							onClick={() => {
-								if (isLoading || isGenerate) {
-									return;
-								}
 								if (!userId) {
 									setOpenConnectModal(true);
+									return;
+								}
+								if (isLoading || isGenerate) {
 									return;
 								}
 								if (activeChat && activeChat.isShare) {

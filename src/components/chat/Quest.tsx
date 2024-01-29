@@ -123,9 +123,9 @@ export function Quest() {
 
 	const totalScore = useMemo(() => {
 		return awards.reduce(
-			(sum, item) => sum + parseInt(item.score as unknown as string),
+			(sum, item) => sum + parseFloat(item.score as unknown as string),
 			0
-		);
+		).toFixed(1);
 	}, [awards]);
 
 	const openReferer = () => {
