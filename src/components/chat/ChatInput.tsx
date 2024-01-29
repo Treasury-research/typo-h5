@@ -189,15 +189,17 @@ export const ChatInput = () => {
 								<Box height="100%" w="20px" ml={1}>
 									<Search2Icon color="#fff" />
 								</Box>
-								<Box
-									pl="2px"
-									pr="4px"
-									color="white"
-									fontSize="13px"
-									fontWeight="500"
-								>
-									{isShowInputQuote ? "Send" : `(${searchLimit}/30)`}
-								</Box>
+								{userId && (
+									<Box
+										pl="2px"
+										pr="4px"
+										color="white"
+										fontSize="13px"
+										fontWeight="500"
+									>
+										{isShowInputQuote ? "Send" : `(${searchLimit}/30)`}
+									</Box>
+								)}
 							</Flex>
 						)}
 						{isLoading && (

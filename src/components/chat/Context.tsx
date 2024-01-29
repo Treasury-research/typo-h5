@@ -101,7 +101,7 @@ export default function ChatProvider({ children }: any) {
 	const [input, setInput] = useState("");
 	const [isFold, setIsFold] = useState(false);
 	const [coplyLoading, setCoplyLoading] = useState(false);
-	const [isGenerate, setIsGenerate] = useState(false);
+	const [isGenerate, setIsGenerate] = useBoolean(false);
 	const [getReccordByIdLoading, setGetReccordByIdLoading] = useState(false);
 	const [isFocus, setIsFocus] = useBoolean(false);
 
@@ -169,7 +169,7 @@ export default function ChatProvider({ children }: any) {
 	const onScroll = (timer: number) => {
 		setTimeout(() => {
 			const chatContent = document.getElementById("chat-content");
-			console.log("onScroll", chatContent);
+			// console.log("", chatContent);
 			chatContent && chatContent?.scrollTo({ top: chatContent.scrollHeight });
 		}, timer);
 	};
@@ -941,6 +941,9 @@ export default function ChatProvider({ children }: any) {
 		}: any = {}) => {
 			loadClickList();
 
+			const isSearch =
+				(section === "explorer" && !isShowInputQuote) ||
+				(section === "explorer" && isRelationsQuestion);
 			const messageId = uuidv4();
 
 			const newMessage = {
@@ -948,6 +951,7 @@ export default function ChatProvider({ children }: any) {
 				content: "",
 				createTime: new Date().getTime(),
 				type: "answer",
+				tool: isSearch ? "search" : undefined,
 			};
 
 			addMessage(chatId, newMessage);
@@ -1027,7 +1031,8 @@ export default function ChatProvider({ children }: any) {
 
 			try {
 				setIsLoading.on();
-				setIsGenerate(true);
+				setIsGenerate.on();
+
 				const { cmd, cmdType, cmdValue } = getShortcutByprompt(prompt);
 				const cmds = commands.map((str) => str.toLowerCase());
 				let result: any;
@@ -1048,10 +1053,7 @@ export default function ChatProvider({ children }: any) {
 						agent,
 						agentPrompt,
 					});
-				} else if (
-					(section === "explorer" && !isShowInputQuote) ||
-					(section === "explorer" && isRelationsQuestion)
-				) {
+				} else if (isSearch) {
 					result = await handleSearchPrompt({
 						chatId,
 						messageId,
@@ -1073,10 +1075,10 @@ export default function ChatProvider({ children }: any) {
 				}
 
 				setIsLoading.off();
+				setIsGenerate.off();
 				getDayLimit();
-				setIsGenerate(false);
 				getAwards();
-				console.log("result124", result);
+
 				if (result.code === 200) {
 					updateMessage(
 						chatId,
@@ -1208,7 +1210,7 @@ export default function ChatProvider({ children }: any) {
 					createTime: new Date().getTime(),
 				});
 				setIsLoading.off();
-				setIsGenerate(false);
+				setIsGenerate.off();
 				setInput("");
 				showToast({
 					position: "top",

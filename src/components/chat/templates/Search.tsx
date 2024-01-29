@@ -104,9 +104,9 @@ const SourceBox = ({
 		const conversation_id = activeChat?.chatId;
 		doneChange(false);
 		localStorage.setItem("isForceScroll", "no");
-		setIsGenerate(true);
+		setIsGenerate.on();
 		const onChunkedResponseError = (err: any) => {
-			setIsGenerate(false);
+			setIsGenerate.off();
 			loadingChange(false);
 			doneChange(true);
 			// updateActiveLink("");
@@ -235,7 +235,7 @@ const SourceBox = ({
 			.then(processChunkedResponse)
 			.then((respones: any) => {
 				doneChange(true);
-				setIsGenerate(false);
+				setIsGenerate.off();
 				if (respones.done) {
 					const preCount =
 						item["previewCount"] == undefined ? 3 : item["previewCount"];
@@ -290,7 +290,7 @@ const SourceBox = ({
 	};
 
 	const openSourceActionSheet = useCallback(() => {
-		if (isLoading || !isGenerate) {
+		if (isLoading || isGenerate) {
 			showToast({
 				position: "top",
 				title: "Content is loading, please wait.",
@@ -457,7 +457,7 @@ export default function Search({
 	}, [activeChat, chatIndex]);
 
 	return (
-		<VStack spacing={5} p={2} minW="270px" alignItems="start" w="full">
+		<VStack spacing={4} p={2} minW="270px" alignItems="start" w="full">
 			<Box w="full">
 				<h2 className="text-2xl">Answer</h2>
 
@@ -537,51 +537,58 @@ export default function Search({
 				)}
 			</Box>
 
-			{!done ? (
-				<Flex
-					w="full"
-					my="10px"
-					pr="10px"
-					gap="5px"
-					flexFlow="row wrap"
-					justify="space-between"
-				>
-					<Skeleton
-						height="20px"
-						mb={1}
-						w={"46%"}
-						startColor="#F3F3F3"
-						endColor="#DFDFDF"
-						borderRadius={"8px"}
-					/>
-					<Skeleton
-						height="20px"
-						mb={1}
-						w={"46%"}
-						startColor="#F3F3F3"
-						endColor="#DFDFDF"
-						borderRadius={"8px"}
-					/>
-					<Skeleton
-						height="20px"
-						w={"46%"}
-						startColor="#F3F3F3"
-						endColor="#DFDFDF"
-						borderRadius={"8px"}
-					/>
-				</Flex>
-			) : (
-				sources &&
-				sources.length && (
-					<Box>
-						<div className="flex items-center justify-between mb-4">
-							<div className="text-2xl">Sources</div>
-							{!isPassuser && userId && item.isNewSearch && (
-								<div className="text-[#999999]">
-									{item.previewCount} previews left
-								</div>
-							)}
+			<Box mt="10px" w="full">
+				<Flex className=" items-center justify-between mb-4">
+					<Text className="text-2xl">Sources</Text>
+					{!isPassuser && userId && item.isNewSearch && (
+						<div className="text-[#999999]">
+							{item.previewCount} previews left
 						</div>
+					)}
+				</Flex>
+				{!done ? (
+					<Flex
+						w="full"
+						my="10px"
+						pr="10px"
+						gap="10px"
+						flexFlow="row wrap"
+						justify="space-between"
+					>
+						<Skeleton
+							height="50px"
+							mb={1}
+							w={"47%"}
+							startColor="#F3F3F3"
+							endColor="#DFDFDF"
+							borderRadius={"8px"}
+						/>
+						<Skeleton
+							height="50px"
+							mb={1}
+							w={"47%"}
+							startColor="#F3F3F3"
+							endColor="#DFDFDF"
+							borderRadius={"8px"}
+						/>
+						<Skeleton
+							height="50px"
+							w={"47%"}
+							startColor="#F3F3F3"
+							endColor="#DFDFDF"
+							borderRadius={"8px"}
+						/>
+						<Skeleton
+							height="50px"
+							w={"47%"}
+							startColor="#F3F3F3"
+							endColor="#DFDFDF"
+							borderRadius={"8px"}
+						/>
+					</Flex>
+				) : (
+					sources &&
+					sources.length && (
 						<div className="grid grid-cols-2 gap-1 font-medium">
 							{sources
 								.slice(0, more ? sources.length : 3)
@@ -612,10 +619,9 @@ export default function Search({
 								{viewMoreBox(more, sources.length - 3, sources)}
 							</div>
 						</div>
-					</Box>
-				)
-			)}
-
+					)
+				)}
+			</Box>
 			{loading ? (
 				<Stack mt="10px">
 					<Skeleton

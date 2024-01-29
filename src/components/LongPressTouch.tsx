@@ -44,7 +44,7 @@ export function LongPressTouch({
 
 	return (
 		<>
-			<Box w="full" h="100vh" ref={myArea} background="transparent">
+			<Box w="full" h="auto" ref={myArea} background="transparent">
 				{children}
 			</Box>
 			{isOpen && <>{PressArea}</>}

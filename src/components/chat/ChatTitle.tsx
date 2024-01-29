@@ -49,7 +49,7 @@ export function ChatTitle() {
 			type: "share",
 		});
 		setIsActionSheetOpen.on();
-	}, []);
+	}, [isLoading, isGenerate]);
 
 	return (
 		<>

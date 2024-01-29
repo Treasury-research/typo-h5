@@ -123,19 +123,15 @@ export function Left({
 						position="relative"
 						paddingRight="12px"
 					>
-						{!isLoading ? (
-							item.done && (
-								<Box
-									position="absolute"
-									right="0px"
-									top="10px"
-									onClick={openMessageActionSheet}
-								>
-									<MoreIcon />
-								</Box>
-							)
-						) : (
-							<BarLoader className="mt-2" color="#0000003d" width="40px" />
+						{!isLoading && item.done && (
+							<Box
+								position="absolute"
+								right="0px"
+								top="10px"
+								onClick={openMessageActionSheet}
+							>
+								<MoreIcon />
+							</Box>
 						)}
 
 						{item.tool && item.tool === "profile" ? (

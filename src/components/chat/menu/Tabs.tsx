@@ -39,7 +39,6 @@ export function Tabs() {
 	} = useChatContext();
 	const showToast = useToast();
 	const { userId } = useUserInfoStore();
-	// console.log("allChatList", allChatList);
 
 	const onScroll = () => {
 		setTimeout(() => {
@@ -80,7 +79,7 @@ export function Tabs() {
 
 		addChat(newChat);
 		setActiveChatId(newChat.id);
-	}, [channel, userId, section]);
+	}, [channel, userId, section, isLoading, isGenerate]);
 
 	return (
 		<VStack w="full" h="full" pos="relative" spacing={0}>
@@ -116,6 +115,14 @@ export function Tabs() {
 												overflow="hidden"
 												textOverflow="ellipsis"
 												onClick={() => {
+													if (isLoading || isGenerate) {
+														showToast({
+															position: "top",
+															title: "Content is loading, please wait.",
+															variant: "subtle",
+														});
+														return;
+													}
 													setActiveChatId(item.id);
 													closeNav();
 												}}
