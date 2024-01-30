@@ -331,7 +331,7 @@ const SourceBox = ({
 			<VStack
 				justify="space-between"
 				alignItems="start"
-				p={3}
+				p={2}
 				key={source.index}
 				style={{ backdropFilter: "blur(30px)", height: "100%" }}
 				className="bg-[#DAE5E5] rounded-md overflow-hidden text-[#487C7E] relative group"
@@ -418,13 +418,13 @@ const viewMoreBox = (more: boolean, langth: number, sources: ISource[]) => {
 			{!more ? (
 				<div className="flex gap-2">
 					<Text>View {langth} more</Text>
-					<AiFillRightCircle fontSize="20px" color="#487C7E" />
+					<AiFillRightCircle fontSize="18px" color="#487C7E" />
 				</div>
 			) : (
 				<div className="flex gap-2">
 					<Text>View less</Text>
 					<span className="inline-block w-[20px] h-[20px]">
-						<AiFillLeftCircle fontSize="20px" color="#487C7E" />
+						<AiFillLeftCircle fontSize="18px" color="#487C7E" />
 					</span>
 				</div>
 			)}
@@ -461,7 +461,7 @@ export default function Search({
 	}, [activeChat, chatIndex]);
 
 	return (
-		<VStack spacing={4} p={2} minW="270px" alignItems="start" w="full">
+		<VStack spacing={4} p={2} minW="240px" alignItems="start" w="full">
 			<Box w="full">
 				<h2 className="text-2xl">Answer</h2>
 
@@ -512,7 +512,7 @@ export default function Search({
 						<Box
 							className={`${
 								isGenerate ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
-							} text-[#487C7E] bg-[#DAE5E5] rounded-[4px] py-2 font-bold flex items-center px-3 w-[fit-content] mt-[10px] cursor-pointer hover:opacity-70`}
+							} text-[#487C7E] bg-[#DAE5E5] rounded-[4px] py-2 font-semibold flex items-center px-2 w-[fit-content] mt-[10px] cursor-pointer hover:opacity-70`}
 							onClick={() => {
 								if (!userId) {
 									setOpenConnectModal(true);

@@ -172,7 +172,9 @@ export function Left({
 						{item.relatedQuestion.map((t: any, i: number) => (
 							<Box
 								key={i}
-								className={`text-[#487C7E] bg-[#DAE5E5] rounded-[12px] py-2 font-bold flex items-start px-3 w-[fit-content] mt-[10px] mr-[4px] ${
+								fontSize="14px"
+								lineHeight="20px"
+								className={`text-[#487C7E] bg-[#DAE5E5] rounded-[10px] py-2 font-semibold flex items-start px-3 w-[fit-content] mt-[10px] mr-[4px] ${
 									isGenerate
 										? "opacity-50 cursor-not-allowed"
 										: "cursor-pointer"
