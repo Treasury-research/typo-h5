@@ -29,7 +29,7 @@ const customTheme = extendTheme({
   styles: {
     global: (props: any) => ({
       body: {
-        bg: props.colorMode === "light" ? "#000" : "#000",
+        bg: props.colorMode === "light" ? "#fff" : "#000",
       },
     }),
   },

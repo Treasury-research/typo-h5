@@ -17,26 +17,26 @@
 .move-left {
 	transform: translate(0vw, 0px);
 	transition: transform 0.16s ease-in-out;
-	height: 100vh;
+	height: 100%;
 }
 
-.move-left > div:nth-child(2) {
+/* .move-left > div:nth-child(2) {
 	border-radius: 20px;
 	margin: 20px 0;
 	height: calc(100% - 40px);
-}
+} */
 
 .move-right {
 	transform: translate(-180vw, 0px);
 	transition: transform 0.16s ease-in-out;
-	height: 100vh;
+	height: 100%;
 }
 
 .move-center {
 	height: 100%;
 	transform: translate(-80vw, 0px);
 	transition: transform 0.1s ease-in-out;
-	height: calc(100vh - env(safe-area-inset-bottom));
+	height: 100%;
 }
 
 .nav-bar .rv-nav-bar__content {

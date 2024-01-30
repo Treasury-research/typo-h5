@@ -64,6 +64,7 @@ const Chat = () => {
 					pr={0}
 					pl={0}
 					overflow="hidden"
+					h="calc(100vh - 55px)"
 					className="container no-scrollbar"
 					position="relative"
 				>
@@ -72,25 +73,26 @@ const Chat = () => {
 						<VStack
 							w="100vw"
 							h="full"
-							className="chat-panel"
 							pos="relative"
+							className="chat-panel"
 							overflow="hidden"
 							alignItems="flex-start"
 							bg="#f4f5f6"
 							gap="0"
 						>
-							<ChatTitle />
-							<VStack
-								pt={1}
-								w="full"
-								h="calc(100% - 55px)"
-								mt="0!"
-								bg="#f4f5f6"
-								alignItems="flex-start"
-							>
-								<ChatContent />
-								{showChat && <ChatInput />}
-							</VStack>
+								<ChatTitle />
+								<VStack
+									pt="50px"
+									pb="5px"
+									w="full"
+									h="100%"
+									mt="0!"
+									bg="#f4f5f6"
+									alignItems="flex-start"
+								>
+									<ChatContent />
+									{showChat && <ChatInput />}
+								</VStack>
 						</VStack>
 						<Quest />
 					</Flex>

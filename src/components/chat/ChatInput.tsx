@@ -20,6 +20,7 @@ import useChatContext from "hooks/useChatContext";
 import { useQuoteStore } from "store/quoteStore";
 import { QuoteTem } from "./QuoteTem";
 import { useRouter } from "next/router";
+import { FiSend } from "react-icons/fi";
 
 const { TextArea } = Input;
 
@@ -186,19 +187,25 @@ export const ChatInput = () => {
 									}
 								}}
 							>
-								<Box height="100%" w="20px" ml={1}>
-									<Search2Icon color="#fff" />
-								</Box>
-								{userId && (
-									<Box
-										pl="2px"
-										pr="4px"
-										color="white"
-										fontSize="13px"
-										fontWeight="500"
-									>
-										{isShowInputQuote ? "Send" : `(${searchLimit}/30)`}
-									</Box>
+								{isShowInputQuote ? (
+									<Icon as={FiSend} boxSize={5} color="gray.200" />
+								) : (
+									<>
+										<Box height="100%" w="20px" ml={1}>
+											<Search2Icon color="#fff" />
+										</Box>
+										{userId && (
+											<Box
+												pl="2px"
+												pr="4px"
+												color="white"
+												fontSize="13px"
+												fontWeight="500"
+											>
+												{`(${searchLimit}/30)`}
+											</Box>
+										)}
+									</>
 								)}
 							</Flex>
 						)}

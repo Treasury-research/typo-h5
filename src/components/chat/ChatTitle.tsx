@@ -53,7 +53,7 @@ export function ChatTitle() {
 
 	return (
 		<>
-			<Box w="100vw">
+			<Box w="100vw" pos="fixed" top="0">
 				{showNav && (
 					<Box w="full" h="full" pos="absolute" zIndex={5} onClick={closeNav} />
 				)}

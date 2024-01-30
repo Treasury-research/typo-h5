@@ -505,8 +505,8 @@ export default function Search({
 						bg="#666666"
 						color="#fff"
 						maxW="600px"
-						paddingY="6px"
-						paddingX="10px"
+						paddingY="4px"
+						paddingX="8px"
 						label="Ask a follow-up."
 					>
 						<Box

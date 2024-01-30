@@ -71,7 +71,7 @@ p {
 /*mobile*/
 @media screen and (max-width: 600px) {
 	.chat-panel {
-		padding-bottom: 55px;
+		/* padding-bottom: 55px; */
 	}
 	.base-modal {
 		width: calc(100vw - 40px) !important;
