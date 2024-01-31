@@ -31,6 +31,15 @@ export const NextSeo = ({ title, description, keywords }: NextSeoProps) => {
 						"TypoGraphy, knn3-sdk, knn3, nft, web3, gpt, assignmet, metamask, api, sdk, blockchain, data service, openai, llm, workflow, event push"
 					}
 				/>
+				<meta name="twitter:card" content="summary_large_image" />
+				<meta
+					name="twitter:site"
+					content={`${
+						typeof window !== "undefined" && router.query.id
+							? `${window.location.origin}/${router.query.id}`
+							: ""
+					}`}
+				/>
 				<meta
 					name="twitter:title"
 					content="TypoGraphy AI: Unlocking Web3 Potential with AI"
@@ -46,15 +55,6 @@ export const NextSeo = ({ title, description, keywords }: NextSeoProps) => {
 					content="Acquire Web3 expertise, stay on top of the latest developments, and explore Web3 protocols in your native language."
 				/>
 
-				<meta name="twitter:card" content="summary_large_image" />
-				<meta
-					name="twitter:site"
-					content={`${
-						typeof window !== "undefined" && router.query.id
-							? `${window.location.origin}/${router.query.id}`
-							: ""
-					}`}
-				/>
 				<meta
 					property="og:url"
 					content={`${
