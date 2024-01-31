@@ -42,7 +42,8 @@ export const NextSeo = ({ title, description, keywords }: NextSeoProps) => {
 				<meta name="twitter:card" content="summary_large_image" />
 				<meta
 					name="twitter:site"
-					content={`${id ? `${location.origin}/${id}` : ""}`}
+					// content={`${id ? `${location.origin}/${id}` : ""}`}
+					content="https://mobile.typography.staging.knn3.xyz/explorer/ce0e02bc-a5e9-41c5-a1a0-6a2f06197188"
 				/>
 				<meta name="twitter:image" content="https://ibb.co/vhbnfty" />
 				<meta
@@ -57,7 +58,8 @@ export const NextSeo = ({ title, description, keywords }: NextSeoProps) => {
 
 				<meta
 					property="og:url"
-					content={`${id ? `${location.origin}/${id}` : ""}`}
+					// content={`${id ? `${location.origin}/${id}` : ""}`}
+					content="https://mobile.typography.staging.knn3.xyz/explorer/ce0e02bc-a5e9-41c5-a1a0-6a2f06197188"
 				/>
 			</Head>
 			<Seo
