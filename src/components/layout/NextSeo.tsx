@@ -11,7 +11,6 @@ type NextSeoProps = {
 };
 
 export const NextSeo = ({ title, description, keywords }: NextSeoProps) => {
-	const { activeChat } = useChatContext();
 	const router = useRouter();
 
 	// console.log("activeChat", activeChat);
@@ -47,27 +46,23 @@ export const NextSeo = ({ title, description, keywords }: NextSeoProps) => {
 					content="Acquire Web3 expertise, stay on top of the latest developments, and explore Web3 protocols in your native language."
 				/>
 
-				{activeChat && activeChat?.isShare && (
-					<>
-						<meta name="twitter:card" content="summary_large_image" />
-						<meta
-							name="twitter:site"
-							content={`${
-								typeof window !== "undefined"
-									? `${window.location.origin}/${router.query.id}`
-									: ""
-							}`}
-						/>
-						<meta
-							property="og:url"
-							content={`${
-								typeof window !== "undefined"
-									? `${window.location.origin}/${router.query.id}`
-									: ""
-							}`}
-						/>
-					</>
-				)}
+				<meta name="twitter:card" content="summary_large_image" />
+				<meta
+					name="twitter:site"
+					content={`${
+						typeof window !== "undefined"
+							? `${window.location.origin}/${router.query.id}`
+							: ""
+					}`}
+				/>
+				<meta
+					property="og:url"
+					content={`${
+						typeof window !== "undefined"
+							? `${window.location.origin}/${router.query.id}`
+							: ""
+					}`}
+				/>
 			</Head>
 			<Seo
 				title={title}

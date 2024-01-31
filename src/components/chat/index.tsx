@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { Box, Flex, VStack, Container, useToast } from "@chakra-ui/react";
-import { NextSeo } from "components";
 import { useRouter } from "next/router";
 import useChatContext from "hooks/useChatContext";
 import { Menu } from "components/chat/menu";
@@ -57,7 +56,6 @@ const Chat = () => {
 
 	return (
 		<>
-			<NextSeo title={"TypoGraphy AI"} />
 			<Operate>
 				<Container
 					w="100vw"
