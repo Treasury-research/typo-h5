@@ -32,6 +32,20 @@ export const NextSeo = ({ title, description, keywords }: NextSeoProps) => {
 						"TypoGraphy, knn3-sdk, knn3, nft, web3, gpt, assignmet, metamask, api, sdk, blockchain, data service, openai, llm, workflow, event push"
 					}
 				/>
+				<meta
+					name="twitter:title"
+					content="TypoGraphy AI: Unlocking Web3 Potential with AI"
+				/>
+				<meta name="twitter:image" content="https://ibb.co/vhbnfty" />
+				<meta
+					property="og:title"
+					content="TypoGraphy AI: Unlocking Web3 Potential with AI"
+				/>
+				<meta property="og:image" content="https://ibb.co/vhbnfty" />
+				<meta
+					property="og:description"
+					content="Acquire Web3 expertise, stay on top of the latest developments, and explore Web3 protocols in your native language."
+				/>
 
 				{activeChat && activeChat?.isShare && (
 					<>
@@ -45,26 +59,12 @@ export const NextSeo = ({ title, description, keywords }: NextSeoProps) => {
 							}`}
 						/>
 						<meta
-							name="twitter:title"
-							content="TypoGraphy AI: Unlocking Web3 Potential with AI"
-						/>
-						<meta name="twitter:image" content="https://ibb.co/vhbnfty" />
-						<meta
 							property="og:url"
 							content={`${
 								typeof window !== "undefined"
 									? `${window.location.origin}/${router.query.id}`
 									: ""
 							}`}
-						/>
-						<meta
-							property="og:title"
-							content="TypoGraphy AI: Unlocking Web3 Potential with AI"
-						/>
-						<meta property="og:image" content="https://ibb.co/vhbnfty" />
-						<meta
-							property="og:description"
-							content="Acquire Web3 expertise, stay on top of the latest developments, and explore Web3 protocols in your native language."
 						/>
 					</>
 				)}
