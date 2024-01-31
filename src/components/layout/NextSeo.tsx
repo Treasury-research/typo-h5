@@ -11,9 +11,13 @@ type NextSeoProps = {
 };
 
 export const NextSeo = ({ title, description, keywords }: NextSeoProps) => {
+	// const { activeChat } = useChatContext();
 	const router = useRouter();
 
-	// console.log("activeChat", activeChat);
+	const query: any = router?.query?.chatKey;
+	const id = query && query[1];
+
+	console.log("activeChat", router.query, id);
 
 	return (
 		<>
@@ -31,18 +35,14 @@ export const NextSeo = ({ title, description, keywords }: NextSeoProps) => {
 						"TypoGraphy, knn3-sdk, knn3, nft, web3, gpt, assignmet, metamask, api, sdk, blockchain, data service, openai, llm, workflow, event push"
 					}
 				/>
-				<meta name="twitter:card" content="summary_large_image" />
-				<meta
-					name="twitter:site"
-					content={`${
-						typeof window !== "undefined" && router.query.id
-							? `${window.location.origin}/${router.query.id}`
-							: ""
-					}`}
-				/>
 				<meta
 					name="twitter:title"
 					content="TypoGraphy AI: Unlocking Web3 Potential with AI"
+				/>
+				<meta name="twitter:card" content="summary_large_image" />
+				<meta
+					name="twitter:site"
+					content={`${id ? `${location.origin}/${id}` : ""}`}
 				/>
 				<meta name="twitter:image" content="https://ibb.co/vhbnfty" />
 				<meta
@@ -57,11 +57,7 @@ export const NextSeo = ({ title, description, keywords }: NextSeoProps) => {
 
 				<meta
 					property="og:url"
-					content={`${
-						typeof window !== "undefined" && router.query.id
-							? `${window.location.origin}/${router.query.id}`
-							: ""
-					}`}
+					content={`${id ? `${location.origin}/${id}` : ""}`}
 				/>
 			</Head>
 			<Seo
