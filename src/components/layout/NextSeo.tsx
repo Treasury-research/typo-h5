@@ -50,7 +50,7 @@ export const NextSeo = ({ title, description, keywords }: NextSeoProps) => {
 				<meta
 					name="twitter:site"
 					content={`${
-						typeof window !== "undefined"
+						typeof window !== "undefined" && router.query.id
 							? `${window.location.origin}/${router.query.id}`
 							: ""
 					}`}
@@ -58,7 +58,7 @@ export const NextSeo = ({ title, description, keywords }: NextSeoProps) => {
 				<meta
 					property="og:url"
 					content={`${
-						typeof window !== "undefined"
+						typeof window !== "undefined" && router.query.id
 							? `${window.location.origin}/${router.query.id}`
 							: ""
 					}`}
