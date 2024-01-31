@@ -1,10 +1,14 @@
 import Chat from "components/chat";
+import { NextSeo } from "components";
 import ChatProvider from "components/chat/Context";
 
 export default function Home() {
 	return (
-		<ChatProvider>
-			<Chat />
-		</ChatProvider>
+		<>
+			<NextSeo title={"TypoGraphy AI"} />
+			<ChatProvider>
+				<Chat />
+			</ChatProvider>
+		</>
 	);
 }
