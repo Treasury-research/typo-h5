@@ -220,46 +220,27 @@ export function ShareActionSheet({ item, index, onClose }: any) {
 	const handleCreateShareChat: any = useCallback(() => {
 		return new Promise(async (resolve, reject) => {
 			try {
-				const node: any = document.getElementById("chat-content");
-				if (!activeChat || !node) return;
-				html2Canvas(node, {
-					useCORS: true,
-					allowTaint: true,
-					height: ((node.clientWidth + 40) * 3) / 4,
-					width: node.clientWidth + 40,
-					scrollX: 20,
-					backgroundColor: "#EAEDF1",
-				}).then((canvas: any) => {
-					const dataURL: any = canvas.toBlob(async (blob: any) => {
-						const filename = `${new Date().getTime()}.png`;
-						//转换canvas图片数据格式为formData
-						const file = new File([blob], filename, { type: "image/png" });
-						const formData = new FormData();
-						formData.append("file", file);
-						formData.append("conversation_id", activeChat.id);
-						formData.append(
-							"conversation",
-							JSON.stringify({
-								...activeChat,
-								isShare: true,
-							})
-						);
-						setCreateLoading.on();
-						const { data } = await api.post(
-							`/api/conversation/shared/create`,
-							formData
-						);
-						if (data) {
-							setCreateLoading.off();
-							resolve({
-								value: `${window.location.origin}/explorer/${data}`,
-							});
-						}
-					});
-					setCreateLoading.off();
+				setCreateLoading.on();
+				const { data } = await api.post(`/api/conversation/shared/create_h5`, {
+					conversation_id: activeChat.id,
+					conversation: JSON.stringify({
+						...activeChat,
+						isShare: true,
+					}),
 				});
 				setCreateLoading.off();
+				if (data) {
+					resolve({
+						value: `${window.location.origin}/explorer/${data}`,
+					});
+				}
 			} catch (error) {
+				showToast({
+					position: "top",
+					title: "Failed to generate link",
+					variant: "subtle",
+					status: "error",
+				});
 				setCreateLoading.off();
 				reject();
 			}

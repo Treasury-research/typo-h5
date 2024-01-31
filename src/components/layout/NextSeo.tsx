@@ -48,7 +48,7 @@ export const NextSeo = ({ title, description, keywords }: NextSeoProps) => {
 							name="twitter:title"
 							content="TypoGraphy AI: Unlocking Web3 Potential with AI"
 						/>
-						<meta name="twitter:image" content={activeChat.shareImg} />
+						<meta name="twitter:image" content="https://ibb.co/vhbnfty" />
 						<meta
 							property="og:url"
 							content={`${
@@ -61,7 +61,7 @@ export const NextSeo = ({ title, description, keywords }: NextSeoProps) => {
 							property="og:title"
 							content="TypoGraphy AI: Unlocking Web3 Potential with AI"
 						/>
-						<meta property="og:image" content={activeChat.shareImg} />
+						<meta property="og:image" content="https://ibb.co/vhbnfty" />
 						<meta
 							property="og:description"
 							content="Acquire Web3 expertise, stay on top of the latest developments, and explore Web3 protocols in your native language."

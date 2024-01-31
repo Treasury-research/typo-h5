@@ -20,11 +20,12 @@
 	height: 100%;
 }
 
-/* .move-left > div:nth-child(2) {
+.move-left > div:nth-child(2) {
 	border-radius: 20px;
 	margin: 20px 0;
 	height: calc(100% - 40px);
-} */
+	/* box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1) */
+}
 
 .move-right {
 	transform: translate(-180vw, 0px);
