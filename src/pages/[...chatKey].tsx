@@ -23,12 +23,18 @@ export default function Home() {
 					name="twitter:site"
 					content={`${id ? `${location.origin}/${id}` : ""}`}
 				/>
-				<meta name="twitter:image" content="https://ibb.co/vhbnfty" />
+				<meta
+					name="twitter:image"
+					content="https://pic.imgdb.cn/item/65baf59c871b83018a01e5a9.png"
+				/>
 				<meta
 					property="og:title"
 					content="TypoGraphy AI: Unlocking Web3 Potential with AI"
 				/>
-				<meta property="og:image" content="https://ibb.co/vhbnfty" />
+				<meta
+					property="og:image"
+					content="https://pic.imgdb.cn/item/65baf59c871b83018a01e5a9.png"
+				/>
 				<meta
 					property="og:description"
 					content="Acquire Web3 expertise, stay on top of the latest developments, and explore Web3 protocols in your native language."
