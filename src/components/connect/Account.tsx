@@ -109,7 +109,7 @@ const Account = () => {
 										whiteSpace="nowrap"
 										className="text-[16px] font-bold"
 									>
-										<Text> {toShortAddress(account, 8)}</Text>
+										<Text> {toShortAddress(account, 12)}</Text>
 									</Flex>
 
 									<Box marginTop="2px" fontSize="13px" marginBottom="4px">
