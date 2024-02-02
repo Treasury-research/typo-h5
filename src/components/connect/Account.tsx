@@ -115,7 +115,7 @@ const Account = () => {
 									<Box marginTop="2px" fontSize="13px" marginBottom="4px">
 										{/* Daily Reward */}
 										<Text fontSize="14px" pr="1px">
-											{totalCoupon} TCC
+											{totalCoupon.toFixed(1)} TCC
 										</Text>
 									</Box>
 									<Box
