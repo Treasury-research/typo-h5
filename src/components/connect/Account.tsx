@@ -110,13 +110,13 @@ const Account = () => {
 										className="text-[16px] font-bold"
 									>
 										<Text> {toShortAddress(account, 8)}</Text>
-										<Text fontSize="14px" pr="1px">
-											{totalCoupon} TCC
-										</Text>
 									</Flex>
 
 									<Box marginTop="2px" fontSize="13px" marginBottom="4px">
-										Daily Reward
+										{/* Daily Reward */}
+										<Text fontSize="14px" pr="1px">
+											{totalCoupon} TCC
+										</Text>
 									</Box>
 									<Box
 										className="text-[12px]"

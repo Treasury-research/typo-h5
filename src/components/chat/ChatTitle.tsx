@@ -25,7 +25,6 @@ export function ChatTitle() {
 		showNav,
 		openQuest,
 		openNav,
-		closeNav,
 		isGenerate,
 		setActionSheetProps,
 		setIsActionSheetOpen,
@@ -54,9 +53,7 @@ export function ChatTitle() {
 	return (
 		<>
 			<Box w="100vw" pos="fixed" top="0">
-				{showNav && (
-					<Box w="full" h="full" pos="absolute" zIndex={5} onClick={closeNav} />
-				)}
+				{showNav && <Box w="full" h="full" pos="absolute" zIndex={5} />}
 				<NavBar
 					className="nav-bar"
 					title={

@@ -20,6 +20,7 @@ const Chat = () => {
 		loadChat,
 		isLoading,
 		showNav,
+		closeNav,
 		activeChat,
 		closeQuest,
 	} = useChatContext();
@@ -76,21 +77,25 @@ const Chat = () => {
 							overflow="hidden"
 							alignItems="flex-start"
 							bg="#f4f5f6"
+							onClick={() => {
+								showNav && closeNav();
+							}}
 							gap="0"
 						>
-								<ChatTitle />
-								<VStack
-									pt="50px"
-									pb="5px"
-									w="full"
-									h="100%"
-									mt="0!"
-									bg="#f4f5f6"
-									alignItems="flex-start"
-								>
-									<ChatContent />
-									{showChat && <ChatInput />}
-								</VStack>
+							<ChatTitle />
+							<VStack
+								pt="50px"
+								pb="5px"
+								w="full"
+								h="100%"
+								mt="0!"
+								bg="#f4f5f6"
+								pointerEvents={showNav ? "none" : "auto"}
+								alignItems="flex-start"
+							>
+								<ChatContent />
+								{showChat && <ChatInput />}
+							</VStack>
 						</VStack>
 						<Quest />
 					</Flex>
