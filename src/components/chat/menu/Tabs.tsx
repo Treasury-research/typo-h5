@@ -95,7 +95,7 @@ export function Tabs() {
 					w="full"
 					ref={myTab}
 					overflowY="scroll"
-					className="no-scrollbar"
+					className="tabs no-scrollbar"
 					alignItems="flex-start"
 					px={4}
 				>
@@ -106,7 +106,11 @@ export function Tabs() {
 									center
 									key={index}
 									title={
-										<Flex id={`cell${index}`} whiteSpace="nowrap" overflow="hidden">
+										<Flex
+											id={`cell${index}`}
+											whiteSpace="nowrap"
+											overflow="hidden"
+										>
 											<Text fontSize="md" pl={1} pr={2}>
 												#
 											</Text>

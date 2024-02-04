@@ -103,4 +103,9 @@
 .uniswap .chat-left-content > div > div {
 	box-shadow: inherit;
 }
+
+.tabs .rv-cell__title {
+	overflow: hidden;
+	white-space: nowrap;
+}
 /*  */
