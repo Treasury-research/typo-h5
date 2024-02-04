@@ -6,7 +6,6 @@ import { signMessage } from "@wagmi/core";
 import { useConnectModalStore } from "store/modalStore";
 import { useRouter } from "next/router";
 import { useJwtStore } from "store/jwtStore";
-import { useStore } from "store";
 import { useUserInfoStore } from "store/userInfoStore";
 import { useAiStore } from "store/aiStore";
 import { mainnet } from "wagmi/chains";
@@ -16,6 +15,7 @@ import {
 	w3mProvider,
 } from "@web3modal/ethereum";
 import { useWeb3Modal } from "@web3modal/react";
+import { useAccount } from "wagmi";
 import api from "api";
 import { useNftStore } from "store/nftStore";
 
@@ -38,7 +38,7 @@ export default function useWallet() {
 	const [signLoading, setSignLoading] = useState(false);
 	const { setTotalCoupon } = useAiStore();
 	const { setJwt } = useJwtStore();
-	const { open } = useWeb3Modal();
+	const { open, close } = useWeb3Modal();
 	const [isSign, setIsSign] = useBoolean(false);
 	const { clearConnectModalStore, setOpenConnectModal } =
 		useConnectModalStore();
@@ -46,6 +46,13 @@ export default function useWallet() {
 		useUserInfoStore();
 
 	const { setLogList } = useNftStore();
+
+		const doLogout = async () => {
+			api.defaults.headers.authorization = "";
+			setJwt("");
+			clearUserInfo();
+			clearConnectModalStore();
+		};
 
 	const getIsInvite = async () => {
 		const res: any = await api.get(`/api/auth/isInvite`);
@@ -114,6 +121,7 @@ export default function useWallet() {
 	};
 
 	const handleSign = async (address: string) => {
+		console.log("address", address);
 		const res = await onConnect(address);
 
 		if (res) {
@@ -135,16 +143,11 @@ export default function useWallet() {
 		setOpenConnectModal(false);
 	};
 
-	const doLogout = async () => {
-		api.defaults.headers.authorization = "";
-		setJwt("");
-		clearUserInfo();
-		clearConnectModalStore();
-	};
+
 
 	const openConnectWallet = () => {
-		open();
 		doLogout();
+		open();
 		setIsSign.on();
 	};
 

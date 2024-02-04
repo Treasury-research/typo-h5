@@ -41,15 +41,8 @@ const Account = () => {
 	const { closeNav, isLoading, setActiveChatId, isGenerate } = useChatContext();
 	const { setJwt } = useJwtStore();
 	const { doLogout } = useWallet();
-	const {
-		email,
-		userId,
-		setUserId,
-		setEmail,
-		account,
-		isPassuser,
-		setIsPassuser,
-	} = useUserInfoStore();
+	const { email, userId, setUserId, setEmail, account, isPassuser } =
+		useUserInfoStore();
 	const showToast = useToast();
 	const { setOpenInviteModal, setOpenBindEmailModal } = useStore();
 	const { setOpenRemindModal, setOpenConnectModal } = useConnectModalStore();

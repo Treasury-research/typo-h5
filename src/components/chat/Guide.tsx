@@ -81,7 +81,7 @@ export function Guide() {
 		}, 200);
 	}, []);
 
-	console.log("needSign", needSign, isConnected, userId);
+	// console.log("needSign", needSign, isConnected, userId);
 
 	return (
 		<VStack
@@ -147,27 +147,7 @@ export function Guide() {
 					})
 				)}
 
-				{!userId && (
-					<Box marginTop="20px" width="100%">
-						<Button
-							leftIcon={<SignInIcon />}
-							size="md"
-							w="100%"
-							minHeight="44px"
-							fontWeight="600"
-							borderRadius={8}
-							background="#357E7F"
-							color="white"
-							padding="10px 20px"
-							onClick={() => {
-								needSign ? handleSign(address as string) : openConnectWallet();
-							}}
-						>
-							Sign in
-						</Button>
-					</Box>
-				)}
-				{!isConnected && !!userId && (
+				{!userId && !isConnected && (
 					<Box marginTop="20px" width="100%">
 						<Button
 							leftIcon={<SignInIcon />}
@@ -184,6 +164,27 @@ export function Guide() {
 							}}
 						>
 							Connect Wallet
+						</Button>
+					</Box>
+				)}
+
+				{!userId && isConnected && (
+					<Box marginTop="20px" width="100%">
+						<Button
+							leftIcon={<SignInIcon />}
+							size="md"
+							w="100%"
+							minHeight="44px"
+							fontWeight="600"
+							borderRadius={8}
+							background="#357E7F"
+							color="white"
+							padding="10px 20px"
+							onClick={() => {
+								needSign ? handleSign(address as string) : openConnectWallet();
+							}}
+						>
+							Sign in
 						</Button>
 					</Box>
 				)}
