@@ -158,11 +158,12 @@ export function Quest() {
 		const TccItem = awards.filter(
 			(item: any) => item.type === "conversation"
 		)[0];
+
 		const CampaignRewardsItem =
-			parseInt(String(GalleryItem?.score) || "0") +
-			parseInt(String(Gallery2Item?.score) || "0") +
-			parseInt(String(Token2049Item?.score) || "0") +
-			parseInt(String(OlaGalaItem?.score) || "0");
+			Number(GalleryItem?.score || 0) +
+			Number(Gallery2Item?.score || 0) +
+			Number(Token2049Item?.score || 0) +
+			Number(OlaGalaItem?.score || 0);
 
 		return {
 			preRegItem,

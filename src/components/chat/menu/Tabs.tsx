@@ -106,7 +106,7 @@ export function Tabs() {
 									center
 									key={index}
 									title={
-										<Flex id={`cell${index}`}>
+										<Flex id={`cell${index}`} whiteSpace="nowrap" overflow="hidden">
 											<Text fontSize="md" pl={1} pr={2}>
 												#
 											</Text>
@@ -135,6 +135,7 @@ export function Tabs() {
 									isLink
 									border={false}
 									style={{
+										display: "flex",
 										background:
 											item?.id === activeChat?.id
 												? "rgba(255, 255, 255, 0.4)"
