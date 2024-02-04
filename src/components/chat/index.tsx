@@ -84,7 +84,7 @@ const Chat = () => {
 						>
 							<ChatTitle />
 							<VStack
-								pt="50px"
+								pt="60px"
 								pb="5px"
 								w="full"
 								h="100%"
@@ -94,7 +94,7 @@ const Chat = () => {
 								alignItems="flex-start"
 							>
 								<ChatContent />
-								{showChat && <ChatInput />}
+								<ChatInput />
 							</VStack>
 						</VStack>
 						<Quest />

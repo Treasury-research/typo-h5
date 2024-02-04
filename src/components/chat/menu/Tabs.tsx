@@ -91,6 +91,7 @@ export function Tabs() {
 
 			<VStack w="full" maxH="calc(100% - 50px)" alignItems="center">
 				<Box
+					flex="1"
 					w="full"
 					ref={myTab}
 					overflowY="scroll"
@@ -253,12 +254,12 @@ export function Tabs() {
 					borderRadius="8px"
 					color="#487C7E"
 					background="#FFE3AC"
-					height="44px"
+					height="42px"
 					display="flex"
 					alignItems="center"
 					justifyContent="center"
 					fontWeight="500"
-					marginBottom="20px"
+					marginBottom="10px"
 					onClick={addNewChat}
 				>
 					<Box marginRight="8px">

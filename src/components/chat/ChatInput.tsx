@@ -107,7 +107,7 @@ export const ChatInput = () => {
 			// borderTopWidth="1px"
 			gap={3}
 		>
-			{!activeChat.isShare ? (
+			{!activeChat?.isShare ? (
 				<Flex
 					boxShadow="2px 2px 6px 0px rgba(0, 0, 0, 0.12), -2px -2px 6px 0px rgba(255, 255, 255, 0.90)"
 					flex={1}

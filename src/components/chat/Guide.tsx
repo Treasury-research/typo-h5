@@ -133,7 +133,7 @@ export function Guide() {
 								key={index}
 								background="white"
 								minHeight="40px"
-								whiteSpace="nowrap"
+								// whiteSpace="nowrap"
 								display="flex"
 								alignItems="center"
 								width="100%"
