@@ -119,13 +119,15 @@ export function Quest() {
 	const { getTccLog } = useWallet();
 	const { logList } = useNftStore();
 
-	// console.log("showReferer", showReferer);
+	// console.log("uuid", uuid, value);
 
 	const totalScore = useMemo(() => {
-		return awards.reduce(
-			(sum, item) => sum + parseFloat(item.score as unknown as string),
-			0
-		).toFixed(1);
+		return awards
+			.reduce(
+				(sum, item) => sum + parseFloat(item.score as unknown as string),
+				0
+			)
+			.toFixed(1);
 	}, [awards]);
 
 	const openReferer = () => {
@@ -193,7 +195,6 @@ export function Quest() {
 	const getUuid = () => {
 		const uid = base64(userId);
 		setUuid(uid);
-		setValue(`/bind_typo ${uid}`);
 	};
 
 	useEffect(() => {
@@ -202,9 +203,13 @@ export function Quest() {
 			getUuid();
 		} else {
 			setAwards([]);
-			setValue("");
+			// setValue("");
 		}
 	}, [userId, email, showQuest]);
+
+	useEffect(() => {
+		setValue(`/bind_typo ${uuid}`);
+	}, [uuid]);
 
 	const list = slides;
 
@@ -365,7 +370,7 @@ export function Quest() {
 														))}
 
 														{logList.length == 0 && (
-															<Empty height="150px" message ="No Logs"/>
+															<Empty height="150px" message="No Logs" />
 														)}
 													</Box>
 												</VStack>
@@ -640,7 +645,9 @@ export function Quest() {
 									h="26px"
 									rightIcon={<Icon as={BiCopy} boxSize={4} color="#fff" />}
 									fontWeight="semibold"
-									onClick={onCopy}
+									onClick={() => {
+										onCopy();
+									}}
 								>
 									/bind_typo {toShortAddress(uuid, 10)}
 								</Button>
