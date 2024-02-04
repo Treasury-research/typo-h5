@@ -158,12 +158,16 @@ export function Quest() {
 		const TccItem = awards.filter(
 			(item: any) => item.type === "conversation"
 		)[0];
+		const DoubleDenier = awards.filter(
+			(item) => item.type === "double_denier"
+		)[0];
 
 		const CampaignRewardsItem =
 			Number(GalleryItem?.score || 0) +
 			Number(Gallery2Item?.score || 0) +
 			Number(Token2049Item?.score || 0) +
-			Number(OlaGalaItem?.score || 0);
+			Number(OlaGalaItem?.score || 0) +
+			Number(DoubleDenier?.score || 0);
 
 		return {
 			preRegItem,
@@ -446,7 +450,7 @@ export function Quest() {
 													/>
 
 													<AwardItem
-														title="Email subscription"
+														title="Email Subscription"
 														isFinish={!!awardItems.SubstackItem}
 														email={email}
 														value={

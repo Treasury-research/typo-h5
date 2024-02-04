@@ -66,7 +66,8 @@ export type Incentive = {
 		| "gallery_s1"
 		| "gallery_s2"
 		| "token2049"
-		| "OlaGala";
+		| "OlaGala"
+		| "double_denier";
 
 	score: number;
 };
