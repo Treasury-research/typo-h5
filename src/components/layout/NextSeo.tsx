@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import Head from "next/head";
-import { NextSeo as Seo } from "next-seo";
+import { NextSeoProps, NextSeo as Seo } from "next-seo";
 import { useRouter } from "next/router";
 import useChatContext from "hooks/useChatContext";
 
@@ -14,7 +14,7 @@ export const NextSeo = ({ title, description, keywords }: NextSeoProps) => {
 	return (
 		<>
 			<Head>
-				<title>{title || "TypoGraphy AI"}</title>
+				<title>{title || "TypoX AI"}</title>
 				<meta
 					name="viewport"
 					content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover"

@@ -13,7 +13,7 @@ class MyDocument extends Document {
 	render() {
 		return (
 			<Html lang="en">
-				{/* <title>TypoGraphy AI</title> */}
+				{/* <title>TypoX AI</title> */}
 				<Head>
 					<link rel="apple-touch-icon" href="/logo.png" />
 					<link rel="shortcut icon" href="/favicon.png" />

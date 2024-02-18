@@ -5,7 +5,7 @@ import { NextSeo } from "components";
 export default function Home() {
 	return (
 		<>
-			<NextSeo title={"TypoGraphy AI"} />
+			<NextSeo title={"TypoX AI"} />
 			<ChatProvider>
 				<Chat />
 			</ChatProvider>
