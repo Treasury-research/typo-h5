@@ -4,13 +4,13 @@ import { NextSeoProps, NextSeo as Seo } from "next-seo";
 import { useRouter } from "next/router";
 import useChatContext from "hooks/useChatContext";
 
-type NextSeoProps = {
+type SeoProps = {
 	title: string;
 	description?: string;
 	keywords?: string;
 };
 
-export const NextSeo = ({ title, description, keywords }: NextSeoProps) => {
+export const NextSeo = ({ title, description, keywords }: SeoProps) => {
 	return (
 		<>
 			<Head>

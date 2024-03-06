@@ -152,7 +152,6 @@ export const NftCard = ({}) => {
 		setIsLoading.on();
 		const signMsg = await getSignMsg();
 
-		alert(window.ethereum.isConnected());
 		if (signMsg) {
 			try {
 				const ethersProvider = new ethers.providers.Web3Provider(
