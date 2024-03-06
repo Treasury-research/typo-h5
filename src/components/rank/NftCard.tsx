@@ -138,7 +138,6 @@ export const NftCard = ({}) => {
 	};
 
 	const mint = async () => {
-		alert(window.ethereum.isConnected());
 		if (chain?.id !== chainInfo.chainId) {
 			showToast({
 				position: "top",
