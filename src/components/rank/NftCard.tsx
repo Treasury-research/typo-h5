@@ -12,7 +12,9 @@ import {
 	Box,
 	Icon,
 	useToast,
+	useClipboard,
 } from "@chakra-ui/react";
+import SignInIcon from "components/icons/SignIn";
 import api from "api";
 import { getHash, isProduction, toShortAddress } from "lib";
 import { useRouter } from "next/router";
@@ -68,6 +70,9 @@ export const NftCard = ({}) => {
 	const [isSign, setIsSign] = useBoolean(false);
 	const [isSuccess, setIsSuccess] = useState<string>("ready");
 	const { setOpenConnectModal } = useConnectModalStore();
+	const { onCopy, value, setValue, hasCopied } = useClipboard(
+		"https://mobile.typox.ai/rank?utm_source=h5&utm_medium=loyalty_rank&utm_campaign=AIFX_NFT_Claim&utm_content=Mobile_login_user"
+	);
 
 	const mintText = useMemo(() => {
 		if (score < 10) {
@@ -138,6 +143,14 @@ export const NftCard = ({}) => {
 	};
 
 	const mint = async () => {
+		// showToast({
+		// 	position: "top",
+		// 	title: "Please mint NFT via computer",
+		// 	variant: "subtle",
+		// });
+
+		// return;
+
 		if (chain?.id !== chainInfo.chainId) {
 			showToast({
 				position: "top",
@@ -259,22 +272,16 @@ export const NftCard = ({}) => {
 			</VStack>
 
 			<Button
-				marginTop="25px"
+				marginTop="30px"
 				variant="bluePrimary"
-				leftIcon={<BsFillLightningChargeFill />}
+				leftIcon={userId ? <BsFillLightningChargeFill /> : <SignInIcon />}
 				size="md"
 				w="100%"
 				minHeight="44px"
 				fontWeight="600"
 				borderRadius={8}
-				// background="#357E7F"
 				color="white"
 				padding="10px 20px"
-				isDisabled={
-					(nftLevel === 1 && score < 10) ||
-					(nftLevel === 2 && score < 30) ||
-					(nftLevel === 3 && score > 30)
-				}
 				onClick={() => {
 					if (!userId) {
 						setOpenConnectModal(true);
@@ -286,7 +293,7 @@ export const NftCard = ({}) => {
 					setIsSuccess("ready");
 				}}
 			>
-				{mintText}
+				{userId ? mintText : "Obtain Eligibility"}
 			</Button>
 			<Popup
 				visible={isModalOpen}
@@ -312,11 +319,12 @@ export const NftCard = ({}) => {
 							/>
 						</HStack>
 
-						<Text className="text-[20px] font-bold mb-2">
-							You are claiming the badge of LV{level}{" "}
+						<Text className="text-[20px] font-bold mb-2 px-5">
+							{/* You are claiming the badge of LV{level}{" "} */}
+							Please access TypoX AI via a computer to mint the NFT
 						</Text>
 
-						{(level === 1 || level === 2) && (
+						{/* {(level === 1 || level === 2) && (
 							<Text
 								className="text-[#FFA047] w-[350px] text-[13px] pb-8"
 								lineHeight="18px"
@@ -324,7 +332,7 @@ export const NftCard = ({}) => {
 								Notice: You can upgrade to higher level after claiming，or
 								directly claim higher level later.
 							</Text>
-						)}
+						)} */}
 
 						{isSign && (
 							<Text fontSize="xs" color="gray.500">
@@ -334,17 +342,23 @@ export const NftCard = ({}) => {
 						<Button
 							size="md"
 							w="80%"
+							mt={5}
 							marginBottom={"40px"}
 							borderRadius="md"
-							isLoading={isLoading}
-							loadingText={isSign ? "Transaction Submitted" : "Please sign"}
 							minHeight="44px"
 							fontWeight="600"
 							variant="bluePrimary"
 							color="white"
-							onClick={mint}
+							onClick={() => {
+								onCopy();
+								showToast({
+									position: "top",
+									title: "Copied!",
+									variant: "subtle",
+								});
+							}}
 						>
-							Confirm
+							Copy Link
 						</Button>
 					</VStack>
 				) : (

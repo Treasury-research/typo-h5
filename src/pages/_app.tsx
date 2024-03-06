@@ -30,14 +30,6 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     window?.localStorage.setItem("chakra-ui-color-mode", "light");
   }
 
-  useEffect(() => {
-    if (!isPhone() && !location.host.includes("localhost")) {
-      location.host.includes("staging")
-      ? router.push("https://typography.staging.knn3.xyz")
-      : router.push("https://app.typography.vip/");
-    }
-  }, [router]);
-
   return (
     <ChakraProvider theme={customTheme}>
       <Script

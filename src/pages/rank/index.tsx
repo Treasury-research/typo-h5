@@ -10,7 +10,7 @@ import {
 	ListItem,
 	Text,
 	Button,
-  HStack,
+	HStack,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import useChatContext from "hooks/useChatContext";
@@ -23,7 +23,7 @@ import Logo from "components/icons/Logo";
 import { NftCard } from "components/rank/NftCard";
 import { ConnectModal } from "components";
 import { useBoolean } from "react-use";
-import { inWechat } from "lib";
+import { inWechat, isPhone } from "lib";
 
 const Chat = () => {
 	const router = useRouter();
@@ -35,6 +35,16 @@ const Chat = () => {
 	useEffect(() => {
 		setIsWechat(inWechat());
 	}, []);
+
+	useEffect(() => {
+		const isphone = isPhone();
+		// console.log("isphone", isphone);
+		if (!isphone && !location.host.includes("localhost")) {
+			location.host.includes("staging")
+				? router.push("https://typography.staging.knn3.xyz/rank")
+				: router.push("https://app.typox.ai/rank");
+		}
+	}, [router]);
 
 	return (
 		<ChatProvider>
@@ -55,7 +65,7 @@ const Chat = () => {
 					bg="#f4f5f6"
 					gap="0"
 				>
-					<Box w="full" h="55px">
+					{/* <Box w="full" h="55px">
 						<NavBar
 							className="nav-bar"
 							title={
@@ -74,22 +84,28 @@ const Chat = () => {
 								/>
 							}
 						/>
-					</Box>
+					</Box> */}
 
 					<VStack
 						flex={1}
-						pt="50px"
+						pt="60px"
 						w="full"
 						h="100%"
 						bg="#f4f5f6"
 						overflowX="hidden"
 						overflowY="auto"
 					>
-						<Logo />
+						<Box onClick={() => router.push("/")}>
+							<Logo />
+						</Box>
+
+						<Box w="84%" minW="330px" pt="50px">
+							<NftCard />
+						</Box>
 						<UnorderedList
 							w="full"
 							px={10}
-							pt="30px"
+							pt="70px"
 							color="#575B66"
 							fontSize="13px"
 							lineHeight="18px"
@@ -112,9 +128,6 @@ const Chat = () => {
 								</b>
 							</ListItem>
 						</UnorderedList>
-						<Box w="84%" minW="330px" pt="30px">
-							<NftCard />
-						</Box>
 					</VStack>
 				</VStack>
 				<ConnectModal />
@@ -141,9 +154,14 @@ const Chat = () => {
 						lineHeight="50px"
 						mt="40px"
 					>
-						<HStack color="#000" fontSize="18px" fontWeight="600" justify="center">
+						<HStack
+							color="#000"
+							fontSize="18px"
+							fontWeight="600"
+							justify="center"
+						>
 							<Text>Please open in a browser</Text>
-							<Icon as={CgArrowTopRight} color="#000" boxSize={5}/>
+							<Icon as={CgArrowTopRight} color="#000" boxSize={5} />
 						</HStack>
 					</Box>
 				</Flex>
