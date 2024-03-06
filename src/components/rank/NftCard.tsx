@@ -260,13 +260,14 @@ export const NftCard = ({}) => {
 
 			<Button
 				marginTop="25px"
+				variant="bluePrimary"
 				leftIcon={<BsFillLightningChargeFill />}
 				size="md"
 				w="100%"
 				minHeight="44px"
 				fontWeight="600"
 				borderRadius={8}
-				background="#357E7F"
+				// background="#357E7F"
 				color="white"
 				padding="10px 20px"
 				isDisabled={
@@ -339,7 +340,7 @@ export const NftCard = ({}) => {
 							loadingText={isSign ? "Transaction Submitted" : "Please sign"}
 							minHeight="44px"
 							fontWeight="600"
-							background="#357E7F"
+							variant="bluePrimary"
 							color="white"
 							onClick={mint}
 						>
@@ -378,7 +379,7 @@ export const NftCard = ({}) => {
 							loadingText={isSign ? "Transaction Submitted" : "Please sign"}
 							minHeight="44px"
 							fontWeight="600"
-							background="#357E7F"
+							variant="bluePrimary"
 							color="white"
 							onClick={setIsModalOpen.off}
 						>
