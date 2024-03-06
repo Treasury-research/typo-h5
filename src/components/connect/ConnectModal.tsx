@@ -39,11 +39,11 @@ export function ConnectModal({ closeNav }: { closeNav?: () => void }) {
 		closeNav && closeNav();
 	};
 
-	useEffect(() => {
-		if (needSign && isSign) {
-			sign();
-		}
-	}, [needSign, isSign]);
+	// useEffect(() => {
+	// 	if (needSign && isSign) {
+	// 		sign();
+	// 	}
+	// }, [needSign, isSign]);
 
 	useEffect(() => {
 		const isHidden = localStorage.getItem("isHiddenTip") || "false";

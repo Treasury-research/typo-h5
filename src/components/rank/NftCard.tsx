@@ -29,6 +29,9 @@ import { BaseModal } from "components";
 import { BsFillLightningChargeFill } from "react-icons/bs";
 import { useConnectModalStore } from "store/modalStore";
 import { Popup } from "react-vant";
+import useWallet from "hooks/useWallet";
+import { useAccount } from "wagmi";
+import { Toast, Cell } from "react-vant";
 
 const chainConfig = {
 	dev: {
@@ -64,14 +67,15 @@ export const NftCard = ({}) => {
 	} = useUserInfoStore();
 	const { chain } = useNetwork();
 	const showToast = useToast();
+	const { isConnected, address } = useAccount();
 	const { switchNetwork } = useSwitchNetwork();
 	const [isModalOpen, setIsModalOpen] = useBoolean(false);
 	const [isLoading, setIsLoading] = useBoolean(false);
-	const [isSign, setIsSign] = useBoolean(false);
+	const [isSignd, setIsSignd] = useBoolean(false);
 	const [isSuccess, setIsSuccess] = useState<string>("ready");
-	const { setOpenConnectModal } = useConnectModalStore();
+	const { handleSign, openConnectWallet, isSign } = useWallet();
 	const { onCopy, value, setValue, hasCopied } = useClipboard(
-		"https://mobile.typox.ai/rank?utm_source=h5&utm_medium=loyalty_rank&utm_campaign=AIFX_NFT_Claim&utm_content=Mobile_login_user"
+		"https://app.typox.ai/rank?utm_source=h5&utm_medium=loyalty_rank&utm_campaign=AIFX_NFT_Claim&utm_content=Mobile_login_user"
 	);
 
 	const mintText = useMemo(() => {
@@ -134,7 +138,7 @@ export const NftCard = ({}) => {
 
 			setNftLevel(level);
 			setIsLoading.off();
-			setIsSign.off();
+			setIsSignd.off();
 		} else {
 			setTimeout(() => {
 				getMintStatus(tx_hash);
@@ -142,67 +146,71 @@ export const NftCard = ({}) => {
 		}
 	};
 
-	const mint = async () => {
-		// showToast({
-		// 	position: "top",
-		// 	title: "Please mint NFT via computer",
-		// 	variant: "subtle",
-		// });
+	const needSign = useMemo(() => {
+		return isConnected && !userId;
+	}, [isConnected, userId]);
 
-		// return;
+	// const mint = async () => {
+	// 	// showToast({
+	// 	// 	position: "top",
+	// 	// 	title: "Please mint NFT via computer",
+	// 	// 	variant: "subtle",
+	// 	// });
 
-		if (chain?.id !== chainInfo.chainId) {
-			showToast({
-				position: "top",
-				title: "Please switch to the Arbitrum network!",
-				variant: "subtle",
-			});
-			switchNetwork?.(chainInfo.chainId);
-			return;
-		}
+	// 	// return;
 
-		setIsLoading.on();
-		const signMsg = await getSignMsg();
+	// 	if (chain?.id !== chainInfo.chainId) {
+	// 		showToast({
+	// 			position: "top",
+	// 			title: "Please switch to the Arbitrum network!",
+	// 			variant: "subtle",
+	// 		});
+	// 		switchNetwork?.(chainInfo.chainId);
+	// 		return;
+	// 	}
 
-		if (signMsg) {
-			try {
-				const ethersProvider = new ethers.providers.Web3Provider(
-					window?.ethereum
-				);
-				const signer = await ethersProvider.getSigner();
+	// 	setIsLoading.on();
+	// 	const signMsg = await getSignMsg();
 
-				const contract = new ethers.Contract(
-					chainInfo.contract,
-					chainInfo.abi,
-					signer
-				);
+	// 	if (signMsg) {
+	// 		try {
+	// 			const ethersProvider = new ethers.providers.Web3Provider(
+	// 				window?.ethereum
+	// 			);
+	// 			const signer = await ethersProvider.getSigner();
 
-				let result: any;
-				if (token_id) {
-					result = await contract.setLevel(token_id, level, signMsg);
-				} else {
-					result = await contract.publicMint(account, level, signMsg);
-				}
+	// 			const contract = new ethers.Contract(
+	// 				chainInfo.contract,
+	// 				chainInfo.abi,
+	// 				signer
+	// 			);
 
-				setIsSign.on();
-				if (result && result.hash) {
-					getMintStatus(result.hash);
-				}
-			} catch (err: any) {
-				console.log("err", err);
-				setIsLoading.off();
-				setIsSign.off();
-				setIsSuccess("fail");
-				showToast({
-					position: "top",
-					title: err?.message || "Unknown Error",
-					variant: "subtle",
-				});
-			}
-		}
+	// 			let result: any;
+	// 			if (token_id) {
+	// 				result = await contract.setLevel(token_id, level, signMsg);
+	// 			} else {
+	// 				result = await contract.publicMint(account, level, signMsg);
+	// 			}
 
-		// setIsLoading.off();
-	};
+	// 			setIsSignd.on();
+	// 			if (result && result.hash) {
+	// 				getMintStatus(result.hash);
+	// 			}
+	// 		} catch (err: any) {
+	// 			console.log("err", err);
+	// 			setIsLoading.off();
+	// 			setIsSignd.off();
+	// 			setIsSuccess("fail");
+	// 			showToast({
+	// 				position: "top",
+	// 				title: err?.message || "Unknown Error",
+	// 				variant: "subtle",
+	// 			});
+	// 		}
+	// 	}
+
+	// 	// setIsLoading.off();
+	// };
 
 	useEffect(() => {
 		if (userId) {
@@ -284,16 +292,16 @@ export const NftCard = ({}) => {
 				padding="10px 20px"
 				onClick={() => {
 					if (!userId) {
-						setOpenConnectModal(true);
+						needSign ? handleSign(address as string) : openConnectWallet();
 						return;
 					}
-					setIsSign.off();
+					setIsSignd.off();
 					setIsLoading.off();
 					setIsModalOpen.on();
 					setIsSuccess("ready");
 				}}
 			>
-				{userId ? mintText : "Obtain Eligibility"}
+				{userId ? mintText : needSign ? "Sign with Wallet" : "Connect Wallet"}
 			</Button>
 			<Popup
 				visible={isModalOpen}
@@ -334,7 +342,7 @@ export const NftCard = ({}) => {
 							</Text>
 						)} */}
 
-						{isSign && (
+						{isSignd && (
 							<Text fontSize="xs" color="gray.500">
 								The transaction is expected to take about 1 minutes.
 							</Text>
@@ -351,11 +359,7 @@ export const NftCard = ({}) => {
 							color="white"
 							onClick={() => {
 								onCopy();
-								showToast({
-									position: "top",
-									title: "Copied!",
-									variant: "subtle",
-								});
+								Toast.success("Copied");
 							}}
 						>
 							Copy Link
@@ -390,7 +394,7 @@ export const NftCard = ({}) => {
 							marginBottom={"40px"}
 							borderRadius="md"
 							isLoading={isLoading}
-							loadingText={isSign ? "Transaction Submitted" : "Please sign"}
+							loadingText={isSignd ? "Transaction Submitted" : "Please sign"}
 							minHeight="44px"
 							fontWeight="600"
 							variant="bluePrimary"
