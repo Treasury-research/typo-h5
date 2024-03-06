@@ -20,7 +20,7 @@ import { BiWallet } from "react-icons/bi";
 import { useAccount } from "wagmi";
 import useWallet from "hooks/useWallet";
 
-export function ConnectModal({ closeNav }: { closeNav: () => void }) {
+export function ConnectModal({ closeNav }: { closeNav?: () => void }) {
 	const router = useRouter();
 
 	const { inviteId } = router?.query;
@@ -36,7 +36,7 @@ export function ConnectModal({ closeNav }: { closeNav: () => void }) {
 
 	const sign = async () => {
 		await handleSign(address as string);
-		closeNav();
+		closeNav && closeNav();
 	};
 
 	useEffect(() => {

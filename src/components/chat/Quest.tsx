@@ -104,7 +104,7 @@ const AwardItem = ({
 };
 
 export function Quest() {
-	const { showQuest, setShowQuest, closeQuest } = useChatContext();
+	const { showQuest, setShowQuest, closeQuest, getAuth } = useChatContext();
 	const isOpen = showQuest;
 	const onClose = closeQuest;
 	const { onCopy, value, setValue, hasCopied } = useClipboard("");
@@ -187,13 +187,6 @@ export function Quest() {
 		const res: any = await api.get(`/api/incentive`);
 		if (res?.code === 200) {
 			setAwards(res?.data || []);
-		}
-	};
-
-	const getUserInfo = async () => {
-		const res: any = await api.get(`/api/auth`);
-		if (res?.code === 200) {
-			setTotalCoupon(res?.data?.totalCoupon);
 		}
 	};
 
@@ -628,7 +621,7 @@ export function Quest() {
 					isOpen={showModal}
 					onClose={() => {
 						getAwards();
-						getUserInfo();
+						getAuth();
 						setShowModal.off();
 					}}
 					title="Verify Telegram"

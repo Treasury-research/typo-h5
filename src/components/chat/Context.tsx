@@ -42,6 +42,15 @@ export default function ChatProvider({ children }: any) {
 		setNoPassuserSearchTimes,
 		clearUserInfo,
 		setIsPassuser,
+		setUserName,
+		setAvatar,
+		setLevel,
+		setTokenId,
+		setScore,
+		setNftLevel,
+		setRank,
+		setUserId,
+		setEmail,
 	} = useUserInfoStore();
 	const { account } = useWeb3Context();
 	const { jwt, setJwt } = useJwtStore();
@@ -1380,12 +1389,28 @@ export default function ChatProvider({ children }: any) {
 		}
 	};
 
-	const refreshCoupon = async () => {
+	const getAuth = async () => {
 		const res: any = await api.get(`/api/auth`);
 		if (res?.code === 200) {
+			const score = res?.data?.score || 0;
+			const level = score < 10 ? 1 : score >= 10 && score < 30 ? 2 : 3;
+			console.log("level:", level);
 			setTotalCoupon(res?.data?.totalCoupon);
 			setDailyAdd(res?.data?.dailyAdd);
 			setIsPassuser(res?.data?.is_pass_user);
+			setJwt(res.data.token);
+			setUserName(res?.data?.name);
+			setAvatar(res?.data?.avatar);
+			setRank(res?.data?.page_ranking);
+			setTotalCoupon(res?.data?.totalCoupon);
+			setDailyAdd(res?.data?.dailyAdd);
+			setIsPassuser(res?.data?.is_pass_user);
+			setUserId(res?.data?.user_id);
+			setEmail(res?.data?.email);
+			setTokenId(res?.data?.token_id || "");
+			setScore(score);
+			setLevel(level);
+			setNftLevel(res?.data?.nft_level);
 		}
 	};
 
@@ -1459,7 +1484,6 @@ export default function ChatProvider({ children }: any) {
 				loadChat,
 				getChat,
 				getReccordByIdLoading,
-				refreshCoupon,
 				getAwards,
 				isGenerate,
 				setIsGenerate,
@@ -1468,6 +1492,7 @@ export default function ChatProvider({ children }: any) {
 				openNav,
 				openQuest,
 				closeQuest,
+				getAuth,
 				isFocus,
 				setIsFocus,
 				isActionSheetOpen,

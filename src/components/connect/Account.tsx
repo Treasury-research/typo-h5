@@ -38,27 +38,16 @@ import BookIcon from "components/icons/Book";
 import api from "api";
 
 const Account = () => {
-	const { closeNav, isLoading, setActiveChatId, isGenerate } = useChatContext();
+	const { closeNav, isLoading, setActiveChatId, isGenerate, getAuth } =
+		useChatContext();
 	const { setJwt } = useJwtStore();
 	const { doLogout } = useWallet();
 	const { email, userId, setUserId, setEmail, account, isPassuser } =
 		useUserInfoStore();
 	const showToast = useToast();
 	const { setOpenInviteModal, setOpenBindEmailModal } = useStore();
-	const { setOpenRemindModal, setOpenConnectModal } = useConnectModalStore();
-	const { totalCoupon, dailyAdd, setTotalCoupon, setSearchLimit, setDailyAdd } =
-		useChatStore();
-
-	const getUserInfo = async () => {
-		const res: any = await api.get(`/api/auth`);
-		if (res?.code === 200) {
-			setJwt(res.data.token);
-			setDailyAdd(res?.data?.dailyAdd);
-			setTotalCoupon(res?.data?.totalCoupon);
-			setUserId(res?.data?.user_id);
-			setEmail(res?.data?.email);
-		}
-	};
+	const { setOpenConnectModal } = useConnectModalStore();
+	const { totalCoupon, dailyAdd, setSearchLimit } = useChatStore();
 
 	const getDayLimit = async () => {
 		const res: any = await api.get(`/api/limit`);
@@ -69,7 +58,7 @@ const Account = () => {
 
 	useEffect(() => {
 		if (userId) {
-			getUserInfo();
+			getAuth();
 			getDayLimit();
 		}
 	}, [userId, email]);

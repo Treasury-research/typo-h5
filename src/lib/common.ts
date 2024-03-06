@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
+import { ethers } from "ethers";
 
 const gateway = process.env.NEXT_PUBLIC_GATEWAY;
 
@@ -35,6 +36,17 @@ export const isPhone = () => {
 	}
 
 	return flag;
+};
+
+export const inWechat = () => {
+	// 获取 User Agent
+	const userAgent = navigator.userAgent.toLowerCase();
+	// 判断是否在微信中打开
+	if (userAgent.indexOf("micromessenger") !== -1) {
+		return true;
+	} else {
+		return false;
+	}
 };
 
 export const deepClone = (source: any) => {
@@ -116,41 +128,52 @@ export function upFirst(str: string) {
 }
 
 export function getTopLevelDomain(url: string) {
-  const match = url.match(
-    /^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:/\n]+)/im
-  );
-  if (match) {
-    return match[1];
-  }
-  return null;
+	const match = url.match(
+		/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:/\n]+)/im
+	);
+	if (match) {
+		return match[1];
+	}
+	return null;
 }
 
 export function extractJSON(str: string) {
-  let lastOpen, lastClose, candidate;
-  lastClose = str.lastIndexOf("}");
-  lastOpen = str.lastIndexOf("{");
+	let lastOpen, lastClose, candidate;
+	lastClose = str.lastIndexOf("}");
+	lastOpen = str.lastIndexOf("{");
 
-  if (lastClose <= lastOpen || lastClose !== str.length - 1) {
-    return { content: str };
-  }
+	if (lastClose <= lastOpen || lastClose !== str.length - 1) {
+		return { content: str };
+	}
 
-  candidate = str.substring(lastOpen, lastClose + 1);
+	candidate = str.substring(lastOpen, lastClose + 1);
 
-  try {
-    const res = JSON.parse(candidate);
-    const text = str.substring(0, lastOpen);
+	try {
+		const res = JSON.parse(candidate);
+		const text = str.substring(0, lastOpen);
 
-    return {
-      content: text,
-      id: uuidv4(),
-      ...res,
-    };
-  } catch (e) {
-    return { content: str };
-  }
+		return {
+			content: text,
+			id: uuidv4(),
+			...res,
+		};
+	} catch (e) {
+		return { content: str };
+	}
 }
 
-
-export function formatNumberWithCommas(number) {
+export function formatNumberWithCommas(number: number | string) {
 	return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+
+export const getHash = async (tx_hash: string) => {
+	try {
+		const ethersProvider = new ethers.providers.Web3Provider(window.ethereum);
+		const tranction = await ethersProvider.getTransaction(tx_hash);
+		if (tranction) {
+			return tranction;
+		}
+	} catch (error) {
+		console.log("error", error);
+	}
+};

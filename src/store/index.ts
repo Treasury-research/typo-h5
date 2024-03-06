@@ -36,8 +36,7 @@ interface AppState {
     setEmailSubscription: (emailSubscription: boolean) => void;
     organization: string | undefined;
     setOrganization: (organization: string) => void;
-    userName: string | undefined;
-    setUserName: (userName: string) => void;
+    
     selectedApikey: KeyData | undefined;
     setSelectedApiKey: (selectedApikey: KeyData | undefined) => void;
     isApikeyModalOpen: boolean;
@@ -83,11 +82,7 @@ export const useStore = create<AppState>()((set) => ({
     setEmailSubscription: (emailSubscription) => set({ emailSubscription }),
     organization: undefined,
     setOrganization: (organization: string) => set({ organization }),
-    userName: undefined,
-    setUserName: (userName: string) => {
-	console.log(userName);
-	return set({ userName });
-    },
+   
     toastMessage: "",
     toastType: undefined,
     toastTime: undefined,
