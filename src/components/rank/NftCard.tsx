@@ -138,11 +138,11 @@ export const NftCard = ({}) => {
 	};
 
 	const mint = async () => {
-		alert(chain?.id);
+		alert(window.ethereum.isConnected());
 		if (chain?.id !== chainInfo.chainId) {
 			showToast({
 				position: "top",
-				title: "Please switch networks first!",
+				title: "Please switch to the Arbitrum network!",
 				variant: "subtle",
 			});
 			switchNetwork?.(chainInfo.chainId);
@@ -270,11 +270,11 @@ export const NftCard = ({}) => {
 				background="#357E7F"
 				color="white"
 				padding="10px 20px"
-				// isDisabled={
-				// 	(nftLevel === 1 && score < 10) ||
-				// 	(nftLevel === 2 && score < 30) ||
-				// 	(nftLevel === 3 && score > 30)
-				// }
+				isDisabled={
+					(nftLevel === 1 && score < 10) ||
+					(nftLevel === 2 && score < 30) ||
+					(nftLevel === 3 && score > 30)
+				}
 				onClick={() => {
 					if (!userId) {
 						setOpenConnectModal(true);
