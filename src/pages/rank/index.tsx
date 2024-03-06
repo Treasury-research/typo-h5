@@ -41,7 +41,7 @@ const Chat = () => {
 		// console.log("isphone", isphone);
 		if (!isphone && !location.host.includes("localhost")) {
 			location.host.includes("staging")
-				? router.push("https://mobile.typography.staging.knn3.xyz/rank")
+				? router.push("https://typography.staging.knn3.xyz/rank")
 				: router.push("https://app.typox.ai/rank");
 		}
 	}, [router]);
