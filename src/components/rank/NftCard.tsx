@@ -80,7 +80,7 @@ export const NftCard = ({}) => {
 	}, [nftLevel, score]);
 
 	const chainInfo = useMemo(() => {
-		return isProduction ? chainConfig.pro : chainConfig.pro;
+		return isProduction ? chainConfig.pro : chainConfig.dev;
 	}, [chainConfig]);
 
 	const getSignMsg = async () => {
@@ -275,6 +275,7 @@ export const NftCard = ({}) => {
 					(nftLevel === 3 && score > 30)
 				}
 				onClick={() => {
+						switchNetwork?.(chainInfo.chainId);
 					if (!userId) {
 						setOpenConnectModal(true);
 						return;

@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 import { useJwtStore } from "store/jwtStore";
 import { useUserInfoStore } from "store/userInfoStore";
 import { useAiStore } from "store/aiStore";
-import { mainnet } from "wagmi/chains";
+import { mainnet, arbitrum, polygon } from "wagmi/chains";
 import {
 	EthereumClient,
 	w3mConnectors,
@@ -19,7 +19,7 @@ import { useAccount } from "wagmi";
 import api from "api";
 import { useNftStore } from "store/nftStore";
 
-const chains = [mainnet];
+const chains = [mainnet, arbitrum, polygon];
 const projectId = "c27e0568aa579f4d572246b7a2882010";
 const { publicClient } = configureChains(chains, [w3mProvider({ projectId })]);
 
@@ -47,12 +47,12 @@ export default function useWallet() {
 
 	const { setLogList } = useNftStore();
 
-		const doLogout = async () => {
-			api.defaults.headers.authorization = "";
-			setJwt("");
-			clearUserInfo();
-			clearConnectModalStore();
-		};
+	const doLogout = async () => {
+		api.defaults.headers.authorization = "";
+		setJwt("");
+		clearUserInfo();
+		clearConnectModalStore();
+	};
 
 	const getIsInvite = async () => {
 		const res: any = await api.get(`/api/auth/isInvite`);
@@ -142,8 +142,6 @@ export default function useWallet() {
 		setIsSign.off();
 		setOpenConnectModal(false);
 	};
-
-
 
 	const openConnectWallet = () => {
 		doLogout();

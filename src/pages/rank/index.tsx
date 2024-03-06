@@ -112,7 +112,7 @@ const Chat = () => {
 								</b>
 							</ListItem>
 						</UnorderedList>
-						<Box w="88%" minW="330px" pt="30px">
+						<Box w="84%" minW="330px" pt="30px">
 							<NftCard />
 						</Box>
 					</VStack>
