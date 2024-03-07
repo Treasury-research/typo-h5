@@ -319,18 +319,13 @@ export const NftCard = ({}) => {
 					});
 				}}
 			>
-				<Flex w="25px">
-					<Icon className="moveArr" as={ArrowForwardIcon} boxSize={4} />
-				</Flex>
-
+				<Icon as={MdLaptopWindows} boxSize={4} />
 				<Text fontSize="16px" fontWeight="500">
 					Claim Loyalty NFT on PC
 				</Text>
-				<Icon
-					as={MdLaptopWindows}
-					boxSize={4}
-					// color="#000"
-				/>
+				<Flex w="25px">
+					<Icon className="moveArr" as={ArrowForwardIcon} boxSize={4} />
+				</Flex>
 			</HStack>
 
 			<Popup
