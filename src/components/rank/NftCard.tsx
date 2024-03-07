@@ -32,6 +32,7 @@ import { Popup } from "react-vant";
 import useWallet from "hooks/useWallet";
 import { useAccount } from "wagmi";
 import { Toast, Cell } from "react-vant";
+import { ArrowForwardIcon } from "@chakra-ui/icons";
 
 const chainConfig = {
 	dev: {
@@ -303,11 +304,33 @@ export const NftCard = ({}) => {
 			>
 				{userId ? mintText : needSign ? "Sign with Wallet" : "Connect Wallet"}
 			</Button>
-			<HStack mt={6} w="full" alignItems="center" justify="center">
-				<MdLaptopWindows />
+			<HStack
+				mt={6}
+				ml={2}
+				w="full"
+				alignItems="center"
+				color="#000"
+				onClick={() => {
+					onCopy();
+					showToast({
+						position: "top",
+						title: "Link copied. Please access it via PC.",
+						variant: "subtle",
+					});
+				}}
+			>
+				<Flex w="25px">
+					<Icon className="moveArr" as={ArrowForwardIcon} boxSize={4} />
+				</Flex>
+
 				<Text fontSize="16px" fontWeight="500">
 					Claim Loyalty NFT on PC
 				</Text>
+				<Icon
+					as={MdLaptopWindows}
+					boxSize={4}
+					// color="#000"
+				/>
 			</HStack>
 
 			<Popup

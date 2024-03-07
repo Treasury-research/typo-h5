@@ -99,7 +99,7 @@ const Chat = () => {
 							<Logo />
 						</Box>
 
-						<Box w="84%" minW="330px" pt="40px">
+						<Box w="84%" minW="330px" pt="35px">
 							<NftCard />
 						</Box>
 						<UnorderedList
