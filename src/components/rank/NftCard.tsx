@@ -27,7 +27,7 @@ import { TbArrowsExchange } from "react-icons/tb";
 import { ethers } from "ethers";
 import { BaseModal } from "components";
 import { BsFillLightningChargeFill } from "react-icons/bs";
-import { useConnectModalStore } from "store/modalStore";
+import { MdLaptopWindows } from "react-icons/md";
 import { Popup } from "react-vant";
 import useWallet from "hooks/useWallet";
 import { useAccount } from "wagmi";
@@ -280,7 +280,7 @@ export const NftCard = ({}) => {
 			</VStack>
 
 			<Button
-				marginTop="30px"
+				marginTop="15px"
 				variant="bluePrimary"
 				leftIcon={userId ? <BsFillLightningChargeFill /> : <SignInIcon />}
 				size="md"
@@ -303,6 +303,13 @@ export const NftCard = ({}) => {
 			>
 				{userId ? mintText : needSign ? "Sign with Wallet" : "Connect Wallet"}
 			</Button>
+			<HStack mt={6} w="full" alignItems="center" justify="center">
+				<MdLaptopWindows />
+				<Text fontSize="16px" fontWeight="500">
+					Claim Loyalty NFT on PC
+				</Text>
+			</HStack>
+
 			<Popup
 				visible={isModalOpen}
 				position="bottom"

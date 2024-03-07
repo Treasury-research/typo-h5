@@ -88,7 +88,7 @@ const Chat = () => {
 
 					<VStack
 						flex={1}
-						pt="60px"
+						pt="40px"
 						w="full"
 						h="100%"
 						bg="#f4f5f6"
@@ -99,13 +99,13 @@ const Chat = () => {
 							<Logo />
 						</Box>
 
-						<Box w="84%" minW="330px" pt="50px">
+						<Box w="84%" minW="330px" pt="40px">
 							<NftCard />
 						</Box>
 						<UnorderedList
 							w="full"
 							px={10}
-							pt="70px"
+							pt="30px"
 							color="#575B66"
 							fontSize="13px"
 							lineHeight="18px"
@@ -146,7 +146,7 @@ const Chat = () => {
 					<Box
 						shadow="md"
 						borderRadius="md"
-						w="80%"
+						w="88%"
 						h="50px"
 						bg="rgba(255,255,255,.65)"
 						// border="solid 1px red"
@@ -156,9 +156,10 @@ const Chat = () => {
 					>
 						<HStack
 							color="#000"
-							fontSize="18px"
+							fontSize="17px"
 							fontWeight="600"
 							justify="center"
+              whiteSpace="nowrap"
 						>
 							<Text>Please open in a browser</Text>
 							<Icon as={CgArrowTopRight} color="#000" boxSize={5} />
