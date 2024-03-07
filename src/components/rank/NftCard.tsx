@@ -306,9 +306,9 @@ export const NftCard = ({}) => {
 			</Button>
 			<HStack
 				mt={6}
-				ml={2}
 				w="full"
 				alignItems="center"
+				justify="center"
 				color="#000"
 				onClick={() => {
 					onCopy();
