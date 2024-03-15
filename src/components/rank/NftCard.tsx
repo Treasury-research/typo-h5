@@ -262,7 +262,7 @@ export const NftCard = ({}) => {
 						</Flex>
 						<Slider
 							aria-label="slider-ex-1"
-							value={(score / 30) * 100}
+							value={(score / 500) * 100}
 							colorScheme="teal"
 							size="lg"
 						>
