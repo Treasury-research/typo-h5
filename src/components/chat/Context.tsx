@@ -1393,7 +1393,7 @@ export default function ChatProvider({ children }: any) {
 		const res: any = await api.get(`/api/auth`);
 		if (res?.code === 200) {
 			const score = res?.data?.score || 0;
-			const level = score < 10 ? 1 : score >= 10 && score < 30 ? 2 : 3;
+			const level = score < 10 ? 1 : score >= 10 && score < 500 ? 2 : 3;
 			console.log("level:", level);
 			setTotalCoupon(res?.data?.totalCoupon);
 			setDailyAdd(res?.data?.dailyAdd);
