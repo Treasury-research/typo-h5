@@ -46,7 +46,7 @@ const chainConfig = {
     networkInfo: {
       chainId: '0x13881',
       chainName: 'Mumbai',
-      rpcUrls: ['https://rpc-mumbai.maticvigil.com'],
+      rpcUrls: ['https://endpoints.omniatech.io/v1/matic/mumbai/public'],
       currencySymbol: 'MATIC',
       currencyDecimal: 18,
       tokenList: [
@@ -267,10 +267,12 @@ export const NftCard = ({}) => {
         );
 
         let result: any;
+        console.log('contract', !!token_id, contract)
+        const gasLimit = ethers.utils.hexlify(1000000);
         if (token_id) {
-          result = await contract.setLevel(token_id, level, signMsg);
+          result = await contract.setLevel(token_id, level, signMsg, { gasLimit });
         } else {
-          result = await contract.publicMint(account, level, signMsg);
+          result = await contract.publicMint(account, level, signMsg, { gasLimit });
         }
 
         setIsSignd.on();
