@@ -27,8 +27,6 @@ import { inWechat, isPhone } from "lib";
 
 const Chat = () => {
 	const router = useRouter();
-	const { closeNav } = useChatContext();
-	const { userId, score, nftLevel } = useUserInfoStore();
 	const [isWechat, setIsWechat] = useState(false);
 	// console.log("isWechat", isWechat);
 

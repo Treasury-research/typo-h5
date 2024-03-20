@@ -80,9 +80,9 @@ export const NftCard = ({}) => {
 	);
 
 	const mintText = useMemo(() => {
-		if (score < 10) {
+		if (score < 1000) {
 			return nftLevel === 1 ? "Claim Lv2" : "Claim Lv1";
-		} else if (score >= 10 && score < 500) {
+		} else if (score >= 1000 && score < 50000) {
 			return nftLevel === 2 ? "Claim Lv3" : "Claim Lv2";
 		} else {
 			return nftLevel === 3 ? "Claimed" : "Claim Lv3";
@@ -262,7 +262,7 @@ export const NftCard = ({}) => {
 						</Flex>
 						<Slider
 							aria-label="slider-ex-1"
-							value={(score / 500) * 100}
+							value={(score / 50000) * 100}
 							colorScheme="teal"
 							size="lg"
 						>
@@ -271,7 +271,7 @@ export const NftCard = ({}) => {
 							</SliderTrack>
 						</Slider>
 						<Flex w="full" justify="space-between" fontSize="xs" pb={2}>
-							<Text>{score || 0}/500</Text>
+							<Text>{score || 0}/50k</Text>
 							<Text cursor="pointer" onClick={() => router.push("/profile")}>
 								My Rank: #{rank || "--"}
 							</Text>
