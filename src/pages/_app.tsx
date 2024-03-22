@@ -11,6 +11,7 @@ import customTheme from "styles/theme";
 import useWallet from "hooks/useWallet";
 import { WagmiConfig } from "wagmi";
 import { Web3Modal } from "@web3modal/react";
+import { MetaMaskProvider } from '@metamask/sdk-react'
 
 import "react-vant/lib/index.css";
 import "animate.css";
@@ -32,21 +33,30 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 
   return (
     <ChakraProvider theme={customTheme}>
-      <Script
-        src={`https://www.googletagmanager.com/gtag/js?id=${
+      <MetaMaskProvider
+        debug={false}
+        sdkOptions={{
+          dappMetadata: {
+            name: 'TypoX',
+            url: typeof window !== "undefined" ? window?.location.href : '',
+          }
+        }}
+      >
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${
           isProduction ? "G-YNSCSNVGKH" : "G-2EV36YE6VQ"
         }`}
-        strategy="afterInteractive"
-      />
-      <Script id="google-analytics" strategy="afterInteractive">
-      {isProduction
-      ? `
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+        {isProduction
+        ? `
                                                 window.dataLayer = window.dataLayer || [];
                                                 function gtag(){dataLayer.push(arguments);}
                                                 gtag('js', new Date());
 
                                                 gtag('config', 'G-YNSCSNVGKH');`
-      : `window.dataLayer = window.dataLayer || [];
+        : `window.dataLayer = window.dataLayer || [];
                                                 function gtag(){dataLayer.push(arguments);}
                                                 gtag('js', new Date());
 
@@ -61,6 +71,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 
         <Web3Modal projectId={projectId} ethereumClient={ethereumClient} />
       </WagmiConfig>
+      </MetaMaskProvider>
     </ChakraProvider>
   );
 };

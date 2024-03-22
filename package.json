@@ -16,6 +16,7 @@
 		"@chakra-ui/react": "^2.5.5",
 		"@emotion/react": "^11.10.6",
 		"@emotion/styled": "^11.10.6",
+		"@metamask/sdk-react": "^0.18.0",
 		"@react-vant/icons": "^0.0.10",
 		"@types/msgpack-lite": "^0.1.8",
 		"@types/node": "^18.15.11",

@@ -34,6 +34,7 @@ import useWallet from "hooks/useWallet";
 import { useAccount } from "wagmi";
 import { Toast, Cell } from "react-vant";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
+import { useSDK } from '@metamask/sdk-react'
 
 const chainConfig = {
   dev: {
@@ -109,6 +110,8 @@ export const NftCard = ({}) => {
   const { onCopy, value, setValue, hasCopied } = useClipboard(
     "https://app.typox.ai/rank?utm_source=h5&utm_medium=loyalty_rank&utm_campaign=AIFX_NFT_Claim&utm_content=Mobile_login_user"
   );
+  const { sdk, connected, connecting, provider: metamaskProvider } = useSDK()
+  console.log('sdk', sdk)
 
   const mintText = useMemo(() => {
     if (score < 1000) {
@@ -191,8 +194,8 @@ export const NftCard = ({}) => {
       currencyDecimal
     } = networkInfo
 
+    await sdk.connect()
     const ethereum = window.ethereum
-    alert(ethereum)
 
     try {
       await ethereum.request({
@@ -230,7 +233,7 @@ export const NftCard = ({}) => {
         });
       }
     }
-  }, [])
+  }, [sdk])
 
   const mint = async () => {
     // showToast({
