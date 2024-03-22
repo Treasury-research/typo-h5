@@ -177,3 +177,4 @@ export const getHash = async (tx_hash: string) => {
 		console.log("error", error);
 	}
 };
+
