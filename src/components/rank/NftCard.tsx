@@ -194,7 +194,7 @@ export const NftCard = ({}) => {
       currencyDecimal
     } = networkInfo
 
-    await sdk.connect()
+    if (sdk) await sdk.connect()
     const ethereum = window.ethereum
 
     try {
