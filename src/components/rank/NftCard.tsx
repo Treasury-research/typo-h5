@@ -31,10 +31,11 @@ import { BsFillLightningChargeFill } from "react-icons/bs";
 import { MdLaptopWindows } from "react-icons/md";
 import { Popup } from "react-vant";
 import useWallet from "hooks/useWallet";
-import { useAccount } from "wagmi";
+import { useAccount, useConnect, useDisconnect } from "wagmi";
 import { Toast, Cell } from "react-vant";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
-import { useSDK } from '@metamask/sdk-react'
+import { MetaMaskConnector } from '@wagmi/connectors/metaMask'
+// import { useSDK } from '@metamask/sdk-react'
 
 const chainConfig = {
   dev: {
@@ -110,8 +111,18 @@ export const NftCard = ({}) => {
   const { onCopy, value, setValue, hasCopied } = useClipboard(
     "https://app.typox.ai/rank?utm_source=h5&utm_medium=loyalty_rank&utm_campaign=AIFX_NFT_Claim&utm_content=Mobile_login_user"
   );
-  const { sdk, connected, connecting, provider: metamaskProvider } = useSDK()
-  console.log('sdk', sdk)
+  const { connectAsync } = useConnect()
+  const { disconnectAsync } =useDisconnect()
+
+  useEffect(() => {
+    const ensureConnect = async () => {
+      const connector = new MetaMaskConnector()
+      await disconnectAsync()
+      await connectAsync({ connector })
+    }
+
+    ensureConnect()
+  }, [])
 
   const mintText = useMemo(() => {
     if (score < 1000) {
@@ -130,28 +141,28 @@ export const NftCard = ({}) => {
   const getSignMsg = async () => {
     try {
       const res: any = await api.post(`api/sign`, {
-	level: level,
+        level: level,
       });
       if (res && res?.code == 200 && res?.data) {
-	return res?.data;
+        return res?.data;
       } else {
-	setIsLoading.off();
-	setIsSuccess("fail");
-	showToast({
-	  position: "top",
-	  title: res?.data?.errorMsg || "Get server sign message error!",
-	  variant: "subtle",
-	});
+        setIsLoading.off();
+        setIsSuccess("fail");
+        showToast({
+          position: "top",
+          title: res?.data?.errorMsg || "Get server sign message error!",
+          variant: "subtle",
+        });
 
-	return null;
+        return null;
       }
     } catch (error) {
       setIsLoading.off();
       setIsSuccess("fail");
       showToast({
-	position: "top",
-	title: "Get server sign message error!",
-	variant: "subtle",
+        position: "top",
+        title: "Get server sign message error!",
+        variant: "subtle",
       });
     }
   };
@@ -161,14 +172,14 @@ export const NftCard = ({}) => {
     // console.log("mint blockHash", res?.blockHash);
     if (res && res.blockHash) {
       showToast({
-	position: "top",
-	title: "Congratulations, NFT minted successfully",
-	variant: "subtle",
+        position: "top",
+        title: "Congratulations, NFT minted successfully",
+        variant: "subtle",
       });
 
       setIsSuccess("done");
       setTimeout(() => {
-	getAuth();
+        getAuth();
       }, 5000);
 
       setNftLevel(level);
@@ -176,7 +187,7 @@ export const NftCard = ({}) => {
       setIsSignd.off();
     } else {
       setTimeout(() => {
-	getMintStatus(tx_hash);
+        getMintStatus(tx_hash);
       }, 3000);
     }
   };
@@ -194,8 +205,8 @@ export const NftCard = ({}) => {
       currencyDecimal
     } = networkInfo
 
-    if (sdk) await sdk.connect()
     const ethereum = window.ethereum
+    alert(ethereum)
 
     try {
       await ethereum.request({
@@ -233,7 +244,7 @@ export const NftCard = ({}) => {
         });
       }
     }
-  }, [sdk])
+  }, [])
 
   const mint = async () => {
     // showToast({
@@ -308,211 +319,211 @@ export const NftCard = ({}) => {
   return (
     <Box w="full">
       <VStack
-	w="full"
-	px={3}
-	py={3}
-	borderRadius="8px"
-	alignItems="center"
-	bg="url('/images/rank/nftCard.svg')"
-	bgSize="cover"
-	shadow="md"
-	color="#fff"
-	fontSize="14px"
-	spacing={0}
+        w="full"
+        px={3}
+        py={3}
+        borderRadius="8px"
+        alignItems="center"
+        bg="url('/images/rank/nftCard.svg')"
+        bgSize="cover"
+        shadow="md"
+        color="#fff"
+        fontSize="14px"
+        spacing={0}
       >
-	<Flex w="full" justify="space-between">
-	  <Image
-	    src={`/images/rank/LV${level || 1}.svg`}
-	    objectFit="contain"
-	    w="65px"
-	  />
-	</Flex>
+        <Flex w="full" justify="space-between">
+          <Image
+            src={`/images/rank/LV${level || 1}.svg`}
+            objectFit="contain"
+            w="65px"
+          />
+        </Flex>
 
-	<Box w="full" px={3} mt={1}>
-	  <VStack flex={1} alignItems="flex-start">
-	    <Flex
-	      w="full"
-	      fontWeight="semibold"
-	      justify="space-between"
-	      fontSize="16px"
-	    >
-	      <Text mb="3px">
-		Lv{level}{" "}
-		{level === 1
-		? "Rookie"
-		: level === 2
-		? "Supporter"
-		: "Champion"}
-	      </Text>
-	      <Text pr={2}>{account ? toShortAddress(account, 10) : "--"}</Text>
-	    </Flex>
-	    <Slider
-	      aria-label="slider-ex-1"
-	      value={(score / 50000) * 100}
-	      colorScheme="teal"
-	      size="lg"
-	    >
-	      <SliderTrack>
-		<SliderFilledTrack />
-	      </SliderTrack>
-	    </Slider>
-	    <Flex w="full" justify="space-between" fontSize="xs" pb={2}>
-	      <Text>{score || 0}/50k</Text>
-	      <Text cursor="pointer" onClick={() => router.push("/profile")}>
-		My Rank: #{rank || "--"}
-	      </Text>
-	    </Flex>
-	  </VStack>
-	</Box>
+        <Box w="full" px={3} mt={1}>
+          <VStack flex={1} alignItems="flex-start">
+            <Flex
+              w="full"
+              fontWeight="semibold"
+              justify="space-between"
+              fontSize="16px"
+            >
+              <Text mb="3px">
+                Lv{level}{" "}
+                {level === 1
+                ? "Rookie"
+                : level === 2
+                ? "Supporter"
+                : "Champion"}
+              </Text>
+              <Text pr={2}>{account ? toShortAddress(account, 10) : "--"}</Text>
+            </Flex>
+            <Slider
+              aria-label="slider-ex-1"
+              value={(score / 50000) * 100}
+              colorScheme="teal"
+              size="lg"
+            >
+              <SliderTrack>
+                <SliderFilledTrack />
+              </SliderTrack>
+            </Slider>
+            <Flex w="full" justify="space-between" fontSize="xs" pb={2}>
+              <Text>{score || 0}/50k</Text>
+              <Text cursor="pointer" onClick={() => router.push("/profile")}>
+                My Rank: #{rank || "--"}
+              </Text>
+            </Flex>
+          </VStack>
+        </Box>
       </VStack>
 
       <Button
-	marginTop="15px"
-	variant="bluePrimary"
-	leftIcon={userId ? <BsFillLightningChargeFill /> : <SignInIcon />}
-	size="md"
-	w="100%"
-	minHeight="44px"
-	fontWeight="600"
-	borderRadius={8}
-	color="white"
-	padding="10px 20px"
-	onClick={() => {
-	  if (!userId) {
-	    needSign ? handleSign(address as string) : openConnectWallet();
-	    return;
-	  }
-	  setIsSignd.off();
-	  setIsLoading.off();
-	  setIsModalOpen.on();
-	  setIsSuccess("ready");
-	}}
+        marginTop="15px"
+        variant="bluePrimary"
+        leftIcon={userId ? <BsFillLightningChargeFill /> : <SignInIcon />}
+        size="md"
+        w="100%"
+        minHeight="44px"
+        fontWeight="600"
+        borderRadius={8}
+        color="white"
+        padding="10px 20px"
+        onClick={() => {
+          if (!userId) {
+            needSign ? handleSign(address as string) : openConnectWallet();
+            return;
+          }
+          setIsSignd.off();
+          setIsLoading.off();
+          setIsModalOpen.on();
+          setIsSuccess("ready");
+        }}
       >
-	{userId ? mintText : needSign ? "Sign with Wallet" : "Connect Wallet"}
+        {userId ? mintText : needSign ? "Sign with Wallet" : "Connect Wallet"}
       </Button>
       <HStack
-	mt={6}
-	w="full"
-	alignItems="center"
-	justify="center"
-	color="#000"
-	onClick={() => {
-	  onCopy();
-	  showToast({
-	    position: "top",
-	    title: "Link copied. Please access it via PC.",
-	    variant: "subtle",
-	  });
-	}}
+        mt={6}
+        w="full"
+        alignItems="center"
+        justify="center"
+        color="#000"
+        onClick={() => {
+          onCopy();
+          showToast({
+            position: "top",
+            title: "Link copied. Please access it via PC.",
+            variant: "subtle",
+          });
+        }}
       >
-	<Icon as={MdLaptopWindows} boxSize={4} />
-	<Text fontSize="16px" fontWeight="500">
-	  Claim Loyalty NFT on PC
-	</Text>
-	<Flex w="25px">
-	  <Icon className="moveArr" as={ArrowForwardIcon} boxSize={4} />
-	</Flex>
+        <Icon as={MdLaptopWindows} boxSize={4} />
+        <Text fontSize="16px" fontWeight="500">
+          Claim Loyalty NFT on PC
+        </Text>
+        <Flex w="25px">
+          <Icon className="moveArr" as={ArrowForwardIcon} boxSize={4} />
+        </Flex>
       </HStack>
 
       <Popup
-	visible={isModalOpen}
-	position="bottom"
-	onClose={setIsModalOpen.off}
+        visible={isModalOpen}
+        position="bottom"
+        onClose={setIsModalOpen.off}
       >
-	{isSuccess === "ready" ? (
-	  <VStack className="text-center" mb="8">
-	    <HStack spacing={5} className="mt-6 mb-3" alignItems="center">
-	      <Image
-	        src={`/images/rank/LV${level}.svg`}
-	        objectFit="contain"
-	        w="75px"
-	        mt={4}
-	      />
+        {isSuccess === "ready" ? (
+          <VStack className="text-center" mb="8">
+            <HStack spacing={5} className="mt-6 mb-3" alignItems="center">
+              <Image
+                src={`/images/rank/LV${level}.svg`}
+                objectFit="contain"
+                w="75px"
+                mt={4}
+              />
 
-	      <Icon as={TbArrowsExchange} color="bg.green" boxSize={6} />
+              <Icon as={TbArrowsExchange} color="bg.green" boxSize={6} />
 
-	      <Image
-	        src={`/images/rank/NFT${level}.svg`}
-	        objectFit="contain"
-	        w="58px"
-	      />
-	    </HStack>
+              <Image
+                src={`/images/rank/NFT${level}.svg`}
+                objectFit="contain"
+                w="58px"
+              />
+            </HStack>
 
-	    <Text className="text-[20px] font-bold mb-2 px-5">
-	      {/* You are claiming the badge of LV{level}{" "} */}
-	      Please access TypoX AI via a computer to mint the NFT
-	    </Text>
+            <Text className="text-[20px] font-bold mb-2 px-5">
+              {/* You are claiming the badge of LV{level}{" "} */}
+              Please access TypoX AI via a computer to mint the NFT
+            </Text>
 
-	    {/* {(level === 1 || level === 2) && (
-		<Text
-		className="text-[#FFA047] w-[350px] text-[13px] pb-8"
-		lineHeight="18px"
-		>
-		Notice: You can upgrade to higher level after claiming，or
-		directly claim higher level later.
-		</Text>
-		)} */}
+            {/* {(level === 1 || level === 2) && (
+                <Text
+                className="text-[#FFA047] w-[350px] text-[13px] pb-8"
+                lineHeight="18px"
+                >
+                Notice: You can upgrade to higher level after claiming，or
+                directly claim higher level later.
+                </Text>
+                )} */}
 
-	    {isSignd && (
-	      <Text fontSize="xs" color="gray.500">
-		The transaction is expected to take about 1 minutes.
-	      </Text>
-	    )}
-	    <Button
-	      size="md"
-	      w="80%"
-	      mt={5}
-	      marginBottom={"40px"}
-	      borderRadius="md"
-	      minHeight="44px"
-	      fontWeight="600"
-	      variant="bluePrimary"
-	      color="white"
-	      onClick={mint}
-	    >
-	      Mint
-	    </Button>
-	  </VStack>
-	) : (
-	  <VStack className="text-center" mb="8">
-	    <Image
-	      src={`/images/rank/${isSuccess}.svg`}
-	      objectFit="contain"
-	      w="80px"
-	      h="88px"
-	      className="mx-auto mt-10 mb-3"
-	    />
+            {isSignd && (
+              <Text fontSize="xs" color="gray.500">
+                The transaction is expected to take about 1 minutes.
+              </Text>
+            )}
+            <Button
+              size="md"
+              w="80%"
+              mt={5}
+              marginBottom={"40px"}
+              borderRadius="md"
+              minHeight="44px"
+              fontWeight="600"
+              variant="bluePrimary"
+              color="white"
+              onClick={mint}
+            >
+              Mint
+            </Button>
+          </VStack>
+        ) : (
+          <VStack className="text-center" mb="8">
+            <Image
+              src={`/images/rank/${isSuccess}.svg`}
+              objectFit="contain"
+              w="80px"
+              h="88px"
+              className="mx-auto mt-10 mb-3"
+            />
 
-	    <Text className="text-[24px] font-bold mb-2">
-	      {isSuccess === "done" ? "Mint Success" : "Mint failed"}
-	    </Text>
+            <Text className="text-[24px] font-bold mb-2">
+              {isSuccess === "done" ? "Mint Success" : "Mint failed"}
+            </Text>
 
-	    <Text
-	      className="text-[#575B66] w-[300px] text-[13px] pb-8"
-	      lineHeight="18px"
-	    >
-	      {isSuccess === "done"
-	      ? "The badge has been issued to your account, please check it!"
-	      : "Please try again later"}
-	    </Text>
+            <Text
+              className="text-[#575B66] w-[300px] text-[13px] pb-8"
+              lineHeight="18px"
+            >
+              {isSuccess === "done"
+              ? "The badge has been issued to your account, please check it!"
+              : "Please try again later"}
+            </Text>
 
-	    <Button
-	      size="md"
-	      w="80%"
-	      marginBottom={"40px"}
-	      borderRadius="md"
-	      isLoading={isLoading}
-	      loadingText={isSignd ? "Transaction Submitted" : "Please sign"}
-	      minHeight="44px"
-	      fontWeight="600"
-	      variant="bluePrimary"
-	      color="white"
-	      onClick={setIsModalOpen.off}
-	    >
-	      OK
-	    </Button>
-	  </VStack>
-	)}
+            <Button
+              size="md"
+              w="80%"
+              marginBottom={"40px"}
+              borderRadius="md"
+              isLoading={isLoading}
+              loadingText={isSignd ? "Transaction Submitted" : "Please sign"}
+              minHeight="44px"
+              fontWeight="600"
+              variant="bluePrimary"
+              color="white"
+              onClick={setIsModalOpen.off}
+            >
+              OK
+            </Button>
+          </VStack>
+        )}
       </Popup>
     </Box>
   );

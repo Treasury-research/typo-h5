@@ -14,6 +14,7 @@ import {
 	w3mConnectors,
 	w3mProvider,
 } from "@web3modal/ethereum";
+import { MetaMaskConnector } from '@wagmi/connectors/metaMask'
 import { useWeb3Modal } from "@web3modal/react";
 import { useAccount } from "wagmi";
 import api from "api";
@@ -24,9 +25,12 @@ const projectId = "c27e0568aa579f4d572246b7a2882010";
 const { publicClient } = configureChains(chains, [w3mProvider({ projectId })]);
 
 const networkConfig = createConfig({
-	autoConnect: true,
-	connectors: w3mConnectors({ projectId, chains }),
-	publicClient,
+    autoConnect: true,
+    connectors: [
+        ...w3mConnectors({ projectId, chains }),
+        new MetaMaskConnector()
+    ],
+    publicClient,
 });
 
 const ethereumClient = new EthereumClient(networkConfig, chains);
