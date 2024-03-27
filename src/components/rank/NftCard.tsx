@@ -261,12 +261,12 @@ export const NftCard = ({}) => {
     // return;
 
     if (chain?.id !== chainInfo.chainId) {
-      showToast({
-        position: "top",
-        title: "Please switch to the Arbitrum network!",
-        variant: "subtle",
-      });
-      switchNetwork(chainInfo.networkInfo);
+      /* showToast({
+       *   position: "top",
+       *   title: "Please switch to the Arbitrum network!",
+       *   variant: "subtle",
+       * }); */
+      await switchNetwork(chainInfo.networkInfo);
       return;
     }
 
