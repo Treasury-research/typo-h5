@@ -212,7 +212,6 @@ export const NftCard = ({}) => {
     } = networkInfo
 
     const ethereum = window.ethereum
-    alert(ethereum)
 
     try {
       await ethereum.request({
