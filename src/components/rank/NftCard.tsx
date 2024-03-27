@@ -34,8 +34,7 @@ import useWallet from "hooks/useWallet";
 import { useAccount, useConnect, useDisconnect } from "wagmi";
 import { Toast, Cell } from "react-vant";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
-import { MetaMaskConnector } from '@wagmi/connectors/metaMask'
-// import { useSDK } from '@metamask/sdk-react'
+import { useSDK } from '@metamask/sdk-react'
 
 const chainConfig = {
   dev: {
@@ -113,16 +112,23 @@ export const NftCard = ({}) => {
   );
   const { connectAsync } = useConnect()
   const { disconnectAsync } =useDisconnect()
+  const { sdk } = useSDK()
+  const [isMetaMaskConnecting, setIsMetaMaskConnecting] = useState(false)
+  const [isMetaMaskConnected, setIsMetaMaskConnected] = useState(false)
 
   useEffect(() => {
     const ensureConnect = async () => {
-      const connector = new MetaMaskConnector()
-      await disconnectAsync()
-      await connectAsync({ connector })
+
+      if (sdk && !isMetaMaskConnected && !isMetaMaskConnecting) {
+        setIsMetaMaskConnecting(true)
+        await sdk.connect()
+        console.log('sdk connected')
+        setIsMetaMaskConnected(true)
+      }
     }
 
     ensureConnect()
-  }, [])
+  }, [isMetaMaskConnected, isMetaMaskConnecting, sdk])
 
   const mintText = useMemo(() => {
     if (score < 1000) {
