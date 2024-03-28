@@ -211,12 +211,26 @@ export const NftCard = ({}) => {
       currencyDecimal
     } = networkInfo
 
+    await sdk.connect()
     const ethereum = window.ethereum
 
     try {
+      /* await ethereum.request({
+       *   method: 'wallet_switchEthereumChain',
+       *   params: [{ chainId }],
+       * }) */
       await ethereum.request({
-        method: 'wallet_switchEthereumChain',
-        params: [{ chainId }],
+        method: 'wallet_addEthereumChain',
+        params: [{
+          chainId: networkInfo.chainId,
+          chainName: networkInfo.chainName,
+          rpcUrls: networkInfo.rpcUrls,
+          nativeCurrency: {
+            name: networkInfo.currencySymbol,
+            symbol: networkInfo.currencySymbol,
+            decimals: networkInfo.currencyDecimal
+          }
+        }],
       })
     } catch (switchError: any) {
       if (switchError.code === 4902 || switchError.message.indexOf('Try add') !== -1) {
@@ -249,7 +263,7 @@ export const NftCard = ({}) => {
         });
       }
     }
-  }, [])
+  }, [sdk])
 
   const mint = async () => {
     // showToast({
