@@ -14,6 +14,15 @@ module.exports =
           test: /\.md$/,
           use: "raw-loader"
         });
+
+        if (!options.isServer) {
+          config.resolve = {
+            ...config.resolve,
+            fallback: {
+              fs: false,
+            },
+          };
+        }
         return config;
       },
     }
