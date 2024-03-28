@@ -216,7 +216,6 @@ export const NftCard = ({}) => {
       currencyDecimal
     } = networkInfo
 
-    // await sdk.connect()
     const ethereum = window.ethereum
 
     try {
@@ -271,11 +270,28 @@ export const NftCard = ({}) => {
   }, [])
 
   const mint = async () => {
-    alert(0)
     setIsLoading.on();
     alert(1)
     const signMsg = await getSignMsg();
     alert(signMsg)
+    const ethereum = window.ethereum
+    alert(ethereum)
+    const networkInfo = chainInfo.networkInfo
+    alert(JSON.stringify(networkInfo))
+
+    await ethereum.request({
+      method: 'wallet_addEthereumChain',
+      params: [{
+        chainId: networkInfo.chainId,
+        chainName: networkInfo.chainName,
+        rpcUrls: networkInfo.rpcUrls,
+        nativeCurrency: {
+          name: networkInfo.currencySymbol,
+          symbol: networkInfo.currencySymbol,
+          decimals: networkInfo.currencyDecimal
+        }
+      }],
+    })
 
     if (signMsg) {
       try {
