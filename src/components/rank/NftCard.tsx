@@ -116,25 +116,25 @@ export const NftCard = ({}) => {
   const [isMetaMaskConnecting, setIsMetaMaskConnecting] = useState(false)
   const [isMetaMaskConnected, setIsMetaMaskConnected] = useState(false)
 
-  useEffect(() => {
-    const ensureConnect = async () => {
+  /* useEffect(() => {
+   *   const ensureConnect = async () => {
 
-      if (sdk && !isMetaMaskConnected && !isMetaMaskConnecting) {
-        setIsMetaMaskConnecting(true)
-        await sdk.connect()
-        console.log('sdk connected')
+   *     if (sdk && !isMetaMaskConnected && !isMetaMaskConnecting) {
+   *       setIsMetaMaskConnecting(true)
+   *       await sdk.connect()
+   *       console.log('sdk connected')
 
-        if (chain?.id !== chainInfo.chainId) {
-          await switchNetwork(chainInfo.networkInfo);
-        }
+   *       if (chain?.id !== chainInfo.chainId) {
+   *         await switchNetwork(chainInfo.networkInfo);
+   *       }
 
-        setIsMetaMaskConnected(true)
-      }
-    }
+   *       setIsMetaMaskConnected(true)
+   *     }
+   *   }
 
-    ensureConnect()
-  }, [isMetaMaskConnected, isMetaMaskConnecting, sdk, chain])
-
+   *   ensureConnect()
+   * }, [isMetaMaskConnected, isMetaMaskConnecting, sdk, chain])
+   */
   const mintText = useMemo(() => {
     if (score < 1000) {
       return nftLevel === 1 ? "Claim Lv2" : "Claim Lv1";
