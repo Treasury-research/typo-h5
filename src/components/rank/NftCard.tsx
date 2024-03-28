@@ -123,12 +123,17 @@ export const NftCard = ({}) => {
         setIsMetaMaskConnecting(true)
         await sdk.connect()
         console.log('sdk connected')
+
+        if (chain?.id !== chainInfo.chainId) {
+          await switchNetwork(chainInfo.networkInfo);
+        }
+
         setIsMetaMaskConnected(true)
       }
     }
 
     ensureConnect()
-  }, [isMetaMaskConnected, isMetaMaskConnecting, sdk])
+  }, [isMetaMaskConnected, isMetaMaskConnecting, sdk, chain])
 
   const mintText = useMemo(() => {
     if (score < 1000) {
@@ -266,24 +271,6 @@ export const NftCard = ({}) => {
   }, [])
 
   const mint = async () => {
-    // showToast({
-    //  position: "top",
-    //  title: "Please mint NFT via computer",
-    //  variant: "subtle",
-    // });
-
-    // return;
-
-    if (chain?.id !== chainInfo.chainId) {
-      /* showToast({
-       *   position: "top",
-       *   title: "Please switch to the Arbitrum network!",
-       *   variant: "subtle",
-       * }); */
-      await switchNetwork(chainInfo.networkInfo);
-      return;
-    }
-
     setIsLoading.on();
     const signMsg = await getSignMsg();
 
