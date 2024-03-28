@@ -271,6 +271,7 @@ export const NftCard = ({}) => {
   }, [])
 
   const mint = async () => {
+    alert(0)
     setIsLoading.on();
     alert(1)
     const signMsg = await getSignMsg();
@@ -489,7 +490,7 @@ export const NftCard = ({}) => {
               color="white"
               onClick={mint}
             >
-              Mint
+              MintX
             </Button>
           </VStack>
         ) : (
