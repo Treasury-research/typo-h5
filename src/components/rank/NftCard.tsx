@@ -211,7 +211,7 @@ export const NftCard = ({}) => {
       currencyDecimal
     } = networkInfo
 
-    await sdk.connect()
+    // await sdk.connect()
     const ethereum = window.ethereum
 
     try {
@@ -263,7 +263,7 @@ export const NftCard = ({}) => {
         });
       }
     }
-  }, [sdk])
+  }, [])
 
   const mint = async () => {
     // showToast({
