@@ -272,7 +272,9 @@ export const NftCard = ({}) => {
 
   const mint = async () => {
     setIsLoading.on();
+    alert(1)
     const signMsg = await getSignMsg();
+    alert(signMsg)
 
     if (signMsg) {
       try {
