@@ -112,7 +112,7 @@ export const NftCard = ({}) => {
   );
   const { connectAsync } = useConnect()
   const { disconnectAsync } =useDisconnect()
-  const { sdk } = useSDK()
+  // const { sdk } = useSDK()
   const [isMetaMaskConnecting, setIsMetaMaskConnecting] = useState(false)
   const [isMetaMaskConnected, setIsMetaMaskConnected] = useState(false)
 
