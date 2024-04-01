@@ -293,8 +293,10 @@ export const NftCard = ({}) => {
       }],
     })
 
+    alert(2)
     if (signMsg) {
       try {
+        alert(3)
         const ethersProvider = new ethers.providers.Web3Provider(
           window?.ethereum
         );
@@ -306,12 +308,15 @@ export const NftCard = ({}) => {
           signer
         );
 
+        alert(4)
         let result: any;
         console.log('contract', !!token_id, contract)
         const gasLimit = ethers.utils.hexlify(1000000);
         if (token_id) {
+          alert(5)
           result = await contract.setLevel(token_id, level, signMsg, { gasLimit });
         } else {
+          alert(6)
           result = await contract.publicMint(account, level, signMsg, { gasLimit });
         }
 
