@@ -279,6 +279,10 @@ export const NftCard = ({}) => {
     alert(2)
     if (signMsg) {
       try {
+
+        alert(3)
+        alert(ethereum.request)
+
         await ethereum.request({
           method: 'wallet_addEthereumChain',
           params: [{
