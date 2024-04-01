@@ -31,7 +31,7 @@ const networkConfig = createConfig({
         new WalletConnectConnector({
          chains,
          options: {
-           qrcode: true,
+           // qrcode: true,
            // WalletConnect provider options here
          },
        }),
