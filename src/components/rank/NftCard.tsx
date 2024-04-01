@@ -271,32 +271,28 @@ export const NftCard = ({}) => {
 
   const mint = async () => {
     setIsLoading.on();
-    alert(1)
     const signMsg = await getSignMsg();
-    alert(signMsg)
     const ethereum = window.ethereum
-    alert(ethereum)
     const networkInfo = chainInfo.networkInfo
     alert(JSON.stringify(networkInfo))
-
-    await ethereum.request({
-      method: 'wallet_addEthereumChain',
-      params: [{
-        chainId: networkInfo.chainId,
-        chainName: networkInfo.chainName,
-        rpcUrls: networkInfo.rpcUrls,
-        nativeCurrency: {
-          name: networkInfo.currencySymbol,
-          symbol: networkInfo.currencySymbol,
-          decimals: networkInfo.currencyDecimal
-        }
-      }],
-    })
 
     alert(2)
     if (signMsg) {
       try {
-        alert(3)
+        await ethereum.request({
+          method: 'wallet_addEthereumChain',
+          params: [{
+            chainId: networkInfo.chainId,
+            chainName: networkInfo.chainName,
+            rpcUrls: networkInfo.rpcUrls,
+            nativeCurrency: {
+              name: networkInfo.currencySymbol,
+              symbol: networkInfo.currencySymbol,
+              decimals: networkInfo.currencyDecimal
+            }
+          }],
+        })
+
         const ethersProvider = new ethers.providers.Web3Provider(
           window?.ethereum
         );
@@ -325,6 +321,7 @@ export const NftCard = ({}) => {
           getMintStatus(result.hash);
         }
       } catch (err: any) {
+        alert(`error: ${err.message}`)
         console.log("err", err);
         setIsLoading.off();
         setIsSignd.off();
