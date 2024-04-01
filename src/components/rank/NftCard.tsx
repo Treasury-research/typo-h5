@@ -34,7 +34,7 @@ import useWallet from "hooks/useWallet";
 import { useAccount, useConnect, useDisconnect } from "wagmi";
 import { Toast, Cell } from "react-vant";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
-import { useSDK } from '@metamask/sdk-react'
+// import { useSDK } from '@metamask/sdk-react'
 
 const chainConfig = {
   dev: {
@@ -112,11 +112,11 @@ export const NftCard = ({}) => {
   );
   const { connectAsync } = useConnect()
   const { disconnectAsync } =useDisconnect()
-  // const { sdk } = useSDK()
-  const [isMetaMaskConnecting, setIsMetaMaskConnecting] = useState(false)
-  const [isMetaMaskConnected, setIsMetaMaskConnected] = useState(false)
+  /* const { sdk } = useSDK()
+   * const [isMetaMaskConnecting, setIsMetaMaskConnecting] = useState(false)
+   * const [isMetaMaskConnected, setIsMetaMaskConnected] = useState(false)
 
-  /* useEffect(() => {
+   * useEffect(() => {
    *   const ensureConnect = async () => {
 
    *     if (sdk && !isMetaMaskConnected && !isMetaMaskConnecting) {
@@ -274,29 +274,24 @@ export const NftCard = ({}) => {
     const signMsg = await getSignMsg();
     const ethereum = window.ethereum
     const networkInfo = chainInfo.networkInfo
-    alert(JSON.stringify(networkInfo))
 
-    alert(2)
+    console.log('ethereum 0000', ethereum)
+    await ethereum.request({
+      method: 'wallet_addEthereumChain',
+      params: [{
+        chainId: networkInfo.chainId,
+        chainName: networkInfo.chainName,
+        rpcUrls: networkInfo.rpcUrls,
+        nativeCurrency: {
+          name: networkInfo.currencySymbol,
+          symbol: networkInfo.currencySymbol,
+          decimals: networkInfo.currencyDecimal
+        }
+      }],
+    })
+
     if (signMsg) {
       try {
-
-        alert(3)
-        alert(ethereum.request)
-
-        await ethereum.request({
-          method: 'wallet_addEthereumChain',
-          params: [{
-            chainId: networkInfo.chainId,
-            chainName: networkInfo.chainName,
-            rpcUrls: networkInfo.rpcUrls,
-            nativeCurrency: {
-              name: networkInfo.currencySymbol,
-              symbol: networkInfo.currencySymbol,
-              decimals: networkInfo.currencyDecimal
-            }
-          }],
-        })
-
         const ethersProvider = new ethers.providers.Web3Provider(
           window?.ethereum
         );
@@ -308,7 +303,6 @@ export const NftCard = ({}) => {
           signer
         );
 
-        alert(4)
         let result: any;
         console.log('contract', !!token_id, contract)
         const gasLimit = ethers.utils.hexlify(1000000);
@@ -325,7 +319,6 @@ export const NftCard = ({}) => {
           getMintStatus(result.hash);
         }
       } catch (err: any) {
-        alert(`error: ${err.message}`)
         console.log("err", err);
         setIsLoading.off();
         setIsSignd.off();
@@ -512,7 +505,7 @@ export const NftCard = ({}) => {
               color="white"
               onClick={mint}
             >
-              MintX
+              Mint
             </Button>
           </VStack>
         ) : (
