@@ -30,7 +30,8 @@ const networkConfig = createConfig({
         // ...w3mConnectors({ projectId, chains }),
         new WalletConnectConnector({
          chains,
-         options: {
+           options: {
+             projectId
            // qrcode: true,
            // WalletConnect provider options here
          },
