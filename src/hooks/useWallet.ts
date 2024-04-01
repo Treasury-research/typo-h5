@@ -18,6 +18,7 @@ import { useWeb3Modal } from "@web3modal/react";
 import { useAccount } from "wagmi";
 import api from "api";
 import { useNftStore } from "store/nftStore";
+import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 
 const chains = [mainnet, arbitrum, polygon];
 const projectId = "c27e0568aa579f4d572246b7a2882010";
@@ -26,7 +27,14 @@ const { publicClient } = configureChains(chains, [w3mProvider({ projectId })]);
 const networkConfig = createConfig({
     autoConnect: true,
     connectors: [
-        ...w3mConnectors({ projectId, chains }),
+        // ...w3mConnectors({ projectId, chains }),
+        new WalletConnectConnector({
+         chains,
+         options: {
+           qrcode: true,
+           // WalletConnect provider options here
+         },
+       }),
     ],
     publicClient,
 });
