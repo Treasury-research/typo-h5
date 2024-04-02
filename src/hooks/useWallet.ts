@@ -29,15 +29,6 @@ const networkConfig = createConfig({
     autoConnect: true,
     connectors: [
         ...w3mConnectors({ projectId, chains }),
-        new MetaMaskConnector({ chains })
-        // new WalletConnectConnector({
-       //   chains,
-       //     options: {
-       //       projectId
-       //     // qrcode: true,
-       //     // WalletConnect provider options here
-       //   },
-       // }),
     ],
     publicClient,
 });
