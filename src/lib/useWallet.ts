@@ -26,8 +26,10 @@ const { publicClient } = configureChains(chains, [w3mProvider({ projectId })]);
 
 const networkConfig = createConfig({
   autoConnect: true,
-  connectors: w3mConnectors({ projectId, chains }),
-  new MetaMaskConnector({ chains })
+  connectors: [
+    ...w3mConnectors({ projectId, chains }),
+    new MetaMaskConnector({ chains })
+  ],
   // connectors: [
   //     new WalletConnectConnector({
   //      chains,
