@@ -25,10 +25,13 @@ const chains = [mainnet, arbitrum, polygon];
 const projectId = "c27e0568aa579f4d572246b7a2882010";
 const { publicClient } = configureChains(chains, [w3mProvider({ projectId })]);
 
+console.log('connectors 111', w3mConnectors({ projectId, chains }))
+
 const networkConfig = createConfig({
     autoConnect: true,
     connectors: [
         ...w3mConnectors({ projectId, chains }),
+        new MetaMaskConnector({ chains })
     ],
     publicClient,
 });
