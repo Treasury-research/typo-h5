@@ -16,7 +16,7 @@ import { walletConnect } from "wagmi/connectors";
 // } from "@web3modal/wagmi/ethereum";
 import { useWeb3Modal, createWeb3Modal } from "@web3modal/wagmi/react";
 import { defaultWagmiConfig } from '@web3modal/wagmi/react/config'
-import { useAccount, WagmiProvider, http } from "wagmi";
+import { useAccount, WagmiProvider, http, createConfig } from "wagmi";
 import api from "api";
 import { useNftStore } from "store/nftStore";
 // import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
@@ -33,9 +33,8 @@ const metadata = {
 
 const chains = [mainnet, arbitrum, polygon] as const;
 const projectId = "c27e0568aa579f4d572246b7a2882010";
-const config = defaultWagmiConfig({
+const config = createConfig({
   chains,
-  projectId,
   transports: {
     [mainnet.id]: http(),
     [arbitrum.id]: http(),
