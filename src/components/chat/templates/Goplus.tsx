@@ -21,7 +21,7 @@ import { toShortAddress } from "lib";
 import { useUserInfoStore } from "store/userInfoStore";
 import { ActionSheet } from "react-vant";
 import { useEffect, useMemo, useState } from "react";
-import { usePrepareContractWrite, useContractWrite } from "wagmi";
+import { useSimulateContract, useWriteContract } from "wagmi";
 import { useStore } from "store";
 import useChatContext from "hooks/useChatContext";
 
@@ -89,7 +89,7 @@ export function Goplus({
     return content?.error_approvals?.list || [];
   }, [content]);
 
-  const { config } = usePrepareContractWrite({
+  const { data } = useSimulateContract({
     address: contractAddress as any,
     abi: [
       {
@@ -109,7 +109,7 @@ export function Goplus({
     args: [account, BigInt(0)],
   });
 
-  const { writeAsync, isSuccess, error, isError } = useContractWrite(config);
+  const { writeContract, isSuccess, error, isError } = useWriteContract();
 
   useEffect(() => {
     if (isError) {
@@ -324,7 +324,7 @@ export function Goplus({
                               onClick={() => {
                                 setContractAddress(item.approved_contract);
                                 setTimeout(() => {
-                                  writeAsync?.();
+                                  writeContract?.(data!.request);
                                 }, 300);
                               }}
                             >

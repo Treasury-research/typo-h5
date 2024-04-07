@@ -10,7 +10,6 @@ import { isPhone, isProduction } from "lib";
 import customTheme from "styles/theme";
 import useWallet from "hooks/useWallet";
 import { WagmiProvider } from "wagmi";
-import { Web3Modal } from "@web3modal/wagmi/react";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 import "react-vant/lib/index.css";

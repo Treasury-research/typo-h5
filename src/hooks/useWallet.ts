@@ -1,6 +1,5 @@
 import { useBoolean, useToast } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { configureChains, createConfig } from "wagmi";
 import { signMessage } from "@wagmi/core";
 
 import { useConnectModalStore } from "store/modalStore";
@@ -20,7 +19,7 @@ import { useAccount, WagmiProvider } from "wagmi";
 import api from "api";
 import { useNftStore } from "store/nftStore";
 // import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
-//import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
+// import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 const queryClient = new QueryClient()
@@ -31,7 +30,7 @@ const metadata = {
   icons: ['https://mobile.typography.staging.knn3.xyz/favicon.png']
 }
 
-const chains = [mainnet, arbitrum, polygon];
+const chains = [mainnet, arbitrum, polygon] as const;
 const projectId = "c27e0568aa579f4d572246b7a2882010";
 const config = defaultWagmiConfig({
   chains,
