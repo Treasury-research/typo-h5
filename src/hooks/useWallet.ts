@@ -8,6 +8,7 @@ import { useJwtStore } from "store/jwtStore";
 import { useUserInfoStore } from "store/userInfoStore";
 import { useAiStore } from "store/aiStore";
 import { mainnet, arbitrum, polygon } from "wagmi/chains";
+import { walletConnect } from "wagmi/connectors";
 // import {
 // 	EthereumClient,
 // 	w3mConnectors,
@@ -15,7 +16,7 @@ import { mainnet, arbitrum, polygon } from "wagmi/chains";
 // } from "@web3modal/wagmi/ethereum";
 import { useWeb3Modal, createWeb3Modal } from "@web3modal/wagmi/react";
 import { defaultWagmiConfig } from '@web3modal/wagmi/react/config'
-import { useAccount, WagmiProvider } from "wagmi";
+import { useAccount, WagmiProvider, http } from "wagmi";
 import api from "api";
 import { useNftStore } from "store/nftStore";
 // import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
@@ -35,7 +36,14 @@ const projectId = "c27e0568aa579f4d572246b7a2882010";
 const config = defaultWagmiConfig({
   chains,
   projectId,
-  metadata
+  transports: {
+    [mainnet.id]: http(),
+    [arbitrum.id]: http(),
+    [polygon.id]: http(),
+  },
+  connectors: [
+    walletConnect({ projectId, metadata, showQrModal: false }),
+  ],
 })
 createWeb3Modal({
   wagmiConfig: config,
