@@ -9,34 +9,51 @@ import { useJwtStore } from "store/jwtStore";
 import { useUserInfoStore } from "store/userInfoStore";
 import { useAiStore } from "store/aiStore";
 import { mainnet, arbitrum, polygon } from "wagmi/chains";
-import {
-	EthereumClient,
-	w3mConnectors,
-	w3mProvider,
-} from "@web3modal/ethereum";
-import { useWeb3Modal } from "@web3modal/react";
-import { useAccount } from "wagmi";
+// import {
+// 	EthereumClient,
+// 	w3mConnectors,
+// 	w3mProvider,
+// } from "@web3modal/wagmi/ethereum";
+import { useWeb3Modal, createWeb3Modal } from "@web3modal/wagmi/react";
+import { defaultWagmiConfig } from '@web3modal/wagmi/react/config'
+import { useAccount, WagmiProvider } from "wagmi";
 import api from "api";
 import { useNftStore } from "store/nftStore";
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
-import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
+// import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
+//import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
+const queryClient = new QueryClient()
+const metadata = {
+  name: 'Web3Modal',
+  description: 'Web3Modal TypoX',
+  url: 'https://mobile.typography.staging.knn3.xyz/rank',
+  icons: ['https://mobile.typography.staging.knn3.xyz/favicon.png']
+}
 
 const chains = [mainnet, arbitrum, polygon];
 const projectId = "c27e0568aa579f4d572246b7a2882010";
-const { publicClient } = configureChains(chains, [w3mProvider({ projectId })]);
+const config = defaultWagmiConfig({
+  chains,
+  projectId,
+  metadata
+})
+createWeb3Modal({
+  wagmiConfig: config,
+  projectId,
+})
 
-console.log('connectors 111', w3mConnectors({ projectId, chains }))
+// const { publicClient } = configureChains(chains, [w3mProvider({ projectId })]);
 
-const networkConfig = createConfig({
-    autoConnect: true,
-    connectors: [
-        ...w3mConnectors({ projectId, chains }),
-        new MetaMaskConnector({ chains })
-    ],
-    publicClient,
-});
+// const networkConfig = createConfig({
+//     autoConnect: true,
+//     connectors: [
+//         ...w3mConnectors({ projectId, chains }),
+//     ],
+//     publicClient,
+// });
 
-const ethereumClient = new EthereumClient(networkConfig, chains);
+// const ethereumClient = new EthereumClient(networkConfig, chains);
 
 export default function useWallet() {
 	const router = useRouter();
@@ -45,7 +62,7 @@ export default function useWallet() {
 	const [signLoading, setSignLoading] = useState(false);
 	const { setTotalCoupon } = useAiStore();
 	const { setJwt } = useJwtStore();
-	const { open, close } = useWeb3Modal();
+	const { open } = useWeb3Modal();
 	const [isSign, setIsSign] = useBoolean(false);
 	const { clearConnectModalStore, setOpenConnectModal } =
 		useConnectModalStore();
@@ -113,7 +130,7 @@ export default function useWallet() {
 			try {
 				setSignLoading(true);
 				const message = `Hello, welcome to TypoGraphy AI. Please sign this message to verify your wallet. Please make sure the URL is: https://app.typography.vip \nTime: ${Date.now()}`;
-				const signMsg = await signMessage({
+			        const signMsg = await signMessage(config, {
 					message,
 				});
 				await getNonce(message, signMsg, address);
@@ -174,8 +191,8 @@ export default function useWallet() {
 		signLoading,
 		isSign,
 		projectId,
-		ethereumClient,
-		networkConfig,
+		queryClient,
+	        wagmiConfig: config,
 		openConnectWallet,
 		handleSign,
 		onConnect,

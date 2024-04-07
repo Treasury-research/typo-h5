@@ -22,7 +22,6 @@ import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
 import { useUserInfoStore } from "store/userInfoStore";
 import { useStore } from "store";
-import { useNetwork, useSwitchNetwork } from "wagmi";
 import useChatContext from "hooks/useChatContext";
 import { TbArrowsExchange } from "react-icons/tb";
 import { ethers } from "ethers";
@@ -98,7 +97,7 @@ export const NftCard = ({}) => {
     setNftLevel,
     rank,
   } = useUserInfoStore();
-  const { chain } = useNetwork();
+  const { chain } = useAccount();
   const showToast = useToast();
   const { isConnected, address } = useAccount();
   // const { switchNetwork } = useSwitchNetwork();
