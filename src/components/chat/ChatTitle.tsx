@@ -82,20 +82,7 @@ export function ChatTitle() {
 									<ShareIcon />
 								</Box>
 							)}
-							<Badge dot>
-								<Icon
-									mt={1}
-									as={BiGift}
-									boxSize={5}
-									onClick={() => {
-										if (!userId) {
-											setOpenConnectModal(true);
-											return;
-										}
-										openQuest();
-									}}
-								/>
-							</Badge>
+							
 						</Box>
 					}
 				/>

@@ -144,7 +144,7 @@ export const NftCard = ({}) => {
       const connector: any = connectors.find((item: any) => item.id === 'walletConnect')
       const provider = await connector.getProvider()
       // await provider.connect()
-      console.log('provider111', provider)
+      console.log('provider111', provider.signer.client.session)
       setProvider(provider)
     }
 
@@ -286,25 +286,16 @@ export const NftCard = ({}) => {
   }, [])
 
   const mint = useCallback(async () => {
-    setIsLoading.on();
-    const signMsg = await getSignMsg();
-    const ethereum = window.ethereum
-    const networkInfo = chainInfo.networkInfo
+    try {
+      setIsLoading.on();
+      const ethereum = window.ethereum
+      const networkInfo = chainInfo.networkInfo
 
-    console.log('ethereum 0000', ethereum, provider)
-    const permissions = {
-      blockchain: { chains: ["eip155:1"] }, // Example: Ethereum mainnet
-      jsonrpc: {
-        methods: ["wallet_addEthereumChain", "eth_sendTransaction", "personal_sign", "eth_accounts"],
-      },
-    };
-
-    await provider.connect()
-    // const res = await provider.request({ method: 'eth_requestAccounts' })
-    const res = await provider.request({
-      topic: provider.session.topics[0], // The topic of the first session
-      chainId: provider.session.permissions.blockchain.chains[0], // The chainId of the connected network
-      request: {
+      console.log('ethereum 0000', ethereum, provider)
+      // await provider.connect()
+      // console.log('ethereum connect', provider)
+      await provider.signer.client.request({
+        topic: 'hello',
         method: 'wallet_addEthereumChain',
         params: [{
           chainId: networkInfo.chainId,
@@ -315,51 +306,71 @@ export const NftCard = ({}) => {
             symbol: networkInfo.currencySymbol,
             decimals: networkInfo.currencyDecimal
           }
-        }],
-      },
-    })
+        }]
+      });
+      // const res = await provider.request({ method: 'eth_requestAccounts' })
+      /* const res = await provider.request({
+       *   // topic: provider.session.topics[0], // The topic of the first session
+       *   // chainId: provider.session.permissions.blockchain.chains[0], // The chainId of the connected network
+       *   request: {
+       *     method: 'wallet_addEthereumChain',
+       *     params: [{
+       *       chainId: networkInfo.chainId,
+       *       chainName: networkInfo.chainName,
+       *       rpcUrls: networkInfo.rpcUrls,
+       *       nativeCurrency: {
+       *         name: networkInfo.currencySymbol,
+       *         symbol: networkInfo.currencySymbol,
+       *         decimals: networkInfo.currencyDecimal
+       *       }
+       *     }],
+       *   },
+       * }) */
 
-    console.log('ethereum 111', res)
+      const signMsg = await getSignMsg();
+      
+      if (signMsg) {
+        try {
+          const ethersProvider = new ethers.providers.Web3Provider(
+            window?.ethereum
+          );
+          const signer = await ethersProvider.getSigner();
 
-    if (signMsg) {
-      try {
-        const ethersProvider = new ethers.providers.Web3Provider(
-          window?.ethereum
-        );
-        const signer = await ethersProvider.getSigner();
+          const contract = new ethers.Contract(
+            chainInfo.contract,
+            chainInfo.abi,
+            signer
+          );
 
-        const contract = new ethers.Contract(
-          chainInfo.contract,
-          chainInfo.abi,
-          signer
-        );
+          let result: any;
+          console.log('contract', !!token_id, contract)
+          const gasLimit = ethers.utils.hexlify(1000000);
+          if (token_id) {
+            alert(5)
+            result = await contract.setLevel(token_id, level, signMsg, { gasLimit });
+          } else {
+            alert(6)
+            result = await contract.publicMint(account, level, signMsg, { gasLimit });
+          }
 
-        let result: any;
-        console.log('contract', !!token_id, contract)
-        const gasLimit = ethers.utils.hexlify(1000000);
-        if (token_id) {
-          alert(5)
-          result = await contract.setLevel(token_id, level, signMsg, { gasLimit });
-        } else {
-          alert(6)
-          result = await contract.publicMint(account, level, signMsg, { gasLimit });
+          setIsSignd.on();
+          if (result && result.hash) {
+            getMintStatus(result.hash);
+          }
+        } catch (err: any) {
+          console.log("err", err);
+          setIsLoading.off();
+          setIsSignd.off();
+          setIsSuccess("fail");
+          showToast({
+            position: "top",
+            title: err?.message || "Unknown Error",
+            variant: "subtle",
+          });
         }
-
-        setIsSignd.on();
-        if (result && result.hash) {
-          getMintStatus(result.hash);
-        }
-      } catch (err: any) {
-        console.log("err", err);
-        setIsLoading.off();
-        setIsSignd.off();
-        setIsSuccess("fail");
-        showToast({
-          position: "top",
-          title: err?.message || "Unknown Error",
-          variant: "subtle",
-        });
       }
+    } catch (error: any) {
+      console.log('error 111', error.message)
     }
 
     // setIsLoading.off();
