@@ -141,7 +141,7 @@ export const NftCard = ({}) => {
   useEffect(() => {
     const test = async () => {
       const connectors = wagmiConfig.connectors
-      const connector = connectors.find((item: any) => item.id === 'walletConnect')
+      const connector: any = connectors.find((item: any) => item.id === 'walletConnect')
       const provider = await connector.getProvider()
       // await provider.connect()
       console.log('provider111', provider)
