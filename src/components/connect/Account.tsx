@@ -83,7 +83,9 @@ const Account = () => {
 	      <HStack flex="1" alignItems="flex-start">
 		<Jazzicon diameter={40} seed={jsNumberForAddress(account)} />
 		<Box
-		  className="flex-col flex-1 justify-around"
+		  className="flex-col justify-center aign-center"
+                  height="40px"
+                  display="flex"
 		  marginLeft="4px"
 		>
 		  <Flex
@@ -94,36 +96,35 @@ const Account = () => {
 		    <Text> {toShortAddress(account, 12)}</Text>
 		  </Flex>
 
-		  <Box marginTop="2px" fontSize="13px" marginBottom="4px">
-		    {/* Daily Reward */}
-		    <Text fontSize="14px" pr="1px">
+		  {/* <Box marginTop="2px" fontSize="13px" marginBottom="4px">
+		      <Text fontSize="14px" pr="1px">
 		      {totalCoupon && totalCoupon.toFixed(1)} TCC
-		    </Text>
-		  </Box>
-		  <Box
-		    className="text-[12px]"
-		    display="flex"
-		    alignItems="center"
-		    justifyContent="flex-start"
-		  >
-		    <Box
+		      </Text>
+		      </Box> */}
+		  {/* <Box
+		      className="text-[12px]"
+		      display="flex"
+		      alignItems="center"
+		      justifyContent="flex-start"
+		      >
+		      <Box
 		      width="80%"
 		      background="#EAEDF1"
 		      height="10px"
 		      borderRadius="24px"
 		      overflow="hidden"
 		      marginRight="6px"
-		    >
+		      >
 		      <Box
-		        height="100%"
-		        background="#FFE3AC"
-		        width={(dailyAdd / (isPassuser ? 120 : 60)) * 100}
+		      height="100%"
+		      background="#FFE3AC"
+		      width={(dailyAdd / (isPassuser ? 120 : 60)) * 100}
 		      />
-		    </Box>
-		    <Box>
+		      </Box>
+		      <Box>
 		      {dailyAdd && dailyAdd.toFixed(1)}/{isPassuser ? "120" : "60"}
-		    </Box>
-		  </Box>
+		      </Box>
+		      </Box> */}
 		</Box>
 	      </HStack>
 
@@ -155,12 +156,12 @@ const Account = () => {
 	      fontSize="13px"
 	      spacing={2}
 	    >
-	      <HStack w="full" justify="space-between">
-		<HStack spacing={1} whiteSpace="nowrap">
+	      {/* <HStack w="full" justify="space-between">
+		  <HStack spacing={1} whiteSpace="nowrap">
 		  <Icon as={LuUsers} boxSize={4} />
 		  <Text transform="scale(0.95)">Invite friends</Text>
-		</HStack>
-		<Button
+		  </HStack>
+		  <Button
 		  size="xs"
 		  px={3}
 		  h="20px"
@@ -171,12 +172,12 @@ const Account = () => {
 		  padding="4px 10px"
 		  width="70px"
 		  onClick={() => {
-		    setOpenInviteModal(true);
+		  setOpenInviteModal(true);
 		  }}
-		>
+		  >
 		  Refer
-		</Button>
-	      </HStack>
+		  </Button>
+	          </HStack> */}
 	      <HStack w="full" justify="space-between">
 		<HStack spacing={1} whiteSpace="nowrap">
 		  <Icon as={TfiEmail} boxSize={4} transform="scale(0.93)" />
