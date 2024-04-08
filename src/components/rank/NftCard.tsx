@@ -292,20 +292,31 @@ export const NftCard = ({}) => {
     const networkInfo = chainInfo.networkInfo
 
     console.log('ethereum 0000', ethereum, provider)
+    const permissions = {
+      blockchain: { chains: ["eip155:1"] }, // Example: Ethereum mainnet
+      jsonrpc: {
+        methods: ["wallet_addEthereumChain", "eth_sendTransaction", "personal_sign", "eth_accounts"],
+      },
+    };
+
     await provider.connect()
     // const res = await provider.request({ method: 'eth_requestAccounts' })
     const res = await provider.request({
-      method: 'wallet_addEthereumChain',
-      params: [{
-        chainId: networkInfo.chainId,
-        chainName: networkInfo.chainName,
-        rpcUrls: networkInfo.rpcUrls,
-        nativeCurrency: {
-          name: networkInfo.currencySymbol,
-          symbol: networkInfo.currencySymbol,
-          decimals: networkInfo.currencyDecimal
-        }
-      }],
+      topic: provider.session.topics[0], // The topic of the first session
+      chainId: provider.session.permissions.blockchain.chains[0], // The chainId of the connected network
+      request: {
+        method: 'wallet_addEthereumChain',
+        params: [{
+          chainId: networkInfo.chainId,
+          chainName: networkInfo.chainName,
+          rpcUrls: networkInfo.rpcUrls,
+          nativeCurrency: {
+            name: networkInfo.currencySymbol,
+            symbol: networkInfo.currencySymbol,
+            decimals: networkInfo.currencyDecimal
+          }
+        }],
+      },
     })
 
     console.log('ethereum 111', res)
