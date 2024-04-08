@@ -9,8 +9,8 @@ import { Toasts, Trace } from "components";
 import { isPhone, isProduction } from "lib";
 import customTheme from "styles/theme";
 import useWallet from "hooks/useWallet";
-import { WagmiConfig } from "wagmi";
-import { Web3Modal } from "@web3modal/react";
+import { WagmiProvider } from "wagmi";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 import "react-vant/lib/index.css";
 import "animate.css";
@@ -21,7 +21,7 @@ import "styles/h5.css";
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
   const { toastMessage, toastType, toastTime } = useStore();
-  const { networkConfig, projectId, ethereumClient } = useWallet();
+  const { wagmiConfig, projectId, queryClient } = useWallet();
 
   if (
     typeof window !== "undefined" &&
@@ -53,14 +53,13 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
                                                 gtag('config', 'G-2EV36YE6VQ');`}
       </Script>
 
-      <WagmiConfig config={networkConfig}>
-        <Component {...pageProps} className="flex-1" />
-
-        <Trace />
-        <Toasts message={toastMessage} type={toastType} time={toastTime} />
-
-        <Web3Modal projectId={projectId} ethereumClient={ethereumClient} />
-      </WagmiConfig>
+      <WagmiProvider config={wagmiConfig}>
+        <QueryClientProvider client={queryClient}>
+          <Component {...pageProps} className="flex-1" />
+          <Trace />
+          <Toasts message={toastMessage} type={toastType} time={toastTime} />
+        </QueryClientProvider>
+      </WagmiProvider>
     </ChakraProvider>
   );
 };
