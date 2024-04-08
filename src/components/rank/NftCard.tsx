@@ -545,9 +545,16 @@ export const NftCard = ({}) => {
               fontWeight="600"
               variant="bluePrimary"
               color="white"
-              onClick={mint}
+              onClick={() => {
+                onCopy();
+                showToast({
+                  position: "top",
+                  title: "Link copied. Please access it via PC.",
+                  variant: "subtle",
+                });
+              }}
             >
-              Mint
+              Copy Desktop Link
             </Button>
           </VStack>
         ) : (
