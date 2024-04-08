@@ -33,6 +33,7 @@ import useWallet from "hooks/useWallet";
 import { useAccount, useConnect, useDisconnect } from "wagmi";
 import { Toast, Cell } from "react-vant";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
+import { getAccount } from "@wagmi/core"
 // import { useSDK } from '@metamask/sdk-react'
 
 const chainConfig = {
@@ -105,7 +106,8 @@ export const NftCard = ({}) => {
   const [isLoading, setIsLoading] = useBoolean(false);
   const [isSignd, setIsSignd] = useBoolean(false);
   const [isSuccess, setIsSuccess] = useState<string>("ready");
-  const { handleSign, openConnectWallet, isSign } = useWallet();
+  const [provider, setProvider] = useState<any>(null);
+  const { handleSign, openConnectWallet, isSign, wagmiConfig } = useWallet();
   const { onCopy, value, setValue, hasCopied } = useClipboard(
     "https://app.typox.ai/rank?utm_source=h5&utm_medium=loyalty_rank&utm_campaign=AIFX_NFT_Claim&utm_content=Mobile_login_user"
   );
@@ -134,6 +136,21 @@ export const NftCard = ({}) => {
    *   ensureConnect()
    * }, [isMetaMaskConnected, isMetaMaskConnecting, sdk, chain])
    */
+
+
+  useEffect(() => {
+    const test = async () => {
+      const connectors = wagmiConfig.connectors
+      const connector = connectors.find((item: any) => item.id === 'walletConnect')
+      const provider = await connector.getProvider()
+      // await provider.connect()
+      console.log('provider111', provider)
+      setProvider(provider)
+    }
+
+    test()
+  }, [])
+
   const mintText = useMemo(() => {
     if (score < 1000) {
       return nftLevel === 1 ? "Claim Lv2" : "Claim Lv1";
@@ -268,14 +285,16 @@ export const NftCard = ({}) => {
     }
   }, [])
 
-  const mint = async () => {
+  const mint = useCallback(async () => {
     setIsLoading.on();
     const signMsg = await getSignMsg();
     const ethereum = window.ethereum
     const networkInfo = chainInfo.networkInfo
 
-    console.log('ethereum 0000', ethereum)
-    await ethereum.request({
+    console.log('ethereum 0000', ethereum, provider)
+    await provider.connect()
+    // const res = await provider.request({ method: 'eth_requestAccounts' })
+    const res = await provider.request({
       method: 'wallet_addEthereumChain',
       params: [{
         chainId: networkInfo.chainId,
@@ -288,6 +307,8 @@ export const NftCard = ({}) => {
         }
       }],
     })
+
+    console.log('ethereum 111', res)
 
     if (signMsg) {
       try {
@@ -331,7 +352,7 @@ export const NftCard = ({}) => {
     }
 
     // setIsLoading.off();
-  };
+  }, [provider]);
 
   useEffect(() => {
     if (userId) {

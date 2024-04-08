@@ -33,6 +33,7 @@ const metadata = {
 
 const chains = [mainnet, arbitrum, polygon] as const;
 const projectId = "0a3c7c8f9211d3b784345f0b824206df" // "c27e0568aa579f4d572246b7a2882010";
+
 const config = createConfig({
   chains,
   transports: {

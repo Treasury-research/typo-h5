@@ -29,6 +29,7 @@
 		"@uniswap/widgets": "^2.53.2",
 		"@wagmi/connectors": "~4.1.25",
 		"@wagmi/core": "^2.6.16",
+		"@walletconnect/ethereum-provider": "^2.12.1",
 		"@web3modal/wagmi": "4.1.5",
 		"animate.css": "^4.1.1",
 		"axios": "^1.4.0",
