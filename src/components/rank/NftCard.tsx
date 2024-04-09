@@ -35,6 +35,23 @@ import { Toast, Cell } from "react-vant";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { getAccount } from "@wagmi/core"
 // import { useSDK } from '@metamask/sdk-react'
+import { useWalletClient } from 'wagmi'
+
+console.log('ethers.providers', ethers.providers)
+const clientToProviderSigner = async (client: any) => {
+  const { account, chain, transport } = client;
+  const network = {
+    chainId: chain?.id,
+    name: chain?.name,
+    ensAddress: chain?.contracts?.ensRegistry?.address,
+  };
+  // You can use whatever provider that fits your need here.
+  const provider = new ethers.providers.Web3Provider(transport, network);
+  console.log('transport', transport, network, provider)
+  const signer = await provider.getSigner(account?.address);
+  return { provider, signer, transport };
+};
+
 
 const chainConfig = {
   dev: {
@@ -113,6 +130,8 @@ export const NftCard = ({}) => {
   );
   const { connectAsync } = useConnect()
   const { disconnectAsync } =useDisconnect()
+  const { data: walletClient } = useWalletClient()
+
   /* const { sdk } = useSDK()
    * const [isMetaMaskConnecting, setIsMetaMaskConnecting] = useState(false)
    * const [isMetaMaskConnected, setIsMetaMaskConnected] = useState(false)
@@ -137,6 +156,17 @@ export const NftCard = ({}) => {
    * }, [isMetaMaskConnected, isMetaMaskConnecting, sdk, chain])
    */
 
+  const connectWallet = async () => {
+    if (!walletClient) return;
+    const { signer, provider, transport } = await clientToProviderSigner(walletClient)
+    setProvider(transport)
+    console.log('conenct wallet', { signer, provider, transport })
+    // Do whatever you want with the provider and signer like storing them in a state or context
+  };
+
+  useEffect(() => {
+    isConnected && walletClient && connectWallet();
+  }, [isConnected, walletClient])
 
   useEffect(() => {
     const test = async () => {
@@ -148,7 +178,7 @@ export const NftCard = ({}) => {
       setProvider(provider)
     }
 
-    test()
+    // test()
   }, [])
 
   const mintText = useMemo(() => {
@@ -292,10 +322,7 @@ export const NftCard = ({}) => {
       const networkInfo = chainInfo.networkInfo
 
       console.log('ethereum 0000', ethereum, provider)
-      // await provider.connect()
-      // console.log('ethereum connect', provider)
-      await provider.signer.client.request({
-        topic: 'hello',
+      await provider.request({
         method: 'wallet_addEthereumChain',
         params: [{
           chainId: networkInfo.chainId,
@@ -308,27 +335,8 @@ export const NftCard = ({}) => {
           }
         }]
       });
-      // const res = await provider.request({ method: 'eth_requestAccounts' })
-      /* const res = await provider.request({
-       *   // topic: provider.session.topics[0], // The topic of the first session
-       *   // chainId: provider.session.permissions.blockchain.chains[0], // The chainId of the connected network
-       *   request: {
-       *     method: 'wallet_addEthereumChain',
-       *     params: [{
-       *       chainId: networkInfo.chainId,
-       *       chainName: networkInfo.chainName,
-       *       rpcUrls: networkInfo.rpcUrls,
-       *       nativeCurrency: {
-       *         name: networkInfo.currencySymbol,
-       *         symbol: networkInfo.currencySymbol,
-       *         decimals: networkInfo.currencyDecimal
-       *       }
-       *     }],
-       *   },
-       * }) */
-
       const signMsg = await getSignMsg();
-      
+
       if (signMsg) {
         try {
           const ethersProvider = new ethers.providers.Web3Provider(
@@ -545,16 +553,9 @@ export const NftCard = ({}) => {
               fontWeight="600"
               variant="bluePrimary"
               color="white"
-              onClick={() => {
-                onCopy();
-                showToast({
-                  position: "top",
-                  title: "Link copied. Please access it via PC.",
-                  variant: "subtle",
-                });
-              }}
+              onClick={mint}
             >
-              Copy Desktop Link
+              Mint
             </Button>
           </VStack>
         ) : (
