@@ -30,12 +30,14 @@ import { BsFillLightningChargeFill } from "react-icons/bs";
 import { MdLaptopWindows } from "react-icons/md";
 import { Popup } from "react-vant";
 import useWallet from "hooks/useWallet";
-import { useAccount, useConnect, useDisconnect } from "wagmi";
+import { useAccount, useConnect, useDisconnect, useWriteContract } from "wagmi";
 import { Toast, Cell } from "react-vant";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { getAccount } from "@wagmi/core"
 // import { useSDK } from '@metamask/sdk-react'
 import { useWalletClient } from 'wagmi'
+import { Address } from "viem";
+import AIFX_ABI from "lib/AIFX.json";
 
 const chainConfig = {
   dev: {
@@ -115,6 +117,7 @@ export const NftCard = ({}) => {
   const { connectAsync } = useConnect()
   const { disconnectAsync } =useDisconnect()
   const { data: walletClient } = useWalletClient()
+  const { writeContractAsync } = useWriteContract();
 
   const connectWallet = async () => {
     if (!walletClient) return;
@@ -264,29 +267,18 @@ export const NftCard = ({}) => {
 
       if (signMsg) {
         try {
-          const ethersProvider = new ethers.providers.Web3Provider(
-            ethereum
-          );
-          const signer = await ethersProvider.getSigner();
-
-          const contract = new ethers.Contract(
-            chainInfo.contract,
-            chainInfo.abi,
-            signer
-          );
-
-          let result: any;
-          console.log('contract', !!token_id, contract)
-          const gasLimit = ethers.utils.hexlify(1000000);
-          if (token_id) {
-            result = await contract.setLevel(token_id, level, signMsg, { gasLimit });
-          } else {
-            result = await contract.publicMint(account, level, signMsg, { gasLimit });
-          }
+          const result = await writeContractAsync({
+            abi: AIFX_ABI,
+            address: chainInfo.contract as Address,
+            functionName: token_id ? "setLevel" : "publicMint",
+            args: token_id
+                ? [token_id, BigInt(level), signMsg]
+                : [account, BigInt(level), signMsg],
+          });
 
           setIsSignd.on();
-          if (result && result.hash) {
-            getMintStatus(result.hash);
+          if (result) {
+            getMintStatus(result);
           }
         } catch (err: any) {
           console.log("err", err);
