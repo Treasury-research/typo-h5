@@ -305,7 +305,7 @@ export const NftCard = ({}) => {
     }
 
     // setIsLoading.off();
-  }, [client]);
+  }, [client, token_id, level]);
 
   useEffect(() => {
     if (userId) {
