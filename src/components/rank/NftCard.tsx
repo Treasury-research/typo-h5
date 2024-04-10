@@ -264,6 +264,7 @@ export const NftCard = ({}) => {
       }
 
       const signMsg = await getSignMsg();
+      console.log('chainInfo', chainInfo, chainInfo.contract)
 
       if (signMsg) {
         try {
@@ -297,7 +298,7 @@ export const NftCard = ({}) => {
     }
 
     // setIsLoading.off();
-  }, [client, token_id, level]);
+  }, [client, token_id, level, chainInfo]);
 
   useEffect(() => {
     if (userId) {
