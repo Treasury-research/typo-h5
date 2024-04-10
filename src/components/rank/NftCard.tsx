@@ -39,19 +39,33 @@ import { useWalletClient } from 'wagmi'
 
 const chainConfig = {
   dev: {
-    chainId: 42161,
-    contract: "0x6ca3AE33c818Ce9B2be40333f9D2d3639cBc1135",
+    chainId: 80001,
+    contract: "0x0b14ff34ccea03c2ffb7b6194c0fe5d0788041d0",
     abi: [
       "function publicMint(address to, uint256 key, bytes signedMsg)",
       "function setLevel(uint256 tokenId, uint256 key, bytes signedMsg)",
     ],
     networkInfo: {
-      chainId: '0xa4b1',
-      chainName: 'Arbitrum LlamaNodes',
-      rpcUrls: ['https://arbitrum.llamarpc.com'],
-      currencySymbol: 'ETH',
+      chainId: '0x13881',
+      chainName: 'Mumbai',
+      rpcUrls: ['https://polygon-mumbai-pokt.nodies.app'],
+      currencySymbol: 'MATIC',
       currencyDecimal: 18,
-      tokenList: []
+      tokenList: [
+        {
+          isNative: true,
+          contractAddress: '0x0000000000000000000000000000000000000000',
+          decimal: 18,
+          symbol: 'MATIC',
+          name: 'Matic'
+        },
+        {
+          contractAddress: '0xC666283f0A53C46141f509ed9241129622013d95',
+          decimal: 6,
+          symbol: 'TEST',
+          name: 'Test'
+        }
+      ]
     }
   },
   pro: {

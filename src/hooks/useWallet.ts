@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { useJwtStore } from "store/jwtStore";
 import { useUserInfoStore } from "store/userInfoStore";
 import { useAiStore } from "store/aiStore";
-import { mainnet, arbitrum, polygon } from "wagmi/chains";
+import { mainnet, arbitrum, polygon, polygonMumbai } from "wagmi/chains";
 import { walletConnect } from "wagmi/connectors";
 // import {
 // 	EthereumClient,
@@ -31,7 +31,7 @@ const metadata = {
   icons: ['https://mobile.typography.staging.knn3.xyz/favicon.png']
 }
 
-const chains = [mainnet, arbitrum, polygon] as const;
+const chains = [mainnet, arbitrum, polygon, polygonMumbai] as const;
 const projectId = "0a3c7c8f9211d3b784345f0b824206df" // "c27e0568aa579f4d572246b7a2882010";
 
 const config = createConfig({
@@ -40,6 +40,7 @@ const config = createConfig({
     [mainnet.id]: http(),
     [arbitrum.id]: http(),
     [polygon.id]: http(),
+    [polygonMumbai.id]: http(),
   },
   connectors: [
     walletConnect({ projectId, metadata, showQrModal: false }),
