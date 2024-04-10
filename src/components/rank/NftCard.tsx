@@ -37,51 +37,21 @@ import { getAccount } from "@wagmi/core"
 // import { useSDK } from '@metamask/sdk-react'
 import { useWalletClient } from 'wagmi'
 
-console.log('ethers.providers', ethers.providers)
-const clientToProviderSigner = async (client: any) => {
-  const { account, chain, transport } = client;
-  const network = {
-    chainId: chain?.id,
-    name: chain?.name,
-    ensAddress: chain?.contracts?.ensRegistry?.address,
-  };
-  // You can use whatever provider that fits your need here.
-  const provider = new ethers.providers.Web3Provider(transport, network);
-  console.log('transport', transport, network, provider)
-  const signer = await provider.getSigner(account?.address);
-  return { provider, signer, transport };
-};
-
-
 const chainConfig = {
   dev: {
-    chainId: 80001,
-    contract: "0x0b14ff34ccea03c2ffb7b6194c0fe5d0788041d0",
+    chainId: 42161,
+    contract: "0x6ca3AE33c818Ce9B2be40333f9D2d3639cBc1135",
     abi: [
       "function publicMint(address to, uint256 key, bytes signedMsg)",
       "function setLevel(uint256 tokenId, uint256 key, bytes signedMsg)",
     ],
     networkInfo: {
-      chainId: '0x13881',
-      chainName: 'Mumbai',
-      rpcUrls: ['https://endpoints.omniatech.io/v1/matic/mumbai/public'],
-      currencySymbol: 'MATIC',
+      chainId: '0xa4b1',
+      chainName: 'Arbitrum LlamaNodes',
+      rpcUrls: ['https://arbitrum.llamarpc.com'],
+      currencySymbol: 'ETH',
       currencyDecimal: 18,
-      tokenList: [
-        {
-          isNative: true,
-          contractAddress: '0x0000000000000000000000000000000000000000',
-          decimal: 18,
-          symbol: 'MATIC',
-          name: 'Matic'
-        },
-        {
-          contractAddress: '0xC666283f0A53C46141f509ed9241129622013d95',
-          decimal: 6,
-          symbol: 'TEST',
-          name: 'Test'
-        }
-      ]
+      tokenList: []
     }
   },
   pro: {
@@ -123,7 +93,7 @@ export const NftCard = ({}) => {
   const [isLoading, setIsLoading] = useBoolean(false);
   const [isSignd, setIsSignd] = useBoolean(false);
   const [isSuccess, setIsSuccess] = useState<string>("ready");
-  const [provider, setProvider] = useState<any>(null);
+  const [client, setClient] = useState<any>(null);
   const { handleSign, openConnectWallet, isSign, wagmiConfig } = useWallet();
   const { onCopy, value, setValue, hasCopied } = useClipboard(
     "https://app.typox.ai/rank?utm_source=h5&utm_medium=loyalty_rank&utm_campaign=AIFX_NFT_Claim&utm_content=Mobile_login_user"
@@ -132,54 +102,15 @@ export const NftCard = ({}) => {
   const { disconnectAsync } =useDisconnect()
   const { data: walletClient } = useWalletClient()
 
-  /* const { sdk } = useSDK()
-   * const [isMetaMaskConnecting, setIsMetaMaskConnecting] = useState(false)
-   * const [isMetaMaskConnected, setIsMetaMaskConnected] = useState(false)
-
-   * useEffect(() => {
-   *   const ensureConnect = async () => {
-
-   *     if (sdk && !isMetaMaskConnected && !isMetaMaskConnecting) {
-   *       setIsMetaMaskConnecting(true)
-   *       await sdk.connect()
-   *       console.log('sdk connected')
-
-   *       if (chain?.id !== chainInfo.chainId) {
-   *         await switchNetwork(chainInfo.networkInfo);
-   *       }
-
-   *       setIsMetaMaskConnected(true)
-   *     }
-   *   }
-
-   *   ensureConnect()
-   * }, [isMetaMaskConnected, isMetaMaskConnecting, sdk, chain])
-   */
-
   const connectWallet = async () => {
     if (!walletClient) return;
-    const { signer, provider, transport } = await clientToProviderSigner(walletClient)
-    setProvider(transport)
-    console.log('conenct wallet', { signer, provider, transport })
-    // Do whatever you want with the provider and signer like storing them in a state or context
+    const { transport } = walletClient
+    setClient(transport)
   };
 
   useEffect(() => {
     isConnected && walletClient && connectWallet();
   }, [isConnected, walletClient])
-
-  useEffect(() => {
-    const test = async () => {
-      const connectors = wagmiConfig.connectors
-      const connector: any = connectors.find((item: any) => item.id === 'walletConnect')
-      const provider = await connector.getProvider()
-      // await provider.connect()
-      console.log('provider111', provider.signer.client.session)
-      setProvider(provider)
-    }
-
-    // test()
-  }, [])
 
   const mintText = useMemo(() => {
     if (score < 1000) {
@@ -195,6 +126,7 @@ export const NftCard = ({}) => {
     return isProduction ? chainConfig.pro : chainConfig.dev;
   }, [chainConfig]);
 
+  console.log('chain', chain && chain.id, chainInfo.chainId)
   const getSignMsg = async () => {
     try {
       const res: any = await api.post(`api/sign`, {
@@ -262,25 +194,13 @@ export const NftCard = ({}) => {
       currencyDecimal
     } = networkInfo
 
-    const ethereum = window.ethereum
+    const ethereum = window.ethereum || client
 
+    console.log('chain000', chainId)
     try {
-      /* await ethereum.request({
-       *   method: 'wallet_switchEthereumChain',
-       *   params: [{ chainId }],
-       * }) */
       await ethereum.request({
-        method: 'wallet_addEthereumChain',
-        params: [{
-          chainId: networkInfo.chainId,
-          chainName: networkInfo.chainName,
-          rpcUrls: networkInfo.rpcUrls,
-          nativeCurrency: {
-            name: networkInfo.currencySymbol,
-            symbol: networkInfo.currencySymbol,
-            decimals: networkInfo.currencyDecimal
-          }
-        }],
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId }],
       })
     } catch (switchError: any) {
       if (switchError.code === 4902 || switchError.message.indexOf('Try add') !== -1) {
@@ -313,34 +233,25 @@ export const NftCard = ({}) => {
         });
       }
     }
-  }, [])
+  }, [client])
 
   const mint = useCallback(async () => {
     try {
       setIsLoading.on();
-      const ethereum = window.ethereum
+      const ethereum = window.ethereum || client
       const networkInfo = chainInfo.networkInfo
+      const currentChainId: any = chain && chain.id
 
-      console.log('ethereum 0000', ethereum, provider)
-      await provider.request({
-        method: 'wallet_addEthereumChain',
-        params: [{
-          chainId: networkInfo.chainId,
-          chainName: networkInfo.chainName,
-          rpcUrls: networkInfo.rpcUrls,
-          nativeCurrency: {
-            name: networkInfo.currencySymbol,
-            symbol: networkInfo.currencySymbol,
-            decimals: networkInfo.currencyDecimal
-          }
-        }]
-      });
+      if (currentChainId !== networkInfo.chainId) {
+        await switchNetwork(networkInfo)
+      }
+
       const signMsg = await getSignMsg();
 
       if (signMsg) {
         try {
           const ethersProvider = new ethers.providers.Web3Provider(
-            window?.ethereum
+            ethereum
           );
           const signer = await ethersProvider.getSigner();
 
@@ -354,10 +265,8 @@ export const NftCard = ({}) => {
           console.log('contract', !!token_id, contract)
           const gasLimit = ethers.utils.hexlify(1000000);
           if (token_id) {
-            alert(5)
             result = await contract.setLevel(token_id, level, signMsg, { gasLimit });
           } else {
-            alert(6)
             result = await contract.publicMint(account, level, signMsg, { gasLimit });
           }
 
@@ -382,7 +291,7 @@ export const NftCard = ({}) => {
     }
 
     // setIsLoading.off();
-  }, [provider]);
+  }, [client]);
 
   useEffect(() => {
     if (userId) {
