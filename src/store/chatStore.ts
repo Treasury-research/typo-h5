@@ -158,26 +158,6 @@ export const useChatStore: any = create<any>()(
 			updateMessage: (chatId: any, messageId: any, payload: any) => {
 				const chatById = get().chatById;
 				const chat = get().getChat(chatId);
-				console.log("messageId", messageId);
-				console.log("payload", payload);
-				console.log({
-					chatById: {
-						...chatById,
-						[chatId]: {
-							...chatById[chatId],
-							messages: chat.messages.map((item: any) => {
-								if (item.id === messageId) {
-									return {
-										...item,
-										...payload,
-									};
-								} else {
-									return item;
-								}
-							}),
-						},
-					},
-				});
 				set({
 					chatById: {
 						...chatById,
@@ -185,7 +165,7 @@ export const useChatStore: any = create<any>()(
 							...chatById[chatId],
 							messages: chat.messages.map((item: any) => {
 								if (item.id === messageId) {
-									console.log("payload.done", payload.done);
+									// console.log("payload.done", payload.done);
 									return {
 										...item,
 										...payload,

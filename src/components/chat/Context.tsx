@@ -445,7 +445,7 @@ export default function ChatProvider({ children }: any) {
 						let chunk: any = decoder.decode(result.value || new Uint8Array(), {
 							stream: !result.done,
 						});
-						console.log("chunk1", chunk);
+						// console.log("chunk1", chunk);
 						let str: any = chunk.match(/<chunk>([\s\S]*?)<\/chunk>/g);
 
 						if (str && Array.isArray(str) && str.length > 0) {
@@ -490,7 +490,6 @@ export default function ChatProvider({ children }: any) {
 									}
 								}
 							} else {
-								console.log("text", text);
 								let outputStr =
 									json.sourceList && json.sourceList.length
 										? chunk
@@ -795,7 +794,7 @@ export default function ChatProvider({ children }: any) {
 					let chunk: any = decoder.decode(result.value || new Uint8Array(), {
 						stream: !result.done,
 					});
-					console.log("chunk1", chunk);
+					// console.log("chunk1", chunk);
 					let str: any = chunk.match(/<chunk>([\s\S]*?)<\/chunk>/g);
 					if (str) {
 						chunk = str.map((t: string) => t.replace(/<\/?chunk>/g, ""));
