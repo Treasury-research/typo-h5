@@ -3,6 +3,26 @@
 @tailwind utilities;
 
 @font-face {
+	font-family: JetBrainsMonoExtraBold;
+	src: url("./fonts/JetBrainsMono/JetBrainsMono-ExtraBold.ttf");
+}
+
+@font-face {
+	font-family: JetBrainsMonoBold;
+	src: url("./fonts/JetBrainsMono/JetBrainsMono-Bold.ttf");
+}
+
+@font-face {
+	font-family: JetBrainsMono;
+	src: url("./fonts/JetBrainsMono/JetBrainsMono-Medium.ttf");
+}
+
+@font-face {
+	font-family: Neuropolitical;
+	src: url("./fonts/Neuropolitical.ttf");
+}
+
+@font-face {
 	font-family: Robtronika;
 	src: url("./fonts/Robtronika.ttf");
 }
