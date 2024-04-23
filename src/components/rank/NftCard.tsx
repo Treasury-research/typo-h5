@@ -110,7 +110,7 @@ export const NftCard = ({}) => {
   const [isSignd, setIsSignd] = useBoolean(false);
   const [isSuccess, setIsSuccess] = useState<string>("ready");
   const [client, setClient] = useState<any>(null);
-  const { handleSign, openConnectWallet, isSign, wagmiConfig } = useWallet();
+  const { handleSign, openConnectWallet, isSign } = useWallet();
   const { onCopy, value, setValue, hasCopied } = useClipboard(
     "https://app.typox.ai/rank?utm_source=h5&utm_medium=loyalty_rank&utm_campaign=AIFX_NFT_Claim&utm_content=Mobile_login_user"
   );

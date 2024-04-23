@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { Toasts, Trace } from "components";
 import { isPhone, isProduction } from "lib";
 import customTheme from "styles/theme";
-import useWallet from "hooks/useWallet";
+import useWallet, { queryClient, config } from "hooks/useWallet";
 import { WagmiProvider } from "wagmi";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
@@ -21,7 +21,6 @@ import "styles/h5.css";
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
   const { toastMessage, toastType, toastTime } = useStore();
-  const { wagmiConfig, projectId, queryClient } = useWallet();
 
   if (
     typeof window !== "undefined" &&
@@ -30,7 +29,6 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     window?.localStorage.setItem("chakra-ui-color-mode", "light");
   }
 
-  console.log('my app 1111')
   return (
     <ChakraProvider theme={customTheme}>
       <Script
@@ -54,7 +52,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
                                                 gtag('config', 'G-2EV36YE6VQ');`}
       </Script>
 
-      <WagmiProvider config={wagmiConfig}>
+      <WagmiProvider config={config}>
         <QueryClientProvider client={queryClient}>
           <Component {...pageProps} className="flex-1" />
           <Trace />
