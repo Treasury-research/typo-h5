@@ -178,3 +178,12 @@ export const getHash = async (tx_hash: string) => {
 	}
 };
 
+
+export function formatScore(score: string | number) {
+	return parseFloat(String(score || 0)).toFixed(0);
+}
+
+export async function waitSeconds(number: number) {
+	await new Promise((resolve) => setTimeout(resolve, number));
+	console.log(`等待了${number}毫秒`);
+}
