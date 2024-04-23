@@ -30,6 +30,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     window?.localStorage.setItem("chakra-ui-color-mode", "light");
   }
 
+  console.log('my app 1111')
   return (
     <ChakraProvider theme={customTheme}>
       <Script

@@ -51,10 +51,14 @@ interface AppState {
     setShowVisualize: (isualize: boolean) => void;
     openInviteModal: boolean;
     setOpenInviteModal: (openInviteModal: boolean) => void;
+    openReferralModal: boolean;
+    setOpenReferralModal: (openReferralModal: boolean) => void;
     openBindEmailModal: boolean;
     setOpenBindEmailModal: (openBindEmailModal: boolean) => void;
     openVerificationEmailModal: boolean;
     setOpenVerificationEmailModal: (openVerificationEmailModal: boolean) => void;
+    openUploadAvatarModal: boolean;
+    setOpenUploadAvatarModal: (openUploadAvatarModal: boolean) => void;
 }
 
 export const useStore = create<AppState>()((set) => ({
@@ -112,10 +116,15 @@ export const useStore = create<AppState>()((set) => ({
     setShowVisualize: (showVisualize: boolean) => set({ showVisualize }),
     openInviteModal: false,
     setOpenInviteModal: (openInviteModal: boolean) => set({ openInviteModal }),
+    openReferralModal: false,
+    setOpenReferralModal: (openReferralModal: boolean) => set({ openReferralModal }),
     openBindEmailModal: false,
     setOpenBindEmailModal: (openBindEmailModal: boolean) =>
 	set({ openBindEmailModal }),
     openVerificationEmailModal: false,
     setOpenVerificationEmailModal: (openVerificationEmailModal: boolean) =>
 	set({ openVerificationEmailModal }),
+    openUploadAvatarModal: false,
+    setOpenUploadAvatarModal: (openUploadAvatarModal: boolean) =>
+	set({ openUploadAvatarModal }),
 }));

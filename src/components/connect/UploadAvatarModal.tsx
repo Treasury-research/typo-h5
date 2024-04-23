@@ -31,7 +31,7 @@ export function UploadAvatarModal() {
         setAvatar(result?.data.avatar);
       }
     } catch (error) {
-      showToast("Upload avatar error!", "error");
+      showToast("Upload avatar error!", "danger");
       setIsLoading(false);
     }
   };
@@ -44,7 +44,7 @@ export function UploadAvatarModal() {
         setName("");
       }
     } catch (error) {
-      showToast("Edit username error!", "error");
+      showToast("Edit username error!", "danger");
       setIsLoading(false);
     }
   };
@@ -83,12 +83,12 @@ export function UploadAvatarModal() {
             Name:
           </Text>
           <Input
-          w="240px"
-          size="sm"
-          value={name}
-          maxLength={20}
-          placeholder="Maximum 20 characters"
-          onChange={(e) => setName(e.target.value)}
+            w="240px"
+            size="sm"
+            value={name}
+            maxLength={20}
+            placeholder="Maximum 20 characters"
+            onChange={(e) => setName(e.target.value)}
           />
         </HStack>
         <Button

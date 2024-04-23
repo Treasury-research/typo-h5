@@ -18,6 +18,7 @@ export type BaseModalProps = {
   closeOnOverlayClick?: boolean;
   footer?: React.ReactElement | React.ReactElement[];
   size?: any;
+  hiddenClose?: boolean;
 };
 
 export const BaseModal: React.FC<BaseModalProps> = (props) => {
@@ -31,6 +32,7 @@ export const BaseModal: React.FC<BaseModalProps> = (props) => {
     closeOnOverlayClick = true,
     footer,
     size,
+    hiddenClose = false,
   } = props;
 
   return (
@@ -64,15 +66,17 @@ export const BaseModal: React.FC<BaseModalProps> = (props) => {
 	    {title}
 	  </ModalHeader>
 	) : null}
-	<ModalCloseButton
-	color="text.black"
-	borderRadius="0"
-	mr="5px"
-	mt="10px"
-	w="20px"
-	h="20px"
-	fontSize="12px"
-	/>
+	{!hiddenClose && (
+          <ModalCloseButton
+            color="text.black"
+            borderRadius="0"
+            mr="5px"
+            mt="10px"
+            w="20px"
+            h="20px"
+            fontSize="12px"
+          />
+        )}
 	<ModalBody>{children}</ModalBody>
 	{footer ? footer : null}
       </ModalContent>
