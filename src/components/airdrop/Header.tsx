@@ -196,7 +196,7 @@ export const Header = () => {
                 <HStack className="w-full">
                   <Avatar w={28} />
 
-                  <Text className="address" fontWeight="light" pr={1}>
+                  <Text className="address" color="white" fontWeight="light" pr={1}>
                     {toShortAddress(account || "--", 10)}
                   </Text>
                 </HStack>
