@@ -1,6 +1,6 @@
-const Daily = () => {
+const Daily = ({ size }: any) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
+    <svg xmlns="http://www.w3.org/2000/svg" width={size || 28} height={size || 28} viewBox="0 0 28 28" fill="none">
       <mask id="path-1-inside-1_13054_259" fill="white">
         <path d="M28 14C28 21.732 21.732 28 14 28C6.26801 28 0 21.732 0 14C0 6.26801 6.26801 0 14 0C21.732 0 28 6.26801 28 14Z"/>
       </mask>

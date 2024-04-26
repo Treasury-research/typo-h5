@@ -32,7 +32,7 @@ export const Header = () => {
   return (
     <Flex
       pos="fixed"
-      zIndex="999"
+      zIndex="3"
       top="20px"
       w="1200px"
       h="60px"

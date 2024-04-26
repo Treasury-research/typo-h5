@@ -1,6 +1,6 @@
-const Refer = () => {
+const Refer = ({ size }: any) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
+    <svg xmlns="http://www.w3.org/2000/svg" width={size || 36} height={size || 36} viewBox="0 0 36 36" fill="none">
       <g filter="url(#filter0_b_13054_244)">
         <g filter="url(#filter1_d_13054_244)">
           <mask id="path-1-inside-1_13054_244" fill="white">

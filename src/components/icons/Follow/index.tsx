@@ -1,6 +1,6 @@
-const Follow = () => {
+const Follow = ({ size }: any) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+    <svg xmlns="http://www.w3.org/2000/svg" width={size || 36} height={size || 36} viewBox="0 0 40 40" fill="none">
       <g filter="url(#filter0_d_13054_208)">
         <mask id="path-1-inside-1_13054_208" fill="white">
           <path fillRule="evenodd" clipRule="evenodd" d="M20 34C27.732 34 34 27.732 34 20C34 12.268 27.732 6 20 6C12.268 6 6 12.268 6 20C6 27.732 12.268 34 20 34ZM18.6864 21.3653L12.1175 13H17.1803L21.4867 18.4842L26.8166 13H28.3043L22.1514 19.3308L29.0899 28.1667H24.0271L19.3511 22.212L13.5637 28.1667H12.076L18.6864 21.3653ZM16.6312 14.0437H14.3053L24.5759 27.1228H26.9018L16.6312 14.0437Z"/>
