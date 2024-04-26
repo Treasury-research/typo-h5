@@ -412,17 +412,15 @@ export default function Profile() {
                   </Box>
                 </Box>
                 <HStack
-                  pos="absolute"
                   color="#fff"
                   fontSize="12px"
-                  top="calc(50% - 17px)"
-                  right="20px"
                   spacing={1}
                   zIndex={2}
                   h="35px"
                   pl={1}
                   bg="whiteAlpha.300"
                   borderRadius={5}
+                  marginLeft="auto"
                 >
                   <VStack spacing={1} lineHeight="10px" pt="5px">
                     <Text fontWeight="semibold">
@@ -430,7 +428,7 @@ export default function Profile() {
                       ? `# ${authInfo?.page_ranking}`
                       : "--"}
                     </Text>
-                    <Text fontSize="xs" transform="scale(0.76)">
+                    <Text fontSize="xs" transform="scale(0.76)"  whiteSpace="pre">
                       Out of {rankTotalCount}
                     </Text>
                   </VStack>
@@ -762,11 +760,8 @@ export default function Profile() {
                     Airdrop
                   </Text>
                   <HStack
-                    pos="absolute"
                     color="#fff"
                     fontSize="12px"
-                    top="20px"
-                    right="40px"
                     spacing={1}
                     zIndex={2}
                     h="35px"
