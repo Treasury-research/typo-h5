@@ -37,6 +37,7 @@ export const Header = () => {
       w="1200px"
       h="60px"
       mx="auto"
+      left="0"
       className="airdrop blue-filter"
       boxShadow="md"
       color="#fff"

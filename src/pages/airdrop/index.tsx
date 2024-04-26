@@ -752,7 +752,7 @@ export default function Profile() {
                   zIndex={2}
                   transform="scale(0.8)"
                 >
-                  <Text>Empowered by</Text>
+                  <Text whiteSpace="pre">Empowered by</Text>
                   <Image src="/images/rank/topscore.svg" alt="" h="22px" />
                 </HStack>
                 <Flex w="full" justify="space-between" alignItems="center">
@@ -785,6 +785,7 @@ export default function Profile() {
                       h="full"
                       src="/images/profile/rank.svg"
                       className="ml-4 cursor-pointer hover:opacity-70"
+                      display="flex"
                       onClick={() =>
                         router.push(
                           `/airdrop/leaderboard/${authInfo.page_ranking || 1}`
