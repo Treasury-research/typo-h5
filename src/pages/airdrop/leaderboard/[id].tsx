@@ -107,25 +107,31 @@ export default function Profile() {
         bgImage="url('/images/airdrop-bg.svg')"
       >
         <Header />
-        <Box className="no-scrollbar w-[1200px] relative mr-2 pt-[120px] overflow-auto p-10">
+        <Box
+          className="no-scrollbar relative pt-[80px] overflow-auto"
+          width="100%"
+        >
           <VStack
             pos="relative"
             overflow="hidden"
             bgRepeat="no-repeat"
             bgSize="cover"
-            w="full"
+            w="100%"
             h="calc(100vh-40px)"
             p={6}
             flex={1}
             my="20px"
-            mr="20px"
             borderRadius="16px"
           >
-            <Flex w="full" minW="1100px" h="full">
+            <Flex
+              w="full"
+              h="full"
+              flexDirection="column"
+            >
               <VStack
-                w="50%"
+                w="100%"
                 justify="space-between"
-                alignItems="flex-start"
+                alignItems="center"
                 // pl="40px"
                 pb="30px"
                 pt="20px"
@@ -135,6 +141,7 @@ export default function Profile() {
                     w="198px"
                     borderRadius="md"
                     border="solid 1px rgba(214, 214, 214, 0.40)"
+                    mb="40px"
                   >
                     <Tab
                       w="100px"
@@ -174,18 +181,23 @@ export default function Profile() {
                     </Tab>
                   </TabList>
                 </Tabs>
-                <VStack alignItems="flex-start" w="450px">
-                  <HStack color="#fff" h="100px">
+                <VStack alignItems="flex-start" w="100%">
+                  <VStack color="#fff" h="100px">
                     <Box fontWeight="semibold" lineHeight="55px">
-                      <Text fontSize="40px">Season 1</Text>
-                      <Text fontSize="48px">Leaderboard</Text>
+                      <Text fontSize="24px">Season 1</Text>
                     </Box>
-                    <Image
-                    src="/images/rank/gold.png"
-                    objectFit="contain"
-                    h="full"
-                    />
-                  </HStack>
+                    <Box fontWeight="semibold" lineHeight="55px" display="flex">
+                      <Text fontSize="40px">Leaderboard</Text>
+                      <Box paddingLeft="10px">
+                        <Image
+                          src="/images/rank/gold.png"
+                          objectFit="contain"
+                          h="full"
+                          width="40px"
+                        />
+                      </Box>
+                    </Box>
+                  </VStack>
 
                   {userId && account ? (
                     <>
@@ -210,16 +222,16 @@ export default function Profile() {
                         <HStack>
                           {avatar ? (
                             <Image
-                            src={avatar}
-                            w="48px"
-                            h="48px"
-                            alt=""
-                            borderRadius="full"
+                              src={avatar}
+                              w="48px"
+                              h="48px"
+                              alt=""
+                              borderRadius="full"
                             />
                           ) : (
                             <Jazzicon
-                            diameter={48}
-                            seed={jsNumberForAddress(account)}
+                              diameter={48}
+                              seed={jsNumberForAddress(account)}
                             />
                           )}
 
@@ -273,8 +285,7 @@ export default function Profile() {
                       pl="20px"
                       pr="10px"
                       bg="whiteAlpha.800"
-                      w="80%"
-                      minW="330px"
+                      w="100%"
                       h="55px"
                       fontSize="18px"
                       alignItems="center"
@@ -296,7 +307,7 @@ export default function Profile() {
               </VStack>
               <VStack flex="1" alignItems="center" justify="center">
                 <VStack
-                  w="88%"
+                  w="100%"
                   maxW="550px"
                   spacing="2px"
                   borderRadius="12px"
@@ -365,21 +376,21 @@ export default function Profile() {
                           <Flex w="70px" justify="flex-start">
                             {page === 1 && index === 0 ? (
                               <Image
-                              src="/images/rank/rank_1.png"
-                              objectFit="contain"
-                              boxSize={9}
+                                src="/images/rank/rank_1.png"
+                                objectFit="contain"
+                                boxSize={9}
                               />
                             ) : page === 1 && index === 1 ? (
                               <Image
-                              src="/images/rank/rank_2.png"
-                              objectFit="contain"
-                              boxSize={9}
+                                src="/images/rank/rank_2.png"
+                                objectFit="contain"
+                                boxSize={9}
                               />
                             ) : page === 1 && index === 2 ? (
                               <Image
-                              src="/images/rank/rank_3.png"
-                              objectFit="contain"
-                              boxSize={9}
+                                src="/images/rank/rank_3.png"
+                                objectFit="contain"
+                                boxSize={9}
                               />
                             ) : (
                               <Text
@@ -432,14 +443,14 @@ export default function Profile() {
                       justify="flex-end"
                     >
                       <Pagination
-                      size="small"
-                      showQuickJumper
+                        size="small"
+                        showQuickJumper
                         showLessItems
                         showSizeChanger={false}
-                      defaultCurrent={1}
-                      current={page}
-                      total={total}
-                      onChange={onChange}
+                        defaultCurrent={1}
+                        current={page}
+                        total={total}
+                        onChange={onChange}
                       />
                     </Flex>
                   ) : (
@@ -447,7 +458,7 @@ export default function Profile() {
                   )}
                 </VStack>
                 <Text
-                  w="500px"
+                  w="100%"
                   color="#fff"
                   textAlign="right"
                   pt={1}
