@@ -270,7 +270,7 @@ export default function useWallet() {
 
   useEffect(() => {
     if (isConnected) {
-      const ethereum = window.ethereum || walletClient.transport
+      const ethereum = (window && window.ethereum) || (walletClient && walletClient.transport)
       console.log('ethereumkkk', ethereum)
       const ethersProvider = new ethers.providers.Web3Provider(ethereum);
       setProvider(ethersProvider);

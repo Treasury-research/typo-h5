@@ -768,6 +768,7 @@ export default function Profile() {
                     pl={1}
                     bg="whiteAlpha.300"
                     borderRadius={5}
+                    marginLeft="auto"
                   >
                     <VStack spacing={1} lineHeight="10px" pt="5px">
                       <Text fontWeight="semibold">
@@ -775,7 +776,7 @@ export default function Profile() {
                         ? `# ${authInfo?.page_ranking}`
                         : "--"}
                       </Text>
-                      <Text fontSize="xs" transform="scale(0.76)" whiteSpace="pre">
+                      <Text fontSize="xs" transform="scale(0.76)"  whiteSpace="pre">
                         Out of {rankTotalCount}
                       </Text>
                     </VStack>
