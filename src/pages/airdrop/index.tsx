@@ -7,6 +7,7 @@ import {
   Flex,
   Box,
   Image,
+  useToast
 } from "@chakra-ui/react";
 import { NextSeo } from "next-seo";
 import { useState, useEffect, ReactNode, useMemo } from "react";
@@ -128,7 +129,6 @@ const TaskBox = ({
             borderRadius="8px"
             display="flex"
             alignItems="center"
-            cursor="pointer"
             height="32px"
             fontFamily="JetBrainsMono"
             onClick={onClaim}
@@ -150,7 +150,7 @@ const TaskBox = ({
 
 export default function Profile() {
   const router = useRouter();
-  const { showToast } = useStore();
+  const showToast = useToast();
   const { openReferralModal, setOpenReferralModal } = useStore();
   const { userId, rankTotalCount } = useUserInfoStore();
   const [isphone, setIsphone] = useState(false);
@@ -575,7 +575,6 @@ export default function Profile() {
                       Today
                     </Box>
                     <Box
-                      fontSize="20px"
                       background="linear-gradient(92deg, #487C7E 0%, #004D50 99.5%)"
                       boxShadow="0px 0px 8px 0px rgba(0, 0, 0, 0.25)"
                       padding="8px 10px"

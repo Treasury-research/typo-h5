@@ -70,12 +70,12 @@ export const Header = () => {
           </Text>
           <Badge
             pos="absolute"
-            left="50px"
+            left="10px"
             top="-16px"
             borderRadius="6px"
             boxShadow="md"
             color="#fff"
-            w="35px"
+            w="25px"
             h="14px"
             textAlign="center"
             bg="var(--green-grad, linear-gradient(92deg, #487C7E 0%, #004D50 99.5%));"
@@ -98,12 +98,12 @@ export const Header = () => {
           </Text>
           <Badge
             pos="absolute"
-            left="88px"
+            left="18px"
             top="-16px"
             borderRadius="6px"
             boxShadow="md"
             color="#fff"
-            w="50px"
+            w="40px"
             h="14px"
             textAlign="center"
             bg="#FF3232"
