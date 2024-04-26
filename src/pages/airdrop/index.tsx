@@ -780,7 +780,7 @@ export default function Profile() {
                         ? `# ${authInfo?.page_ranking}`
                         : "--"}
                       </Text>
-                      <Text fontSize="xs" transform="scale(0.76)">
+                      <Text fontSize="xs" transform="scale(0.76)" whiteSpace="pre">
                         Out of {rankTotalCount}
                       </Text>
                     </VStack>
