@@ -769,6 +769,7 @@ export default function Profile() {
                     bg="whiteAlpha.300"
                     borderRadius={5}
                     marginLeft="auto"
+                    width="max-content"
                   >
                     <VStack spacing={1} lineHeight="10px" pt="5px">
                       <Text fontWeight="semibold">

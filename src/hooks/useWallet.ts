@@ -272,8 +272,11 @@ export default function useWallet() {
     if (isConnected) {
       const ethereum = (window && window.ethereum) || (walletClient && walletClient.transport)
       console.log('ethereumkkk', ethereum, walletClient)
-      const ethersProvider = new ethers.providers.Web3Provider(ethereum);
-      setProvider(ethersProvider);
+
+      if (ethereum) {
+        const ethersProvider = new ethers.providers.Web3Provider(ethereum);
+        setProvider(ethersProvider);
+      }
     }
   }, [isConnected, chainId, walletClient]);
 
