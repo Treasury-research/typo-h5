@@ -27,11 +27,7 @@ export const Header = () => {
   const router = useRouter();
   const { doLogout, openConnectWallet } = useWallet();
   const { account, username, userId } = useUserInfoStore();
-  const [isphone, setIsphone] = useState(false);
-
-  useEffect(() => {
-    isPhone() ? setIsphone(true) : setIsphone(false);
-  }, []);
+  const [isphone, setIsphone] = useState(true);
 
   return (
     <Flex
@@ -44,32 +40,22 @@ export const Header = () => {
       className="airdrop blue-filter"
       boxShadow="md"
       color="#fff"
-      px={isphone ? "12px" : "20px"}
+      px="12px"
       alignItems="center"
       justify="space-between"
       borderRadius="full"
-      fontSize="14px"
+      fontSize="10px"
     >
       <HStack
         cursor="pointer"
         onClick={() => window.open("https://www.typox.ai/")}
       >
         <Image src="/images/bg-icon.png" alt="" h="28px" />
-
-        {!isphone && (
-          <Text
-            fontWeight="semibold"
-            whiteSpace="nowrap"
-            fontSize={isphone ? "12px" : "14px"}
-          >
-            TypoX AI
-          </Text>
-        )}
       </HStack>
       <HStack
         fontWeight="semibold"
-        spacing={isphone ? 3 : 14}
-        fontSize={isphone ? "12px" : "14px"}
+        spacing={3}
+        fontSize="10px"
       >
         <Box pos="relative">
           <Text
@@ -89,9 +75,11 @@ export const Header = () => {
             boxShadow="md"
             color="#fff"
             w="35px"
-            h="18px"
+            h="14px"
             textAlign="center"
             bg="var(--green-grad, linear-gradient(92deg, #487C7E 0%, #004D50 99.5%));"
+            fontSize="10px"
+            lineHeight="14px"
           >
             S2
           </Badge>
@@ -115,9 +103,11 @@ export const Header = () => {
             boxShadow="md"
             color="#fff"
             w="50px"
-            h="18px"
+            h="14px"
             textAlign="center"
             bg="#FF3232"
+            fontSize="10px"
+            lineHeight="14px"
           >
             Soon
           </Badge>
@@ -133,8 +123,8 @@ export const Header = () => {
         </Text>
       </HStack>
 
-      <HStack fontWeight="semibold" spacing={isphone ? 2 : 3}>
-        {userId && (
+      <HStack fontWeight="semibold" spacing={2}>
+        {true && (
           <HStack
             py={1}
             pl="5px"
@@ -227,13 +217,10 @@ export const Header = () => {
                 bg="blackAlpha.600"
               >
                 <Image
-                src="https://metamask.io/home/runner/work/website/website/favicon/android-chrome-256x256.png"
-                boxSize={4}
+                  src="https://metamask.io/home/runner/work/website/website/favicon/android-chrome-256x256.png"
+                  boxSize={4}
                 />
               </HStack>
-              <Text pr={2} whiteSpace="nowrap">
-                Log in
-              </Text>
             </HStack>
           )}
         </HStack>

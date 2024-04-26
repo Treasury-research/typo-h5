@@ -238,7 +238,7 @@ export default function useWallet() {
       if (res) {
         showToast({
 	  position: "top",
-	  title: "toast.toast17",
+	  title: "Login Success!",
 	  variant: "subtle",
 	  status: "success",
         });
