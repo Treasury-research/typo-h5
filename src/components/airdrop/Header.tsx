@@ -49,6 +49,7 @@ export const Header = () => {
       <HStack
         cursor="pointer"
         onClick={() => window.open("https://www.typox.ai/")}
+        paddingLeft="10px"
       >
         <Image src="/images/bg-icon.png" alt="" h="28px" />
       </HStack>
@@ -124,7 +125,7 @@ export const Header = () => {
       </HStack>
 
       <HStack fontWeight="semibold" spacing={2}>
-        {true && (
+        {userId && (
           <HStack
             py={1}
             pl="5px"

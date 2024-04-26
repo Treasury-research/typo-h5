@@ -674,293 +674,182 @@ export default function Profile() {
               </Box>
 
               {task2Status === 2 && (
-                <Box
-                  width="100%"
-                  display="flex"
-                  justifyContent="space-between"
-                  alignItems="center"
-                  borderRadius="12px"
-                  border="1px solid #FFF"
-                  background="rgba(255, 255, 255, 0.20)"
-                  padding="20px 16px"
-                  marginBottom="24px"
-                >
-                  <Box>
-                    <Box display="flex" alignItems="flex-end">
-                      <Box
-                        fontSize="32px"
-                        lineHeight="32px"
-                        fontFamily="JetBrainsMonoBold"
-                      >
-                        +100
-                      </Box>
-                      <Box
-                        fontSize="20px"
-                        fontFamily="JetBrainsMono"
-                        marginLeft="15px"
-                      >
-                        points
-                      </Box>
-                    </Box>
-                    <Box
-                      fontSize="20px"
-                      marginTop="12px"
-                      fontFamily="JetBrainsMono"
-                    >
-                      {`Follow @TypoX_AI on Twitter`}
-                    </Box>
-                  </Box>
-                  <Box>
-                    <Box
-                      fontSize="20px"
-                      background="rgba(255, 255, 255, 0.30)"
-                      boxShadow="0px 0px 6px 0px rgba(0, 0, 0, 0.25)"
-                      padding="12px 10px"
-                      borderRadius="8px"
-                      display="flex"
-                      alignItems="center"
-                      height="52px"
-                      fontFamily="JetBrainsMono"
-                      width="156px"
-                    >
-                      <Box marginRight="8px">
-                        <ClaimedIcon />
-                      </Box>
-                      <Box>Claimed</Box>
-                    </Box>
-                  </Box>
-                </Box>
+                <TaskBox
+                  points="+100"
+                  description={`Follow @TypoX_AI on Twitter`}
+                  icon={<FollowIcon size={16} />}
+                  buttonText="Follow TypoX"
+                  onAction={() => {
+                    setTask2Loading(true);
+                    updateTask("twitter", 1);
+                    window.open("https://twitter.com/TypoX_AI");
+                  }}
+                  onClaim={() => {
+                    setTask2Loading(true);
+                    updateTask("twitter", 2);
+                  }}
+                  claimed={true}
+                />
               )}
               {task3Status === 2 && (
-                <Box
-                  width="100%"
-                  display="flex"
-                  justifyContent="space-between"
-                  alignItems="center"
-                  borderRadius="12px"
-                  border="1px solid #FFF"
-                  background="rgba(255, 255, 255, 0.20)"
-                  padding="20px 16px"
-                  marginBottom="24px"
-                >
-                  <Box>
-                    <Box display="flex" alignItems="flex-end">
-                      <Box
-                        fontSize="32px"
-                        lineHeight="32px"
-                        fontFamily="JetBrainsMonoBold"
-                      >
-                        +50
-                      </Box>
-                      <Box
-                        fontSize="20px"
-                        fontFamily="JetBrainsMono"
-                        marginLeft="15px"
-                      >
-                        points
-                      </Box>
-                    </Box>
-                    <Box
-                      fontSize="20px"
-                      marginTop="12px"
-                      fontFamily="JetBrainsMono"
-                    >
-                      Login and connect your wallet on TypoX
-                    </Box>
-                  </Box>
-                  <Box>
-                    <Box
-                      fontSize="20px"
-                      background="rgba(255, 255, 255, 0.30)"
-                      boxShadow="0px 0px 6px 0px rgba(0, 0, 0, 0.25)"
-                      padding="12px 10px"
-                      borderRadius="8px"
-                      display="flex"
-                      alignItems="center"
-                      height="52px"
-                      fontFamily="JetBrainsMono"
-                      width="156px"
-                    >
-                      <Box marginRight="8px">
-                        <ClaimedIcon />
-                      </Box>
-                      <Box>Claimed</Box>
-                    </Box>
-                  </Box>
-                </Box>
+                <TaskBox
+                  points="+50"
+                  description={`Login and connect your wallet on TypoX`}
+                  icon={<LinkIcon size={16} />}
+                  buttonText="Link Wallet"
+                  onAction={openConnectWallet}
+                  onClaim={() => {
+                    setTask3Loading(true);
+                    updateTask("login", 2);
+                  }}
+                  claimed={true}
+                />
               )}
               {task4Status === 2 && (
-                <Box
-                  width="100%"
-                  display="flex"
-                  justifyContent="space-between"
-                  alignItems="center"
-                  borderRadius="12px"
-                  border="1px solid #FFF"
-                  background="rgba(255, 255, 255, 0.20)"
-                  padding="20px 16px"
-                  marginBottom="24px"
-                >
-                  <Box>
-                    <Box display="flex" alignItems="flex-end">
-                      <Box
-                        fontSize="32px"
-                        lineHeight="32px"
-                        fontFamily="JetBrainsMono"
-                      >
-                        +100
-                      </Box>
-                      <Box
-                        fontSize="20px"
-                        fontFamily="JetBrainsMono"
-                        marginLeft="15px"
-                      >
-                        points
-                      </Box>
-                    </Box>
-                    <Box
-                      fontSize="20px"
-                      marginTop="12px"
-                      fontFamily="JetBrainsMono"
-                    >
-                      Share your conversation with TypoX on Twitter
-                    </Box>
-                  </Box>
-                  <Box>
-                    <Box
-                      fontSize="20px"
-                      background="rgba(255, 255, 255, 0.30)"
-                      boxShadow="0px 0px 6px 0px rgba(0, 0, 0, 0.25)"
-                      padding="12px 10px"
-                      borderRadius="8px"
-                      display="flex"
-                      alignItems="center"
-                      height="52px"
-                      fontFamily="JetBrainsMono"
-                      width="156px"
-                    >
-                      <Box marginRight="8px">
-                        <ClaimedIcon />
-                      </Box>
-                      <Box>Claimed</Box>
-                    </Box>
-                  </Box>
-                </Box>
+                <TaskBox
+                  points="+100"
+                  description={`Share your conversation with TypoX on Twitter`}
+                  icon={<LinkIcon size={16} />}
+                  buttonText="Share Twitter"
+                  onAction={() => {
+                    setTask4Status(1);
+                    window.open(`${location.origin}/explorer`);
+                  }}
+                  onClaim={() => {
+                    const isSharedTask =
+                      localStorage.getItem("isSharedTask");
+                    if (isSharedTask === "true") {
+                      setTask4Loading(true);
+                      updateTask("share", 2);
+                    } else {
+                      showToast({
+                        position: "top",
+                        title: "Please share your conversation!",
+                        variant: "subtle",
+                      });
+                    }
+                  }}
+                  claimed={true}
+                />
               )}
             </Box>
           )}
-    {phrase === "season 1" && (
-      <VStack
-        pos="relative"
-        pb={10}
-        alignItems="flex-start"
-        className="blue-filter py-5 px-10 rounded-[10px]"
-        width="1000px"
-        margin="0 auto"
-        marginBottom="24px"
-      >
-        <HStack
-          pos="absolute"
-          color="#fff"
-          fontSize="12px"
-          bottom="5px"
-          right="8px"
-          spacing={1}
-          zIndex={2}
-          transform="scale(0.8)"
-        >
-          <Text>Empowered by</Text>
-          <Image src="/images/rank/topscore.svg" alt="" h="22px" />
-        </HStack>
-        <Flex w="full" justify="space-between" alignItems="center">
-          <Text fontWeight="semibold" fontSize="20px">
-            Airdrop
-          </Text>
-          <HStack
-            pos="absolute"
-            color="#fff"
-            fontSize="12px"
-            top="20px"
-            right="40px"
-            spacing={1}
-            zIndex={2}
-            h="35px"
-            pl={1}
-            bg="whiteAlpha.300"
-            borderRadius={5}
-          >
-            <VStack spacing={1} lineHeight="10px" pt="5px">
-              <Text fontWeight="semibold">
-                {authInfo?.page_ranking
-                ? `# ${authInfo?.page_ranking}`
-                : "--"}
-              </Text>
-              <Text fontSize="xs" transform="scale(0.76)">
-                Out of {rankTotalCount}
-              </Text>
-            </VStack>
+          {phrase === "season 1" && (
+            <Box padding="0 20px">
+              <VStack
+                pos="relative"
+                pb={10}
+                alignItems="flex-start"
+                className="blue-filter py-5 px-5 rounded-[10px]"
+                width="100%"
+                margin="0 auto"
+                marginBottom="24px"
+              >
+                <HStack
+                  pos="absolute"
+                  color="#fff"
+                  fontSize="12px"
+                  bottom="5px"
+                  right="8px"
+                  spacing={1}
+                  zIndex={2}
+                  transform="scale(0.8)"
+                >
+                  <Text>Empowered by</Text>
+                  <Image src="/images/rank/topscore.svg" alt="" h="22px" />
+                </HStack>
+                <Flex w="full" justify="space-between" alignItems="center">
+                  <Text fontWeight="semibold" fontSize="20px">
+                    Airdrop
+                  </Text>
+                  <HStack
+                    pos="absolute"
+                    color="#fff"
+                    fontSize="12px"
+                    top="20px"
+                    right="40px"
+                    spacing={1}
+                    zIndex={2}
+                    h="35px"
+                    pl={1}
+                    bg="whiteAlpha.300"
+                    borderRadius={5}
+                  >
+                    <VStack spacing={1} lineHeight="10px" pt="5px">
+                      <Text fontWeight="semibold">
+                        {authInfo?.page_ranking
+                        ? `# ${authInfo?.page_ranking}`
+                        : "--"}
+                      </Text>
+                      <Text fontSize="xs" transform="scale(0.76)">
+                        Out of {rankTotalCount}
+                      </Text>
+                    </VStack>
 
-            <Image
-              h="full"
-              src="/images/profile/rank.svg"
-              className="ml-4 cursor-pointer hover:opacity-70"
-              onClick={() =>
-                router.push(
-                  `/airdrop/leaderboard/${authInfo.page_ranking || 1}`
-                )
-              }
-              alt=""
-            />
-          </HStack>
-        </Flex>
-        <HStack w="full" justify="space-between" spacing={3} pt="14px">
-          <HStack
-            p="4"
-            borderWidth="1px"
-            borderColor="whiteAlpha.300"
-            flex={1}
-            borderRadius={5}
-            justify="space-between"
-          >
-            <Box>
-              <Text fontSize="16px" fontWeight="semibold" mb={1}>
-                {awards} $TPX
-              </Text>
-              <Text fontSize="12px">Season I</Text>
+                    <Image
+                      h="full"
+                      src="/images/profile/rank.svg"
+                      className="ml-4 cursor-pointer hover:opacity-70"
+                      onClick={() =>
+                        router.push(
+                          `/airdrop/leaderboard/${authInfo.page_ranking || 1}`
+                        )
+                      }
+                      alt=""
+                    />
+                  </HStack>
+                </Flex>
+                <VStack w="full" justify="space-between" spacing={3} pt="14px">
+                  <HStack
+                    p="4"
+                    borderWidth="1px"
+                    borderColor="whiteAlpha.300"
+                    flex={1}
+                    borderRadius={5}
+                    justify="space-between"
+                    width="100%"
+                  >
+                    <Box>
+                      <Text fontSize="16px" fontWeight="semibold" mb={1}>
+                        {awards} $TPX
+                      </Text>
+                      <Text fontSize="12px">Season I</Text>
+                    </Box>
+                    <HStack
+                      w="40px"
+                      h="40px"
+                      justify="center"
+                      borderRadius="full"
+                      bg="blackAlpha.500"
+                    >
+                      <Icon as={LiaParachuteBoxSolid} boxSize={7} color="#fff" />
+                    </HStack>
+                  </HStack>
+                  <HStack
+                    p="4"
+                    borderWidth="1px"
+                    borderColor="whiteAlpha.300"
+                    flex={1}
+                    borderRadius={5}
+                    justify="space-between"
+                    width="100%"
+                  >
+                    <Box>
+                      <Text fontSize="16px" fontWeight="semibold" mb={1}>
+                        {formatScore(authInfo.score)} points
+                      </Text>
+                    </Box>
+                    <Image
+                      src="/images/profile/topscore.png"
+                      alt=""
+                      boxSize={10}
+                    />
+                  </HStack>
+                </VStack>
+              </VStack>
             </Box>
-            <HStack
-              w="40px"
-              h="40px"
-              justify="center"
-              borderRadius="full"
-              bg="blackAlpha.500"
-            >
-              <Icon as={LiaParachuteBoxSolid} boxSize={7} color="#fff" />
-            </HStack>
-          </HStack>
-          <HStack
-            p="4"
-            borderWidth="1px"
-            borderColor="whiteAlpha.300"
-            flex={1}
-            borderRadius={5}
-            justify="space-between"
-          >
-            <Box>
-              <Text fontSize="16px" fontWeight="semibold" mb={1}>
-                {formatScore(authInfo.score)} points
-              </Text>
-            </Box>
-            <Image
-              src="/images/profile/topscore.png"
-              alt=""
-              boxSize={10}
-            />
-          </HStack>
-        </HStack>
-      </VStack>
-    )}
-    </Box>
+          )}
+        </Box>
       </VStack>
       <UploadAvatarModal />
       <ReferralModal />
