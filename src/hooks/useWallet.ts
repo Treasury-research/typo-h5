@@ -142,8 +142,10 @@ export default function useWallet() {
 
   const openConnectWallet = () => {
     doLogout();
-    open();
-    setIsSign.on();
+    setIsLogin.on();
+    setTimeout(() => {
+      open();
+    }, 300);
   };
 
   const getTccLog = async () => {
