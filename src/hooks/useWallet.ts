@@ -16,7 +16,7 @@ import { walletConnect } from "wagmi/connectors";
 // } from "@web3modal/wagmi/ethereum";
 import { useWeb3Modal, createWeb3Modal } from "@web3modal/wagmi/react";
 import { defaultWagmiConfig } from '@web3modal/wagmi/react/config'
-import { useAccount, WagmiProvider, http, createConfig, useSwitchChain, useChainId, useDisconnect, useSignMessage, useBalance } from "wagmi";
+import { useAccount, WagmiProvider, http, createConfig, useSwitchChain, useChainId, useDisconnect, useSignMessage, useBalance, useWalletClient } from "wagmi";
 import api from "api";
 import { useNftStore } from "store/nftStore";
 // import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
@@ -85,6 +85,7 @@ export default function useWallet() {
   const { disconnect } = useDisconnect();
   const { signMessageAsync } = useSignMessage();
   const [provider, setProvider] = useState<any>();
+  const { data: walletClient } = useWalletClient()
 
   const { setLogList } = useNftStore();
 
@@ -269,10 +270,12 @@ export default function useWallet() {
 
   useEffect(() => {
     if (isConnected) {
-      const ethersProvider = new ethers.providers.Web3Provider(window.ethereum);
+      const ethereum = window.ethereum || walletClient.transport
+      console.log('ethereumkkk', ethereum)
+      const ethersProvider = new ethers.providers.Web3Provider(ethereum);
       setProvider(ethersProvider);
     }
-  }, [isConnected, chainId]);
+  }, [isConnected, chainId, walletClient]);
 
   useEffect(() => {
     if (isConnected && isLogin) {
