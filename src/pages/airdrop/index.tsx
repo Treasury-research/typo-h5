@@ -26,6 +26,7 @@ import LinkIcon from "components/icons/Airdrop/Link";
 import ShareIcon from "components/icons/Airdrop/Share";
 import DailyIcon from "components/icons/Daily";
 import ClaimedIcon from "components/icons/Claimed";
+import AmbassadorIcon from "components/icons/Ambassador";
 import moment from "moment";
 import { ReferralModal } from "components/connect/ReferralModal";
 import useWallet from "hooks/useWallet";
@@ -275,6 +276,33 @@ export default function Profile() {
       >
         <Header />
         <Box
+          color="white"
+          position="fixed"
+          right="21px"
+          bottom="60px"
+          zIndex="4"
+          background="linear-gradient(92deg, #FF56F6 21.43%, #B936EE 50.63%, #3BACE2 100%, #406AFF 117.04%)"
+          boxShadow="0px 0px 12px 0px #FF56F6"
+          borderRadius="8px"
+          padding="14px"
+          fontFamily="JetBrainsMono"
+          fontWeight="800"
+          fontSize="12px"
+          display="flex"
+          alignItems="center"
+          onClick={() => {
+            window.open(`https://forms.gle/HSmj69CwqCa8m3rj6`, '_blank')
+          }}
+        >
+          <Box marginRight="10px">
+            <AmbassadorIcon />
+          </Box>
+          <Box>
+            <Box>Ambassador</Box>
+            <Box>Application</Box>
+          </Box>
+        </Box>
+        <Box
           className="no-scrollbar relative mr-2 pt-[120px] overflow-auto p-0"
           width="100%"
         >
@@ -314,8 +342,7 @@ export default function Profile() {
                 sx={
                 phrase === "season 2"
                 ? {
-                  background:
-                                                                                                        "linear-gradient(92deg, #487C7E 0%, #004D50 99.5%)",
+                  background: "linear-gradient(92deg, #487C7E 0%, #004D50 99.5%)",
                   boxShadow: "0px 4px 12px 0px rgba(0, 0, 0, 0.12)",
                   border: "1px solid rgba(255, 255, 255, 0.20)",
                 }
@@ -343,8 +370,7 @@ export default function Profile() {
                 sx={
                 phrase === "season 1"
                 ? {
-                  background:
-                                                                                                        "linear-gradient(92deg, #487C7E 0%, #004D50 99.5%)",
+                  background: "linear-gradient(92deg, #487C7E 0%, #004D50 99.5%)",
                   boxShadow: "0px 4px 12px 0px rgba(0, 0, 0, 0.12)",
                   border: "1px solid rgba(255, 255, 255, 0.20)",
                 }
@@ -360,9 +386,20 @@ export default function Profile() {
           {phrase === "season 2" && (
             <Box
               background="rgba(252, 98, 255, 0.30)"
-              height="56px"
               marginBottom="24px"
             >
+              <Box
+                color="white"
+                display="flex"
+                width="100%"
+                margin="0 auto"
+                padding="0 20px"
+                alignItems="flex-end"
+                justifyContent="flex-start"
+              >
+                <Box fontSize="40px" fontWeight="700" fontFamily="JetBrainsMono">500,000</Box>
+                <Box fontSize="12px" fontFamily="JetBrainsMono" marginLeft="6px" marginBottom="12px">$TPX Airdrop</Box>
+              </Box>
               <Box
                 width="100%"
                 margin="0 auto"
