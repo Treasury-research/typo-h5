@@ -116,7 +116,6 @@ export function Quest() {
 	const { setTotalCoupon } = useChatStore();
 	const [showReferer, setShowReferer] = useState(false);
 	const [isLog, setIsLog] = useBoolean(false);
-	const { getTccLog } = useWallet();
 	const { logList } = useNftStore();
 
 	// console.log("uuid", uuid, value);
@@ -212,7 +211,7 @@ export function Quest() {
 	const list = slides;
 
 	useEffect(() => {
-		getTccLog();
+		// getTccLog();
 	}, [userId]);
 
 	return (

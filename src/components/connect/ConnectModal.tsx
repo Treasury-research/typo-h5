@@ -28,22 +28,12 @@ export function ConnectModal({ closeNav }: { closeNav?: () => void }) {
 	const [isHiddenTip, setIsHiddenTip] = useBoolean(false);
 	const { userId } = useUserInfoStore();
 	const { isConnected, address } = useAccount();
-	const { handleSign, openConnectWallet, isSign } = useWallet();
-
-	const needSign = useMemo(() => {
-		return isConnected && !userId;
-	}, [isConnected, userId]);
+	const { handleSign, openConnectWallet } = useWallet();
 
 	const sign = async () => {
 		await handleSign(address as string);
 		closeNav && closeNav();
 	};
-
-	// useEffect(() => {
-	// 	if (needSign && isSign) {
-	// 		sign();
-	// 	}
-	// }, [needSign, isSign]);
 
 	useEffect(() => {
 		const isHidden = localStorage.getItem("isHiddenTip") || "false";
@@ -70,10 +60,10 @@ export function ConnectModal({ closeNav }: { closeNav?: () => void }) {
 						h="38px"
 						borderRadius={8}
 						onClick={() => {
-							needSign ? sign() : openConnectWallet();
+							openConnectWallet();
 						}}
 					>
-						{needSign ? "Sign with Wallet" : "Connect Wallet"}
+						{"Connect Wallet"}
 					</Button>
 				</div>
 
