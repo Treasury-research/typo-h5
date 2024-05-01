@@ -138,7 +138,6 @@ const SourceBox = ({
 					let chunk: any = decoder.decode(result.value || new Uint8Array(), {
 						stream: !result.done,
 					});
-					console.log("chunk1", chunk);
 					let str: any = chunk.match(/<chunk>([\s\S]*?)<\/chunk>/g);
 					let str1: any = chunk.replace(/<chunk>([\s\S]*?)<\/chunk>/g, "");
 					if (isJSONString(str1)) {

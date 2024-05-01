@@ -144,7 +144,7 @@ export default function ChatProvider({ children }: any) {
 			// setActiveChatId("");
 		}
 		if (router.pathname) {
-			console.log("router", router.pathname.split("/")[1]);
+			// console.log("router", router.pathname.split("/")[1]);
 			// setSection(router.pathname.split("/")[1]);
 			// setChannel(router.pathname.split("/")[1]);
 		}
@@ -218,7 +218,6 @@ export default function ChatProvider({ children }: any) {
 				id: newChatId,
 				timestamp: timestamp,
 				type: "general",
-				isSandBox: false,
 				channel,
 				messages: [...activeChat.messages],
 				userId,
@@ -242,8 +241,6 @@ export default function ChatProvider({ children }: any) {
 			addChat(newChat);
 			// setActiveChatId(newChat.id);
 			if (!isSecuretyCmds) {
-				console.log(section);
-				console.log("234", !isSecuretyCmds);
 				router.push(`/${section}/${newChatId}`);
 			}
 		},
@@ -266,7 +263,6 @@ export default function ChatProvider({ children }: any) {
 				id: newChatId,
 				timestamp: timestamp,
 				type: "general",
-				isSandBox: false,
 				channel,
 				messages: [],
 				userId,
@@ -290,7 +286,6 @@ export default function ChatProvider({ children }: any) {
 
 			addChat(newChat);
 			// setActiveChatId(newChat.id);
-			console.log("section", section);
 			router.push(`/${section}/${newChat.id}`);
 		},
 		[channel, activeChatId, userId, activeMessages, section]
@@ -400,7 +395,6 @@ export default function ChatProvider({ children }: any) {
 			const conversation_id = chatId;
 			const input_prompt = prompt;
 			const onChunkedResponseError = (err: any) => {
-				console.error(err);
 				result = {
 					code: err.code,
 					data: {
@@ -445,7 +439,6 @@ export default function ChatProvider({ children }: any) {
 						let chunk: any = decoder.decode(result.value || new Uint8Array(), {
 							stream: !result.done,
 						});
-						console.log("chunk1", chunk);
 						let str: any = chunk.match(/<chunk>([\s\S]*?)<\/chunk>/g);
 
 						if (str && Array.isArray(str) && str.length > 0) {
@@ -476,11 +469,11 @@ export default function ChatProvider({ children }: any) {
 								let sourceStr: any = sourceChunk.match(
 									/<chunk>([\s\S]*?)<\/chunk>/g
 								);
-								console.log("sourceStr", sourceStr);
+	
 								if (sourceStr && Array.isArray(sourceStr)) {
 									if (sourceStr[0].includes("sourceList")) {
 										let sourceArry = sourceStr[0].replace(/<\/?chunk>/g, "");
-										console.log("sourceArry", sourceArry);
+		 
 										if (isJSONString(sourceArry)) {
 											json = {
 												...json,
@@ -490,7 +483,6 @@ export default function ChatProvider({ children }: any) {
 									}
 								}
 							} else {
-								console.log("text", text);
 								let outputStr =
 									json.sourceList && json.sourceList.length
 										? chunk
@@ -597,7 +589,6 @@ export default function ChatProvider({ children }: any) {
 					},
 					conversation_id: chatId,
 					input_prompt,
-					isSandbox: false,
 					isCopilot,
 				};
 				apiUrl = `${baseURL}api/search`;
@@ -650,7 +641,7 @@ export default function ChatProvider({ children }: any) {
 		async ({ chatId, messageId, prompt }: any) => {
 			let result: any;
 			const onChunkedResponseError = (err: any) => {
-				console.log("err", err);
+ 
 				result = {
 					code: err.code,
 					data: {
@@ -677,7 +668,7 @@ export default function ChatProvider({ children }: any) {
 						let chunk: any = decoder.decode(result.value || new Uint8Array(), {
 							stream: !result.done,
 						});
-						console.log("chunk13434", chunk);
+ 
 						let str: any = chunk.match(/<chunk>([\s\S]*?)<\/chunk>/g);
 						if (str && Array.isArray(str) && str.length > 0) {
 							chunk = str.map((t: string) => t.replace(/<\/?chunk>/g, ""));
@@ -715,7 +706,7 @@ export default function ChatProvider({ children }: any) {
 								...json,
 							});
 						} else {
-							console.log(889900, text);
+	 
 							updateMessage(chatId, messageId, {
 								submit: false,
 								done: false,
@@ -774,7 +765,7 @@ export default function ChatProvider({ children }: any) {
 			let result;
 
 			const onChunkedResponseError = (err: any) => {
-				console.error(err);
+		 
 				setIsLoading.off();
 			};
 
@@ -795,13 +786,13 @@ export default function ChatProvider({ children }: any) {
 					let chunk: any = decoder.decode(result.value || new Uint8Array(), {
 						stream: !result.done,
 					});
-					console.log("chunk1", chunk);
+ 
 					let str: any = chunk.match(/<chunk>([\s\S]*?)<\/chunk>/g);
 					if (str) {
 						chunk = str.map((t: string) => t.replace(/<\/?chunk>/g, ""));
 						chunk = chunk.join("");
 					}
-					console.log("chunk2", chunk);
+				 
 
 					try {
 						if (!isNaN(Number(chunk)) && typeof chunk === "string") {
@@ -843,7 +834,7 @@ export default function ChatProvider({ children }: any) {
 				}
 			};
 
-			console.log("baseURL", baseURL);
+ 
 			const res = await fetch(`${baseURL}api/conversation`, {
 				method: "POST",
 				headers: {
@@ -856,7 +847,6 @@ export default function ChatProvider({ children }: any) {
 					},
 					conversation_id: chatId,
 					input_prompt: prompt,
-					isSandbox: false,
 				}),
 			})
 				.then(processChunkedResponse)
@@ -1123,7 +1113,6 @@ export default function ChatProvider({ children }: any) {
 											},
 											conversation_id: chatId,
 											input_prompt: prompt,
-											isSandbox: false,
 										},
 								  },
 							...result.data,
@@ -1204,7 +1193,6 @@ export default function ChatProvider({ children }: any) {
 										},
 										conversation_id: chatId,
 										input_prompt: prompt,
-										isSandbox: false,
 									},
 							  },
 					});
@@ -1360,7 +1348,7 @@ export default function ChatProvider({ children }: any) {
 				},
 			});
 
-			console.log("data", data);
+ 
 			if (JSON.stringify(data) !== "{}") {
 				const chat = { ...data.data, id: chatId, shareImg: data.image }; // 将id更新
 				setSharedChat(chat);
@@ -1370,7 +1358,7 @@ export default function ChatProvider({ children }: any) {
 			}
 			setGetReccordByIdLoading(false);
 		} catch (error) {
-			console.error(error);
+ 
 			setGetReccordByIdLoading(false);
 		}
 	}, []);
@@ -1394,7 +1382,7 @@ export default function ChatProvider({ children }: any) {
 		if (res?.code === 200) {
 			const score = res?.data?.score || 0;
 			const level = score < 1000 ? 1 : score >= 1000 && score < 50000 ? 2 : 3;
-			console.log("level:", level);
+ 
 			setTotalCoupon(res?.data?.totalCoupon);
 			setDailyAdd(res?.data?.dailyAdd);
 			setIsPassuser(res?.data?.is_pass_user);

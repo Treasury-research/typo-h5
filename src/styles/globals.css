@@ -3,6 +3,26 @@
 @tailwind utilities;
 
 @font-face {
+	font-family: JetBrainsMonoExtraBold;
+	src: url("./fonts/JetBrainsMono/JetBrainsMono-ExtraBold.ttf");
+}
+
+@font-face {
+	font-family: JetBrainsMonoBold;
+	src: url("./fonts/JetBrainsMono/JetBrainsMono-Bold.ttf");
+}
+
+@font-face {
+	font-family: JetBrainsMono;
+	src: url("./fonts/JetBrainsMono/JetBrainsMono-Medium.ttf");
+}
+
+@font-face {
+	font-family: Neuropolitical;
+	src: url("./fonts/Neuropolitical.ttf");
+}
+
+@font-face {
 	font-family: Robtronika;
 	src: url("./fonts/Robtronika.ttf");
 }
@@ -114,6 +134,22 @@ p {
 	.snapshot-table {
 		min-width: 100% !important;
 	}
+
+        .airdrop {
+		width: 96vw !important;
+		margin-left: 2% !important;
+	}
+
+	.airdrop .referral {
+		display: none;
+	}
+	.airdrop .referral-panel,
+	.airdrop .avatar-panel {
+		padding-right: 5px;
+	}
+	.airdrop .address {
+		display: none;
+	}
 }
 
 @media screen and (max-width: 750px) {
@@ -220,4 +256,12 @@ p {
 
 .rv-overlay {
 	background: rgba(0, 0, 0, 0.4);
+}
+
+.blue-filter {
+	background: rgba(255, 255, 255, 0.32) !important;
+	backdrop-filter: blur(100px) !important;
+	border: solid 1px #fff;
+	border-radius: 12px;
+	color: #fff;
 }

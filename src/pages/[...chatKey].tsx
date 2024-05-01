@@ -1,8 +1,10 @@
 import Chat from "components/chat";
 
 import ChatProvider from "components/chat/Context";
+import { isPhone } from "lib";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 export default function Home() {
 	const router = useRouter();
@@ -10,7 +12,23 @@ export default function Home() {
 	const query: any = router?.query?.chatKey;
 	const id = query && query[1];
 
-	// console.log("activeChat", router.query, id);
+	useEffect(() => {
+		const isphone = isPhone();
+		console.log("isphone", isphone);
+		if (!isphone ) {
+			location.host.includes("staging")
+				? router.push(
+						id
+							? `https://typography.staging.knn3.xyz/explorer/${id}`
+							: `https://typography.staging.knn3.xyz/explorer`
+				  )
+				: router.push(
+						id
+							? `https://app.typography.vip/explorer/${id}`
+							: "https://app.typography.vip/explorer"
+				  );
+		}
+	}, [router]);
 	return (
 		<>
 			<Head>

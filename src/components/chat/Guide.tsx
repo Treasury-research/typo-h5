@@ -27,26 +27,12 @@ const slides = [
 	},
 ];
 
-const sandboxSlides = [
-	{
-		url: "/images/aisql/driver.png",
-	},
-	{
-		url: "/images/aisql/knexus.webp",
-		link: "https://knexus.xyz/create?utm_source=typo+quest&utm_campaign=kn+mbti",
-	},
-];
-
 export function Guide() {
 	const { submitMessage } = useChatContext();
 	const [commands, setCommands] = useState([]);
 	const { userId } = useUserInfoStore();
 	const { isConnected, address } = useAccount();
-	const { openInviteModal, setOpenInviteModal } = useStore();
-	const { handleSign, openConnectWallet, isSign } = useWallet();
-
-	const needSign = isConnected && !userId;
-	const list = slides;
+	const { openConnectWallet } = useWallet();
 
 	const cmds = commands.filter((item: any) => item?.type === "normal");
 
@@ -59,16 +45,6 @@ export function Guide() {
 		}
 	};
 
-	const signUp = useCallback(() => {
-		handleSign(address as string);
-	}, [address]);
-
-	useEffect(() => {
-		if (needSign && isSign) {
-			handleSign(address as string);
-		}
-	}, [needSign, isSign]);
-
 	useEffect(() => {
 		getCommands();
 	}, [userId]);
@@ -80,8 +56,6 @@ export function Guide() {
 			});
 		}, 200);
 	}, []);
-
-	// console.log("needSign", needSign, isConnected, userId);
 
 	return (
 		<VStack
@@ -160,7 +134,7 @@ export function Guide() {
 							color="white"
 							padding="10px 20px"
 							onClick={() => {
-								needSign ? handleSign(address as string) : openConnectWallet();
+								openConnectWallet();
 							}}
 						>
 							Connect Wallet
@@ -181,7 +155,7 @@ export function Guide() {
 							color="white"
 							padding="10px 20px"
 							onClick={() => {
-								needSign ? handleSign(address as string) : openConnectWallet();
+								openConnectWallet();
 							}}
 						>
 							Sign in
