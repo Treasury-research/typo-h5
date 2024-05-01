@@ -49,7 +49,6 @@ export type ChatList = {
 	children: ChatChildren[];
 	chatId: string;
 	type: string;
-	isSandBox: boolean;
 	// chatIndex?: number;
 };
 

@@ -68,7 +68,6 @@ export function Tabs() {
 			id: newChatId,
 			timestamp: timestamp,
 			type: "general",
-			isSandBox: false,
 			channel,
 			messages: [],
 			userId,

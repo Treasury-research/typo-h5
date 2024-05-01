@@ -27,16 +27,6 @@ const slides = [
 	},
 ];
 
-const sandboxSlides = [
-	{
-		url: "/images/aisql/driver.png",
-	},
-	{
-		url: "/images/aisql/knexus.webp",
-		link: "https://knexus.xyz/create?utm_source=typo+quest&utm_campaign=kn+mbti",
-	},
-];
-
 export function Guide() {
 	const { submitMessage } = useChatContext();
 	const [commands, setCommands] = useState([]);

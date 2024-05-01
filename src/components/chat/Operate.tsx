@@ -217,6 +217,8 @@ export function ShareActionSheet({ item, index, onClose }: any) {
 	const { userId } = useUserInfoStore();
 	const showToast = useToast();
 
+	console.log("activeChat", activeChat);
+	
 	const handleCreateShareChat: any = useCallback(() => {
 		return new Promise(async (resolve, reject) => {
 			try {
@@ -251,17 +253,24 @@ export function ShareActionSheet({ item, index, onClose }: any) {
 		handleCreateShareChat()
 			.then((res: any) => {
 				if (res.value) {
-					let shareUrl = "";
 					const question = activeChat.messages[activeChat.messages.length - 2]
 						.content as string;
-					shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(`Q: “${
-						question.length > 90 ? question.substring(0, 90) + "..." : question
-					}”
-          🚀 Just wrapped up a thought-provoking chat with @TypoX_AI! 🤖️
-          👇 Dive in & ask followup
-          #TypoGraphyAI #TypoX #Web3Search`)}&url=${encodeURIComponent(
-						`${res.value}`
-					)}`;
+					const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+						`Q: ${
+							question.length > 40
+								? question.substring(0, 40) + "..."
+								: question
+						}
+
+🤖️ Discover insights with @TypoX_AI!
+        Share your answer and see what others think! 
+🚀 Join the drop season event today! 
+👇 Dive in & ask followup
+#TypoX #Web3 #Airdrop #AI2Earn
+
+`
+					)}&url=${encodeURIComponent(`${res.value}`)}`;
+
 					window.open(shareUrl, "_blank");
 				}
 			})

@@ -218,7 +218,6 @@ export default function ChatProvider({ children }: any) {
 				id: newChatId,
 				timestamp: timestamp,
 				type: "general",
-				isSandBox: false,
 				channel,
 				messages: [...activeChat.messages],
 				userId,
@@ -266,7 +265,6 @@ export default function ChatProvider({ children }: any) {
 				id: newChatId,
 				timestamp: timestamp,
 				type: "general",
-				isSandBox: false,
 				channel,
 				messages: [],
 				userId,
@@ -596,7 +594,6 @@ export default function ChatProvider({ children }: any) {
 					},
 					conversation_id: chatId,
 					input_prompt,
-					isSandbox: false,
 					isCopilot,
 				};
 				apiUrl = `${baseURL}api/search`;
@@ -855,7 +852,7 @@ export default function ChatProvider({ children }: any) {
 					},
 					conversation_id: chatId,
 					input_prompt: prompt,
-					isSandbox: false,
+
 				}),
 			})
 				.then(processChunkedResponse)
@@ -1122,7 +1119,6 @@ export default function ChatProvider({ children }: any) {
 											},
 											conversation_id: chatId,
 											input_prompt: prompt,
-											isSandbox: false,
 										},
 								  },
 							...result.data,
@@ -1203,7 +1199,6 @@ export default function ChatProvider({ children }: any) {
 										},
 										conversation_id: chatId,
 										input_prompt: prompt,
-										isSandbox: false,
 									},
 							  },
 					});
