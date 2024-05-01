@@ -158,7 +158,7 @@ export function Guide() {
 								openConnectWallet();
 							}}
 						>
-							Sign in
+							Login in
 						</Button>
 					</Box>
 				)}

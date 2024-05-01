@@ -230,7 +230,7 @@ const Account = () => {
 	    borderRadius={16}
 	    onClick={() => setOpenConnectModal(true)}
 	  >
-	    Sign in
+	    Login in
 	  </Button>
 	)}
       </VStack>

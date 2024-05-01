@@ -48,7 +48,7 @@ export function ConnectModal({ closeNav }: { closeNav?: () => void }) {
 				onClose={() => {
 					setOpenConnectModal(false);
 				}}
-				title="Sign In"
+				title="Login In"
 				isCentered={true}
 			>
 				<div className="flex flex-col w-full gap-2 my-4">
