@@ -218,7 +218,7 @@ export function ShareActionSheet({ item, index, onClose }: any) {
 	const showToast = useToast();
 
 	console.log("activeChat", activeChat);
-	
+
 	const handleCreateShareChat: any = useCallback(() => {
 		return new Promise(async (resolve, reject) => {
 			try {
@@ -308,15 +308,22 @@ export function ShareActionSheet({ item, index, onClose }: any) {
 
 	if (showCopy) {
 		return (
-			<Box padding="24px">
-				<Box fontSize="16px" fontWeight="700">
+			<Box padding="24px" pt={0}>
+				<Box fontSize="16px" fontWeight="700" mb="10px" textAlign="center">
 					Notice
 				</Box>
-				<Box fontSize="16px" fontWeight="500">
-					Anyone who has access to a shared link can view and share the linked
-					conversation. We encourage you not to share any sensitive content such
-					as your wallet address, as anyone with the link can access the
-					conversation or share the link with other people.
+				<Box fontSize="16px" fontWeight="500" mb="20px">
+					<Text>
+						Anyone who has access to a shared link can view and share the linked
+						conversation.
+					</Text>
+					<Text mt={2}>
+						We encourage you not to share any sensitive content.
+					</Text>
+					<Text>
+						such as your wallet address, as anyone with the link can access the
+						conversation or share the link with other people.
+					</Text>
 				</Box>
 				<Box
 					width="100%"
