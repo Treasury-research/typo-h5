@@ -90,7 +90,7 @@ export function MessageActionSheet({ item, chatIndex, onClose }: any) {
 
 	const isLastLeftChat = useMemo(() => {
 		if (!activeChat) return false;
-		const isLast = chatIndex === activeChat?.messages.length - 1;
+		const isLast = chatIndex === activeChat?.messages?.length - 1;
 		const isAnswer = activeChat?.messages[chatIndex].type === "answer";
 		return isLast && isAnswer;
 	}, [activeChat, chatIndex]);
@@ -253,7 +253,7 @@ export function ShareActionSheet({ item, index, onClose }: any) {
 		handleCreateShareChat()
 			.then((res: any) => {
 				if (res.value) {
-					const question = activeChat.messages[activeChat.messages.length - 2]
+					const question = activeChat.messages[activeChat?.messages?.length - 2]
 						.content as string;
 					const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
 						`Q: ${

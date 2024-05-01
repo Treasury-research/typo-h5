@@ -269,7 +269,6 @@ export default function ChatProvider({ children }: any) {
 				section,
 			};
 
-			const count = activeMessages.length;
 			newChat.name = `New Chat ${time}`;
 
 			if (isShare) {

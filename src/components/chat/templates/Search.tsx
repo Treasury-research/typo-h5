@@ -454,7 +454,7 @@ export default function Search({
 
 	const isLastLeftChat = useMemo(() => {
 		if (!activeChat) return false;
-		const isLast = chatIndex === activeChat?.messages.length - 1;
+		const isLast = chatIndex === activeChat?.messages?.length - 1;
 		const isAnswer = activeChat?.messages[chatIndex].type === "answer";
 		return isLast && isAnswer;
 	}, [activeChat, chatIndex]);

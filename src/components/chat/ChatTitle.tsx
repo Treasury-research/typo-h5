@@ -73,16 +73,17 @@ export function ChatTitle() {
 					}
 					rightText={
 						<Box display="flex" alignItems="center">
-							{userId && activeChat && activeChat.messages.length > 0 && (
-								<Box
-									marginRight="18px"
-									cursor="pointer"
-									onClick={openShareActionSheet}
-								>
-									<ShareIcon />
-								</Box>
-							)}
-							
+							{userId &&
+								activeChat &&
+								activeChat.messages && activeChat.messages?.length > 0 && (
+									<Box
+										marginRight="18px"
+										cursor="pointer"
+										onClick={openShareActionSheet}
+									>
+										<ShareIcon />
+									</Box>
+								)}
 						</Box>
 					}
 				/>
