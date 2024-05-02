@@ -17,7 +17,6 @@ import {
 } from "@chakra-ui/react";
 import { useState, useCallback, useMemo } from "react";
 import { useCopyToClipboard } from "react-use";
-import html2Canvas from "html2canvas";
 import { LongPressTouch } from "components";
 import TwitterIcon from "components/icons/Twitter";
 import LinkIcon from "components/icons/Link";
@@ -217,7 +216,7 @@ export function ShareActionSheet({ item, index, onClose }: any) {
 	const { userId } = useUserInfoStore();
 	const showToast = useToast();
 
-	console.log("activeChat", activeChat);
+	// console.log("activeChat", activeChat);
 
 	const handleCreateShareChat: any = useCallback(() => {
 		return new Promise(async (resolve, reject) => {
@@ -231,9 +230,12 @@ export function ShareActionSheet({ item, index, onClose }: any) {
 					}),
 				});
 				setCreateLoading.off();
-				if (data) {
+				if (data.id) {
+					const linkUrl = `${window.location.origin}/explorer/${data.id}`;
+					const shareUrl = data?.shareUrl;
 					resolve({
-						value: `${window.location.origin}/explorer/${data}`,
+						linkUrl,
+						shareUrl,
 					});
 				}
 			} catch (error) {
@@ -252,26 +254,8 @@ export function ShareActionSheet({ item, index, onClose }: any) {
 	const shareTwitter = async () => {
 		handleCreateShareChat()
 			.then((res: any) => {
-				if (res.value) {
-					const question = activeChat.messages[activeChat?.messages?.length - 2]
-						.content as string;
-					const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
-						`Q: ${
-							question.length > 40
-								? question.substring(0, 40) + "..."
-								: question
-						}
-
-🤖️ Discover insights with @TypoX_AI!
-        Share your answer and see what others think! 
-🚀 Join the drop season event today! 
-👇 Dive in & ask followup
-#TypoX #Web3 #Airdrop #AI2Earn
-
-`
-					)}&url=${encodeURIComponent(`${res.value}`)}`;
-
-					window.open(shareUrl, "_blank");
+				if (res?.shareUrl) {
+					window.open(res.shareUrl, "_blank");
 				}
 			})
 			.catch((error: any) => {
@@ -282,8 +266,8 @@ export function ShareActionSheet({ item, index, onClose }: any) {
 	const copyLink = useCallback(() => {
 		handleCreateShareChat()
 			.then((res: any) => {
-				if (res.value) {
-					copyToClipboard(res.value);
+				if (res.linkUrl) {
+					copyToClipboard(res.linkUrl);
 					showToast({
 						position: "top",
 						title: "Copied",

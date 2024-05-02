@@ -5,8 +5,25 @@ import { isPhone } from "lib";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import api, { baseURL } from "api";
 
-export default function Home() {
+export async function getServerSideProps(context: any) {
+	const { data } = await api.get(`/api/conversation/shared/image`, {
+		params: {
+			conversation_id: context.query.id,
+		},
+	});
+
+	return {
+		props: {
+			shareImg:
+				data ||
+				"https://files.imgdb.cn/store/images/e5/a9/65baf59c871b83018a01e5a9.png",
+		},
+	};
+}
+
+export default function Home({ shareImg }: any) {
 	const router = useRouter();
 
 	const query: any = router?.query?.chatKey;
@@ -14,8 +31,7 @@ export default function Home() {
 
 	useEffect(() => {
 		const isphone = isPhone();
-		console.log("isphone", isphone);
-		if (!isphone ) {
+		if (!isphone && !location.host.includes("localhost")) {
 			location.host.includes("staging")
 				? router.push(
 						id
@@ -39,20 +55,18 @@ export default function Home() {
 				<meta name="twitter:card" content="summary_large_image" />
 				<meta
 					name="twitter:site"
-					content={`${id ? `${location.origin}/${id}` : ""}`}
+					content={`${
+						typeof window !== "undefined"
+							? `${window.location.origin}/${router.query.id}`
+							: ""
+					}`}
 				/>
-				<meta
-					name="twitter:image"
-					content="https://pic.imgdb.cn/item/65baf59c871b83018a01e5a9.png"
-				/>
+				<meta name="twitter:image" content={shareImg} />
 				<meta
 					property="og:title"
 					content="TypoGraphy AI: Unlocking Web3 Potential with AI"
 				/>
-				<meta
-					property="og:image"
-					content="https://pic.imgdb.cn/item/65baf59c871b83018a01e5a9.png"
-				/>
+				<meta property="og:image" content={shareImg} />
 				<meta
 					property="og:description"
 					content="Acquire Web3 expertise, stay on top of the latest developments, and explore Web3 protocols in your native language."
@@ -60,7 +74,11 @@ export default function Home() {
 
 				<meta
 					property="og:url"
-					content={`${id ? `${location.origin}/${id}` : ""}`}
+					content={`${
+						typeof window !== "undefined"
+							? `${window.location.origin}/${router.query.id}`
+							: ""
+					}`}
 				/>
 			</Head>
 			<ChatProvider>
