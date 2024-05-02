@@ -89,12 +89,12 @@ export default function Profile() {
   }, [router, userId]);
 
   useEffect(() => {
-    const isphone = isPhone();
-    if (isphone && !location.host.includes("localhost")) {
-      location.host.includes("staging")
-      ? router.push("https://mobile.typography.staging.knn3.xyz/rank")
-      : router.push("https://mobile.typox.ai/rank");
-    }
+    /* const isphone = isPhone();
+     * if (isphone && !location.host.includes("localhost")) {
+     *   location.host.includes("staging")
+     *   ? router.push("https://mobile.typography.staging.knn3.xyz/rank")
+     *   : router.push("https://mobile.typox.ai/rank");
+     * } */
   }, [router]);
 
   return (
@@ -136,23 +136,48 @@ export default function Profile() {
                 pb="30px"
                 pt="20px"
               >
-                <Tabs variant="unstyled">
-                  <TabList
-                    w="198px"
-                    borderRadius="md"
-                    border="solid 1px rgba(214, 214, 214, 0.40)"
-                    mb="40px"
+                <Box
+                  width="100%"
+                  margin="0 auto"
+                  marginBottom="24px"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                >
+                  <Box
+                    display="flex"
+                    background="rgba(255, 255, 255, 0.2)"
+                    borderRadius="4px"
+                    border="1px solid rgba(214, 214, 214, 0.2)"
+                    width="200px"
+                    height="32px"
+                    position="relative"
+                    boxSizing="border-box"
+                    fontFamily="JetBrainsMono"
                   >
-                    <Tab
-                      w="100px"
-                      color="#fff"
-                      fontWeight="semibold"
-                      borderRightRadius="md"
-                      _selected={{
-                        bg: "rgba(72, 124, 126, 0.60);",
-                        borderRightWidth: "1px",
-                        borderColor: "rgba(214, 214, 214, 0.40)",
-                      }}
+                    <Box
+                      color="white"
+                      fontSize="14px"
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="center"
+                      cursor="pointer"
+                      borderRadius="4px"
+                      overflow="hidden"
+                      position="absolute"
+                      top="-1px"
+                      left="-1px"
+                      width="calc(50% + 2px)"
+                      height="calc(100% + 2px)"
+                      sx={
+                      tab === "Loyalty"
+                      ? {
+                        background: "linear-gradient(92deg, #487C7E 0%, #004D50 99.5%)",
+                        boxShadow: "0px 4px 12px 0px rgba(0, 0, 0, 0.12)",
+                        border: "1px solid rgba(255, 255, 255, 0.20)",
+                      }
+                      : {}
+                      }
                       onClick={() => {
                         setPage(1);
                         setTab("Loyalty");
@@ -160,17 +185,30 @@ export default function Profile() {
                       }}
                     >
                       Loyalty
-                    </Tab>
-                    <Tab
-                      w="100px"
-                      color="#fff"
-                      fontWeight="semibold"
-                      borderLeftRadius="md"
-                      _selected={{
-                        bg: "rgba(72, 124, 126, 0.60);",
-                        borderLeftWidth: "1px",
-                        borderColor: "rgba(214, 214, 214, 0.40)",
-                      }}
+                    </Box>
+                    <Box
+                      color="white"
+                      fontSize="14px"
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="center"
+                      cursor="pointer"
+                      borderRadius="4px"
+                      overflow="hidden"
+                      position="absolute"
+                      top="-1px"
+                      width="calc(50% + 1px)"
+                      left="calc(50% + 1px)"
+                      height="calc(100% + 2px)"
+                      sx={
+                      tab === "Referral"
+                      ? {
+                        background: "linear-gradient(92deg, #487C7E 0%, #004D50 99.5%)",
+                        boxShadow: "0px 4px 12px 0px rgba(0, 0, 0, 0.12)",
+                        border: "1px solid rgba(255, 255, 255, 0.20)",
+                      }
+                      : {}
+                      }
                       onClick={() => {
                         setPage(1);
                         setTab("Referral");
@@ -178,9 +216,9 @@ export default function Profile() {
                       }}
                     >
                       Referral
-                    </Tab>
-                  </TabList>
-                </Tabs>
+                    </Box>
+                  </Box>
+                </Box>
                 <VStack alignItems="flex-start" w="100%">
                   <VStack color="#fff" h="100px">
                     <Box fontWeight="semibold" lineHeight="55px">

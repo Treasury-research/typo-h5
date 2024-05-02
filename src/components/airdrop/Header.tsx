@@ -34,7 +34,7 @@ export const Header = () => {
       pos="fixed"
       zIndex="3"
       top="20px"
-      w="1200px"
+      w="100%"
       h="60px"
       mx="auto"
       left="0"

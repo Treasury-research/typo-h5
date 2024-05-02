@@ -655,6 +655,7 @@ export default function Profile() {
                   fontSize="20px"
                   px={2}
                   pb={2}
+                  fontSize="10px"
                 >
                   {questList?.length > 0 ? (
                     (questList || []).map((item: any, index: number) => {
@@ -679,7 +680,7 @@ export default function Profile() {
                             alignItems="center"
                             justifyContent="center"
                           >
-                            <Text w="150px" textAlign="right">
+                            <Text w="150px" textAlign="left">
                               +{formatScore(item.score)}
                             </Text>
                           </Box>
