@@ -26,7 +26,7 @@ export const EN_JSON = {
   "question.question10": "Top 10 web3 VCs in Abu Dhabi.",
   "question.question11": "What‘s new about 'UniSat Developer' service?",
   "account.account": "Account",
-  "account.signIn": "Sign In",
+  "account.signIn": "Login In",
   "account.verifyTg": "Verify Telegram",
   "account.verifyEmail": "Verify Email",
   "account.emailSub": "Email Subscription",

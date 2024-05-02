@@ -17,7 +17,6 @@ import {
 } from "@chakra-ui/react";
 import { useState, useCallback, useMemo } from "react";
 import { useCopyToClipboard } from "react-use";
-import html2Canvas from "html2canvas";
 import { LongPressTouch } from "components";
 import TwitterIcon from "components/icons/Twitter";
 import LinkIcon from "components/icons/Link";
@@ -90,7 +89,7 @@ export function MessageActionSheet({ item, chatIndex, onClose }: any) {
 
 	const isLastLeftChat = useMemo(() => {
 		if (!activeChat) return false;
-		const isLast = chatIndex === activeChat?.messages.length - 1;
+		const isLast = chatIndex === activeChat?.messages?.length - 1;
 		const isAnswer = activeChat?.messages[chatIndex].type === "answer";
 		return isLast && isAnswer;
 	}, [activeChat, chatIndex]);
@@ -217,6 +216,8 @@ export function ShareActionSheet({ item, index, onClose }: any) {
 	const { userId } = useUserInfoStore();
 	const showToast = useToast();
 
+	// console.log("activeChat", activeChat);
+
 	const handleCreateShareChat: any = useCallback(() => {
 		return new Promise(async (resolve, reject) => {
 			try {
@@ -229,9 +230,12 @@ export function ShareActionSheet({ item, index, onClose }: any) {
 					}),
 				});
 				setCreateLoading.off();
-				if (data) {
+				if (data.id) {
+					const linkUrl = `${window.location.origin}/explorer/${data.id}`;
+					const shareUrl = data?.shareUrl;
 					resolve({
-						value: `${window.location.origin}/explorer/${data}`,
+						linkUrl,
+						shareUrl,
 					});
 				}
 			} catch (error) {
@@ -250,19 +254,8 @@ export function ShareActionSheet({ item, index, onClose }: any) {
 	const shareTwitter = async () => {
 		handleCreateShareChat()
 			.then((res: any) => {
-				if (res.value) {
-					let shareUrl = "";
-					const question = activeChat.messages[activeChat.messages.length - 2]
-						.content as string;
-					shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(`Q: “${
-						question.length > 90 ? question.substring(0, 90) + "..." : question
-					}”
-          🚀 Just wrapped up a thought-provoking chat with @TypoX_AI! 🤖️
-          👇 Dive in & ask followup
-          #TypoGraphyAI #TypoX #Web3Search`)}&url=${encodeURIComponent(
-						`${res.value}`
-					)}`;
-					window.open(shareUrl, "_blank");
+				if (res?.shareUrl) {
+					window.open(res.shareUrl, "_blank");
 				}
 			})
 			.catch((error: any) => {
@@ -273,8 +266,8 @@ export function ShareActionSheet({ item, index, onClose }: any) {
 	const copyLink = useCallback(() => {
 		handleCreateShareChat()
 			.then((res: any) => {
-				if (res.value) {
-					copyToClipboard(res.value);
+				if (res.linkUrl) {
+					copyToClipboard(res.linkUrl);
 					showToast({
 						position: "top",
 						title: "Copied",
@@ -299,15 +292,22 @@ export function ShareActionSheet({ item, index, onClose }: any) {
 
 	if (showCopy) {
 		return (
-			<Box padding="24px">
-				<Box fontSize="16px" fontWeight="700">
+			<Box padding="24px" pt={0}>
+				<Box fontSize="16px" fontWeight="700" mb="10px" textAlign="center">
 					Notice
 				</Box>
-				<Box fontSize="16px" fontWeight="500">
-					Anyone who has access to a shared link can view and share the linked
-					conversation. We encourage you not to share any sensitive content such
-					as your wallet address, as anyone with the link can access the
-					conversation or share the link with other people.
+				<Box fontSize="16px" fontWeight="500" mb="20px">
+					<Text>
+						Anyone who has access to a shared link can view and share the linked
+						conversation.
+					</Text>
+					<Text mt={2}>
+						We encourage you not to share any sensitive content.
+					</Text>
+					<Text>
+						such as your wallet address, as anyone with the link can access the
+						conversation or share the link with other people.
+					</Text>
 				</Box>
 				<Box
 					width="100%"

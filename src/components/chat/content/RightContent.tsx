@@ -90,7 +90,7 @@ export function Right({ item, index, chatIndex, isLoading }: any) {
 				</Box>
 				<Avatar size="sm" bg="bg.green" />
 			</HStack>
-			{index === activeChat.messages.length - 1 && isLoading && (
+			{index === activeChat?.messages?.length - 1 && isLoading && (
 				<HStack w="full" justify="flex-start" spacing={3}>
 					<Avatar size="sm" src="/images/aisql/TypoGraphy.svg" mr={1} />
 					<Flex

@@ -86,14 +86,14 @@ export default function ChatContent() {
 											}
 											chatIndex={index}
 											isLoading={isLoading}
-											index={index + activeChat.messages.length - 2}
+											index={index + activeChat.messages?.length - 2}
 										/>
 									) : item.error ? (
 										<Error
 											chatId={activeChat.id}
 											messageId={item.id}
 											item={item}
-											index={index + activeChat.messages.length - 2}
+											index={index + activeChat.messages?.length - 2}
 											setInput={setInput}
 										/>
 									) : (
@@ -102,11 +102,11 @@ export default function ChatContent() {
 											messageId={item.id}
 											item={item}
 											isLoading={isLoading}
-											index={index + activeChat.messages.length - 2}
+											index={index + activeChat.messages?.length - 2}
 											setInput={setInput}
 											chatIndex={index}
 											isLast={
-												index + activeChat.messages.length - 2 ===
+												index + activeChat.messages?.length - 2 ===
 												activeChat.messages?.length - 1
 											}
 											isHidden={showAgent}
