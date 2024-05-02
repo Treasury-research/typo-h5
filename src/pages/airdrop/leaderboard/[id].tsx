@@ -343,7 +343,7 @@ export default function Profile() {
                           borderRadius="md"
                           py="5px"
                           pl="6px"
-                          pr="20px"
+                          pr="6px"
                           cursor="pointer"
                           justify="space-between"
                           lineHeight="20px"
@@ -422,7 +422,7 @@ export default function Profile() {
                         borderRadius="md"
                         py="5px"
                         pl="6px"
-                        pr="20px"
+                        pr="6px"
                         cursor="pointer"
                         justify="space-between"
                         lineHeight="20px"
@@ -564,7 +564,7 @@ export default function Profile() {
                         pr="2px"
                         spacing={1.4}
                       >
-                        <Text fontWeight="semibold" fontSize="14px">{inviteCount}</Text>
+                        <Text fontWeight="semibold" fontSize="14px">{inviteCount || '0'}</Text>
                         <Text whiteSpace="nowrap">
                           Invited
                         </Text>
