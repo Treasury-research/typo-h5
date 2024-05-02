@@ -57,7 +57,8 @@ export default function Profile() {
 
   const getRanks = async (pageNumber: number, tabName?: string) => {
     const name = tabName || tab;
-    const url = name === "Loyalty" ? "api/ranking" : "api/referral/ranking";
+    // const url = name === "Loyalty" ? "api/ranking" : "api/referral/ranking";
+    const url = "api/referral/ranking";
     const result: any = await api.get(url, {
       params: {
         offset: (pageNumber - 1) * 10,
@@ -98,8 +99,10 @@ export default function Profile() {
   }, [router]);
 
   useEffect(() => {
-    setPage(1);
-    setTab("Loyalty");
+    getRanks(page, tab);
+  }, [tab, page])
+
+  useEffect(() => {
     getRanks(1, "Loyalty");
   }, [])
 
@@ -188,7 +191,7 @@ export default function Profile() {
                       onClick={() => {
                         setPage(1);
                         setTab("Loyalty");
-                        getRanks(1, "Loyalty");
+                        // getRanks(1, "Loyalty");
                       }}
                     >
                       Loyalty
@@ -219,7 +222,7 @@ export default function Profile() {
                       onClick={() => {
                         setPage(1);
                         setTab("Referral");
-                        getRanks(1, "Referral");
+                        // getRanks(1, "Referral");
                       }}
                     >
                       Referral
