@@ -258,6 +258,38 @@ p {
 	background: rgba(0, 0, 0, 0.4);
 }
 
+.rank-page .ant-pagination-item {
+	border-radius: 100%;
+	/* width: 25px; */
+	height: 25px !important;
+	line-height: 24px !important;
+	white-space: nowrap;
+	text-align: center;
+	margin-left: 2px !important;
+	color: #fff;
+}
+
+.rank-page .ant-pagination .ant-pagination-item a {
+	color: #fff;
+}
+.rank-page .ant-pagination-options-quick-jumper,
+.rank-page .ant-pagination-item-link {
+	color: #fff !important;
+}
+
+.rank-page .ant-pagination-item-active {
+	border: 0;
+	margin-left: 4px !important;
+	background-color: rgba(255, 255, 255, 0.3);
+}
+
+.rank-page .ant-pagination-item-active > a {
+	padding: 0;
+	color: #fff !important;
+	font-weight: bold;
+	font-size: 15px;
+}
+
 .blue-filter {
 	background: rgba(255, 255, 255, 0.32) !important;
 	backdrop-filter: blur(100px) !important;

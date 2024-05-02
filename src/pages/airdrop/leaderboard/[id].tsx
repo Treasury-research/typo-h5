@@ -97,6 +97,12 @@ export default function Profile() {
      * } */
   }, [router]);
 
+  useEffect(() => {
+    setPage(1);
+    setTab("Loyalty");
+    getRanks(1, "Loyalty");
+  }, [])
+
   return (
     <>
       <NextSeo title={"TypoX AI"} />
@@ -122,6 +128,7 @@ export default function Profile() {
             flex={1}
             my="20px"
             borderRadius="16px"
+            mt="0"
           >
             <Flex
               w="full"
@@ -219,7 +226,7 @@ export default function Profile() {
                     </Box>
                   </Box>
                 </Box>
-                <VStack alignItems="flex-start" w="100%">
+                <VStack alignItems="center" w="100%">
                   <VStack color="#fff" h="100px">
                     <Box fontWeight="semibold" lineHeight="55px">
                       <Text fontSize="24px">Season 1</Text>
@@ -236,88 +243,7 @@ export default function Profile() {
                       </Box>
                     </Box>
                   </VStack>
-
-                  {userId && account ? (
-                    <>
-                      <Flex
-                        mt="50px!"
-                        pl="20px"
-                        pr="10px"
-                        w="full"
-                        h="75px"
-                        fontSize="16px"
-                        alignItems="center"
-                        justify="space-between"
-                        borderRadius="12px"
-                        cursor="pointer"
-                        shadow="md"
-                        color="#fff"
-                        bg="rgba(255, 255, 255, 0.32)"
-                        backdropBlur="blur(100px)"
-                        _hover={{ bg: "whiteAlpha.600" }}
-                        onClick={() => toMyRank(user?.page_ranking || 0)}
-                      >
-                        <HStack>
-                          {avatar ? (
-                            <Image
-                              src={avatar}
-                              w="48px"
-                              h="48px"
-                              alt=""
-                              borderRadius="full"
-                            />
-                          ) : (
-                            <Jazzicon
-                              diameter={48}
-                              seed={jsNumberForAddress(account)}
-                            />
-                          )}
-
-                          <VStack alignItems="flex-start" pl={1} spacing={1.4}>
-                            <Text fontWeight="semibold">
-                              {toShortAddress(account, 10)}
-                            </Text>
-                            <Text fontSize="13px">
-                              My Rank: #{user.page_ranking || "-"}
-                            </Text>
-                          </VStack>
-                        </HStack>
-
-                        {tab === "Referral" && (
-                          <VStack
-                            alignItems="center"
-                            pl={2}
-                            pr="2px"
-                            spacing={1.4}
-                          >
-                            <Text fontWeight="semibold">{inviteCount}</Text>
-                            <Text fontSize="13px" whiteSpace="nowrap">
-                              Invited
-                            </Text>
-                          </VStack>
-                        )}
-
-                        <HStack justify="flex-end" spacing={0}>
-                          <VStack
-                            alignItems="flex-end"
-                            pl={2}
-                            pr="2px"
-                            spacing={1.4}
-                          >
-                            <Text fontWeight="semibold">
-                              {formatScore(
-                                tab === "Loyalty" ? user?.score : inviteScore
-                              )}
-                            </Text>
-                            <Text fontSize="13px" whiteSpace="nowrap">
-                              {tab === "Loyalty" ? "Loyalty Score" : "Points"}
-                            </Text>
-                          </VStack>
-                          <ChevronRightIcon color="#fff" boxSize={8} />
-                        </HStack>
-                      </Flex>
-                    </>
-                  ) : (
+                  {!(userId && account) && (
                     <HStack
                       mt="40px!"
                       pl="20px"
@@ -362,32 +288,123 @@ export default function Profile() {
                       w="full"
                       py="5px"
                       pl="6px"
-                      pr="20px"
+                      pr="6px"
                       cursor="pointer"
                       justify="space-between"
                       lineHeight="20px"
                       justifyContent="space-between"
-                      fontFamily="math"
+                      fontFamily="JetBrainsMono"
+                      fontSize="10px"
                     >
-                      <HStack alignItems="center" justify="center">
-                        <Text w="70px">Rank</Text>
-                        <Text w="150px" pl="10px" fontSize="14px">
-                          Address
-                        </Text>
-                        {tab === "Referral" && (
-                          <Text w="80px" color="#fff" pl="15px" fontSize="15px">
+                      {(tab === "Referral") && (
+                        <HStack alignItems="center" justify="center" w="100%">
+                          <Text w="20%">Rank</Text>
+                          <Text w="40%">
+                            Address
+                          </Text>
+                          <Text w="20%" color="#fff">
                             Invited
                           </Text>
-                        )}
-                      </HStack>
-
-                      <Text color="#fff" textAlign="right" fontSize="15px">
-                        {tab === "Loyalty" ? "Loyalty Score" : "Points"}
-                      </Text>
+                          <Text w="20%" color="#fff" textAlign="right">
+                            Points
+                          </Text>
+                        </HStack>
+                      )}
+                      {(tab === "Loyalty") && (
+                        <HStack alignItems="center" justify="center" w="100%">
+                          <Text w="33.33%">Rank</Text>
+                          <Text w="33.33%">
+                            Address
+                          </Text>
+                          <Text w="33.33%" color="#fff" textAlign="right">
+                            Loyalty Score
+                          </Text>
+                        </HStack>
+                      )}
                     </Flex>
                   )}
 
                   {list.map((item, index) => {
+                    if (tab === "Referral") {
+                      return (
+                        <Flex
+                          w="full"
+                          key={index}
+                          bg={
+                          item.address &&
+                          item.address.toLocaleLowerCase() ===
+                            account.toLocaleLowerCase()
+                          ? "blackAlpha.500"
+                          : "transparent"
+                          }
+                          borderRadius="md"
+                          py="5px"
+                          pl="6px"
+                          pr="20px"
+                          cursor="pointer"
+                          justify="space-between"
+                          lineHeight="20px"
+                          justifyContent="space-between"
+                          fontFamily="JetBrainsMono"
+                          _hover={{ bg: "blackAlpha.200" }}
+                          fontSize="10px"
+                        >
+                          <HStack w="100%" alignItems="center" justify="center">
+                            <Flex w="20%" justify="flex-start">
+                              {page === 1 && index === 0 ? (
+                                <Image
+                                  src="/images/rank/rank_1.png"
+                                  objectFit="contain"
+                                  boxSize={9}
+                                />
+                              ) : page === 1 && index === 1 ? (
+                                <Image
+                                  src="/images/rank/rank_2.png"
+                                  objectFit="contain"
+                                  boxSize={9}
+                                />
+                              ) : page === 1 && index === 2 ? (
+                                <Image
+                                  src="/images/rank/rank_3.png"
+                                  objectFit="contain"
+                                  boxSize={9}
+                                />
+                              ) : (
+                                <Text
+                                  fontSize="21px"
+                                  ml="10px"
+                                  fontWeight="semibold"
+                                >
+                                  {((page || 1) - 1) * 10 + index + 1}
+                                </Text>
+                              )}
+                            </Flex>
+
+                            <Text
+                              w="40%"
+                              fontWeight="semibold"
+                            >
+                              {item?.address ? toShortAddress(item.address, 10) : "--"}
+                            </Text>
+                            <Text
+                              w="20%"
+                              fontWeight="semibold"
+                              textAlign="center"
+                            >
+                              {item?.invited}
+                            </Text>
+                            <Text
+                              w="20%"
+                              fontWeight="semibold"
+                              textAlign="right"
+                            >
+                              {formatScore(item?.score || item?.invite_score)}
+                            </Text>
+                          </HStack>
+                        </Flex>
+                      );
+                    }
+
                     return (
                       <Flex
                         w="full"
@@ -407,11 +424,12 @@ export default function Profile() {
                         justify="space-between"
                         lineHeight="20px"
                         justifyContent="space-between"
-                        fontFamily="math"
+                        fontFamily="JetBrainsMono"
                         _hover={{ bg: "blackAlpha.200" }}
+                        fontSize="10px"
                       >
-                        <HStack alignItems="center" justify="center">
-                          <Flex w="70px" justify="flex-start">
+                        <HStack w="100%" alignItems="center" justify="center">
+                          <Flex w="33.33%" justify="flex-start">
                             {page === 1 && index === 0 ? (
                               <Image
                                 src="/images/rank/rank_1.png"
@@ -440,35 +458,20 @@ export default function Profile() {
                               </Text>
                             )}
                           </Flex>
-
                           <Text
-                            w="150px"
-                            pl="10px"
+                            w="33.33%"
                             fontWeight="semibold"
-                            fontSize="14px"
                           >
-                            {item?.address
-                            ? toShortAddress(item.address, 15)
-                            : "--"}
+                            {item?.address ? toShortAddress(item.address, 10) : "--"}
                           </Text>
-                          {tab === "Referral" && (
-                            <Text
-                              w="80px"
-                              fontWeight="semibold"
-                              textAlign="center"
-                            >
-                              {item?.invited}
-                            </Text>
-                          )}
+                          <Text
+                            w="33.33%"
+                            fontWeight="semibold"
+                            textAlign="right"
+                          >
+                            {formatScore(item?.score || item?.invite_score)}
+                          </Text>
                         </HStack>
-
-                        <Text
-                          fontWeight="semibold"
-                          fontSize="14px"
-                          lineHeight="36px"
-                        >
-                          {formatScore(item?.score || item?.invite_score)}
-                        </Text>
                       </Flex>
                     );
                   })}
@@ -498,13 +501,94 @@ export default function Profile() {
                 <Text
                   w="100%"
                   color="#fff"
-                  textAlign="right"
+                  textAlign="center"
                   pt={1}
                   fontSize="15px"
                 >
                   The Ranking is refreshed every 2 hours.
                 </Text>
               </VStack>
+              {userId && account && (
+                <>
+                  <Flex
+                    mt="20px!"
+                    pl="20px"
+                    pr="10px"
+                    w="full"
+                    h="75px"
+                    alignItems="center"
+                    justify="space-between"
+                    borderRadius="12px"
+                    cursor="pointer"
+                    shadow="md"
+                    color="#fff"
+                    bg="rgba(255, 255, 255, 0.32)"
+                    backdropBlur="blur(100px)"
+                    _hover={{ bg: "whiteAlpha.600" }}
+                    onClick={() => toMyRank(user?.page_ranking || 0)}
+                    fontSize="10px"
+                  >
+                    <HStack>
+                      {avatar ? (
+                        <Image
+                          src={avatar}
+                          w="26px"
+                          h="26px"
+                          alt=""
+                          borderRadius="full"
+                        />
+                      ) : (
+                        <Jazzicon
+                          diameter={26}
+                          seed={jsNumberForAddress(account)}
+                        />
+                      )}
+
+                      <VStack alignItems="flex-start" pl={1} spacing={1.4}>
+                        <Text fontWeight="semibold" fontSize="14px">
+                          {toShortAddress(account, 10)}
+                        </Text>
+                        <Text fontSize="13px">
+                          My Rank: #{user.page_ranking || "-"}
+                        </Text>
+                      </VStack>
+                    </HStack>
+
+                    {tab === "Referral" && (
+                      <VStack
+                        alignItems="center"
+                        pl={2}
+                        pr="2px"
+                        spacing={1.4}
+                      >
+                        <Text fontWeight="semibold" fontSize="14px">{inviteCount}</Text>
+                        <Text whiteSpace="nowrap">
+                          Invited
+                        </Text>
+                      </VStack>
+                    )}
+
+                    <HStack justify="flex-end" spacing={0}>
+                      <VStack
+                        alignItems="flex-end"
+                        pl={2}
+                        pr="2px"
+                        spacing={1.4}
+                      >
+                        <Text fontWeight="semibold" fontSize="14px">
+                          {formatScore(
+                            tab === "Loyalty" ? user?.score : inviteScore
+                          )}
+                        </Text>
+                        <Text whiteSpace="nowrap">
+                          {tab === "Loyalty" ? "Loyalty Score" : "Points"}
+                        </Text>
+                      </VStack>
+                      <ChevronRightIcon color="#fff" boxSize={8} />
+                    </HStack>
+                  </Flex>
+                </>
+              )}
             </Flex>
           </VStack>
         </Box>

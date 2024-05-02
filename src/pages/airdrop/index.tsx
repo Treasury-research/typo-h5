@@ -652,7 +652,6 @@ export default function Profile() {
                   pt="20px"
                   className="no-scrollbar"
                   overflowY="scroll"
-                  fontSize="20px"
                   px={2}
                   pb={2}
                   fontSize="10px"
