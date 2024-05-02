@@ -16,9 +16,7 @@ export async function getServerSideProps(context: any) {
 
 	return {
 		props: {
-			shareImg:
-				data ||
-				"https://files.imgdb.cn/store/images/e5/a9/65baf59c871b83018a01e5a9.png",
+			shareImg: data,
 		},
 	};
 }
