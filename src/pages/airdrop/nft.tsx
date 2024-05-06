@@ -52,7 +52,6 @@ export default function Home() {
                 minHeight="100vh"
                 position="relative"
                 color="#fff"
-                paddingTop="92px"
               >
                 <Box
                   position="absolute"
@@ -87,6 +86,7 @@ export default function Home() {
                   width="100%"
                   padding="20px"
                   fontFamily="JetBrainsMonoBold"
+                  marginTop="92px"
                 >
                   <Box fontSize="32px">TYPOX AI</Box>
                   <Box fontSize="24px">DYOR NFT</Box>
@@ -219,7 +219,6 @@ export default function Home() {
                 minHeight="100vh"
                 position="relative"
                 color="#fff"
-                paddingTop="92px"
                 height="100vh"
                 display="flex"
                 flexDirection="column"
@@ -250,6 +249,7 @@ export default function Home() {
                   width="100%"
                   height="100%"
                   padding="20px"
+                  paddingTop="92px"
                   fontFamily="JetBrainsMono"
                   zIndex="1"
                   display="flex"
@@ -415,6 +415,7 @@ export default function Home() {
                 <Box
                   width="100%"
                   padding="20px"
+                  paddingTop="92px"
                   fontFamily="JetBrainsMono"
                   height="100vh"
                   display="flex"
