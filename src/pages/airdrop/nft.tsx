@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useMemo } from "react";
+import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import ChatProvider from "components/chat/Context";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
@@ -16,7 +16,16 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 export default function Home() {
   const router = useRouter();
-  const [pageIndex, setPageIndex] = useState(0)
+  const [showPage1, setShowPage1] = useState(false)
+  const [showPage2, setShowPage2] = useState(false)
+
+  const onSlideChange = useCallback((swiper) => {
+    if (swiper.activeIndex === 1) {
+      setShowPage1(true)
+    } else if (swiper.activeIndex === 2) {
+      setShowPage2(true)
+    }
+  }, [])
 
   return (
     <>
@@ -29,8 +38,8 @@ export default function Home() {
           w="100vw"
         >
           <Swiper
-            // onSlideChange={() => console.log('slide change')}
             // onSwiper={(swiper) => console.log(swiper)}
+            onSlideChange={onSlideChange}
             direction="vertical"
             style={{
               height: '100%'
@@ -252,6 +261,9 @@ export default function Home() {
                     display="flex"
                     alignItems="center"
                     width="100%"
+                    transform={showPage1 ? 'translateX(0px)' : 'translateX(-60px)'}
+                    opacity={showPage1 ? '1' : '0'}
+                    transition="all 0.3s ease"
                   >
                     <Box
                       width="120px"
@@ -280,6 +292,9 @@ export default function Home() {
                     display="flex"
                     alignItems="center"
                     width="100%"
+                    transform={showPage1 ? 'translateX(0px)' : 'translateX(-60px)'}
+                    opacity={showPage1 ? '1' : '0'}
+                    transition="all 0.3s ease 0.2s"
                   >
                     <Box
                       width="120px"
@@ -308,6 +323,9 @@ export default function Home() {
                     display="flex"
                     alignItems="center"
                     width="100%"
+                    transform={showPage1 ? 'translateX(0px)' : 'translateX(-60px)'}
+                    opacity={showPage1 ? '1' : '0'}
+                    transition="all 0.3s ease 0.4s"
                   >
                     <Box
                       width="120px"
@@ -336,6 +354,9 @@ export default function Home() {
                     display="flex"
                     alignItems="center"
                     width="100%"
+                    transform={showPage1 ? 'translateX(0px)' : 'translateX(-60px)'}
+                    opacity={showPage1 ? '1' : '0'}
+                    transition="all 0.3s ease 0.6s"
                   >
                     <Box
                       width="120px"
@@ -406,6 +427,9 @@ export default function Home() {
                     display="flex"
                     alignItems="center"
                     width="100%"
+                    transform={showPage2 ? 'translateX(0px)' : 'translateX(-60px)'}
+                    opacity={showPage2 ? '1' : '0'}
+                    transition="all 0.3s ease"
                   >
                     <Box
                       width="120px"
@@ -434,6 +458,9 @@ export default function Home() {
                     display="flex"
                     alignItems="center"
                     width="100%"
+                    transform={showPage2 ? 'translateX(0px)' : 'translateX(-60px)'}
+                    opacity={showPage2 ? '1' : '0'}
+                    transition="all 0.3s ease 0.2s"
                   >
                     <Box
                       width="118px"
@@ -462,6 +489,9 @@ export default function Home() {
                     display="flex"
                     alignItems="center"
                     width="100%"
+                    transform={showPage2 ? 'translateX(0px)' : 'translateX(-60px)'}
+                    opacity={showPage2 ? '1' : '0'}
+                    transition="all 0.3s ease 0.4s"
                   >
                     <Box
                       width="120px"
