@@ -19,7 +19,7 @@ export default function Home() {
   const [showPage1, setShowPage1] = useState(false)
   const [showPage2, setShowPage2] = useState(false)
 
-  const onSlideChange = useCallback((swiper) => {
+  const onSlideChange = useCallback((swiper: any) => {
     if (swiper.activeIndex === 1) {
       setShowPage1(true)
     } else if (swiper.activeIndex === 2) {
@@ -111,7 +111,7 @@ export default function Home() {
                 </Box>
                 <Box
                   zIndex="1"
-                  height="calc(100vh - 350px)"
+                  height="calc(100vh - 400px)"
                   display="flex"
                   alignItems="center"
                   padding="20px"
@@ -209,6 +209,11 @@ export default function Home() {
                       May 15<Text as ="span" fontSize="10px" paddingBottom="4px" marginLeft="2px">th</Text>
                     </Box>
                   </Box>
+                  <Box
+                    width="100%"
+                    height="40px"
+                    display="block"
+                  />
                 </Box>
               </VStack>
             </SwiperSlide>
