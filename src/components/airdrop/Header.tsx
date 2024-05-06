@@ -92,27 +92,27 @@ export const Header = () => {
             cursor="pointer"
             _hover={{ borderBottom: "solid 1px #fff" }}
             onClick={() => {
-              // router.push("/airdrop/nft");
+              router.push("/airdrop/nft");
             }}
           >
             Genesis NFT
           </Text>
-          <Badge
-            pos="absolute"
-            left="18px"
-            top="-16px"
-            borderRadius="6px"
-            boxShadow="md"
-            color="#fff"
-            w="40px"
-            h="14px"
-            textAlign="center"
-            bg="#FF3232"
-            fontSize="10px"
-            lineHeight="14px"
-          >
-            Soon
-          </Badge>
+          {/* <Badge
+              pos="absolute"
+              left="18px"
+              top="-16px"
+              borderRadius="6px"
+              boxShadow="md"
+              color="#fff"
+              w="40px"
+              h="14px"
+              textAlign="center"
+              bg="#FF3232"
+              fontSize="10px"
+              lineHeight="14px"
+              >
+              Soon
+              </Badge> */}
         </Box>
         <Text
           cursor="pointer"

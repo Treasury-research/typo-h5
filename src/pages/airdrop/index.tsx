@@ -303,7 +303,7 @@ export default function Profile() {
           </Box>
         </Box>
         <Box
-          className="no-scrollbar relative mr-2 pt-[120px] overflow-auto p-0"
+          className="no-scrollbar relative pt-[120px] overflow-auto p-0"
           width="100%"
         >
           <Box
