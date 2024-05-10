@@ -18,7 +18,7 @@ import {
 import useWallet from "hooks/useWallet";
 import { useUserInfoStore } from "store/userInfoStore";
 import { Avatar, InviteModal, PurchaseModal } from "components";
-import { toShortAddress, isPhone } from "lib";
+import { toShortAddress } from "lib";
 import { useStore } from "store";
 import { IoChatbubbleEllipsesOutline } from "react-icons/io5";
 import { FaPowerOff } from "react-icons/fa";
@@ -27,7 +27,6 @@ export const Header = () => {
   const router = useRouter();
   const { doLogout, openConnectWallet } = useWallet();
   const { account, username, userId } = useUserInfoStore();
-  const [isphone, setIsphone] = useState(true);
 
   return (
     <Flex

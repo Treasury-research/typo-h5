@@ -22,8 +22,8 @@ import { ChevronLeftIcon } from "@chakra-ui/icons";
 import Logo from "components/icons/Logo";
 import { NftCard } from "components/rank/NftCard";
 import { ConnectModal } from "components";
-import { useBoolean } from "react-use";
-import { inWechat, isPhone } from "lib";
+import { inWechat } from "lib";
+import { isMobile } from "react-device-detect";
 
 const Chat = () => {
 	const router = useRouter();
@@ -35,9 +35,7 @@ const Chat = () => {
 	}, []);
 
 	useEffect(() => {
-		const isphone = isPhone();
-		// console.log("isphone", isphone);
-		if (!isphone && !location.host.includes("localhost")) {
+		if (!isMobile && !location.host.includes("localhost")) {
 			location.host.includes("staging")
 				? router.push("https://typography.staging.knn3.xyz/rank")
 				: router.push("https://app.typox.ai/rank");
@@ -157,7 +155,7 @@ const Chat = () => {
 							fontSize="17px"
 							fontWeight="600"
 							justify="center"
-              whiteSpace="nowrap"
+							whiteSpace="nowrap"
 						>
 							<Text>Please open in a browser</Text>
 							<Icon as={CgArrowTopRight} color="#000" boxSize={5} />

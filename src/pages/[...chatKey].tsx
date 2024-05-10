@@ -1,11 +1,11 @@
 import Chat from "components/chat";
 
 import ChatProvider from "components/chat/Context";
-import { isPhone } from "lib";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import api, { baseURL } from "api";
+import { isMobile } from "react-device-detect";
 
 export async function getServerSideProps(context: any) {
 	const { data } = await api.get(`/api/conversation/shared/image`, {
@@ -28,8 +28,7 @@ export default function Home({ shareImg }: any) {
 	const id = query && query[1];
 
 	useEffect(() => {
-		const isphone = isPhone();
-		if (!isphone && !location.host.includes("localhost")) {
+		if (!isMobile && !location.host.includes("localhost")) {
 			location.host.includes("staging")
 				? router.push(
 						id

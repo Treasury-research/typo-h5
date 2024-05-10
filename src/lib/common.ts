@@ -25,19 +25,6 @@ export const toShortAddress = (address: string, maxLength = 16) => {
 	)}${tmpArr[1] ? `.${tmpArr[1]}` : ""}`;
 };
 
-export const isPhone = () => {
-	let flag =
-		/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-			window.navigator?.userAgent
-		);
-	const ua: any = window.navigator.userAgent.toLowerCase();
-	if (ua.match(/MicroMessenger/i) == "micromessenger") {
-		flag = true;
-	}
-
-	return flag;
-};
-
 export const inWechat = () => {
 	// 获取 User Agent
 	const userAgent = navigator.userAgent.toLowerCase();

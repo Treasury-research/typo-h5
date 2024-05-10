@@ -6,7 +6,7 @@ import Script from "next/script";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Toasts, Trace } from "components";
-import { isPhone, isProduction } from "lib";
+import { isProduction } from "lib";
 import customTheme from "styles/theme";
 import useWallet, { queryClient, config } from "hooks/useWallet";
 import { WagmiProvider } from "wagmi";

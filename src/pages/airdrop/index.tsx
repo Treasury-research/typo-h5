@@ -12,7 +12,7 @@ import {
 import { NextSeo } from "next-seo";
 import { useState, useEffect, ReactNode, useMemo } from "react";
 import { useUserInfoStore } from "store/userInfoStore";
-import { toShortAddress, formatScore, isPhone } from "lib";
+import { toShortAddress, formatScore } from "lib";
 import useTranslation from "hooks/useTranslation";
 import api from "api";
 import { Empty, UploadAvatarModal } from "components";
@@ -154,7 +154,6 @@ export default function Profile() {
   const showToast = useToast();
   const { openReferralModal, setOpenReferralModal } = useStore();
   const { userId, rankTotalCount } = useUserInfoStore();
-  const [isphone, setIsphone] = useState(false);
   const [phrase, setPhrase] = useState("season 2");
 
   const [task2Status, setTask2Status] = useState(0);
@@ -260,10 +259,6 @@ export default function Profile() {
       setTask3Status(0);
     }
   }, [userId]);
-
-  useEffect(() => {
-    isPhone() ? setIsphone(true) : setIsphone(false);
-  }, []);
 
   return (
     <>
